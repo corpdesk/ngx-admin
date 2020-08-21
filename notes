@@ -1,4 +1,14 @@
 21/08/2020
+- set environment variables
+    file: <root>/ngx-admin/src/environments/environment.ts
+    new contents on environment variables:
+    apiEndpoint: 'http://localhost/cdapi/public/api/cd',
+    consumerToken: 'B0B3DA99-1859-A499-90F6-1E3F69575DCD',
+    consumer: null
+
+- removed dependancy for google-libphonenumber
+
+21/08/2020
 - set start script to allow access on network
 - set default theme
     - go to <root>/ngx-admin/src/app/@theme/theme.module.ts
@@ -9,4 +19,8 @@
           },
     change name: 'default' to eg name: 'material-dark'
 - added @cd folder
+- npm install ng2-file-upload 
+
+
+
 
