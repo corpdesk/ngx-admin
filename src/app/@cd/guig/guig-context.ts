@@ -13,6 +13,7 @@ import { Injectable } from '@angular/core';
 interface iMode{
     name: string;
     info?: string;
+    changableTheme?: boolean;
     active: boolean;
 }
 
@@ -20,17 +21,19 @@ interface iMode{
     providedIn: 'root'
 })
 export class GuigContextService {
-    mode;
+    currentMode;
     modeOptions = [
         {
             name: 'ngx-admin-original',
             info: 'restore original behaviour of gui template',
-            active: false
+            changableTheme: true,
+            active: true
         },
         {
             name: 'ngx-admin-mod1',
             info: 'the initial modification including cd-auth and cd-menu',
-            active: true
+            changableTheme: false,
+            active: false
         }
     ];
     constructor() {
@@ -54,11 +57,11 @@ export class GuigContextService {
           });
       
           console.log('filteredMode:', JSON.stringify(filteredMode));
-          this.mode = filteredMode;
-          return this.mode;
+          this.currentMode = filteredMode[0];
+          return this.currentMode;
     }
 
     setMode(m: iMode) {
-        this.mode[m.name] = m;
+        this.currentMode[m.name] = m;
     }
 }

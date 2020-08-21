@@ -7,6 +7,8 @@ import { map, takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { RippleService } from '../../../@core/utils/ripple.service';
 
+import { GuigContextService } from '../../../@cd/guig/guig-context';
+
 @Component({
   selector: 'ngx-header',
   styleUrls: ['./header.component.scss'],
@@ -50,6 +52,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
 
+  mode;
+
   public constructor(
     private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
@@ -58,6 +62,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService,
     private rippleService: RippleService,
+    private gc: GuigContextService
   ) {
     this.materialTheme$ = this.themeService.onThemeChange()
       .pipe(map(theme => {

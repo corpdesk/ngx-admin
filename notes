@@ -1,3 +1,34 @@
+Bugs
+cannot push:
+    when you do:
+    git push origin feat/material-theme
+    Error:
+    Lint errors found in the listed files.
+    Linting "ngx-admin-demo-e2e"...
+    All files pass linting.
+
+    > husky - pre-push hook failed (add --no-verify to bypass)
+    > husky - to debug, use 'npm run prepush'
+    Solution:
+    git push origin feat/material-theme --no-verify
+
+ToDo:
+
+21/08/2020
+- Disable theme changing
+    - hide selector
+        - go to: <root>/ngx-admin_corupted/src/app/@theme/components/header/header.component.html
+        - enclose in *ngIf=""
+- set logo
+    - install cd folder in assests dir
+    - disable the default logo then replace as below:
+        <!-- <a class="logo" href="#" (click)="navigateHome()">ngx-<span>admin</span></a> -->
+        <div class="app-logo"></div>
+    - include cd styles to the header.scss
+        - <root>/ngx-admin/src/app/@theme/components/header/header.component.scss
+        @import '../../../../assets/cd/scss/modules/cdPage';
+        @import '../../../../assets/cd/scss/modules/fonts';
+
 21/08/2020
 - set environment variables
     file: <root>/ngx-admin/src/environments/environment.ts

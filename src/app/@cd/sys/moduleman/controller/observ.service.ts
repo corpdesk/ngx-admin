@@ -3,21 +3,21 @@ import { Injectable } from '@angular/core';
 import { Log } from '../model/observ-model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ObservService {
   l: Log = {
     date: new Date(),
     component: '',
     action: '',
-    message: ''
+    message: '',
   };
   logs: Log[] = [];
   constructor() { }
 
   getLogs() {
-    console.log('starting ObservService::getLogs()');
-    console.log(this.logs);
+    // console.log('starting ObservService::getLogs()');
+    // console.log(this.logs);
     return this.logs;
   }
 

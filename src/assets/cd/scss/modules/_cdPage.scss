@@ -1,0 +1,28 @@
+.container {
+    padding: 8px 24px 108px 24px;
+  }
+  
+  h3 {
+    font-weight: 100;
+  }
+
+  .avatar {
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+
+  .app-logo {
+    /*background-image: url(https://www.freakyjolly.com/wp-content/uploads/2020/04/fj-logo-1.png);*/
+    background-image: url("/../../assets/cd/branding/coop/coops_logo_white.svg");
+    height: 40px;
+    width: 200px;
+    background-repeat: no-repeat;
+    /*border-radius: 320px;*/
+    background-position: center;
+    background-size: contain;
+    /*background-color: #45bae0;*/
+    margin: 0px auto;
+  }
+  
