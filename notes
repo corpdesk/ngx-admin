@@ -1,1 +1,12 @@
+21/08/2020
 - set start script to allow access on network
+- set default theme
+    - go to <root>/ngx-admin/src/app/@theme/theme.module.ts
+    - look for: 
+    ...NbThemeModule.forRoot(
+          {
+            name: 'material-dark',
+          },
+    change name: 'default' to eg name: 'material-dark'
+- added @cd folder
+
