@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NbMenuModule } from '@nebular/theme';
+import { FormsModule } from '@angular/forms';
 
 import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
@@ -10,6 +11,7 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 
 @NgModule({
   imports: [
+    FormsModule,
     PagesRoutingModule,
     ThemeModule,
     NbMenuModule,
@@ -20,6 +22,7 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
   declarations: [
     PagesComponent,
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class PagesModule {
 }

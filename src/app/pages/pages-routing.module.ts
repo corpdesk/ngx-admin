@@ -19,6 +19,11 @@ const routes: Routes = [{
       component: DashboardComponent,
     },
     {
+      path: 'cd-auth',
+      loadChildren: () => import('./cd-auth/cd-auth.module')
+        .then(m => m.CdAuthModule),
+    },
+    {
       path: 'layout',
       loadChildren: () => import('./layout/layout.module')
         .then(m => m.LayoutModule),

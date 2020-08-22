@@ -22,18 +22,25 @@ interface iMode{
 })
 export class GuigContextService {
     currentMode;
+    /**
+     * user defined logoMode:
+     * 0: original template setting
+     * 1: as per 'app-logo' class in cdPage.css
+     */
     modeOptions = [
         {
             name: 'ngx-admin-original',
             info: 'restore original behaviour of gui template',
             changableTheme: true,
-            active: true
+            logoMode: 0,
+            active: false
         },
         {
             name: 'ngx-admin-mod1',
             info: 'the initial modification including cd-auth and cd-menu',
             changableTheme: false,
-            active: false
+            logoMode: 1,
+            active: true
         }
     ];
     constructor() {
@@ -56,7 +63,6 @@ export class GuigContextService {
             return true;
           });
       
-          console.log('filteredMode:', JSON.stringify(filteredMode));
           this.currentMode = filteredMode[0];
           return this.currentMode;
     }

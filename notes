@@ -1,4 +1,7 @@
-Bugs
+Git clone:
+git clone --single-branch --branch feat/material-theme https://github.com/corpdesk/ngx-admin.git
+
+Issues:
 cannot push:
     when you do:
     git push origin feat/material-theme
@@ -13,6 +16,10 @@ cannot push:
     git push origin feat/material-theme --no-verify
 
 ToDo:
+- generate cd-auth module
+    - ng g module cd-auth --routing
+- generate components for auth, login and register
+- set up routing & controls for auth, login and register
 
 21/08/2020
 - Disable theme changing
