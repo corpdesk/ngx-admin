@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup,FormControl, Validators } from '@angular/forms';
 // import { NbLoginComponent } from '@nebular/auth';
 
 @Component({
@@ -14,14 +15,20 @@ implements OnInit {
   rememberMe;
   submitted;
   submit;
+  fg: FormGroup;
   
-  // constructor() { }
+  constructor() { 
+    this.fg = new FormGroup({
+      username: new FormControl(),
+      password: new FormControl()
+   });
+  }
 
   ngOnInit(): void {
   }
 
-  login(){
-    // console.log('f:',f);
+  login(fg){
+    console.log('fg:',fg);
   }
 
   getConfigValue(attr){

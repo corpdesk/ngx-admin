@@ -12,10 +12,31 @@ cannot push:
 
     > husky - pre-push hook failed (add --no-verify to bypass)
     > husky - to debug, use 'npm run prepush'
+
     Solution:
+    ----------
     git push origin feat/material-theme --no-verify
 
+- after importing NbLoginComponent, there was lots of difficulties setting up the form to submit
+    - page goes blank when formControlName is set
+    
+    Solution:
+    ----------
+    - remove the import NbLoginComponent
+    - npm i rxjs-compat --save 
+    - npm i ng2-completer --save
+
 ToDo:
+- form validation
+
+22/08/2020:
+- resolve submit issue
+    - remove the import NbLoginComponent
+    - npm i rxjs-compat --save 
+    - npm i ng2-completer --save
+- capture form data on login()
+
+22/08/2020:
 - generate cd-auth module
     - ng g module cd-auth --routing
 - generate components for auth, login and register

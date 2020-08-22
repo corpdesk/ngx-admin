@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CdAuthRoutingModule } from './cd-auth-routing.module';
 import { AuthComponent } from './auth/auth.component';
@@ -52,8 +52,8 @@ const materialModules = [
 @NgModule({
   imports: [
     CommonModule,
-    // FormsModule, 
-    // ReactiveFormsModule,
+    FormsModule, 
+    ReactiveFormsModule,
     ThemeModule,
     NbInputModule,
     NbCardModule,

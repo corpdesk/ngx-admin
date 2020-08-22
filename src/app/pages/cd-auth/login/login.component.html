@@ -4,7 +4,7 @@
         <nb-card-body>
           <div class="row">
             <div class="col-lg-6">
-                <form (ngSubmit)="login()">
+                <form [formGroup]="fg" (ngSubmit)="login(fg)">
                 <mat-error *ngIf="loginInvalid">
                     The username and password were not valid
                   </mat-error>
@@ -12,6 +12,7 @@
                 <mat-label>User Name</mat-label>
                 <input 
                 matInput 
+                formControlName="username"
                 placeholder="Username"
                 id="input-username"
                 autocomplete="off" 
@@ -31,6 +32,7 @@
                 <mat-label>Password</mat-label>
                 <input 
                 matInput 
+                formControlName="password"
                 autocomplete="off"
                type="password"
                id="input-password"
