@@ -340,7 +340,7 @@ export class PagesComponent implements OnInit {
         break;
     }
 
-    console.log('activeMenu:', JSON.stringify(activeMenu));
+    // console.log('activeMenu:', JSON.stringify(activeMenu));
     this.menu = activeMenu;
     return this.menu;
   }

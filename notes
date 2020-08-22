@@ -1,6 +1,8 @@
 Git clone:
 git clone --single-branch --branch feat/material-theme https://github.com/corpdesk/ngx-admin.git
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 Issues:
 cannot push:
     when you do:
@@ -17,6 +19,8 @@ cannot push:
     ----------
     git push origin feat/material-theme --no-verify
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 - after importing NbLoginComponent, there was lots of difficulties setting up the form to submit
     - page goes blank when formControlName is set
     
@@ -26,8 +30,36 @@ cannot push:
     - npm i rxjs-compat --save 
     - npm i ng2-completer --save
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- auth guard issue:
+    - ref: https://developer.okta.com/blog/2020/01/21/angular-material-login
+Browser inspector:
+------------------
+Throttling navigation to prevent the browser from hanging. See https://crbug.com/882238. Command line switch --disable-ipc-flooding-protection can be used to bypass the protection
+vsc termiinal:
+--------------
+    ERROR in node_modules/protractor/built/index.d.ts:5:10 - error TS2440: Import declaration conflicts with local declaration of 'PluginConfig'.
+    
+    5 import { PluginConfig, ProtractorPlugin } from './plugins';
+               ~~~~~~~~~~~~
+    node_modules/protractor/built/index.d.ts:5:24 - error TS2440: Import declaration conflicts with local declaration of 'ProtractorPlugin'.
+    
+    5 import { PluginConfig, ProtractorPlugin } from './plugins';
+
+
 ToDo:
-- form validation
+- mat login with guard
+    - https://developer.okta.com/blog/2020/01/21/angular-material-login
+- login validation
+
+
+22/08/2020:
+- mat login with guard
+    - https://developer.okta.com/blog/2020/01/21/angular-material-login
+- test gurard
+    - working but with 'PluginConfig' error. See detains above
+- login validation
 
 22/08/2020:
 - resolve submit issue

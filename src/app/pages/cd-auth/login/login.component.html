@@ -19,20 +19,16 @@
                 required
                 autofocus
                 >
-    
-                
                     <mat-error class="caption status-danger">
                       Username is required!
                     </mat-error>
-                  
-                
               </mat-form-field>
-    
               <mat-form-field class="input-example">
                 <mat-label>Password</mat-label>
                 <input 
                 matInput 
                 formControlName="password"
+                required
                 autocomplete="off"
                type="password"
                id="input-password"
@@ -49,42 +45,19 @@
                   </ng-container> -->
               </mat-form-field>
     
-              <!-- <div class="form-control-group accept-group">
-                <nb-checkbox name="rememberMe" [(ngModel)]="user.rememberMe" *ngIf="rememberMe">Remember me</nb-checkbox>
-              </div> -->
+              
               <p></p>
               <div class="input-example">
                 <label>Remember me</label>
-                <mat-slide-toggle color="primary" [checked]="false" name="rememberMe" [(ngModel)]="user.rememberMe" *ngIf="rememberMe"></mat-slide-toggle>
+                <mat-slide-toggle color="primary" [checked]="false" formControlName="rememberMe" *ngIf="rememberMe"></mat-slide-toggle>
               </div>
               <p></p>
-            
-              
-
               <button 
               mat-raised-button
+              [disabled]="submitted || !fg.valid"
               color="primary">
               Login
             </button>
-      
-              <!-- <mat-form-field class="input-example">
-                <mat-label>Select</mat-label>
-                <mat-select>
-                  <mat-option value="1">Option 1</mat-option>
-                  <mat-option value="2">Option 2</mat-option>
-                  <mat-option value="3">Option 3</mat-option>
-                </mat-select>
-                <mat-hint>hint</mat-hint>
-              </mat-form-field>
-          
-              <mat-form-field class="input-example">
-                <mat-label>Datepicker</mat-label>
-                <input matInput autocomplete="off" [matDatepicker]="picker">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-hint>hint</mat-hint>
-              </mat-form-field> -->
-    
             </form>
             <p></p>
             <mat-divider></mat-divider>
@@ -94,32 +67,7 @@
               </section>
             </div>
             
-            <!-- <div class="col-lg-6">
-              <mat-form-field class="input-example">
-                <mat-label>Textarea</mat-label>
-                <textarea matInput autocomplete="off"></textarea>
-                <mat-hint>hint</mat-hint>
-              </mat-form-field>
-      
-              <div class="input-example">
-                <label>Checkbox</label>
-                <mat-checkbox color="primary" [checked]="true"></mat-checkbox>
-              </div>
-          
-              <div class="input-example">
-                <label>Toggle</label>
-                <mat-slide-toggle color="primary" [checked]="true"></mat-slide-toggle>
-              </div>
-          
-              <div class="input-example">
-                <label>Radio</label>
-                <mat-radio-group color="primary">
-                  <mat-radio-button value="1" [checked]="true">Option 1</mat-radio-button>
-                  <mat-radio-button value="2">Option 2</mat-radio-button>
-                  <mat-radio-button value="3">Option 3</mat-radio-button>
-                </mat-radio-group>
-              </div>
-            </div> -->
+            
           </div>
         </nb-card-body>
       </nb-card>
