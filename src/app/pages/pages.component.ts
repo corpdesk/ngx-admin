@@ -25,7 +25,41 @@ export class PagesComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     const MENU_ITEMS: any = [
+      {
+        title: 'Home',
+        icon: 'lock-outline',
+        enabled: true,
+        link: '/pages/home/news-feed',
+        home: true
+        // children: [
+        //   {
+        //     title: 'News',
+        //     link: '/pages/home/news-feed',
+        //   },
+        //   {
+        //     title: 'about',
+        //     link: '/pages/home/About',
+        //   },
+        //   {
+        //     title: 'Events',
+        //     link: '/pages/home/events',
+        //   },
+        //   {
+        //     title: 'Products',
+        //     link: '/pages/home/products',
+        //   },
+        //   {
+        //     title: 'Resources',
+        //     link: '/pages/home/resources',
+        //   },
+        //   {
+        //     title: 'Services',
+        //     link: '/pages/home/services',
+        //   }
+        // ],
+      },
       {
         title: 'E-commerce',
         icon: 'shopping-cart-outline',
@@ -34,15 +68,263 @@ export class PagesComponent implements OnInit {
 
       },
       {
+        title: 'My Space',
+        icon: 'lock-outline',
+        enabled: true,
+        home: false,
+        children: [
+          {
+            title: 'dashboard',
+            link: '/pages/my-account/dashboard',
+          },
+          {
+            title: 'Personal Info',
+            link: '/pages/my-account/personal-data',
+          },
+          {
+            title: 'Activity',
+            link: '/pages/my-account/activity',
+          },
+          {
+            title: 'Calendar',
+            link: '/pages/my-account/calendar',
+          },
+          {
+            title: 'Contacts',
+            link: '/pages/my-account/contacts',
+          }
+        ],
+      },
+      {
         title: 'IoT Dashboard',
         icon: 'home-outline',
         link: '/pages/iot-dashboard',
         enabled: false,
       },
       {
-        title: 'FEATURES',
+        title: 'CD-APPS',
         group: true,
         enabled: true,
+      },
+      {
+        title: 'Coops',
+        icon: 'lock-outline',
+        enabled: true,
+        home: false,
+        children: [
+          {
+            title: 'home',
+            link: '/pages/coops/home',
+          },
+          {
+            title: 'compliance',
+            link: '/pages/coops/compliance',
+          },
+          {
+            title: 'events',
+            link: '/pages/coops/events',
+          },
+          {
+            title: 'forums',
+            link: '/pages/coops/forums',
+          },
+          {
+            title: 'capacity-building',
+            link: '/pages/coops/capacity-building',
+          }
+        ],
+      },
+      {
+        title: 'PMS',
+        icon: 'lock-outline',
+        enabled: true,
+        home: false,
+        children: [
+          {
+            title: 'dashboard',
+            link: '/pages/pms/dashboard',
+          },
+          {
+            title: 'Gantt',
+            link: '/pages/pms/gantt',
+          },
+          {
+            title: 'Projects',
+            link: '/pages/pms/projects',
+          },
+          {
+            title: 'Scheduler',
+            link: '/pages/pms/scheduler',
+          },
+          {
+            title: 'activity',
+            link: '/pages/pms/activity',
+          }
+        ],
+      },
+      {
+        title: 'HRM',
+        icon: 'lock-outline',
+        enabled: true,
+        home: false,
+        children: [
+          {
+            title: 'dashboard',
+            link: '/pages/hrm/dashboard',
+          },
+          {
+            title: 'Accts',
+            link: '/pages/hrm/accts',
+          },
+          {
+            title: 'Capacity Building',
+            link: '/pages/hrm/capacity-building',
+          },
+          {
+            title: 'Deduction',
+            link: '/pages/hrm/deduction',
+          },
+          {
+            title: 'Designation',
+            link: '/pages/hrm/designation',
+          },
+          {
+            title: 'Grade',
+            link: '/pages/hrm/grade',
+          },
+          {
+            title: 'Organogram',
+            link: '/pages/hrm/organogram',
+          },
+          {
+            title: 'Payments',
+            link: '/pages/hrm/payments',
+          },
+          {
+            title: 'Recruit',
+            link: '/pages/hrm/recruit',
+          },
+          {
+            title: 'Staff',
+            link: '/pages/hrm/staff',
+          }
+        ],
+      },
+      {
+        title: 'Accts',
+        icon: 'lock-outline',
+        enabled: true,
+        home: false,
+        children: [
+          {
+            title: 'dashboard',
+            link: '/pages/accts/dashboard',
+          },
+          {
+            title: 'Accounts',
+            link: '/pages/accts/accounts',
+          },
+          {
+            title: 'Activity',
+            link: '/pages/accts/activity',
+          },
+          {
+            title: 'Bank',
+            link: '/pages/accts/bank',
+          },
+          {
+            title: 'Budget',
+            link: '/pages/accts/budget',
+          },
+          {
+            title: 'COA',
+            link: '/pages/accts/coa',
+          },
+          {
+            title: 'Currency',
+            link: '/pages/accts/currency',
+          },
+          {
+            title: 'Deductions',
+            link: '/pages/accts/deductions',
+          },
+          {
+            title: 'Delivery',
+            link: '/pages/accts/delivery',
+          },
+          {
+            title: 'ExtInvoice',
+            link: '/pages/accts/ext-invoice',
+          },
+          {
+            title: 'ExtQuote',
+            link: '/pages/accts/ext-quote',
+          },
+          {
+            title: 'IntInvoice',
+            link: '/pages/accts/int-invoice',
+          },
+          {
+            title: 'IntQuote',
+            link: '/pages/accts/int-quote',
+          },
+          {
+            title: 'Grades',
+            link: '/pages/accts/grades',
+          },
+          {
+            title: 'HRM',
+            link: '/pages/accts/hrm',
+          },
+          {
+            title: 'Inventory',
+            link: '/pages/accts/inventory',
+          },
+          {
+            title: 'Payment',
+            link: '/pages/accts/payment',
+          },
+          {
+            title: 'Payroll',
+            link: '/pages/accts/payroll',
+          },
+          {
+            title: 'Procurement',
+            link: '/pages/accts/procurement',
+          },
+          {
+            title: 'Report',
+            link: '/pages/accts/report',
+          },
+          {
+            title: 'Requisition',
+            link: '/pages/accts/requisition',
+          },
+          {
+            title: 'Sale',
+            link: '/pages/accts/sale',
+          },
+          {
+            title: 'Product',
+            link: '/pages/accts/product',
+          },
+          {
+            title: 'Service',
+            link: '/pages/accts/service',
+          },
+          {
+            title: 'Store',
+            link: '/pages/accts/store',
+          },
+          {
+            title: 'Tax',
+            link: '/pages/accts/tax',
+          },
+          {
+            title: 'Transact',
+            link: '/pages/accts/transact',
+          }
+        ],
       },
       {
         title: 'Layout',
@@ -91,7 +373,7 @@ export class PagesComponent implements OnInit {
       {
         title: 'Forms',
         icon: 'edit-2-outline',
-        enabled: true,
+        enabled: false,
         children: [
           {
             title: 'Form Inputs',
@@ -219,7 +501,7 @@ export class PagesComponent implements OnInit {
       {
         title: 'Charts',
         icon: 'pie-chart-outline',
-        enabled: true,
+        enabled: false,
         children: [
           {
             title: 'Echarts',
@@ -253,7 +535,7 @@ export class PagesComponent implements OnInit {
       {
         title: 'Tables & Data',
         icon: 'grid-outline',
-        enabled: true,
+        enabled: false,
         children: [
           {
             title: 'Smart Table',

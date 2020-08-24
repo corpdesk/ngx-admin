@@ -12,7 +12,6 @@ export class AuthGuardService {
   async canActivate() {
     if (!await this.svSess.isActive) {
       await this.router.navigate(['pages/cd-auth/login']);
-      return false;
     }
     return true;
   }

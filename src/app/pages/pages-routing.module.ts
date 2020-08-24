@@ -4,12 +4,22 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ECommerceComponent } from './e-commerce/e-commerce.component';
+import { NewsFeedComponent } from './home/news-feed/news-feed.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
   children: [
+    // {
+    //   path: 'home',
+    //   component: NewsFeedComponent,
+    // },
+    {
+      path: 'home',
+      loadChildren: () => import('./home/home.module')
+        .then(m => m.HomeModule),
+    },
     {
       path: 'dashboard',
       component: ECommerceComponent,
@@ -22,6 +32,31 @@ const routes: Routes = [{
       path: 'cd-auth',
       loadChildren: () => import('./cd-auth/cd-auth.module')
         .then(m => m.CdAuthModule),
+    },
+    {
+      path: 'my-account',
+      loadChildren: () => import('./my-account/my-account.module')
+        .then(m => m.MyAccountModule),
+    },
+    {
+      path: 'coops',
+      loadChildren: () => import('./coops/coops.module')
+        .then(m => m.CoopsModule),
+    },
+    {
+      path: 'pms',
+      loadChildren: () => import('./pms/pms.module')
+        .then(m => m.PmsModule),
+    },
+    {
+      path: 'hrm',
+      loadChildren: () => import('./hrm/hrm.module')
+        .then(m => m.HrmModule),
+    },
+    {
+      path: 'accts',
+      loadChildren: () => import('./accts/accts.module')
+        .then(m => m.AcctsModule),
     },
     {
       path: 'layout',
@@ -75,7 +110,7 @@ const routes: Routes = [{
     },
     {
       path: '',
-      redirectTo: 'dashboard',
+      redirectTo: 'home',
       pathMatch: 'full',
     },
     {

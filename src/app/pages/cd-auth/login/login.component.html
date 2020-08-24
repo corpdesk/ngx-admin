@@ -1,74 +1,48 @@
 <div class="col-lg-6">
-    <nb-card>
-        <nb-card-header>Login</nb-card-header>
-        <nb-card-body>
-          <div class="row">
-            <div class="col-lg-6">
-                <form [formGroup]="fg" (ngSubmit)="login(fg)">
-                <mat-error *ngIf="loginInvalid">
-                    The username and password were not valid
-                  </mat-error>
-              <mat-form-field class="input-example">
-                <mat-label>User Name</mat-label>
-                <input 
-                matInput 
-                formControlName="username"
-                placeholder="Username"
-                id="input-username"
-                autocomplete="off" 
-                required
-                autofocus
-                >
-                    <mat-error class="caption status-danger">
-                      Username is required!
-                    </mat-error>
-              </mat-form-field>
-              <mat-form-field class="input-example">
-                <mat-label>Password</mat-label>
-                <input 
-                matInput 
-                formControlName="password"
-                required
-                autocomplete="off"
-               type="password"
-               id="input-password"
-               placeholder="Password"
-                >
-                <!-- <ng-container >
-                    <mat-error class="caption status-danger" >
-                      Password is required!
-                    </mat-error>
-                    <mat-error class="caption status-danger" >
-                      Password should contain
-                      characters
-                    </mat-error>
-                  </ng-container> -->
-              </mat-form-field>
-    
-              
-              <p></p>
-              <div class="input-example">
-                <label>Remember me</label>
-                <mat-slide-toggle color="primary" [checked]="false" formControlName="rememberMe" *ngIf="rememberMe"></mat-slide-toggle>
-              </div>
-              <p></p>
-              <button 
-              mat-raised-button
-              [disabled]="submitted || !fg.valid"
-              color="primary">
+  <nb-card>
+    <nb-card-header>Login</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-lg-6">
+          <form [formGroup]="fg" (ngSubmit)="login(fg)">
+            <mat-error *ngIf="loginInvalid">
+              {{errMsg}}
+            </mat-error>
+            <mat-form-field class="input-example">
+              <mat-label>User Name</mat-label>
+              <input matInput formControlName="username" placeholder="Username" (focus)="onFocus()" id="input-username"
+                autocomplete="off" required autofocus>
+              <mat-error class="caption status-danger">
+                Username is required!
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="input-example">
+              <mat-label>Password</mat-label>
+              <input matInput formControlName="password" (focus)="onFocus()" required autocomplete="off" type="password"
+                id="input-password" placeholder="Password">
+                <mat-error class="caption status-danger">
+                  Password is required!
+                </mat-error>
+            </mat-form-field>
+            <p></p>
+            <div class="input-example">
+              <label>Remember me</label>
+              <mat-slide-toggle color="primary" [checked]="false" formControlName="rememberMe" *ngIf="rememberMe">
+              </mat-slide-toggle>
+            </div>
+            <p></p>
+            <button mat-raised-button [disabled]="submitted || !fg.valid" color="primary">
               Login
             </button>
-            </form>
-            <p></p>
-            <mat-divider></mat-divider>
-            <p></p>
-            <section class="another-action" aria-label="Register">
-                Don't have an account? <a class="text-link" routerLink="../register">Register</a>
-              </section>
-            </div>
-            
-            
-          </div>
-        </nb-card-body>
-      </nb-card>
-    </div>
+          </form>
+          <p></p>
+          <mat-divider></mat-divider>
+          <p></p>
+          <section class="another-action" aria-label="Register">
+            Don't have an account? <a class="text-link" routerLink="../register">Register</a>
+          </section>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</div>

@@ -47,12 +47,97 @@ vsc termiinal:
     
     5 import { PluginConfig, ProtractorPlugin } from './plugins';
 
+    solution:
+    ---------
+    - add the following to your tsconfig.json at your root folder to silence the error:
+
+        "compilerOptions": {
+        ...,
+        "skipLibCheck": true
+        }
+
+    - ref: https://stackoverflow.com/questions/60746305/errorts2440ts-import-declaration-conflicts-with-local-declaration-of-plugin
+
 
 ToDo:
+- logout
+- menu: link to dependancy modules/controllers
+- apply toastr for notifications
+- apply websockets for live updates
+- check out other angular admin templates: 
+    - http://angular-material.fusetheme.com/apps/dashboards/analytics
+    - http://demo.geekslabs.com/materialize-v1.0/user-profile-page.html
+    - https://themeforest.net/item/fuse-angularjs-material-design-admin-template/12931855?irgwc=1&clickid=XWAyn7ygAxyOU9CwUx0Mo3EWUkiQHnw61Xs9Qk0&iradid=275988&irpid=1257954&iradtype=ONLINE_TRACKING_LINK&irmptype=mediapartner&mp_value1=&utm_campaign=af_impact_radius_1257954&utm_medium=affiliate&utm_source=impact_radius
+    - https://flatlogic.com/templates/sing-app-angular/demo
+    - https://rohit.codes/simplifyng/dashboard/pro
+
+24/08/2020
+- set home page routing
+Set pages structure with routing:
+- My Space
+    - personal info
+        - https://mdbootstrap.com/docs/angular/components/cards/#!
+    - activity
+    - calendar
+    - contacts
+    - memo
+
+-
+- Coops
+    - Events
+    - Resources
+    - News
+    - Forums
+    - Compliance
+    - Membership
+    - capacity-building
+- PMS
+    - dashboard
+    - projects
+    - calendar
+    - schedular
+- HRM
+    - designation
+        - organogram
+    - grade
+    - recruit
+    - stuff
+    - capacity-building
+    - accts
+        - payment
+        - deduction
+        - grade
+- Accts
+    - account
+    - bank
+    - budget
+    - hrm
+        - payment
+        - deduction
+        - grade
+    - coa
+    - currency
+    - delivery
+    - ext-invoice
+    - ext-quote
+    - inventory
+    - payment
+    - payroll
+    - procurement
+    - report
+    - requisition
+    - sale
+    - service
+    - store
+    - tax
+    - transact
+    - 
+
+
 - mat login with guard
     - https://developer.okta.com/blog/2020/01/21/angular-material-login
+    - fixed PluginConfig error
 - login validation
-
 
 22/08/2020:
 - mat login with guard
