@@ -32,33 +32,33 @@ export class PagesComponent implements OnInit {
         icon: 'lock-outline',
         enabled: true,
         link: '/pages/home/news-feed',
-        home: true
-        // children: [
-        //   {
-        //     title: 'News',
-        //     link: '/pages/home/news-feed',
-        //   },
-        //   {
-        //     title: 'about',
-        //     link: '/pages/home/About',
-        //   },
-        //   {
-        //     title: 'Events',
-        //     link: '/pages/home/events',
-        //   },
-        //   {
-        //     title: 'Products',
-        //     link: '/pages/home/products',
-        //   },
-        //   {
-        //     title: 'Resources',
-        //     link: '/pages/home/resources',
-        //   },
-        //   {
-        //     title: 'Services',
-        //     link: '/pages/home/services',
-        //   }
-        // ],
+        home: true,
+        children: [
+          {
+            title: 'News',
+            link: '/pages/home/news-feed',
+          },
+          {
+            title: 'about',
+            link: '/pages/home/about',
+          },
+          {
+            title: 'Events',
+            link: '/pages/home/events',
+          },
+          {
+            title: 'Products',
+            link: '/pages/home/products',
+          },
+          {
+            title: 'Resources',
+            link: '/pages/home/resources',
+          },
+          {
+            title: 'Services',
+            link: '/pages/home/services',
+          }
+        ],
       },
       {
         title: 'E-commerce',
@@ -327,9 +327,14 @@ export class PagesComponent implements OnInit {
         ],
       },
       {
+        title: 'NEB-TEMPLATES',
+        group: true,
+        enabled: true,
+      },
+      {
         title: 'Layout',
         icon: 'layout-outline',
-        enabled: false,
+        enabled: true,
         children: [
           {
             title: 'Stepper',
@@ -397,7 +402,7 @@ export class PagesComponent implements OnInit {
         title: 'UI Features',
         icon: 'keypad-outline',
         link: '/pages/ui-features',
-        enabled: false,
+        enabled: true,
         children: [
           {
             title: 'Grid',

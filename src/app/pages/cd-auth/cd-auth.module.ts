@@ -21,7 +21,7 @@ import {
 import { ThemeModule } from '../../@theme/theme.module';
 import { FormsModule as ngFormsModule } from '@angular/forms';
 
-// import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -35,7 +35,6 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDividerModule } from '@angular/material/divider';
 
 const materialModules = [
-  // FlexLayoutModule,
   MatFormFieldModule,
   MatInputModule,
   MatSelectModule,
@@ -54,6 +53,7 @@ const materialModules = [
     CommonModule,
     FormsModule, 
     ReactiveFormsModule,
+    // FlexLayoutModule,
     ThemeModule,
     NbInputModule,
     NbCardModule,

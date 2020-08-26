@@ -12,8 +12,12 @@ import { ProductsComponent } from './products/products.component';
 const routes: Routes = [
   {
     path: '',
-    component: NewsFeedComponent,
+    component: HomeComponent,
     children: [
+      // {
+      //   path: 'home',
+      //   component: HomeComponent,
+      // },
       {
         path: 'news-feed',
         component: NewsFeedComponent,

@@ -60,6 +60,37 @@ vsc termiinal:
 
 
 ToDo:
+- develop consumable carousel
+    - based on: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_slideshow
+- test consumable carousel on http://localhost:4202/pages/home/news-feed
+- install slick carousel(has not been successfull...to remove):
+    - based on https://www.freakyjolly.com/angular-slick-carousel-tutorial-with-custom-navigation/#.X0QoP0lx1QI
+    - $ npm install jquery --save
+    - $ npm install slick-carousel --save
+    - $ npm install ngx-slick-carousel --save
+    - angular.json
+        - "styles": [
+                "src/styles.scss",
+                "node_modules/slick-carousel/slick/slick.scss",
+                "node_modules/slick-carousel/slick/slick-theme.scss"
+                ],
+                "scripts": [
+                "node_modules/jquery/dist/jquery.min.js",
+                "node_modules/slick-carousel/slick/slick.min.js"
+                ],
+
+
+- develop landing page  
+    - https://templated.co/industrious
+- develop news-feed page
+    - mat-card
+        - https://stackblitz.com/angular/kdxarggjbvx?file=src%2Fapp%2Fcard-fancy-example.html
+    - carousel:
+        - https://www.freakyjolly.com/angular-slick-carousel-tutorial-with-custom-navigation/#.X0O6jklx1QI
+        - https://stackblitz.com/edit/angular-gallery-carousel-slider-dvh17w?file=src%2Fapp%2Fapp.component.ts
+    - animated icons
+        - https://stackblitz.com/edit/angular-material-prototype-animated-icon
+
 - logout
 - menu: link to dependancy modules/controllers
 - apply toastr for notifications
@@ -70,6 +101,11 @@ ToDo:
     - https://themeforest.net/item/fuse-angularjs-material-design-admin-template/12931855?irgwc=1&clickid=XWAyn7ygAxyOU9CwUx0Mo3EWUkiQHnw61Xs9Qk0&iradid=275988&irpid=1257954&iradtype=ONLINE_TRACKING_LINK&irmptype=mediapartner&mp_value1=&utm_campaign=af_impact_radius_1257954&utm_medium=affiliate&utm_source=impact_radius
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
+
+26/08/2020
+- develop consumable carousel
+    - based on: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_slideshow
+- test consumable carousel on http://localhost:4202/pages/home/news-feed
 
 24/08/2020
 - set home page routing
