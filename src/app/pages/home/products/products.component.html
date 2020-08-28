@@ -1,38 +1,40 @@
 <div class="row">
-  <p>Slideshow 1:</p>
-  <div class="slideshow-container">
-    <div class="mySlides1">
-        <img src="../../../../assets/cd/imges/img_band_chicago.jpg" style="width:100%">
-    </div>
+  <ngx-profile-card></ngx-profile-card>
+  <!-- <ngx-profile-accordion></ngx-profile-accordion>   -->
+  <div class="accordion-container col-8">
+    <nb-accordion multi>
+      <nb-accordion-item>
+        <nb-accordion-item-header matRipple>
+          Product Details
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
+          Originally, nebula was a name for any diffuse astronomical object,
+          including galaxies beyond the Milky Way.
+        </nb-accordion-item-body>
+      </nb-accordion-item>
 
-    <div class="mySlides1">
-      <img src="../../../../assets/cd/imges/img_snow_wide.jpg" style="width:100%">
-    </div>
+      <nb-accordion-item>
+        <nb-accordion-item-header matRipple>
+          Reviews
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
+          Originally, nebula was a name for any diffuse astronomical object,
+          including galaxies beyond the Milky Way.
+        </nb-accordion-item-body>
+      </nb-accordion-item>
 
-    <div class="mySlides1">
-      <img src="../../../../assets/cd/imges/img_mountains_wide.jpg" style="width:100%">
-    </div>
-
-    <a class="prev" (click)="plusSlides(-1, 0)">&#10094;</a>
-    <a class="next" (click)="plusSlides(1, 0)">&#10095;</a>
-  </div>
-</div>
-<div class="row">
-  <p>Slideshow 2:</p>
-  <div class="slideshow-container">
-    <div class="mySlides2">
-      <img src="../../../../assets/cd/imges/img_band_chicago.jpg" style="width:100%">
-    </div>
-
-    <div class="mySlides2">
-      <img src="../../../../assets/cd/imges/img_band_la.jpg" style="width:100%">
-    </div>
-
-    <div class="mySlides2">
-      <img src="../../../../assets/cd/imges/img_band_ny.jpg" style="width:100%">
-    </div>
-
-    <a class="prev" (click)="plusSlides(-1, 1)">&#10094;</a>
-    <a class="next" (click)="plusSlides(1, 1)">&#10095;</a>
+      <nb-accordion-item>
+        <nb-accordion-item-header matRipple>
+          Edit
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
+          Originally, nebula was a name for any diffuse astronomical object,
+          including galaxies beyond the Milky Way.
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
   </div>
 </div>

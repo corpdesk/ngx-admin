@@ -61,13 +61,6 @@ export class PagesComponent implements OnInit {
         ],
       },
       {
-        title: 'E-commerce',
-        icon: 'shopping-cart-outline',
-        link: '/pages/dashboard',
-        enabled: true,
-
-      },
-      {
         title: 'My Space',
         icon: 'lock-outline',
         enabled: true,
@@ -327,9 +320,35 @@ export class PagesComponent implements OnInit {
         ],
       },
       {
+        title: 'Pub',
+        icon: 'lock-outline',
+        enabled: true,
+        home: false,
+        children: [
+          {
+            title: 'dashboard',
+            link: '/pages/cd-pub/dashboard',
+          },{
+            title: 'article',
+            link: '/pages/cd-pub/article',
+          },
+          {
+            title: 'forms',
+            link: '/pages/cd-pub/forms',
+          }
+        ],
+      },
+      {
         title: 'NEB-TEMPLATES',
         group: true,
         enabled: true,
+      },
+      {
+        title: 'E-commerce',
+        icon: 'shopping-cart-outline',
+        link: '/pages/dashboard',
+        enabled: true,
+
       },
       {
         title: 'Layout',
@@ -378,7 +397,7 @@ export class PagesComponent implements OnInit {
       {
         title: 'Forms',
         icon: 'edit-2-outline',
-        enabled: false,
+        enabled: true,
         children: [
           {
             title: 'Form Inputs',
@@ -425,7 +444,7 @@ export class PagesComponent implements OnInit {
       {
         title: 'Modal & Overlays',
         icon: 'browser-outline',
-        enabled: false,
+        enabled: true,
         children: [
           {
             title: 'Dialog',
@@ -452,7 +471,7 @@ export class PagesComponent implements OnInit {
       {
         title: 'Extra Components',
         icon: 'message-circle-outline',
-        enabled: false,
+        enabled: true,
         children: [
           {
             title: 'Calendar',
@@ -540,7 +559,7 @@ export class PagesComponent implements OnInit {
       {
         title: 'Tables & Data',
         icon: 'grid-outline',
-        enabled: false,
+        enabled: true,
         children: [
           {
             title: 'Smart Table',

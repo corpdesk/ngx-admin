@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NbIconLibraries } from '@nebular/theme';
+
 
 @Component({
   selector: 'ngx-products',
@@ -6,29 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-  slideIndex = [1,1];
-  slideId = ["mySlides1", "mySlides2"]
-  
-  constructor() { }
+  evaIcons = [];
+  constructor(iconsLibrary: NbIconLibraries) { 
+    this.evaIcons = Array.from(iconsLibrary.getPack('eva').icons.keys())
+      .filter(icon => icon.indexOf('outline') === -1);
+
+    iconsLibrary.registerFontPack('fa', { packClass: 'fa', iconClassPrefix: 'fa' });
+    iconsLibrary.registerFontPack('far', { packClass: 'far', iconClassPrefix: 'fa' });
+    iconsLibrary.registerFontPack('ion', { iconClassPrefix: 'ion' });
+  }
 
   ngOnInit(): void {
-    this.showSlides(1, 0);
-this.showSlides(1, 1);
-  }
-
-  plusSlides(n, no) {
-    this.showSlides(this.slideIndex[no] += n, no);
-  }
-  
-  showSlides(n, no) {
-    var i;
-    var x = document.getElementsByClassName(this.slideId[no]);
-    if (n > x.length) {this.slideIndex[no] = 1}    
-    if (n < 1) {this.slideIndex[no] = x.length}
-    for (i = 0; i < x.length; i++) {
-       (x[i] as HTMLElement).style.display = "none";  
-    }
-    (x[this.slideIndex[no]-1]  as HTMLElement).style.display = "block";  
-  }
+  } 
 
 }

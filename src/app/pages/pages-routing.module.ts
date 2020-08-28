@@ -21,6 +21,11 @@ const routes: Routes = [{
         .then(m => m.HomeModule),
     },
     {
+      path: 'cd-pub',
+      loadChildren: () => import('./cd-pub/cd-pub.module')
+        .then(m => m.CdPubModule),
+    },
+    {
       path: 'dashboard',
       component: ECommerceComponent,
     },

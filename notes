@@ -60,9 +60,16 @@ vsc termiinal:
 
 
 ToDo:
-- develop consumable carousel
-    - based on: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_slideshow
-- test consumable carousel on http://localhost:4202/pages/home/news-feed
+- 
+
+<a href="#" target="_blank" class="ion ion-social-facebook"></a>
+- icon methods NOT working:
+<a href="#" target="_blank" class="ion ion-social-facebook"></a>
+        <fa-icon [icon]="behanceIcon"></fa-icon>
+        <nb-icon icon="star"></nb-icon>
+        <fa-icon [icon]="['fab', 'behanceIcon']"></fa-icon>
+        
+- item summary consumable
 - install slick carousel(has not been successfull...to remove):
     - based on https://www.freakyjolly.com/angular-slick-carousel-tutorial-with-custom-navigation/#.X0QoP0lx1QI
     - $ npm install jquery --save
@@ -80,7 +87,7 @@ ToDo:
                 ],
 
 
-- develop landing page  
+- develop landing page 
     - https://templated.co/industrious
 - develop news-feed page
     - mat-card
@@ -101,6 +108,18 @@ ToDo:
     - https://themeforest.net/item/fuse-angularjs-material-design-admin-template/12931855?irgwc=1&clickid=XWAyn7ygAxyOU9CwUx0Mo3EWUkiQHnw61Xs9Qk0&iradid=275988&irpid=1257954&iradtype=ONLINE_TRACKING_LINK&irmptype=mediapartner&mp_value1=&utm_campaign=af_impact_radius_1257954&utm_medium=affiliate&utm_source=impact_radius
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
+
+
+28/08/2020
+- create cd-pub module
+- set routing for cd-pub
+- develop profile consumable
+    - user profile based on: https://bootsnipp.com/snippets/xpyz9
+    - user profile based on: https://bootsnipp.com/snippets/40Kom
+- set accordion for user profile details
+    - NB: could not get nebular accordion to work as consumable component
+    - set tool pane for managing user details
+- enable fontawesome:
 
 26/08/2020
 - develop consumable carousel

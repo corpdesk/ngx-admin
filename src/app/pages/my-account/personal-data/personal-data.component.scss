@@ -1,0 +1,46 @@
+// @import 'https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css';
+@import '../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  .accordion-container:first-child {
+    margin-bottom: nb-theme(card-margin-bottom);
+  }
+}
+
+
+
+.m-t-md {
+    margin-top: 20px;
+}
+.list-unstyled {
+    padding-left: 50px;
+    list-style: none;
+}
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+user agent stylesheet
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+label {
+    padding-left: 15px;
+}
+
+
+////////////
+.mail-tools{
+    background-color: gray;
+}
+  

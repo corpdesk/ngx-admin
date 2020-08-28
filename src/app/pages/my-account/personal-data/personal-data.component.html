@@ -1,1 +1,71 @@
-<p>personal-data works!</p>
+<div class="row">
+  <div class="col-md-4">
+    <!-- <ngx-profile-card></ngx-profile-card> -->
+    <ngx-profile-twitter></ngx-profile-twitter>
+  </div>
+  <!-- <ngx-profile-accordion></ngx-profile-accordion> -->
+  <div class="col-md-8">
+    <nb-accordion multi>
+      <nb-accordion-item>
+        <nb-accordion-item-header matRipple>
+          Identity
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <!-- start tool-pane -->
+          <div class="mail-tools tooltip-demo m-t-md">
+            <div class="btn-group float-right">
+                <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
+                <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
+
+            </div>
+            <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Refresh inbox"><i class="fa fa-refresh"></i> </button>
+            <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mark as read"><i class="fas fa-edit"></i> </button>
+            <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mark as important"><i class="fa fa-save"></i> </button>
+            <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Move to trash"><i class="fa fa-trash-o"></i> </button>
+
+        </div>
+          <!-- end tool-pane -->
+            <ul class="list-unstyled m-t-md">
+                <li>
+                    <span class="fa fa-envelope m-r-xs"></span>
+                    <label>Email:</label>
+                    mike@mail.com
+                </li>
+                <li>
+                    <span class="fa fa-home m-r-xs"></span>
+                    <label>Address:</label>
+                    Street 200, Avenue 10
+                </li>
+                <li>
+                    <span class="fa fa-phone m-r-xs"></span>
+                    <label>Contact:</label>
+                    (+121) 678 3462
+                </li>
+            </ul>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header matRipple>
+          Contact
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
+          Originally, nebula was a name for any diffuse astronomical object,
+          including galaxies beyond the Milky Way.
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header matRipple>
+          Professional
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
+          Originally, nebula was a name for any diffuse astronomical object,
+          including galaxies beyond the Milky Way.
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </div>
+</div>
