@@ -60,6 +60,19 @@ vsc termiinal:
 
 
 ToDo:
+- set sparklines sample page
+- check ispinia 
+    - http://webapplayers.com/inspinia_admin-v2.9.3/metrics.html
+    - activity
+    - project detail page
+    - tool header
+    - sparkline
+        - npm install @syncfusion/ej2-angular-charts --save
+    - Range slider
+        - https://www.bestjquery.com/?wxmleVah
+- activate login status (avatar, profile page, edit profile details)
+- include memo under my-space
+- include calendar under my-space
 - 
 
 <a href="#" target="_blank" class="ion ion-social-facebook"></a>

@@ -1,0 +1,17 @@
+:host {
+  display: block;
+}
+
+.input-example {
+  display: block;
+  margin-top: 1rem;
+}
+
+.input-example label, .input-example mat-radio-button {
+  margin-right: 1rem;
+}
+
+.input-example textarea {
+  min-height: 3rem;
+}
+/*# sourceMappingURL=material-inputs.component.css.map */

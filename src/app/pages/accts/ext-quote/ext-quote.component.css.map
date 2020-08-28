@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "ext-quote.component.scss"
+    ],
+    "names": [],
+    "file": "ext-quote.component.css"
+}

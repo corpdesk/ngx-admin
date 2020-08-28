@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "gantt.component.scss"
+    ],
+    "names": [],
+    "file": "gantt.component.css"
+}

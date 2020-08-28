@@ -1,5 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SparklineModule } from '@syncfusion/ej2-angular-charts';
+import { SparklineComponent, SparklineTooltipService } from '@syncfusion/ej2-angular-charts';
 
 import { MyAccountRoutingModule } from './my-account-routing.module';
 import { CdPaletteModule } from '../cd-palette/cd-palette.module';
@@ -32,10 +34,11 @@ import {
     ActivityComponent,
     ContactsComponent,
     DashboardComponent,
-    MyAccountComponent
+    MyAccountComponent,
   ],
   imports: [
     CommonModule,
+    SparklineModule,
     ThemeModule,
     NbAccordionModule,
     NbButtonModule,
@@ -49,6 +52,7 @@ import {
     CdPaletteModule,
     MyAccountRoutingModule
   ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  providers:[SparklineTooltipService]
 })
 export class MyAccountModule { }

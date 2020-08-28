@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "grades.component.scss"
+    ],
+    "names": [],
+    "file": "grades.component.css"
+}

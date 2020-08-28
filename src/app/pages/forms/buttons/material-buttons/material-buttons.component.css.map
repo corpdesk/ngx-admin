@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,MAAM,EAAE,uBAAuB,CAAC;EAC9B,MAAM,EAAE,MAAM;CACf",
+    "sources": [
+        "material-buttons.component.scss"
+    ],
+    "names": [],
+    "file": "material-buttons.component.css"
+}
