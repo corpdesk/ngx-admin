@@ -1,7 +1,15 @@
+// import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SparklineModule } from '@syncfusion/ej2-angular-charts';
-import { SparklineComponent, SparklineTooltipService } from '@syncfusion/ej2-angular-charts';
+import { SparklineModule, SparklineTooltipService } from '@syncfusion/ej2-angular-charts';
+
+
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
+
 
 import { MyAccountRoutingModule } from './my-account-routing.module';
 import { CdPaletteModule } from '../cd-palette/cd-palette.module';
@@ -25,7 +33,15 @@ import {
   NbTabsetModule,
   NbUserModule,
 } from '@nebular/theme';
+import { PlannerComponent } from './planner/planner.component';
 
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  timeGridPlugin,
+  listPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -35,10 +51,12 @@ import {
     ContactsComponent,
     DashboardComponent,
     MyAccountComponent,
+    PlannerComponent,
   ],
   imports: [
     CommonModule,
     SparklineModule,
+    FullCalendarModule,
     ThemeModule,
     NbAccordionModule,
     NbButtonModule,
@@ -53,6 +71,7 @@ import {
     MyAccountRoutingModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  providers:[SparklineTooltipService]
+  providers:[SparklineTooltipService],
+  exports:[CalendarComponent]
 })
 export class MyAccountModule { }

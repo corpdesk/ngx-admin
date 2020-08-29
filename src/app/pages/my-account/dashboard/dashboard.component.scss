@@ -1,38 +1,32 @@
-* {box-sizing: border-box}
-.mySlides1, .mySlides2 {display: none}
-img {vertical-align: middle;}
+@import '../../../../assets/cd/inspinia_admin-v2.9.3/css/style.css';
+@import '../../../../assets/cd/scss/modules/fonts';
 
-/* Slideshow container */
-.slideshow-container {
-  max-width: 1000px;
-  position: relative;
-  margin: auto;
+.btn-primary {
+  background-color: #e91d63 !important;
+  border-style: none !important;
 }
 
-/* Next & previous buttons */
-.prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -22px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-  }
-  
-  /* Position the "next button" to the right */
-  .next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-  }
-  
-  /* On hover, add a grey background color */
-  .prev:hover, .next:hover {
-    background-color: #f1f1f1;
-    color: black;
-  }
+.label-primary, .badge-primary {
+  background-color: #e91d63;
+  color: #FFFFFF !important;
+}
+
+.progress-bar {
+  background-color: #8b8a8a;
+}
+.ibox-title {
+  background-color: rgb(85, 77, 77) !important;
+  border-style: none !important;
+  font-family: Roboto, sans-serif !important;
+}
+
+.ibox-content {
+  background-color: #070707 !important;
+  border-style: none !important;
+  font-family: Roboto, sans-serif !important;
+}
+
+a {
+  color: none !important;
+}
+

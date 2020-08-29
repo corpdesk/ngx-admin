@@ -60,12 +60,37 @@ vsc termiinal:
 
 
 ToDo:
-- set sparklines sample page
+- alternative calendars to full-calendar: 
+    - https://github.com/mattlewis92/angular-calendar
+
+- Note: mart-dark primary: #e91d63;
+- develop proposal writeup
+- review pages for implementation
+    - develop writeup for pages
 - check ispinia 
     - http://webapplayers.com/inspinia_admin-v2.9.3/metrics.html
+    - test fonts
+        - inspinia_admin
+        - Lato
+    - set sparklines sample page
     - activity
+    - timeline
+    - services implementation
+        - http://webapplayers.com/inspinia_admin-v2.9.3/ecommerce_products_grid.html#
+    - Training in Session:
+        - http://webapplayers.com/inspinia_admin-v2.9.3/project_detail.html
     - project detail page
+        - http://webapplayers.com/inspinia_admin-v2.9.3/projects.html
+        - events
+        - participant sessions
     - tool header
+    - social
+    - full calendar : 
+        - https://fullcalendar.io/docs/angular
+        - npm install --save @fullcalendar/angular @fullcalendar/daygrid
+        - npm install --save @fullcalendar/resource-daygrid @fullcalendar/resource-timegrid
+    - file page (training resources)
+    - issue tracker
     - sparkline
         - npm install @syncfusion/ej2-angular-charts --save
     - Range slider
@@ -122,6 +147,17 @@ ToDo:
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
 
+
+29/08/2020
+- harmonise inspinia style with material-dark
+- inspinia/activity-stream -> my-account/activity
+    - http://webapplayers.com/inspinia_admin-v2.9.3/activity_stream.html
+- inspinia/project-details -> my-account/dashboard (training progress)
+    - http://webapplayers.com/inspinia_admin-v2.9.3/project_detail.html
+- calendar:
+    - https://fullcalendar.io/docs/angular
+        - npm install --save @fullcalendar/angular @fullcalendar/daygrid
+        - npm install --save @fullcalendar/resource-daygrid @fullcalendar/resource-timegrid
 
 28/08/2020
 - create cd-pub module

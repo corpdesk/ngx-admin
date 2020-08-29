@@ -20,6 +20,7 @@ import {
   NbToastrModule,
   NbWindowModule,
 } from '@nebular/theme';
+import { CalendarModule } from 'angular-calendar';
 
 @NgModule({
   declarations: [AppComponent],
