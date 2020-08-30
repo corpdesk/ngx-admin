@@ -79,6 +79,10 @@
   font-display: swap;
 }
 
+/*
+use this in angular component below the import for inspinia styles
+- applicable when mat-dark theme is active in angx-admin
+*/
 .btn-primary {
   background-color: #e91d63 !important;
   border-style: none !important;
@@ -105,7 +109,18 @@
   font-family: Roboto, sans-serif !important;
 }
 
+i {
+  border: 1px solid #bfbfc2 !important;
+  border-radius: 50%;
+  padding: 6px;
+  color: #bfbfc2 !important;
+  position: absolute;
+  background-color: #070707 !important;
+  left: 8px;
+}
+
 a {
+  text-decoration: none !important;
   color: none !important;
 }
 /*# sourceMappingURL=dashboard.component.css.map */

@@ -83,6 +83,30 @@ export class PagesComponent implements OnInit {
             link: '/pages/my-account/calendar',
           },
           {
+            title: 'Planner',
+            link: '/pages/my-account/planner',
+          },
+          {
+            title: 'Memo',
+            link: '/pages/my-account/cd-memo',
+          },
+          {
+            title: 'InTray',
+            link: '/pages/my-account/in-tray',
+          },
+          {
+            title: 'ReadDoc',
+            link: '/pages/my-account/read-doc',
+          },
+          {
+            title: 'ComposeDoc',
+            link: '/pages/my-account/compose-doc',
+          },
+          {
+            title: 'DocTray',
+            link: '/pages/my-account/doc-tray',
+          },
+          {
             title: 'Contacts',
             link: '/pages/my-account/contacts',
           }

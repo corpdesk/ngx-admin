@@ -1,0 +1,67 @@
+/*
+use this in angular component below the import for inspinia styles
+- applicable when mat-dark theme is active in angx-admin
+*/
+.btn-primary {
+  background-color: #e91d63 !important;
+  border-style: none !important;
+}
+
+.label-primary,
+.badge-primary {
+  background-color: #e91d63;
+  color: #FFFFFF !important;
+}
+
+.progress-bar {
+  background-color: #8b8a8a;
+}
+
+.ibox-title {
+  background-color: rgb(85, 77, 77) !important;
+  border-style: none !important;
+  font-family: Roboto, sans-serif !important;
+}
+
+.ibox-content {
+  background-color: #070707 !important;
+  border-style: none !important;
+  font-family: Roboto, sans-serif !important;
+}
+
+.mail-box-header {
+  background-color: #070707 !important;
+}
+
+
+
+// i {
+//   border: 1px solid #bfbfc2 !important;
+//   border-radius: 50%;
+//   padding: 6px;
+//   color: #bfbfc2 !important;
+//   position: absolute;
+//   background-color: #070707 !important;
+//   left: 8px;
+// }
+
+.btn-white {
+  color: inherit;
+  background: inherit;
+  border: 1px solid #7a7c7c;
+}
+
+tr .unread{
+  color: inherit !important;
+  background-color: #58143a !important;
+}
+
+.read{
+  color: inherit !important;
+  background-color: #252525 !important;
+}
+
+a {
+  text-decoration: none !important;
+  color: none !important;
+}

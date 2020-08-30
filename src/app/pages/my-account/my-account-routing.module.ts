@@ -7,6 +7,13 @@ import { ActivityComponent } from './activity/activity.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MyAccountComponent } from './my-account/my-account.component';
+import { PlannerComponent } from './planner/planner.component';
+
+import { CdMemoComponent } from './cd-memo/cd-memo.component';
+import { IntrayComponent } from './intray/intray.component';
+import { ReadDocComponent } from './read-doc/read-doc.component';
+import { ComposeDocComponent } from './compose-doc/compose-doc.component';
+import { DocTrayComponent } from './doc-tray/doc-tray.component';
 
 const routes: Routes = [
   {
@@ -30,8 +37,32 @@ const routes: Routes = [
         component: CalendarComponent,
       },
       {
+        path: 'planner',
+        component: PlannerComponent,
+      },
+      {
         path: 'contacts',
         component: ContactsComponent,
+      },
+      {
+        path: 'cd-memo',
+        component: CdMemoComponent,
+      },
+      {
+        path: 'in-tray',
+        component: IntrayComponent,
+      },
+      {
+        path: 'read-doc',
+        component: ReadDocComponent,
+      },
+      {
+        path: 'compose-doc',
+        component: ComposeDocComponent,
+      },
+      {
+        path: 'doc-tray',
+        component: DocTrayComponent,
       }
     ]
   },

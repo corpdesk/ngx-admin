@@ -60,6 +60,9 @@ vsc termiinal:
 
 
 ToDo:
+- set up service module based on inspinia e-commerce
+- memo module
+
 - alternative calendars to full-calendar: 
     - https://github.com/mattlewis92/angular-calendar
 
@@ -147,6 +150,8 @@ ToDo:
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
 
+30/08/2020
+- set up basic gui module for memo
 
 29/08/2020
 - harmonise inspinia style with material-dark
