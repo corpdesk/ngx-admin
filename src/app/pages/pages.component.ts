@@ -71,6 +71,10 @@ export class PagesComponent implements OnInit {
             link: '/pages/my-account/dashboard',
           },
           {
+            title: 'inteRact',
+            link: '/pages/my-account/inte-ract',
+          },
+          {
             title: 'Personal Info',
             link: '/pages/my-account/personal-data',
           },
@@ -148,6 +152,42 @@ export class PagesComponent implements OnInit {
           {
             title: 'capacity-building',
             link: '/pages/coops/capacity-building',
+          }
+        ],
+      },
+      {
+        title: 'Services',
+        icon: 'lock-outline',
+        enabled: true,
+        home: false,
+        children: [
+          {
+            title: 'service-cards',
+            link: '/pages/cd-kiosk/product-cards',
+          },
+          {
+            title: 'service-list',
+            link: '/pages/cd-kiosk/product-list',
+          },
+          {
+            title: 'service-info',
+            link: '/pages/cd-kiosk/product-info',
+          },
+          {
+            title: 'service-manager',
+            link: '/pages/cd-kiosk/product-manager',
+          },
+          {
+            title: 'wish-list',
+            link: '/pages/cd-kiosk/wish-list',
+          },
+          {
+            title: 'orders',
+            link: '/pages/cd-kiosk/orders',
+          },
+          {
+            title: 'online-payment',
+            link: '/pages/cd-kiosk/online-payment',
           }
         ],
       },

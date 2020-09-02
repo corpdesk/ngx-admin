@@ -24,7 +24,15 @@ const routes: Routes = [{
       path: 'cd-pub',
       loadChildren: () => import('./cd-pub/cd-pub.module')
         .then(m => m.CdPubModule),
-    },
+    }
+    // CdKioskModule
+    ,
+    {
+      path: 'cd-kiosk',
+      loadChildren: () => import('./cd-kiosk/cd-kiosk.module')
+        .then(m => m.CdKioskModule),
+    }
+    ,
     {
       path: 'dashboard',
       component: ECommerceComponent,

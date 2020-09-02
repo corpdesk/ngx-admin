@@ -14,6 +14,7 @@ import { IntrayComponent } from './intray/intray.component';
 import { ReadDocComponent } from './read-doc/read-doc.component';
 import { ComposeDocComponent } from './compose-doc/compose-doc.component';
 import { DocTrayComponent } from './doc-tray/doc-tray.component';
+import { InteRactComponent } from './inte-ract/inte-ract.component';
 
 const routes: Routes = [
   {
@@ -63,6 +64,10 @@ const routes: Routes = [
       {
         path: 'doc-tray',
         component: DocTrayComponent,
+      },
+      {
+        path: 'inte-ract',
+        component: InteRactComponent,
       }
     ]
   },

@@ -8,7 +8,7 @@ import { CarouselData } from '../../cd-palette/cd-palette-model';
 })
 export class NewsFeedComponent implements OnInit {
   newsCarousolData: CarouselData = {
-    title: "Latest",
+    title: "",
     autoSetting:{
       active: false,
       timeOut: 5000

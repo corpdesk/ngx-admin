@@ -17,7 +17,8 @@ use this in angular component below the import for inspinia styles
   background-color: #8b8a8a;
 }
 
-.ibox-title {
+.ibox-title,
+.panel-heading {
   background-color: rgb(85, 77, 77) !important;
   border-style: none !important;
   font-family: Roboto, sans-serif !important;
@@ -34,34 +35,137 @@ use this in angular component below the import for inspinia styles
 }
 
 
-
-// i {
-//   border: 1px solid #bfbfc2 !important;
-//   border-radius: 50%;
-//   padding: 6px;
-//   color: #bfbfc2 !important;
-//   position: absolute;
-//   background-color: #070707 !important;
-//   left: 8px;
-// }
-
 .btn-white {
   color: inherit;
   background: inherit;
   border: 1px solid #7a7c7c;
 }
 
-tr .unread{
+tr .unread {
   color: inherit !important;
   background-color: #58143a !important;
 }
 
-.read{
+.read {
   color: inherit !important;
   background-color: #252525 !important;
 }
 
+.form-control {
+  background-color: #202020;
+  background-image: none;
+  border: 1px solid #525353;
+  color: inherit;
+}
+
+.form-control:focus {
+  //border-style: none;
+  border-color: #a09fa0;
+}
+
+
+
+.white-bg,
+.breadcrumb,
+.input-group-addon,
+.social-feed-box {
+  background-color: #070707 !important;
+}
+
+.social-footer {
+  background-color: #292929 !important;
+}
+
+.stream-badge .fa{
+  background-color: #070707 !important;
+  border-color: #525353;
+}
+
+
+
+.vertical-timeline-content{
+  background-color: #646262;
+}
+
+.social-feed-box {
+  border-style: none;
+}
+
+.text-navy {
+  color: inherit !important;
+}
+
+.payment-card {
+  background-color: #c9c6c6 !important;
+  border-radius: 5px;
+  color: #525353 !important;
+
+  h2 {
+    color: #525353 !important;
+  }
+}
+
+.panel .panel-default {
+  border-color: none !important;
+}
+
+
 a {
   text-decoration: none !important;
   color: none !important;
+}
+
+.divCenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ibox-title,
+.media-body,
+.social-body,
+.m-b-xxs,
+.breadcrumb-item,
+.activity-stream,
+.small,
+.project-title,
+small,
+h2,
+h3,
+p{
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+p{
+  font-size: 10pt;
+}
+
+.breadcrumb-item{
+  font-size: 8pt;
+}
+
+.btn-link h2{
+  font-weight: 100;
+}
+
+.timeline-item .content {
+  border-left: 1px solid #646262 !important;
+  border-top: 1px solid #646262 !important;
+}
+
+.date .fa{
+  background-color: rgb(73, 73, 73) !important;
+  border-color:  rgb(73, 73, 73) !important;
+}
+
+.col:hover{
+  background-color: rgb(73, 73, 73) !important;
+}
+
+.elements-list .list-group-item {
+  background-color: rgb(37, 37, 37);
+}
+
+.elements-list .list-group-item:hover {
+  background-color: rgb(73, 73, 73);
 }

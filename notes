@@ -58,15 +58,56 @@ vsc termiinal:
 
     - ref: https://stackoverflow.com/questions/60746305/errorts2440ts-import-declaration-conflicts-with-local-declaration-of-plugin
 
+- Note: mart-dark primary: #e91d63;
+create module with routing:
+ng g module cd-pub --routing
+font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+<div class="d-none d-lg-block">hide on screens smaller than lg</div>
 
 ToDo:
+
+- 
+- develop dynamic favicon
+- set up consumable header with automated responsive css setting
+- initial presentation fixes
+    - init loading to 'home'
+    - change user names and pix
+    - carousel not loading pix
+    - logo not loading
+    - clear home/products page
+    - remove calendar and leave planner
+    - put all text in the context of given page
+
+- replace:
+    - ../../../../assets/cd/inspinia_admin-v2.9.3/css/style.css
+    - ../../../../assets/cd/inspinia/css/style.css
+- tab online-payment page to allow options
+    - credit card
+    - paypal
+    - pesapal
+    - mpesa-paybill
+    - mpesa-till
+- replace datepickers
+- replace carousel
+- replace input with material inputs
+- dynamically add components to a tabs consumable component
+    - https://angular.io/guide/dynamic-component-loader
+    - https://medium.com/front-end-weekly/dynamically-add-components-to-the-dom-with-angular-71b0cb535286
+- css tabs: https://freefrontend.com/css-tabs/
 - set up service module based on inspinia e-commerce
-- memo module
+    - product grid: (product-card)training, webinar
+    - product list: (product-list)service packages (Table)
+    - product edit: (product-manager)service manager
+    - product detail: (product-info)service details
+    - cart: wish-list
+    - orders
+    - online-payment
+- continue with css styling for memo
 
 - alternative calendars to full-calendar: 
     - https://github.com/mattlewis92/angular-calendar
 
-- Note: mart-dark primary: #e91d63;
+
 - develop proposal writeup
 - review pages for implementation
     - develop writeup for pages
@@ -149,6 +190,20 @@ ToDo:
     - https://themeforest.net/item/fuse-angularjs-material-design-admin-template/12931855?irgwc=1&clickid=XWAyn7ygAxyOU9CwUx0Mo3EWUkiQHnw61Xs9Qk0&iradid=275988&irpid=1257954&iradtype=ONLINE_TRACKING_LINK&irmptype=mediapartner&mp_value1=&utm_campaign=af_impact_radius_1257954&utm_medium=affiliate&utm_source=impact_radius
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
+
+02/09/2020
+- set up inteRact
+- set up cd-kiosk
+    - products-cards
+    - product-list
+    - product-detail
+    - orders
+    - online-payment
+
+- about page
+- set up inspinia folder
+- replace pix and names for accosca
+
 
 30/08/2020
 - set up basic gui module for memo
