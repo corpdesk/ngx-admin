@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CarouselData } from '../../cd-palette/cd-palette-model';
 
 @Component({
@@ -6,10 +6,10 @@ import { CarouselData } from '../../cd-palette/cd-palette-model';
   templateUrl: './news-feed.component.html',
   styleUrls: ['./news-feed.component.scss']
 })
-export class NewsFeedComponent implements OnInit {
+export class NewsFeedComponent implements OnInit, AfterViewInit {
   newsCarousolData: CarouselData = {
     title: "",
-    autoSetting:{
+    autoSetting: {
       active: false,
       timeOut: 5000
     },
@@ -37,5 +37,13 @@ export class NewsFeedComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(){
+    const itemToScrollTo = document.getElementById('item-' + 0);
+    // null check to ensure that the element actually exists
+    if (itemToScrollTo) {
+      itemToScrollTo.scrollIntoView(true);
+    }
   }
 }

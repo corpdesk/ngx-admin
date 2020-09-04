@@ -63,8 +63,17 @@ create module with routing:
 ng g module cd-pub --routing
 font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 <div class="d-none d-lg-block">hide on screens smaller than lg</div>
+.d-sm-none .d-md-block -> hide on small screens
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
+
+
+- clear empty padding at the top
+    - try by css
+    - try auto scroll
+        - https://angular.io/api/common/ViewportScroller
 
 - 
 - develop dynamic favicon
@@ -190,6 +199,11 @@ ToDo:
     - https://themeforest.net/item/fuse-angularjs-material-design-admin-template/12931855?irgwc=1&clickid=XWAyn7ygAxyOU9CwUx0Mo3EWUkiQHnw61Xs9Qk0&iradid=275988&irpid=1257954&iradtype=ONLINE_TRACKING_LINK&irmptype=mediapartner&mp_value1=&utm_campaign=af_impact_radius_1257954&utm_medium=affiliate&utm_source=impact_radius
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
+
+04/09/2020
+- filter submenu
+    - only allow ready pages for presentation
+- set basic footer info
 
 02/09/2020
 - set up inteRact

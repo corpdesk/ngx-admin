@@ -14,10 +14,6 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     children: [
-      // {
-      //   path: 'home',
-      //   component: HomeComponent,
-      // },
       {
         path: 'news-feed',
         component: NewsFeedComponent,

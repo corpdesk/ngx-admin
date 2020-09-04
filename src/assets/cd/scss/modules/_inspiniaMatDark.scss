@@ -7,6 +7,7 @@ use this in angular component below the import for inspinia styles
   border-style: none !important;
 }
 
+.product-price,
 .label-primary,
 .badge-primary {
   background-color: #e91d63;
@@ -21,13 +22,13 @@ use this in angular component below the import for inspinia styles
 .panel-heading {
   background-color: rgb(85, 77, 77) !important;
   border-style: none !important;
-  font-family: Roboto, sans-serif !important;
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
 .ibox-content {
   background-color: #070707 !important;
   border-style: none !important;
-  font-family: Roboto, sans-serif !important;
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
 .mail-box-header {
@@ -41,15 +42,7 @@ use this in angular component below the import for inspinia styles
   border: 1px solid #7a7c7c;
 }
 
-tr .unread {
-  color: inherit !important;
-  background-color: #58143a !important;
-}
 
-.read {
-  color: inherit !important;
-  background-color: #252525 !important;
-}
 
 .form-control {
   background-color: #202020;
@@ -59,7 +52,6 @@ tr .unread {
 }
 
 .form-control:focus {
-  //border-style: none;
   border-color: #a09fa0;
 }
 
@@ -76,14 +68,26 @@ tr .unread {
   background-color: #292929 !important;
 }
 
-.stream-badge .fa{
+.stream-badge .fa {
   background-color: #070707 !important;
   border-color: #525353;
 }
 
+.socials .ion {
+  color: #c7c9c9 !important;
+}
 
+.socials .ion:hover {
+  color: #eef0f0 !important;
+}
 
-.vertical-timeline-content{
+.created-by {
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 8pt !important;
+  // width: 50%;
+}
+
+.vertical-timeline-content {
   background-color: #646262;
 }
 
@@ -121,6 +125,9 @@ a {
   margin-right: auto;
 }
 
+table,
+.file-manager,
+.folder-list,
 .ibox-title,
 .media-body,
 .social-body,
@@ -132,19 +139,76 @@ a {
 small,
 h2,
 h3,
-p{
-  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+p {
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
-p{
+.mail-box-header,
+tbody {
+  border-style: none !important;
+}
+
+.mail-box {
+  font-size: 8pt !important;
+  background-color: inherit;
+  border-style: none;
+  border-top-style: none;
+}
+
+td {
+  border-color: gray !important;
+}
+
+.unread td {
+  background-color: #4b4949;
+}
+
+.unread:hover td {
+  background-color: #292828 !important;
+  color: white !important;
+}
+
+.read {
+  color: inherit !important;
+  background-color: rgb(53, 52, 52) !important;
+}
+
+.read:hover td {
+  // color: inherit !important;
+  background-color: #080808 !important;
+}
+
+.folder-list li a {
+  color: #adacac;
+}
+
+.folder-list li .fa {
+  color: #adacac;
+}
+
+.category-list,
+.folder-list li {
+  border-color: gray;
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 8pt !important;
+}
+
+.mailbox-content .tag-list li a {
+  background: rgb(88, 88, 88);
+  border-style: none;
+}
+
+
+
+p {
   font-size: 10pt;
 }
 
-.breadcrumb-item{
+.breadcrumb-item {
   font-size: 8pt;
 }
 
-.btn-link h2{
+.btn-link h2 {
   font-weight: 100;
 }
 
@@ -153,12 +217,12 @@ p{
   border-top: 1px solid #646262 !important;
 }
 
-.date .fa{
+.date .fa {
   background-color: rgb(73, 73, 73) !important;
-  border-color:  rgb(73, 73, 73) !important;
+  border-color: rgb(73, 73, 73) !important;
 }
 
-.col:hover{
+.col:hover {
   background-color: rgb(73, 73, 73) !important;
 }
 
@@ -169,3 +233,8 @@ p{
 .elements-list .list-group-item:hover {
   background-color: rgb(73, 73, 73);
 }
+
+.product-price {
+  background-color: #e91d63;
+}
+
