@@ -10,11 +10,11 @@
     >
       <nb-icon [icon]="(materialTheme$ | async) ? 'menu-outline' : 'menu-2-outline'"></nb-icon>
     </a>
-    <a *ngIf="gc.getMode().logoMode === 0" class="logo" href="#" (click)="navigateHome()">ngx-<span>admin</span></a>
-    <div *ngIf="gc.getMode().logoMode === 1"><div class="app-logo"></div></div>
+    <a *ngIf="svGc.getMode().logoMode === 0" class="logo" href="#" (click)="navigateHome()">ngx-<span>admin</span></a>
+    <div *ngIf="svGc.getMode().logoMode === 1"><div class="app-logo"></div></div>
     
   </div>
-  <div *ngIf="gc.getMode().changableTheme">
+  <div *ngIf="svGc.getMode().changableTheme">
     <nb-select id="selTheme" [(ngModel)]="selectedItemNgModel" status="primary" matRipple [selected]="currentTheme"
       (selectedChange)="changeTheme($event)">
       <nb-option *ngFor="let theme of themes" [value]="theme.value" matRipple>{{ theme.name }}</nb-option>

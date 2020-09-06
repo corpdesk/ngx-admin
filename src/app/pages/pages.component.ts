@@ -834,4 +834,8 @@ export class PagesComponent implements OnInit {
     // return this.menu;
   }
 
+  workAreaIsClicked(){
+    console.log('workAreaIsClicked()');
+  }
+
 }

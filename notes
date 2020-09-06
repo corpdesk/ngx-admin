@@ -64,11 +64,15 @@ ng g module cd-pub --routing
 font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 <div class="d-none d-lg-block">hide on screens smaller than lg</div>
 .d-sm-none .d-md-block -> hide on small screens
+git push origin feat/material-theme --no-verify
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
-
+- click main pane to shrink the menu
+    - get class of element <nb-sidebar>
+    - check if expanded is active
+    - create guig/SideBarService
 
 - clear empty padding at the top
     - try by css
