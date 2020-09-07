@@ -71,6 +71,7 @@ git push origin feat/material-theme --no-verify
 ToDo:
 - on registration, create user folder name by user-guid
 - register
+
 - gui menu manager
 - load menu from back end
 - click main pane to shrink the menu
@@ -199,6 +200,11 @@ ToDo:
     - https://themeforest.net/item/fuse-angularjs-material-design-admin-template/12931855?irgwc=1&clickid=XWAyn7ygAxyOU9CwUx0Mo3EWUkiQHnw61Xs9Qk0&iradid=275988&irpid=1257954&iradtype=ONLINE_TRACKING_LINK&irmptype=mediapartner&mp_value1=&utm_campaign=af_impact_radius_1257954&utm_medium=affiliate&utm_source=impact_radius
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
+
+
+07/09/2020
+- fetch images based on user_guid directory
+- on login, use data from backend
 
 07/09/2020
 - navigate to Login/Register/Logout/Profile via user icon
