@@ -3,7 +3,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ServerService } from '../../../@cd/sys/moduleman/controller/server.service';
 import { SessService } from '../../../@cd/sys/user/controllers/sess.service';
+import { UserService } from '../../../@cd/sys/user/controllers/user.service';
 import { FormsService } from '../../../@cd/guig/forms.service';
+import { NavService } from '../../../@cd/guig/nav.service';
 import { LoginModel } from '../../../@cd/sys/user/models/user-model';
 import { environment } from '../../../../environments/environment';
 
@@ -23,6 +25,8 @@ export class LoginComponent
 
   constructor(private svServer: ServerService,
     private svSess: SessService,
+    private svUser: UserService,
+    private svNav: NavService,
     private route: Router,
   ) {
     this.fg = new FormGroup({
@@ -65,8 +69,14 @@ export class LoginComponent
         */
         if (this.postData.a === 'Login' && res.app_state.sess.cd_token !== null) {
           this.svSess.createSess(res);
+          this.svUser.currentUser = { name: 'Maureen Njoroge', picture: 'assets/cd/inspinia/img/a3.jpg' };
+          this.svNav.userMenu = [
+            { title: 'Profile' },
+            { title: 'Log out' }
+          ];
+          this.route.navigate(['/pages/dashboard']);
         }
-        this.route.navigate(['/pages/dashboard']);
+        
 
       } else {
         this.errMsg = "The username and password were not valid"

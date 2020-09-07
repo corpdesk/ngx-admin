@@ -7,8 +7,11 @@ import { map, takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { RippleService } from '../../../@core/utils/ripple.service';
 
+import { SessService } from '../../../@cd/sys/user/controllers/sess.service';
+import { UserService } from '../../../@cd/sys/user/controllers/user.service';
 import { GuigContextService } from '../../../@cd/guig/guig-context';
 import { SideBarService } from '../../../@cd/guig/side-bar.service';
+import { NavService } from '../../../@cd/guig/nav.service';
 
 @Component({
   selector: 'ngx-header',
@@ -51,7 +54,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   currentTheme = 'default';
 
-  userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
+  // userMenu = [];
 
   mode;
 
@@ -64,8 +67,12 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     private breakpointService: NbMediaBreakpointsService,
     private rippleService: RippleService,
     public svGc: GuigContextService,
-    private svSideBar: SideBarService
+    private svSideBar: SideBarService,
+    private svNav: NavService,
+    private svSess: SessService,
+    private svUser: UserService,
   ) {
+    // this.userMenu = svNav.userMenu;
     this.materialTheme$ = this.themeService.onThemeChange()
       .pipe(map(theme => {
         const themeName: string = theme?.name || '';
@@ -78,7 +85,16 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.userService.getUsers()
       .pipe(takeUntil(this.destroy$))
-      .subscribe((users: any) => this.user = users.nick);
+      .subscribe((users: any) => 
+      {
+        // this.user = users.anon;
+        this.user = this.svUser.currentUser;
+        console.log('svUser.userData', this.svUser.userData);
+      });
+
+    this.menuService.onItemClick().subscribe((event) => {
+      this.onItemSelection(event.item.title);
+    })
 
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()
@@ -127,6 +143,33 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   navigateHome() {
     this.menuService.navigateHome();
     return false;
+  }
+
+  onItemSelection(e) {
+    console.log('starting onItemSelection(e)');
+    console.log('menuEvant:', e);
+
+    switch (e) {
+      case 'Profile':
+        this.svNav.nav('/pages/my-account/personal-data');
+        break;
+      case 'Login':
+        this.svNav.nav('/pages/cd-auth/login');
+        break;
+      case 'Register':
+        this.svNav.nav('/pages/cd-auth/register');
+        break;
+      case 'Log out':
+        this.svSess.logout();
+        // this.svNav.nav('/pages/home/news-feed');
+        this.svNav.userMenu = [
+          { title: 'Login' },
+          { title: 'Register' }
+        ];
+        this.navigateHome();
+        break;
+    }
+
   }
 
 }

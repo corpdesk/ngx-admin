@@ -69,6 +69,10 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
+- on registration, create user folder name by user-guid
+- register
+- gui menu manager
+- load menu from back end
 - click main pane to shrink the menu
     - get class of element <nb-sidebar>
     - check if expanded is active
@@ -82,14 +86,6 @@ ToDo:
 - 
 - develop dynamic favicon
 - set up consumable header with automated responsive css setting
-- initial presentation fixes
-    - init loading to 'home'
-    - change user names and pix
-    - carousel not loading pix
-    - logo not loading
-    - clear home/products page
-    - remove calendar and leave planner
-    - put all text in the context of given page
 
 - replace:
     - ../../../../assets/cd/inspinia_admin-v2.9.3/css/style.css
@@ -203,6 +199,10 @@ ToDo:
     - https://themeforest.net/item/fuse-angularjs-material-design-admin-template/12931855?irgwc=1&clickid=XWAyn7ygAxyOU9CwUx0Mo3EWUkiQHnw61Xs9Qk0&iradid=275988&irpid=1257954&iradtype=ONLINE_TRACKING_LINK&irmptype=mediapartner&mp_value1=&utm_campaign=af_impact_radius_1257954&utm_medium=affiliate&utm_source=impact_radius
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
+
+07/09/2020
+- navigate to Login/Register/Logout/Profile via user icon
+- on login change user icon
 
 04/09/2020
 - filter submenu

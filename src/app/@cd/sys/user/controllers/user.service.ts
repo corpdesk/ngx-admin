@@ -53,11 +53,12 @@ interface UserData {
 export class UserService {
   private postData;
 
-  userData: User[];
-  userName;
-  fullName;
-  contacts;
-  allUsers;
+  userData: User[] = [];
+  userName = "";
+  fullName = "";
+  contacts = [];
+  allUsers = [];
+  currentUser = { name: 'Login/Register', picture: 'assets/cd/branding/coop/avatarCircle.svg' };
 
   constructor(
     private svAppState: AppStateService,
@@ -240,7 +241,6 @@ export class UserService {
 
   getConsumerUsers() {
     // console.log(data);
-
   }
 
   
