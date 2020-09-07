@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   public readonly materialTheme$: Observable<boolean>;
   userPictureOnly: boolean = false;
-  user: any;
+  // user: any;
 
   themes = [
     {
@@ -88,12 +88,12 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((users: any) => 
       {
         // this.user = users.anon;
-        this.user = this.svUser.currentUser;
+        // this.user = this.svUser.currentUser;
         console.log('svUser.userData', this.svUser.userData);
       });
 
     this.menuService.onItemClick().subscribe((event) => {
-      this.onItemSelection(event.item.title);
+      this.onItemSelection(event.item);
     })
 
     const { xl } = this.breakpointService.getBreakpointsMap();
@@ -145,11 +145,12 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     return false;
   }
 
-  onItemSelection(e) {
+  onItemSelection(menuItem) {
     console.log('starting onItemSelection(e)');
-    console.log('menuEvant:', e);
+    console.log('menuEvent:', menuItem);
+    this.svNav.currentMenuItem = menuItem;
 
-    switch (e) {
+    switch (menuItem.title) {
       case 'Profile':
         this.svNav.nav('/pages/my-account/personal-data');
         break;
@@ -162,6 +163,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       case 'Log out':
         this.svSess.logout();
         // this.svNav.nav('/pages/home/news-feed');
+        this.svUser.currentUser = { name: 'Login/Register', picture: 'assets/cd/branding/coop/avatarCircle.svg' };
         this.svNav.userMenu = [
           { title: 'Login' },
           { title: 'Register' }

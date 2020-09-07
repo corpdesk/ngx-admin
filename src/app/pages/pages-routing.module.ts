@@ -1,20 +1,16 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { AuthGuardService } from '../pages/cd-auth/auth-guard.service';
 
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ECommerceComponent } from './e-commerce/e-commerce.component';
-import { NewsFeedComponent } from './home/news-feed/news-feed.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
   children: [
-    // {
-    //   path: 'home',
-    //   component: NewsFeedComponent,
-    // },
     {
       path: 'home',
       loadChildren: () => import('./home/home.module')
@@ -36,10 +32,12 @@ const routes: Routes = [{
     {
       path: 'dashboard',
       component: ECommerceComponent,
+      canActivate: [ AuthGuardService ],
     },
     {
       path: 'iot-dashboard',
       component: DashboardComponent,
+      canActivate: [ AuthGuardService ],
     },
     {
       path: 'cd-auth',

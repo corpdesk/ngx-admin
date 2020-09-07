@@ -69,6 +69,7 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
+- on logout load anon avatar
 - on registration, create user folder name by user-guid
 - register
 
@@ -201,6 +202,11 @@ ToDo:
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
 
+07/09/2020
+- create nav::manuContext: {module,controller} that can be used to do acl via auth-guard
+- refine guard logics
+- gurad all the necessary components
+- change user menu between login and logout
 
 07/09/2020
 - fetch images based on user_guid directory
@@ -227,6 +233,7 @@ ToDo:
 - about page
 - set up inspinia folder
 - replace pix and names for accosca
+
 
 
 30/08/2020

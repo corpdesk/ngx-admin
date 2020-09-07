@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardService } from '../cd-auth/auth-guard.service';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProjectsComponent } from './projects/projects.component';
@@ -16,22 +17,27 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'projects',
         component: ProjectsComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'gantt',
         component: GanttComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'scheduler',
         component: SchedulerComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'activity',
         component: ActivityComponent,
+        canActivate: [ AuthGuardService ],
       }
     ]
   },

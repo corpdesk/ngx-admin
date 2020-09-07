@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardService } from '../cd-auth/auth-guard.service';
 
 import { ExtraComponentsComponent } from './extra-components.component';
 import { AlertComponent } from './alert/alert.component';
@@ -12,30 +13,37 @@ import { CalendarKitFullCalendarShowcaseComponent } from './calendar-kit/calenda
 const routes: Routes = [{
   path: '',
   component: ExtraComponentsComponent,
+  canActivate: [ AuthGuardService ],
   children: [
     {
       path: 'calendar',
       component: CalendarComponent,
+      canActivate: [ AuthGuardService ],
     },
     {
       path: 'progress-bar',
       component: ProgressBarComponent,
+      canActivate: [ AuthGuardService ],
     },
     {
       path: 'spinner',
       component: SpinnerComponent,
+      canActivate: [ AuthGuardService ],
     },
     {
       path: 'alert',
       component: AlertComponent,
+      canActivate: [ AuthGuardService ],
     },
     {
       path: 'calendar-kit',
       component: CalendarKitFullCalendarShowcaseComponent,
+      canActivate: [ AuthGuardService ],
     },
     {
       path: 'chat',
       component: ChatComponent,
+      canActivate: [ AuthGuardService ],
     },
   ],
 }];

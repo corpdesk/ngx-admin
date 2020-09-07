@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardService } from '../cd-auth/auth-guard.service';
 
 import { AccountsComponent } from './accounts/accounts.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -39,121 +40,151 @@ const routes: Routes = [
   {
     path: '',
     component: AcctsComponent,
+    canActivate: [ AuthGuardService ],
     children: [
       {
         path: 'dashboard',
         component: DashboardComponent,
+        canActivate: [ AuthGuardService ],
       },{
         path: 'accounts',
         component: AccountsComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'bank',
         component: BankComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'budget',
         component: BudgetComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'trail',
         component: TrailComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'activity',
         component: ActivityComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'hrm',
         component: HrmComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'payment',
         component: PaymentComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'accts',
         component: AcctsComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'deductions',
         component: DeductionsComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'grades',
         component: GradesComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'coa',
         component: CoaComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'currency',
         component: CurrencyComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'delivery',
         component: DeliveryComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'ext-invoice',
         component: ExtInvoiceComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'ext-quote',
         component: ExtQuoteComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'int-quote',
         component: IntQuoteComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'int-invoice',
         component: IntInvoiceComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'inventory',
         component: InventoryComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'payroll',
         component: PayrollComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'procurement',
         component: ProcurementComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'report',
         component: ReportComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'requisition',
         component: RequisitionComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'sale',
         component: SaleComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'product',
         component: ProductComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'service',
         component: ServiceComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'store',
         component: StoreComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'tax',
         component: TaxComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'transact',
         component: TransactComponent,
+        canActivate: [ AuthGuardService ],
       }
     ]
   },

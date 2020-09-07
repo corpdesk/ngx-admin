@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardService } from '../cd-auth/auth-guard.service';
 
 import { MapsComponent } from './maps.component';
 import { GmapsComponent } from './gmaps/gmaps.component';
@@ -12,18 +13,23 @@ import { SearchComponent } from './search-map/search/search.component';
 const routes: Routes = [{
   path: '',
   component: MapsComponent,
+  canActivate: [ AuthGuardService ],
   children: [{
     path: 'gmaps',
     component: GmapsComponent,
+    canActivate: [ AuthGuardService ],
   }, {
     path: 'leaflet',
     component: LeafletComponent,
+    canActivate: [ AuthGuardService ],
   }, {
     path: 'bubble',
     component: BubbleMapComponent,
+    canActivate: [ AuthGuardService ],
   }, {
     path: 'searchmap',
     component: SearchMapComponent,
+    canActivate: [ AuthGuardService ],
   }],
 }];
 

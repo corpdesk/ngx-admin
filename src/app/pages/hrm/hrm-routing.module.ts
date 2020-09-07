@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardService } from '../cd-auth/auth-guard.service';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DesignationComponent } from './designation/designation.component';
@@ -17,46 +18,57 @@ const routes: Routes = [
   {
     path: '',
     component: HrmComponent,
+    canActivate: [ AuthGuardService ],
     children: [
       {
         path: 'dashboard',
         component: DashboardComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'designation',
         component: DesignationComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'organogram',
         component: OrganogramComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'grade',
         component: GradeComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'recruit',
         component: RecruitComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'staff',
         component: StaffComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'capacity-building',
         component: CapacityBuildingComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'accts',
         component: AcctsComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'payments',
         component: PaymentsComponent,
+        canActivate: [ AuthGuardService ],
       },
       {
         path: 'deduction',
         component: DeductionComponent,
+        canActivate: [ AuthGuardService ],
       }
     ]
   },
