@@ -125,6 +125,7 @@ a {
   margin-right: auto;
 }
 
+.todo-list.small-list > li,
 table,
 .file-manager,
 .folder-list,
@@ -241,5 +242,10 @@ p {
 .product-imitation {
   background-color: #505052;
   color: #bebec3;
+}
+
+.todo-list.small-list > li {
+  background: rgb(44, 44, 44) !important;
+  font-size: 8pt;
 }
 

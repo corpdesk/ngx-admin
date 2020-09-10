@@ -7,7 +7,8 @@ import * as moment from 'moment';
 // import {environment} from '../../environments/environment';
 import { ServerService } from '../../moduleman/controller/server.service';
 import { AppStateService } from '../../moduleman/controller/app-state.service';
-// import { UserService } from './user.service';
+// import { UserService } from '../../../../@core/mock/users.service';
+import { UserService } from './user.service';
 
 interface Menu {
   items: any;
@@ -43,10 +44,12 @@ export class SessService {
   /*
   Every time successfull response come from server,
   it needs to update the client session to extend the Expiration time
+  NB: svUseris not injected here but input as an argument
+  ...otherwise cyclic error will be thrown
   */
-  createSess(res) {
+  createSess(res,svUser: UserService) {
     this.setSess(res);
-    // this.svUser.getUserData(res);
+    svUser.getUserData(res);
     this.token = res.app_state.sess.cd_token;
     this.svServer.token = res.app_state.sess.cd_token;
     this.isActive = true;

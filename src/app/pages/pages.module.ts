@@ -1,6 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NbMenuModule } from '@nebular/theme';
 import { FormsModule } from '@angular/forms';
+import { NgMaterialMultilevelMenuModule } from 'ng-material-multilevel-menu';
 
 import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
@@ -14,6 +15,7 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
     FormsModule,
     PagesRoutingModule,
     ThemeModule,
+    NgMaterialMultilevelMenuModule,
     NbMenuModule,
     DashboardModule,
     ECommerceModule,

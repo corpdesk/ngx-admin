@@ -6,27 +6,30 @@ import { Router } from '@angular/router';
 })
 export class NavService {
   userMenu = [
-    { title: 'Login' },
-    { title: 'Register' }
+    { title: 'Login', link: '/pages/cd-auth/login' },
+    { title: 'Register', link: '/pages/cd-auth/register' }
   ];
-  currentMenuItem = {};
+  currentMenuItem = {
+    title: "",
+    link: ""
+  };
   menuContext = {};
   constructor(private rout: Router) { }
 
-  nav(path){
+  nav(path) {
     this.rout.navigateByUrl(path);
   }
 
   /**
    * deduce the module and controller from path
    */
-  navModule(){
-    const items = this.currentMenuItem['link'].substring(1); // remove the preceeding '/'
+  navModule() {
+    const items = this.currentMenuItem.link.substring(1); // remove the preceeding '/'
     const itemArr = items.split('/');
     console.log(itemArr);
     this.menuContext = {
-      m:itemArr[1],
-      c:itemArr[2]
+      m: itemArr[1],
+      c: itemArr[2]
     }
   };
 }

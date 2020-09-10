@@ -30,6 +30,12 @@ const routes: Routes = [{
     }
     ,
     {
+      path: 'moduleman',
+      loadChildren: () => import('./moduleman/moduleman.module')
+        .then(m => m.ModulemanModule),
+    }
+    ,
+    {
       path: 'dashboard',
       component: ECommerceComponent,
       canActivate: [ AuthGuardService ],

@@ -69,10 +69,31 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
+- consider multy-level menu
+    - https://plugins.codershood.info/#/plugins/ngmm-plugin
+    - https://stackoverflow.com/questions/45951341/cant-toggle-navbar-in-bootstrap-4-in-angular/58995299#58995299
+    - https://medium.com/@Carmichaelize/detecting-router-changes-with-angular-2-2f8c019788c3
+- initiate moduleman module
+    components:
+    - module
+    - menu
+    - company
+    - consumer
+    - dashboard
+    - observ
+- develop modulement/menu component
 - on logout load anon avatar
 - on registration, create user folder name by user-guid
 - register
-
+- work on back end to have configurable menu
+    - map keys
+    - filter fields
+    - filter fields by level
+    - develop gui for client to configure backend menu
+    
+- re-map menu keys to integrate back end and front end specs
+    - https://stackoverflow.com/questions/62530602/typescript-dynamically-add-property-in-nested-object
+- set all menu data to come from menu-service
 - gui menu manager
 - load menu from back end
 - click main pane to shrink the menu
@@ -201,6 +222,21 @@ ToDo:
     - https://themeforest.net/item/fuse-angularjs-material-design-admin-template/12931855?irgwc=1&clickid=XWAyn7ygAxyOU9CwUx0Mo3EWUkiQHnw61Xs9Qk0&iradid=275988&irpid=1257954&iradtype=ONLINE_TRACKING_LINK&irmptype=mediapartner&mp_value1=&utm_campaign=af_impact_radius_1257954&utm_medium=affiliate&utm_source=impact_radius
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
+    - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
+
+
+10/09/2020
+- initiate moduleman module
+    components:
+    - module
+    - menu
+    - company
+    - consumer
+    - dashboard
+    - observ
+- develop modulement/menu component
+- on logout load anon avatar
+- access avatar folder via http, to allow scalability
 
 07/09/2020
 - create nav::manuContext: {module,controller} that can be used to do acl via auth-guard

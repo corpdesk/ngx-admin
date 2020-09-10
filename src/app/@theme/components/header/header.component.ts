@@ -165,8 +165,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         // this.svNav.nav('/pages/home/news-feed');
         this.svUser.currentUser = { name: 'Login/Register', picture: 'assets/cd/branding/coop/avatarCircle.svg' };
         this.svNav.userMenu = [
-          { title: 'Login' },
-          { title: 'Register' }
+          { title: 'Login', link: '/pages/cd-auth/login' },
+          { title: 'Register', link: '/pages/cd-auth/register' }
         ];
         this.navigateHome();
         break;
