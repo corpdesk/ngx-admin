@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ModulemanRoutingModule } from './moduleman-routing.module';
+import { CdPaletteModule } from '../cd-palette/cd-palette.module'; 
 import { MenuComponent } from './menu/menu.component';
 import { ModulemanComponent } from './moduleman/moduleman.component';
 import { ModuleComponent } from './module/module.component';
@@ -68,6 +69,7 @@ const materialModules = [
     DashboardComponent],
   imports: [
     CommonModule,
+    CdPaletteModule,
     ModulemanRoutingModule,
     ThemeModule,
     NbInputModule,

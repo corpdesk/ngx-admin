@@ -73,16 +73,13 @@ ToDo:
     - https://plugins.codershood.info/#/plugins/ngmm-plugin
     - https://stackoverflow.com/questions/45951341/cant-toggle-navbar-in-bootstrap-4-in-angular/58995299#58995299
     - https://medium.com/@Carmichaelize/detecting-router-changes-with-angular-2-2f8c019788c3
-- initiate moduleman module
-    components:
-    - module
-    - menu
-    - company
-    - consumer
-    - dashboard
-    - observ
+
+
 - develop modulement/menu component
-- on logout load anon avatar
+    - use nebular grid-table
+    - view different menu sets
+    - view menu fields
+    - for each menu-config, drill into field for params
 - on registration, create user folder name by user-guid
 - register
 - work on back end to have configurable menu
@@ -224,6 +221,12 @@ ToDo:
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
 
+10/09/2020
+- develop consumable: tree-view:
+    - should be pure css
+    - check https://fribly.com/2016/02/24/pure-css-tree/
+    - create cd-pallete/fribly-tree
+- develop consumable: check-list
 
 10/09/2020
 - initiate moduleman module

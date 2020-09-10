@@ -39,6 +39,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
 import { ProfileAccordionComponent } from './profile-accordion/profile-accordion.component';
 import { ProfileTwitterComponent } from './profile-twitter/profile-twitter.component';
+import { FriblyTreeComponent } from './fribly-tree/fribly-tree.component';
+import { CheckListComponent } from './check-list/check-list.component';
 
 const materialModules = [
   MatExpansionModule,
@@ -60,7 +62,7 @@ const materialModules = [
     CarouselComponent, 
     ProfileCardComponent, 
     ProfileAccordionComponent, 
-    ProfileTwitterComponent
+    ProfileTwitterComponent, FriblyTreeComponent, CheckListComponent
   ],
   imports: [
     CommonModule,
@@ -86,7 +88,9 @@ const materialModules = [
     CarouselComponent, 
     ProfileCardComponent, 
     ProfileAccordionComponent,
-    ProfileTwitterComponent
+    ProfileTwitterComponent,
+    FriblyTreeComponent,
+    CheckListComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
