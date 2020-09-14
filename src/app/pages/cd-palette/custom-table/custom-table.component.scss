@@ -1,0 +1,21 @@
+@import '../../../../assets/cd/inspinia/css/style.css';
+@import '../../../../assets/cd/scss/modules/fonts';
+@import '../../../../assets/cd/scss/modules/inspiniaMatDark';
+
+:host {
+    display: block;
+  }
+  
+  .input-example {
+    display: block;
+    margin-top: 1rem;
+  
+    label, mat-radio-button {
+      margin-right: 1rem;
+    }
+  
+    textarea {
+      min-height: 3rem;
+    }
+  }
+  

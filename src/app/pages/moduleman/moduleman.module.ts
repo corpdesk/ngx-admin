@@ -13,6 +13,7 @@ import { SysConfigComponent } from './sys-config/sys-config.component';
 import { ObservComponent } from './observ/observ.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {
   NbActionsModule,
   NbButtonModule,
@@ -83,6 +84,7 @@ const materialModules = [
     NbSelectModule,
     NbIconModule,
     ngFormsModule,
+    Ng2SmartTableModule,
     ...materialModules,
   ]
 })

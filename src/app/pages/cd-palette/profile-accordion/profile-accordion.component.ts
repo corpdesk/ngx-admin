@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+// based on: https://codepen.io/raubaca/pen/PZzpVe
+
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ngx-profile-accordion',
@@ -10,12 +12,6 @@ export class ProfileAccordionComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  @ViewChild('item', { static: true }) accordion;
-
-  toggle() {
-    this.accordion.toggle();
   }
 
 }

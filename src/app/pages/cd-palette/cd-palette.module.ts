@@ -18,6 +18,7 @@ import {
   NbRadioModule,
   NbSelectModule,
   NbUserModule,
+  NbTreeGridModule,
 } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
@@ -41,6 +42,9 @@ import { ProfileAccordionComponent } from './profile-accordion/profile-accordion
 import { ProfileTwitterComponent } from './profile-twitter/profile-twitter.component';
 import { FriblyTreeComponent } from './fribly-tree/fribly-tree.component';
 import { CheckListComponent } from './check-list/check-list.component';
+import { TreeGridComponent, FsIconComponent } from './tree-grid/tree-grid.component';
+import { CustomTableComponent } from './custom-table/custom-table.component';
+import { CheckBoxComponent } from './check-box/check-box.component';
 
 const materialModules = [
   MatExpansionModule,
@@ -62,7 +66,7 @@ const materialModules = [
     CarouselComponent, 
     ProfileCardComponent, 
     ProfileAccordionComponent, 
-    ProfileTwitterComponent, FriblyTreeComponent, CheckListComponent
+    ProfileTwitterComponent, FriblyTreeComponent, CheckListComponent, TreeGridComponent,FsIconComponent, CustomTableComponent, CheckBoxComponent
   ],
   imports: [
     CommonModule,
@@ -82,15 +86,18 @@ const materialModules = [
     NbSelectModule,
     NbIconModule,
     ngFormsModule,
+    NbTreeGridModule,
     ...materialModules,
   ],
   exports:[
     CarouselComponent, 
-    ProfileCardComponent, 
+    ProfileCardComponent,
     ProfileAccordionComponent,
     ProfileTwitterComponent,
     FriblyTreeComponent,
-    CheckListComponent
+    CheckListComponent,
+    TreeGridComponent,
+    FsIconComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

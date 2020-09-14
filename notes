@@ -69,13 +69,32 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
+- custom elements:
+    - https://stackblitz.com/edit/angular-nnyzla?file=src%2Fapp%2Fcustom-button.component.ts
+    - https://stackoverflow.com/questions/55973500/new-component-inheriting-existing-html-element-angular
+- consider context menu:
+    - https://stackblitz.com/edit/ngx-contextmenu-example
+    - https://github.com/isaacplmann/ngx-contextmenu
 - consider multy-level menu
     - https://plugins.codershood.info/#/plugins/ngmm-plugin
     - https://stackoverflow.com/questions/45951341/cant-toggle-navbar-in-bootstrap-4-in-angular/58995299#58995299
     - https://medium.com/@Carmichaelize/detecting-router-changes-with-angular-2-2f8c019788c3
 
 
-- develop modulement/menu component
+- develop moduleman/menu component
+    - use custom table
+        - on edit click replace tr with editable controls
+        - add edit column
+        - add column types: 
+            edit (fa fa-edit),
+            delete,
+            text,
+            checkbox, 
+            number, 
+            pie chart, 
+            progress bar, 
+            bar chart
+
     - use nebular grid-table
     - view different menu sets
     - view menu fields
@@ -220,6 +239,13 @@ ToDo:
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
+
+14/09/2020
+- develop custom table for configuring menu
+    - use sample data from db to load table
+    - click edit icon to view editable row
+    - click save, examine collected data for update
+    - click go-back to view normal table
 
 10/09/2020
 - develop consumable: tree-view:

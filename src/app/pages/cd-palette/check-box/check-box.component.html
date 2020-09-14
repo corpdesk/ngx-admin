@@ -1,0 +1,10 @@
+
+
+<!-- start chec-box -->
+<!-- if cbValue == 0 -->
+<ng-container *ngIf="checked; else notChecked"><span (click)="setChecked(false)"><i class="fa fa-check-square"></i></span></ng-container>
+<!-- else diplay unchecked -->
+<ng-template #notChecked>
+    <span (click)="setChecked(true)"><i class="fa fa-square"></i></span>
+</ng-template>
+<!-- end check-box -->

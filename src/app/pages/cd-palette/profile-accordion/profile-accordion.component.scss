@@ -1,53 +1,94 @@
-@import '../../../@theme/styles/themes.scss';
-
-@include nb-install-component() {
-  .accordion-container:first-child {
-    margin-bottom: nb-theme(card-margin-bottom);
+$midnight: #2c3e50;
+$clouds: #ecf0f1;
+// General
+body {
+  color: $midnight;
+  background: $clouds;
+  padding: 0 1em 1em;
+}
+h1 {
+  margin: 0;
+  line-height: 2;
+  text-align: center;
+}
+h2 {
+  margin: 0 0 .5em;
+  font-weight: normal;
+}
+input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+// Layout
+.row {
+  display:flex;
+  .col {
+    flex:1;
+    &:last-child {
+      margin-left: 1em;
+    }
+  }
+}
+/* Accordion styles */
+.tabs {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 4px -2px rgba(0,0,0,0.5);
+}
+.tab {
+  width: 100%;
+  color: white;
+  overflow: hidden;
+  &-label {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    background: $midnight;
+    font-weight: bold;
+    cursor: pointer;
+    /* Icon */
+    &:hover {
+      background: darken($midnight, 10%);
+    }
+    &::after {
+      content: "\276F";
+      width: 1em;
+      height: 1em;
+      text-align: center;
+      transition: all .35s;
+    }
+  }
+  &-content {
+    max-height: 0;
+    padding: 0 1em;
+    color: $midnight;
+    background: rgb(44, 44, 44);
+    transition: all .35s;
+  }
+  &-close {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1em;
+    font-size: 0.75em;
+    background: $midnight;
+    cursor: pointer;
+    &:hover {
+      background: darken($midnight, 10%);
+    }
   }
 }
 
-/***********************************************/
-/***************** Accordion ********************/
-/***********************************************/
-@import url('https://fonts.googleapis.com/css?family=Tajawal');
-@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
-
-section{
-	padding: 60px 0;
-}
-
-#accordion-style-1 h1,
-#accordion-style-1 a{
-    color:#007b5e;
-}
-#accordion-style-1 .btn-link {
-    font-weight: 400;
-    color: #007b5e;
-    background-color: transparent;
-    text-decoration: none !important;
-    font-size: 16px;
-    font-weight: bold;
-	padding-left: 25px;
-}
-
-#accordion-style-1 .card-body {
-    border-top: 2px solid #007b5e;
-}
-
-#accordion-style-1 .card-header .btn.collapsed .fa.main{
-	display:none;
-}
-
-#accordion-style-1 .card-header .btn .fa.main{
-	background: #007b5e;
-    padding: 13px 11px;
-    color: #ffffff;
-    width: 35px;
-    height: 41px;
-    position: absolute;
-    left: -1px;
-    top: 10px;
-    border-top-right-radius: 7px;
-    border-bottom-right-radius: 7px;
-	display:block;
+// :checked
+input:checked {
+  + .tab-label {
+    background: darken($midnight, 10%);
+    &::after {
+      transform: rotate(90deg);
+    }
+  }
+  ~ .tab-content {
+    max-height: 100vh;
+    padding: 1em;
+  }
 }
