@@ -1,44 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 declare var $: any;
 
 @Component({
-  selector: 'ngx-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'ngx-alertify',
+  templateUrl: './alertify.component.html',
+  styleUrls: ['./alertify.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class AlertifyComponent implements OnInit {
 
   constructor() { }
 
   ngOnInit(): void {
-
-    $(document).ready(function () {
-      // $("#success").click(function () {
-      //   $(".notify").toggleClass("active");
-      //   $("#notifyType").toggleClass("success");
-
-      //   setTimeout(function () {
-      //     $(".notify").removeClass("active");
-      //     $("#notifyType").removeClass("success");
-      //   }, 2000);
-      // });
-
-      $("#failure").click(function () {
-        $(".notify").addClass("active");
-        $("#notifyType").addClass("failure");
-        $(".notify").css({ backgroundColor: 'rgba(252, 5, 5, 0.3)' });
-
-        setTimeout(function () {
-          $(".notify").removeClass("active");
-          $("#notifyType").removeClass("failure");
-        }, 2000);
-      });
-    });
-
   }
 
+  @Input()
   success() {
+    console.log('starting success()');
     // $(".notify").toggleClass("active");
     // $("#notifyType").toggleClass("success");
     const elemNotify = document.getElementsByClassName('notify');
@@ -65,4 +43,5 @@ export class DashboardComponent implements OnInit {
       $("#notifyType").removeClass("failure");
     }, 2000);
   }
+
 }

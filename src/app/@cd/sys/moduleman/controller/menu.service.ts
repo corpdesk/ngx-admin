@@ -59,11 +59,10 @@ interface CdMenu {
 })
 export class MenuService {
   private postData;
-  // currentModule = '';
   menuData = [];
   menuList = [];
-  // MenuModel
   successNewMenu = false;
+  menuConfigData;
   constructor(
     private svServer: ServerService,
     private svSess: SessService,
@@ -206,6 +205,97 @@ export class MenuService {
     console.log(data);
     this.menuList = data;
   }
+
+  getMenuConfig() {
+    console.log('starting MenuService::getMenuConfig()');
+    this.setMenuConfigDataPost();
+    this.svServer.proc(this.postData)
+      .subscribe((res) => {
+        console.log(res);
+        this.setMenuConfigData(res);
+      });
+
+  }
+
+  setMenuConfigDataPost() {
+    console.log('starting MenuService::setMenuConfigDataPost()');
+    this.postData = {
+      ctx: 'Sys',
+      m: 'Moduleman',
+      c: 'MenuConfigController',
+      a: 'actionGet',
+      dat: {
+        f_vals: [
+          {
+            data: {
+              client_app_id: 2
+            }
+          }
+        ],
+        token: this.svSess.token
+      },
+      args: null
+    }
+  }
+
+  setMenuConfigData(res) {
+    console.log('starting MenuService::setMenuConfigData(res)');
+    console.log(res);
+    this.menuConfigData = res.data;
+  }
+
+  updateMenuConfig(updateData) {
+    console.log('starting MenuService::updateMenuConfig()');
+    console.log('updateData:', updateData);
+    this.updateMenuConfigDataPost(updateData);
+    this.svServer.proc(this.postData)
+      .subscribe((res) => {
+        console.log(res);
+        this.respUpdateMenuConfig(res);
+      });
+
+  }
+
+  /**
+   * 
+   * @param updateData: {
+              alias: "menuOrderX",
+              active: "0"
+            }
+   */
+  updateMenuConfigDataPost(updateData) {
+    console.log('starting MenuService::updateMenuConfigDataPost()');
+    this.postData = {
+      ctx: 'Sys',
+      m: 'Moduleman',
+      c: 'MenuConfigController',
+      a: 'actionUpdate',
+      dat: {
+        f_vals: [
+          {
+            filter: [
+              {
+                field: 'menu_config_id',
+                operator: '=',
+                val: '129'
+              }
+            ],
+            data: updateData
+          }
+        ],
+        token: "mT6blaIfqWhzNXQLG8ksVbc1VodSxRZ8lu5cMgda"
+      },
+      args: null
+    }
+  }
+
+  respUpdateMenuConfig(res) {
+    console.log('starting MenuService::respUpdateMenuConfig(res)');
+    console.log(res);
+    this.getMenuConfig();
+  }
+
+
 
   /**
    * 
@@ -985,7 +1075,7 @@ export class MenuService {
         link: '/pages/iot-dashboard',
         enabled: false,
       },
-      
+
       {
         title: 'Layout',
         icon: 'layout-outline',
@@ -2556,7 +2646,7 @@ export class MenuService {
     ];
   }
 
-  menuConfig(){
+  menuConfig() {
     return [{
       id: 1,
       fieldName: 'Mark',

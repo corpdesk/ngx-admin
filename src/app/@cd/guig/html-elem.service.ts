@@ -11,8 +11,10 @@ export class HtmlElemService {
     if(this.isMat(control)){
       if(control.classList.contains('mat-checkbox-checked')){
         console.log('isChecked:', 'true');
+        return true;
       } else {
         console.log('isChecked:', 'false');
+        return false;
       }
     }else {
       console.log('cannot determine checkbox type')

@@ -69,6 +69,13 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
+- angular toaster:
+    - https://www.npmjs.com/package/angular-notifier
+        - https://github.com/dominique-mueller/angular-notifier
+    - https://www.npmjs.com/package/ngx-toastr
+- angularize tosters:
+    - use moduleman/dashboard page
+        - https://speckyboy.com/css-js-notification-alert-code/
 - custom elements:
     - https://stackblitz.com/edit/angular-nnyzla?file=src%2Fapp%2Fcustom-button.component.ts
     - https://stackoverflow.com/questions/55973500/new-component-inheriting-existing-html-element-angular
@@ -82,9 +89,17 @@ ToDo:
 
 
 - develop moduleman/menu component
+    - pull down login
+    - on login after guard-block, navigation should continue to the intended page
+    - activate notification
+        - notify with response state from server on update
+        - 
+    - update data
+    - pull menu config data from db
     - use custom table
         - on edit click replace tr with editable controls
         - add edit column
+        - hide/show column
         - add column types: 
             edit (fa fa-edit),
             delete,
@@ -239,6 +254,10 @@ ToDo:
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
+
+16/09/2020
+- adopted angular-notifier:
+    - https://www.npmjs.com/package/angular-notifier
 
 14/09/2020
 - develop custom table for configuring menu

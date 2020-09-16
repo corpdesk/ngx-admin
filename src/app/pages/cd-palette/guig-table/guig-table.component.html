@@ -1,3 +1,4 @@
+<notifier-container></notifier-container>
 <table class="table table-striped">
     <thead>
         <tr >
@@ -7,11 +8,10 @@
     
 </ng-container>
 </tr>
-        
 
     </thead>
     <tbody>
-        <ng-container *ngFor="let menuField of MenuConfigData">
+        <ng-container *ngFor="let menuField of svMenu.menuConfigData">
             <tr id="{{menuField.menu_config_id}}">
 
 
@@ -39,7 +39,7 @@
 
                 <!-- start editable alias -->
                 <!-- if it is to edit, display text input -->
-                <td *ngIf="toEdit(menuField.menu_config_id); else displayNormal"><input id="{{'alias_' + menuField.menu_config_id}}" type="text" nbInput placeholder="{{menuField.alias}}"></td>
+                <td *ngIf="toEdit(menuField.menu_config_id); else displayNormal"><input id="{{'alias_' + menuField.menu_config_id}}" type="text" value="{{menuField.alias}}" nbInput placeholder="{{menuField.alias}}"></td>
                 <!-- else diplay non-editable data -->
                 <ng-template #displayNormal>
                     <td>{{menuField.alias}}</td>
@@ -48,14 +48,11 @@
 
                 <!-- <td>{{menuField.alias}}</td> -->
                 <td>
-                    <mat-checkbox disabled="true" color="primary" [checked]="false"></mat-checkbox>
+                    <mat-checkbox disabled="true" color="primary" [checked]="menuField.isCustom"></mat-checkbox>
                 </td>
                 <td>
-                    <mat-checkbox id="{{'active_' + menuField.menu_config_id}}" [disabled]="!toEdit(menuField.menu_config_id)" color="primary" [checked]="true"></mat-checkbox>
+                    <mat-checkbox id="{{'active_' + menuField.menu_config_id}}" [disabled]="!toEdit(menuField.menu_config_id)" color="primary" [checked]="menuField.active"></mat-checkbox>
                 </td>
-
-
-
 
             </tr>
         </ng-container>

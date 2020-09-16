@@ -1,15 +1,13 @@
-
-
-.button {
-  float: left;
-  width: 200px;
-  padding: 20px 30px;
-  margin: 30px;
-  text-align: center;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background .5s;
-}
+// .button {
+//   float: left;
+//   width: 200px;
+//   padding: 20px 30px;
+//   margin: 30px;
+//   text-align: center;
+//   font-weight: bold;
+//   cursor: pointer;
+//   transition: background .5s;
+// }
 
 #success {
   background: #03a679;
@@ -52,10 +50,10 @@
   Content: "Oh no! Something didn't go as planned :(";
 }
 
-.succeed{
+.succeed {
   background-color: rgba(26, 252, 5, 0.1);
 }
 
-.fail{
+.fail {
   background-color: rgba(252, 5, 5, 0.3);
 }
