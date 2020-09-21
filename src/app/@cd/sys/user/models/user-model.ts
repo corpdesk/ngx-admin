@@ -1,11 +1,46 @@
 
+export interface UserData {
+    acoid: any;
+    calnd_summ: Array<any>;
+    contacts: Array<any>;
+    memo_summ: Array<any>;
+    menu_data: Array<any>;
+    notif_data: Array<any>;
+    notif_summ: Array<any>;
+    user_data: Array<any>;
+}
+
+
+
 export interface User {
-    user_id?: number;
-    user_guid?: string;
-    username: string;
-    email: string;
-    password: string;
-    mobile?: string;
+    user_id?: any;
+    user_guid?: any;
+    username?: any;
+    password?: any;
+    email?: any;
+    co_id?: any;
+    doc_id?: any;
+    mobile?: any;
+    gender?: any;
+    dateobirth?: any;
+    postal_addr?: any;
+    fname?: any;
+    mname?: any;
+    lname?: any;
+    national_id?: any;
+    passport_id?: any;
+    Trusted?: any;
+    ZipCode?: any;
+    ActivationKey?: any;
+    ProfessionID?: any;
+    avatar?: any;
+    theme_id?: any;
+    signature_id?: any;
+    timezone_id?: any;
+    lang_id?: any;
+    designation_id?: any;
+    company_id?: any;
+    user_type_id?: any;
 }
 
 export class mUser {

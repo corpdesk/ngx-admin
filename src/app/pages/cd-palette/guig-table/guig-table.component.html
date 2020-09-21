@@ -1,61 +1,63 @@
 <notifier-container></notifier-container>
-<table class="table table-striped">
-    <thead>
-        <tr >
-<ng-container *ngFor="let col of colConfig.columns">
+<div class="row">
+    <table class="table table-striped">
+        <thead>
+            <tr >
+    <ng-container *ngFor="let col of colConfig.columns">
+        
+            <th>{{col.name}}</th>
+        
+    </ng-container>
+    </tr>
     
-        <th>{{col.name}}</th>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let menuField of svMenu.menuConfigData[currentConfigId]">
+                <tr id="{{menuField.menu_config_id}}">
     
-</ng-container>
-</tr>
-
-    </thead>
-    <tbody>
-        <ng-container *ngFor="let menuField of svMenu.menuConfigData">
-            <tr id="{{menuField.menu_config_id}}">
-
-
-                <!-- start edit/save mode -->
-                <!-- display save icon  -->
-                <td *ngIf="toEdit(menuField.menu_config_id); else displayEditIcon"><span (click)="save(menuField.menu_config_id)"><i class="fa fa-save text-navy"></i></span></td>
-                <!-- else diplay edit icon -->
-                <ng-template #displayEditIcon>
-                    <td><span (click)="rowClick(menuField.menu_config_id)"><i class="fa fa-edit text-navy"></i></span></td>
-                </ng-template>
-                <!-- end edit/save mode -->
-
-                <!-- start trash/go-back mode -->
-                <!-- display go-back icon  -->
-                <td *ngIf="toEdit(menuField.menu_config_id); else displayTrashIcon"><span (click)="goBack(menuField.menu_config_id)"><i class="fa fa-arrow-left text-navy"></i></span></td>
-                <!-- else diplay trash icon -->
-                <ng-template #displayTrashIcon>
-                    <td><span (click)="trash(menuField.menu_config_id)"><i class="fa fa-trash-alt text-navy"></i></span></td>
-                </ng-template>
-                <!-- end edit/save mode -->
-
-
-                <td>{{menuField.menu_config_id}}</td>
-                <td>{{menuField.f_name}}</td>
-
-                <!-- start editable alias -->
-                <!-- if it is to edit, display text input -->
-                <td *ngIf="toEdit(menuField.menu_config_id); else displayNormal"><input id="{{'alias_' + menuField.menu_config_id}}" type="text" value="{{menuField.alias}}" nbInput placeholder="{{menuField.alias}}"></td>
-                <!-- else diplay non-editable data -->
-                <ng-template #displayNormal>
-                    <td>{{menuField.alias}}</td>
-                </ng-template>
-                <!-- end editable alias -->
-
-                <!-- <td>{{menuField.alias}}</td> -->
-                <td>
-                    <mat-checkbox disabled="true" color="primary" [checked]="menuField.isCustom"></mat-checkbox>
-                </td>
-                <td>
-                    <mat-checkbox id="{{'active_' + menuField.menu_config_id}}" [disabled]="!toEdit(menuField.menu_config_id)" color="primary" [checked]="menuField.active"></mat-checkbox>
-                </td>
-
-            </tr>
-        </ng-container>
-
-    </tbody>
-</table>
+    
+                    <!-- start edit/save mode -->
+                    <!-- display save icon  -->
+                    <td *ngIf="toEdit(menuField.menu_config_id); else displayEditIcon"><span (click)="save(menuField.menu_config_id,currentConfigId)"><i class="fa fa-save text-navy"></i></span></td>
+                    <!-- else diplay edit icon -->
+                    <ng-template #displayEditIcon>
+                        <td><span (click)="rowClick(menuField.menu_config_id)"><i class="fa fa-edit text-navy"></i></span></td>
+                    </ng-template>
+                    <!-- end edit/save mode -->
+    
+                    <!-- start trash/go-back mode -->
+                    <!-- display go-back icon  -->
+                    <td *ngIf="toEdit(menuField.menu_config_id); else displayTrashIcon"><span (click)="goBack(menuField.menu_config_id)"><i class="fa fa-arrow-left text-navy"></i></span></td>
+                    <!-- else diplay trash icon -->
+                    <ng-template #displayTrashIcon>
+                        <td><span (click)="trash(menuField.menu_config_id)"><i class="fa fa-trash-alt text-navy"></i></span></td>
+                    </ng-template>
+                    <!-- end edit/save mode -->
+    
+    
+                    <td>{{menuField.menu_config_id}}</td>
+                    <td>{{menuField.f_name}}</td>
+    
+                    <!-- start editable alias -->
+                    <!-- if it is to edit, display text input -->
+                    <td *ngIf="toEdit(menuField.menu_config_id); else displayNormal"><input id="{{'alias_' + menuField.menu_config_id}}" type="text" value="{{menuField.alias}}" nbInput placeholder="{{menuField.alias}}"></td>
+                    <!-- else diplay non-editable data -->
+                    <ng-template #displayNormal>
+                        <td>{{menuField.alias}}</td>
+                    </ng-template>
+                    <!-- end editable alias -->
+    
+                    <!-- <td>{{menuField.alias}}</td> -->
+                    <td>
+                        <mat-checkbox disabled="true" color="primary" [checked]="menuField.isCustom"></mat-checkbox>
+                    </td>
+                    <td>
+                        <mat-checkbox id="{{'active_' + menuField.menu_config_id}}" [disabled]="!toEdit(menuField.menu_config_id)" color="primary" [checked]="menuField.active"></mat-checkbox>
+                    </td>
+    
+                </tr>
+            </ng-container>
+    
+        </tbody>
+    </table>
+</div>

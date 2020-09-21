@@ -3,6 +3,10 @@ import { NotifierService, NotifierOptions } from "angular-notifier";
 import { HtmlElemService } from '../../../@cd/guig/html-elem.service';
 import { MenuService } from '../../../@cd/sys/moduleman/controller/menu.service';
 
+interface NotifType {
+  type: 'info' | 'succsess' | 'warning' | 'danger';
+}
+
 @Component({
   selector: 'ngx-guig-table',
   templateUrl: './guig-table.component.html',
@@ -143,12 +147,15 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
     }
   };
 
+  currentConfigId = 2;
+
   constructor(
     private svElem: HtmlElemService,
     public svMenu: MenuService,
     private notifierService: NotifierService
   ) {
-    this.svMenu.getMenuConfig();
+    this.svMenu.getMenuConfig(1);
+    this.svMenu.getMenuConfig(2);
   }
 
   ngOnInit(): void {
@@ -172,7 +179,7 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  save(id: number) {
+  save(id: number,configId) {
     this.clearNotification();
     const elemAlias = document.getElementById('alias_' + id) as HTMLInputElement;
     console.log('elemAlias.value:', elemAlias.value);
@@ -183,9 +190,13 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
       alias: elemAlias.value,
       active: this.svElem.isChecked(elemActive)
     };
-    this.svMenu.updateMenuConfig(updateData);
-    // this.toastr.success('Hello world!', 'Toastr fun!');
-    this.showNotification();
+
+    
+    this.svMenu.updateMenuConfig(updateData, configId);
+
+    // process notifications after 2 seconds
+    setTimeout( () => { this.showNotification(this.svMenu.resp) }, 2000 );
+
   }
 
   trash(id) {
@@ -197,15 +208,36 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
     this.selectedId = -1;
   }
 
-  showNotification() {
-    this.notifierService.show({
-      message: "Hi there!",
-      type: "info",
-      template: this.customNotificationTmpl
-    });
+  showNotification(resp) {
+    console.log('starting MenuService::showNotification(res)');
+    if (resp) {
+      if (resp.app_state.success > 0) {
+        const msg = resp.data.affectedRows[0].updatedRows + ' rows updated';
+        const msgType = 'success';
+        this.notifierService.show({
+          message: msg,
+          type: msgType,
+          template: this.customNotificationTmpl
+        });
+        //clear resp after display so that same value is not read again
+        this.svMenu.resp = null;
+      }
+      else {
+        const msg = 'something went wrong:' + resp.app_state.err_msg;
+        const msgType = 'warning';
+        this.notifierService.show({
+          message: msg,
+          type: msgType,
+          template: this.customNotificationTmpl
+        });
+        //clear resp after display so that same value is not read again
+        this.svMenu.resp = null;
+      }
+    }
+
   }
 
-  clearNotification(){
+  clearNotification() {
     this.notifierService.hideAll();
   }
 

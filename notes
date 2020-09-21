@@ -69,6 +69,19 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
+- register ngx-admn modules and menu as per original menu
+- register ngx-admn modules and menu as per menu2
+- register ngx-admn modules and menu as per existing back-end items (modeman,coop, booking)
+- set apropriate icons
+- hideChildren
+- create menu item
+
+- menu bugs
+    - menu is using wrong config or is not getting right instructions for menu fields config id
+    - editing is not updating the right row
+- adopt observables as way of distributing data in the system
+    - https://medium.com/angular-in-depth/reading-the-rxjs-6-sources-map-and-pipe-94d51fec71c2
+    - https://codecraft.tv/courses/angular/http/http-with-observables/
 - angular toaster:
     - https://www.npmjs.com/package/angular-notifier
         - https://github.com/dominique-mueller/angular-notifier
@@ -254,6 +267,13 @@ ToDo:
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
+
+21/09/2020
+- load menu from back end on login
+    - yet to load for anon/guest user
+- menu config issues to clear:
+    - menu is using wrong config or is not getting right instructions for menu fields config id
+    - editing is not updating the right row
 
 16/09/2020
 - adopted angular-notifier:

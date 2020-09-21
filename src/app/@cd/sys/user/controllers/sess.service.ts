@@ -48,6 +48,7 @@ export class SessService {
   ...otherwise cyclic error will be thrown
   */
   createSess(res,svUser: UserService) {
+    console.log('starting SessService::createSess(res,svUser: UserService)');
     this.setSess(res);
     svUser.getUserData(res);
     this.token = res.app_state.sess.cd_token;

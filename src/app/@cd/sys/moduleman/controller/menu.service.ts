@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
+import { of,from, pipe } from 'rxjs';
 
 import { remapKeys } from 'curry-remap-keys';
 
+import { GuigContextService } from '../../../guig/guig-context';
 import { ServerService } from './server.service';
 import { SessService } from '../../user/controllers/sess.service';
+import { UserData } from '../../user/models/user-model';
+import { ModuleMenu } from '../model/menu.model';
 
 interface CdMenu {
   title?: string;
@@ -60,23 +65,84 @@ interface CdMenu {
 export class MenuService {
   private postData;
   menuData = [];
-  menuList = [];
+  public menuDatObsv$: Observable<CdMenu[]>
   successNewMenu = false;
-  menuConfigData;
+  menuConfigData = [];
+  menu: any;
+  resp;
+  public userDataResp$: Observable<any>;
+  public userData;
   constructor(
     private svServer: ServerService,
     private svSess: SessService,
+    private gc: GuigContextService,
   ) { }
 
   /*
   invoked following svUser::getUserData() when all menu items are fetched
   */
-  init(res: any) {
-    this.setMenuData(res.data.menu_data);
+  init(userDataResp$: Observable<any>) {
+    // console.log('MenuService::init(res)/res.data.menu_data:', res.data.menu_data);
+    // this.setMenuData(res.data.menu_data);
+    // this.userDataResp$ = userDataResp$;
+
+    if(userDataResp$){
+      this.userDataResp$ = userDataResp$;
+      from(userDataResp$).subscribe(res => {
+        console.log('MenuService::init()/dat:', res);
+        this.menuData = res.data.menu_data;
+        this.processMenu(res.data.menu_data);
+      });
+    }
+    
+
   }
 
   setMenuData(menuData) {
+    console.log('setMenuData(menuData)/this.menuData:', menuData);
     this.menuData = menuData;
+    // this.usersData$ = this.sv
+  }
+
+  processMenu(menuData) {
+    console.log('starting processMenu()');
+    console.log('PagesComponent::processMenu()/svMenu.menuData', this.menuData);
+    /**
+     * set the menu as per @cd/guig/guig-context setting
+     * - allowing us to run the project in different modes
+     * eg orgiginal setting as ngx-admin, other custom modes
+     */
+    const menu = {};
+    this.testMapMenu();
+    let activeMenu;
+    let filteredMenu;
+    let menuFeed;
+    let ctx = this.gc.getMode().name;
+    switch (ctx) {
+      case 'ngx-admin-original':
+        activeMenu = this.ngxMenuOrig() as any; //use original template menu by ngx-admin
+        break;
+      case 'ngx-admin-mod1':
+        menuFeed = this.ngxMenu() as any;
+        //filter menu and submenu items for enabled/disabled
+        filteredMenu = menuFeed.filter(m => m.enabled == true);
+        filteredMenu.forEach(function (menu: ModuleMenu, i) {
+          if ('children' in menu) {
+            menu.children = menu.children.filter(sm => sm.enabled == true);
+            filteredMenu[i].children = menu.children;
+          }
+        });
+        console.log('filteredMenu', filteredMenu);
+        activeMenu = filteredMenu; // usc filterable menu
+        break;
+      case 'cd-demo':
+        activeMenu = menuData;
+        break;
+    }
+
+    // console.log('activeMenu:', JSON.stringify(activeMenu));
+    this.menu = activeMenu;
+    // return this.menu;
   }
 
   // register menu
@@ -163,15 +229,17 @@ export class MenuService {
     console.log(data);
   }
 
-  // register menu
-  getGetAll() {
-    this.setEnvelopeGetAll();
+
+  getGetAll(clientAppId) {
+    console.log('starting MenuService::getGetAll(clientAppId)');
+    this.setEnvelopeGetAll(clientAppId);
     /*
     post request to server
     */
     this.svServer.proc(this.postData)
       .subscribe((res: any) => {
-        console.log(res);
+        console.log('getGetAll(clientAppId)/request:', JSON.stringify(this.postData));
+        console.log('MenuService::getGetAll(clientAppId)/res:', res);
         this.setRespGetAll(res.data);
       });
   }
@@ -188,14 +256,22 @@ export class MenuService {
   //         args: null
   //     }
   //  */
-  setEnvelopeGetAll() {
+  setEnvelopeGetAll(clientAppId) {
     this.postData = {
       ctx: 'Sys',
       m: 'Moduleman',
       c: 'MenuController',
       a: 'actionGetAll',
       dat: {
-        token: this.svSess.token
+        f_vals: [
+          {
+            data: {
+              client_app_id: clientAppId
+            }
+          }
+        ],
+        token: this.svSess.token,
+        // token: '1669D61B-3769-3F58-7755-20652AB91448'
       },
       args: null
     };
@@ -203,21 +279,21 @@ export class MenuService {
 
   setRespGetAll(data) {
     console.log(data);
-    this.menuList = data;
+    this.menuData = data;
   }
 
-  getMenuConfig() {
+  getMenuConfig(configId) {
     console.log('starting MenuService::getMenuConfig()');
-    this.setMenuConfigDataPost();
+    this.setMenuConfigDataPost(configId);
     this.svServer.proc(this.postData)
       .subscribe((res) => {
         console.log(res);
-        this.setMenuConfigData(res);
+        this.setMenuConfigData(res, configId);
       });
 
   }
 
-  setMenuConfigDataPost() {
+  setMenuConfigDataPost(configId) {
     console.log('starting MenuService::setMenuConfigDataPost()');
     this.postData = {
       ctx: 'Sys',
@@ -228,7 +304,7 @@ export class MenuService {
         f_vals: [
           {
             data: {
-              client_app_id: 2
+              client_app_id: configId
             }
           }
         ],
@@ -238,20 +314,20 @@ export class MenuService {
     }
   }
 
-  setMenuConfigData(res) {
+  setMenuConfigData(res, configId) {
     console.log('starting MenuService::setMenuConfigData(res)');
     console.log(res);
-    this.menuConfigData = res.data;
+    this.menuConfigData[configId] = res.data;
   }
 
-  updateMenuConfig(updateData) {
+  updateMenuConfig(updateData, configId) {
     console.log('starting MenuService::updateMenuConfig()');
     console.log('updateData:', updateData);
     this.updateMenuConfigDataPost(updateData);
     this.svServer.proc(this.postData)
       .subscribe((res) => {
         console.log(res);
-        this.respUpdateMenuConfig(res);
+        this.respUpdateMenuConfig(res, configId);
       });
 
   }
@@ -289,10 +365,11 @@ export class MenuService {
     }
   }
 
-  respUpdateMenuConfig(res) {
+  respUpdateMenuConfig(res, configId) {
     console.log('starting MenuService::respUpdateMenuConfig(res)');
     console.log(res);
-    this.getMenuConfig();
+    this.resp = res;
+    this.getMenuConfig(configId);
   }
 
 

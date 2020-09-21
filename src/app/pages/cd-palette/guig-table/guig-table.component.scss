@@ -18,4 +18,17 @@
       min-height: 3rem;
     }
   }
+
+  .row{
+    overflow-y: auto;
+    max-height: 400px;
+  }
+
+  tr{
+    font-size: 9pt;
+  }
+
+  th{
+    font-size: 10pt;
+  }
   

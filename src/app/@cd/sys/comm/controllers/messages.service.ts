@@ -47,14 +47,19 @@ export class MessagesService {
 
   init(res) {
     console.log('starting MessagesService::init()');
-    this.token = res.app_state.sess.cd_token;
-    this.messeges = res.data.memo_summ;
-    this.contacts = res.data.contacts;
-    this.currentUser = res.data.user_data[0];
-    const msgID = this.messeges[0].memo_id;
-    this.selectedMsg = this.messeges.find(i => i.memo_id === msgID);
-    console.log('this.selectedMsg>>');
-    console.log(this.selectedMsg);
+    console.log(res);
+    
+    if(res){
+      this.token = res.app_state.sess.cd_token;
+      this.messeges = res.data.memo_summ;
+      this.contacts = res.data.contacts;
+      this.currentUser = res.data.user_data[0];
+      const msgID = this.messeges[0].memo_id;
+      this.selectedMsg = this.messeges.find(i => i.memo_id === msgID);
+      console.log('this.selectedMsg>>');
+      console.log(this.selectedMsg);
+    }
+    
 
     // this.uploader.onAfterAddingFile = (file) => {
     //   file.withCredentials = false;

@@ -1,51 +1,17 @@
 import { Injectable, OnChanges } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
+import { map, filter } from 'rxjs/operators';
+import { of,from, pipe } from 'rxjs';
+import { CdResponse } from '../../../cd.model';
 import { ServerService } from '../../moduleman/controller/server.service';
 import { AppStateService } from '../../moduleman/controller/app-state.service';
 import { MenuService } from '../../moduleman/controller/menu.service';
 import { NotificationService } from '../../comm/controllers/notification.service';
 import { SchedulerService } from '../../scheduler/controller/scheduler.service';
 import { MessagesService } from '../../comm/controllers/messages.service';
-import {environment} from '../../../../../environments/environment';
-interface User {
-  user_id?: any;
-  user_guid?: any;
-  username?: any;
-  password?: any;
-  email?: any;
-  co_id?: any;
-  doc_id?: any;
-  mobile?: any;
-  gender?: any;
-  dateobirth?: any;
-  postal_addr?: any;
-  fname?: any;
-  mname?: any;
-  lname?: any;
-  national_id?: any;
-  passport_id?: any;
-  Trusted?: any;
-  ZipCode?: any;
-  ActivationKey?: any;
-  ProfessionID?: any;
-  avatar?: any;
-  theme_id?: any;
-  signature_id?: any;
-  timezone_id?: any;
-  lang_id?: any;
-  designation_id?: any;
-  company_id?: any;
-  user_type_id?: any;
-}
-interface UserData {
-  acoid: any;
-  calnd_summ: Array<any>;
-  contacts: Array<any>;
-  memo_summ: Array<any>;
-  menu_data: Array<any>;
-  notif_data: Array<any>;
-  notif_summ: Array<any>;
-  user_data: Array<any>;
-}
+import { environment } from '../../../../../environments/environment';
+import { User, UserData } from '../models/user-model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -59,6 +25,9 @@ export class UserService {
   contacts = [];
   allUsers = [];
   currentUser = { name: 'Login/Register', picture: 'assets/cd/branding/coop/avatarCircle.svg' };
+  public usersData$: Observable<UserData[]>;
+  // CdResponse
+  public userDataResp$: Observable<any>;
 
   constructor(
     private svAppState: AppStateService,
@@ -75,25 +44,63 @@ export class UserService {
     */
   init(res) {
     console.log('starting UserService::init()');
-    this.userData = res.data.user_data;
-    // this.userMemoSummary = res.data.memo_summ;
-    this.userName = this.userData[0].username;
-    this.fullName = this.userData[0].fname + ' ' + this.userData[0].lname;
-    // this.getAllUsers();
+    if(res){
+      console.log('UserService::init()/res:', res);
+      // this.userData = res.data.user_data;
+      // this.userName = this.userData[0].username;
+      // this.fullName = this.userData[0].fname + ' ' + this.userData[0].lname;
+    }
+    
   }
 
   getUserData(loginResp) {
     console.log('starting UserService::getUserData()');
-    this.setUserDataPost(loginResp);
+    console.log('UserService::getUserData()/loginResp:', loginResp);
+    // this.setUserDataPost(loginResp);
     /*
     post login request to server
     */
-    this.svServer.proc(this.postData)
-      .subscribe((res) => {
-        console.log('UserService::getUserData()/subscribe/res>>');
-        console.log(res);
-        this.setUserData(res);
-      });
+    // this.svServer.proc(this.postData)
+    //   .subscribe((res) => {
+    //     console.log('UserService::getUserData()/subscribe/res>>');
+    //     console.log(res);
+    //     this.setUserData(res);
+    //   });
+
+
+    // ATTEMPT 2
+    // this.usersData$ = this.getUserDataO(loginResp);
+    
+    
+    // ATTEMPT 3
+    this.setUserDataResp(loginResp);
+    // TEST ATTEMPT 3
+    // of(this.userDataResp$)
+    //   .subscribe((res) => {
+    //     console.log('UserService::getUserData()/subscribe/res>>');
+    //     console.log(res);
+    //     this.setUserData();
+    //   });
+
+  }
+
+  // getUserDataO(loginResp): Observable<UserData[]> {
+  //   console.log('starting UserService::getUserDataO()');
+  //   this.userDataResp$ = of(this.setUserDataPost(loginResp));
+    
+  //   return this.userDataResp$
+  //     .pipe(
+  //       map((res: any) => {
+  //         console.log('getUserDataO/res:', res);
+  //         return res.data;
+  //       }));
+  // }
+
+  setUserDataResp(loginResp){
+    console.log('UserService::setUserDataResp()/loginResp:', loginResp);
+    this.setUserDataPost(loginResp);
+    this.userDataResp$ = this.svServer.proc(this.postData);
+    this.setUserData(this.userDataResp$);
   }
 
   setUserDataPost(loginResp) {
@@ -114,16 +121,22 @@ export class UserService {
     }
   }
 
-  setUserData(res) {
+  setUserData(userDataResp$: Observable<any>) {
     console.log('starting UserService::setUserData(res)');
-    console.log(res);
-    this.init(res);
-    this.svMenu.init(res);
-    this.svNotif.init(res);
-    this.svScheduler.init(res);
-    this.svAppState.setMode('anon');
-    this.svMessages.init(res);
-    environment.consumer = res.data['consumer'];
+    this.svMenu.init(userDataResp$);
+    from(userDataResp$)
+      .subscribe((res) => {
+        console.log('UserService::setUserData()/subscribe/res>>');
+        console.log(res);
+        this.init(res);
+        
+        this.svNotif.init(res);
+        this.svScheduler.init(res);
+        this.svAppState.setMode('anon');
+        this.svMessages.init(res);
+        environment.consumer = res['data']['consumer'];
+      });
+
   }
 
   registerUser(data) {
@@ -219,7 +232,7 @@ export class UserService {
             "args": null
         }
    */
-  setEnvelopeAllUsers(){
+  setEnvelopeAllUsers() {
     this.postData = {
       ctx: 'Sys',
       m: 'User',
@@ -234,7 +247,7 @@ export class UserService {
     };
   }
 
-  setRespAllUsers(res){
+  setRespAllUsers(res) {
     console.log(res);
     this.allUsers = res['data'];
   }
@@ -243,5 +256,5 @@ export class UserService {
     // console.log(data);
   }
 
-  
+
 }
