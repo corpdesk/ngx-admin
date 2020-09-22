@@ -7,8 +7,10 @@ import { map, takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { RippleService } from '../../../@core/utils/ripple.service';
 
+import { environment } from '../../../../environments/environment';
 import { SessService } from '../../../@cd/sys/user/controllers/sess.service';
 import { UserService } from '../../../@cd/sys/user/controllers/user.service';
+import { MenuService } from '../../../@cd/sys/moduleman/controller/menu.service';
 import { GuigContextService } from '../../../@cd/guig/guig-context';
 import { SideBarService } from '../../../@cd/guig/side-bar.service';
 import { NavService } from '../../../@cd/guig/nav.service';
@@ -71,6 +73,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     private svNav: NavService,
     private svSess: SessService,
     private svUser: UserService,
+    private svMenu: MenuService,
   ) {
     // this.userMenu = svNav.userMenu;
     this.materialTheme$ = this.themeService.onThemeChange()
@@ -117,10 +120,6 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.svSideBar.setSidebarState();
-    // let elMenuItem = document.querySelector('li.menu-item') as HTMLElement;
-    // elMenuItem.onclick = function () {
-    //   console.log('elMenuItem is clicked');
-    // };
   }
 
   ngOnDestroy() {
@@ -168,7 +167,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
           { title: 'Login', link: '/pages/cd-auth/login' },
           { title: 'Register', link: '/pages/cd-auth/register' }
         ];
-        this.navigateHome();
+        this.svMenu.getGetAnon(environment.clientAppId);
+        this.svNav.nav('/pages/cd-auth/login');
         break;
     }
 

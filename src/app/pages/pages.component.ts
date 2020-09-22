@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { map, filter } from 'rxjs/operators';
 import { from } from 'rxjs';
 import { MenuService } from '../@cd/sys/moduleman/controller/menu.service';
+import { SessService } from '../@cd/sys/user/controllers/sess.service';
 import { GuigContextService } from '../@cd/guig/guig-context';
 import { environment } from '../../environments/environment';
 
@@ -31,6 +32,7 @@ export class PagesComponent implements OnInit, AfterViewInit {
   constructor(
     private gc: GuigContextService,
     public svMenu: MenuService,
+    private svSess: SessService,
   ) {
     console.log('PagesComponent::constructor()/svMenu.menuData', this.svMenu.menuData);
     // this.svMenu.getGetAll(environment.clientAppId);
@@ -38,7 +40,10 @@ export class PagesComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     console.log('PagesComponent::OnInit()/svMenu.menuData', this.svMenu.menuData);
-    
+    console.log('this.svSess.token:', this.svSess.token);
+    if (!this.svSess.token) {
+      this.svMenu.getGetAnon(environment.clientAppId);
+    }
   }
 
   ngAfterViewInit() {

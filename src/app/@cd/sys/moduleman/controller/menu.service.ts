@@ -244,6 +244,20 @@ export class MenuService {
       });
   }
 
+  getGetAnon(clientAppId) {
+    console.log('starting MenuService::getGetAnon(clientAppId)');
+    this.setEnvelopeGetAnon(clientAppId);
+    /*
+    post request to server
+    */
+    this.svServer.proc(this.postData)
+      .subscribe((res: any) => {
+        console.log('getGetAnon(clientAppId)/request:', JSON.stringify(this.postData));
+        console.log('MenuService::getGetAnon(clientAppId)/res:', res);
+        this.setRespGetAnon(res.data);
+      });
+  }
+
   // /**
   //  * {
   //         'ctx': 'Sys',
@@ -277,9 +291,36 @@ export class MenuService {
     };
   }
 
+  setEnvelopeGetAnon(clientAppId) {
+    this.postData = {
+      ctx: 'Sys',
+      m: 'Moduleman',
+      c: 'ModulesController',
+      a: 'actionGetMenu',
+      dat: {
+        f_vals: [
+          {
+            data: {
+              client_app_id: clientAppId
+            }
+          }
+        ],
+        token: this.svSess.token,
+        // token: '1669D61B-3769-3F58-7755-20652AB91448'
+      },
+      args: null
+    };
+  }
+
   setRespGetAll(data) {
     console.log(data);
     this.menuData = data;
+  }
+
+  setRespGetAnon(data) {
+    console.log(data);
+    this.menuData = data;
+    this.menu = data;
   }
 
   getMenuConfig(configId) {
