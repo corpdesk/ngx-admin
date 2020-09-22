@@ -168,7 +168,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
           { title: 'Register', link: '/pages/cd-auth/register' }
         ];
         this.svMenu.getGetAnon(environment.clientAppId);
-        this.svNav.nav('/pages/cd-auth/login');
+        this.svNav.nav('/pages/home/news-feed');
         break;
     }
 

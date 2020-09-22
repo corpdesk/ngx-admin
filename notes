@@ -69,14 +69,20 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
+- refine guig-table as fully consumable component
 - register ngx-admn modules and menu as per original menu
 - register ngx-admn modules and menu as per menu2
 - register ngx-admn modules and menu as per existing back-end items (modeman,coop, booking)
 - set apropriate icons
-- hideChildren
-- create menu item
+- hideChildren to allow menu item to work as link instead to attempting to expand
+- create menu item via cdapi
 
-- menu bugs
+- menu config bugs
+    - set guig context to access existing pages/moduleman/menu
+    - trouble shoot the loading of menu config
+        - confirm that it is loading id=2 and not default (id=1)
+
+    - trouble shoot the clicking of row confirm the right id is selected and maintained untill saving or go-back()
     - menu is using wrong config or is not getting right instructions for menu fields config id
     - editing is not updating the right row
 - adopt observables as way of distributing data in the system

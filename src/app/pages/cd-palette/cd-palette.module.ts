@@ -144,6 +144,7 @@ const materialModules = [
     TreeGridComponent,
     FsIconComponent,
     AlertifyComponent,
+    GuigTableComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
-// import { SmartTableData } from '../../../@core/data/smart-table';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { GuigTableComponent } from '../../cd-palette/guig-table/guig-table.component';
 import { MenuService } from '../../../@cd/sys/moduleman/controller/menu.service';
 
 @Component({
@@ -8,74 +7,106 @@ import { MenuService } from '../../../@cd/sys/moduleman/controller/menu.service'
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements OnInit {
-  settings = {
-    add: {
-      addButtonContent: '<i class="nb-plus"></i>',
-      createButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-    },
-    edit: {
-      editButtonContent: '<i class="nb-edit"></i>',
-      saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-    },
-    delete: {
-      deleteButtonContent: '<i class="nb-trash"></i>',
-      confirmDelete: true,
-    },
-    columns: {
-      id: {
-        title: 'ID',
-        type: 'number',
+export class MenuComponent implements OnInit, AfterViewInit {
+  menuConfigData;
+  primaryIndex = 'menu_config_id';
+  colConfig = {
+    columns: [
+      {
+        name: 'edit',
+        dataType: 'fa',
+        icon: 'fa fa-edit',
+        controlType: 'button',
+        action: null,
+        alt: [
+          {
+            name: 'save',
+            dataType: 'fa',
+            icon: 'fa fa-save',
+            controlType: 'button',
+            action: null,
+          }
+        ]
       },
-      fieldName: {
-        title: 'Field',
-        type: 'string',
+      {
+        name: 'delete',
+        dataType: 'string',
+        icon: 'fa fa-trash-alt',
+        controlType: 'button',
+        action: 'trash()',
+        alt: [
+          {
+            name: 'go-back',
+            dataType: 'fa',
+            icon: 'fa fa-arrow-left',
+            controlType: 'button',
+            action: 'goBack()',
+          }
+        ]
       },
-      alias: {
-        title: 'Alias',
-        type: 'string',
+      {
+        name: '#',
+        map: 'menu_config_id',
+        dataType: 'string',
+        controlType: 'label',
       },
-      table: {
-        title: 'Table',
-        type: 'string',
+      {
+        name: 'name',
+        map: 'f_name',
+        dataType: 'string',
+        controlType: 'label',
       },
-      isCustom: {
-        title: 'IsCustom',
-        type: 'string',
+      {
+        name: 'alias',
+        map: 'alias',
+        dataType: 'string',
+        controlType: 'label',
+        editable: true,
+        alt: [
+          {
+            name: 'alias',
+            dataType: 'string',
+            controlType: 'textBox',
+          }
+        ]
       },
-      active: {
-        title: 'active',
-        filter: {
-          type: 'checkbox',
-          config: {
-            true: 'Yes',
-            false: 'No',
-            resetText: 'clear',
-          },
-        },
+      {
+        name: 'isCustom',
+        map: 'isCustom',
+        dataType: 'boolean',
+        controlType: 'checkbox',
+        disabled: true
       },
-    },
+      {
+        name: 'active',
+        map: 'active',
+        dataType: 'boolean',
+        controlType: 'checkbox',
+        editable: true,
+        disabled: true,
+        alt: [
+          {
+            name: 'alias',
+            dataType: 'boolean',
+            controlType: 'checkbox',
+            disabled: false,
+          }
+        ]
+      }
+    ]
   };
-
-  source: LocalDataSource = new LocalDataSource();
   constructor(
-    // private service: SmartTableData,
-    private svMenu: MenuService) { 
-    const data = this.svMenu.menuConfig();
-    this.source.load(data);
-  }
-  
-  ngOnInit(): void {
+    private svMenu: MenuService
+  ) {
+    this.svMenu.getMenuConfig(1);
+    this.svMenu.getMenuConfig(2);
   }
 
-  onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      event.confirm.resolve();
-    } else {
-      event.confirm.reject();
-    }
+  ngOnInit(): void {
+    this.menuConfigData = this.svMenu.menuConfigData;
+  }
+
+  ngAfterViewInit() {
   }
 
 }

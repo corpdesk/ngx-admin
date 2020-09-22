@@ -12,47 +12,47 @@
     
         </thead>
         <tbody>
-            <ng-container *ngFor="let menuField of svMenu.menuConfigData[currentConfigId]">
-                <tr id="{{menuField.menu_config_id}}">
+            <ng-container *ngFor="let rowData of payLoad[currentConfigId]">
+                <tr id="{{rowData[payLoadIndex]}}">
     
     
                     <!-- start edit/save mode -->
                     <!-- display save icon  -->
-                    <td *ngIf="toEdit(menuField.menu_config_id); else displayEditIcon"><span (click)="save(menuField.menu_config_id,currentConfigId)"><i class="fa fa-save text-navy"></i></span></td>
+                    <td *ngIf="toEdit(rowData[payLoadIndex]); else displayEditIcon"><span (click)="save(rowData[payLoadIndex],currentConfigId)"><i class="fa fa-save text-navy"></i></span></td>
                     <!-- else diplay edit icon -->
                     <ng-template #displayEditIcon>
-                        <td><span (click)="rowClick(menuField.menu_config_id)"><i class="fa fa-edit text-navy"></i></span></td>
+                        <td><span (click)="rowClick(rowData[payLoadIndex])"><i class="fa fa-edit text-navy"></i></span></td>
                     </ng-template>
                     <!-- end edit/save mode -->
     
                     <!-- start trash/go-back mode -->
                     <!-- display go-back icon  -->
-                    <td *ngIf="toEdit(menuField.menu_config_id); else displayTrashIcon"><span (click)="goBack(menuField.menu_config_id)"><i class="fa fa-arrow-left text-navy"></i></span></td>
+                    <td *ngIf="toEdit(rowData[payLoadIndex]); else displayTrashIcon"><span (click)="goBack(rowData[payLoadIndex])"><i class="fa fa-arrow-left text-navy"></i></span></td>
                     <!-- else diplay trash icon -->
                     <ng-template #displayTrashIcon>
-                        <td><span (click)="trash(menuField.menu_config_id)"><i class="fa fa-trash-alt text-navy"></i></span></td>
+                        <td><span (click)="trash(rowData[payLoadIndex])"><i class="fa fa-trash-alt text-navy"></i></span></td>
                     </ng-template>
                     <!-- end edit/save mode -->
     
     
-                    <td>{{menuField.menu_config_id}}</td>
-                    <td>{{menuField.f_name}}</td>
+                    <td>{{rowData[payLoadIndex]}}</td>
+                    <td>{{rowData.f_name}}</td>
     
                     <!-- start editable alias -->
                     <!-- if it is to edit, display text input -->
-                    <td *ngIf="toEdit(menuField.menu_config_id); else displayNormal"><input id="{{'alias_' + menuField.menu_config_id}}" type="text" value="{{menuField.alias}}" nbInput placeholder="{{menuField.alias}}"></td>
+                    <td *ngIf="toEdit(rowData[payLoadIndex]); else displayNormal"><input id="{{'alias_' + rowData[payLoadIndex]}}" type="text" value="{{rowData.alias}}" nbInput placeholder="{{rowData.alias}}"></td>
                     <!-- else diplay non-editable data -->
                     <ng-template #displayNormal>
-                        <td>{{menuField.alias}}</td>
+                        <td>{{rowData.alias}}</td>
                     </ng-template>
                     <!-- end editable alias -->
     
-                    <!-- <td>{{menuField.alias}}</td> -->
+                    <!-- <td>{{rowData.alias}}</td> -->
                     <td>
-                        <mat-checkbox disabled="true" color="primary" [checked]="menuField.isCustom"></mat-checkbox>
+                        <mat-checkbox disabled="true" color="primary" [checked]="rowData.isCustom"></mat-checkbox>
                     </td>
                     <td>
-                        <mat-checkbox id="{{'active_' + menuField.menu_config_id}}" [disabled]="!toEdit(menuField.menu_config_id)" color="primary" [checked]="menuField.active"></mat-checkbox>
+                        <mat-checkbox id="{{'active_' + rowData[payLoadIndex]}}" [disabled]="!toEdit(rowData[payLoadIndex])" color="primary" [checked]="rowData.active"></mat-checkbox>
                     </td>
     
                 </tr>

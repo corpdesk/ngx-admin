@@ -326,6 +326,7 @@ export class MenuService {
   getMenuConfig(configId) {
     console.log('starting MenuService::getMenuConfig()');
     this.setMenuConfigDataPost(configId);
+    console.log('this.postData:', JSON.stringify(this.postData));
     this.svServer.proc(this.postData)
       .subscribe((res) => {
         console.log(res);
@@ -361,10 +362,10 @@ export class MenuService {
     this.menuConfigData[configId] = res.data;
   }
 
-  updateMenuConfig(updateData, configId) {
+  updateMenuConfig(updateData, configId, fieldId) {
     console.log('starting MenuService::updateMenuConfig()');
     console.log('updateData:', updateData);
-    this.updateMenuConfigDataPost(updateData);
+    this.updateMenuConfigDataPost(updateData,fieldId);
     this.svServer.proc(this.postData)
       .subscribe((res) => {
         console.log(res);
@@ -380,7 +381,7 @@ export class MenuService {
               active: "0"
             }
    */
-  updateMenuConfigDataPost(updateData) {
+  updateMenuConfigDataPost(updateData,fieldId) {
     console.log('starting MenuService::updateMenuConfigDataPost()');
     this.postData = {
       ctx: 'Sys',
@@ -394,7 +395,7 @@ export class MenuService {
               {
                 field: 'menu_config_id',
                 operator: '=',
-                val: '129'
+                val: fieldId
               }
             ],
             data: updateData

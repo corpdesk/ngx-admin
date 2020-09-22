@@ -1,4 +1,6 @@
-import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { Component, Input, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { of, interval } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { NotifierService, NotifierOptions } from "angular-notifier";
 import { HtmlElemService } from '../../../@cd/guig/html-elem.service';
 import { MenuService } from '../../../@cd/sys/moduleman/controller/menu.service';
@@ -16,91 +18,10 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
   @ViewChild("customNotification", { static: true }) customNotificationTmpl;
   private readonly notifier: NotifierService;
   selectedId = -1;
-  colConfig = {
-    columns: [
-      {
-        name: 'edit',
-        dataType: 'fa',
-        icon: 'fa fa-edit',
-        controlType: 'button',
-        action: null,
-        alt: [
-          {
-            name: 'save',
-            dataType: 'fa',
-            icon: 'fa fa-save',
-            controlType: 'button',
-            action: null,
-          }
-        ]
-      },
-      {
-        name: 'delete',
-        dataType: 'string',
-        icon: 'fa fa-trash-alt',
-        controlType: 'button',
-        action: 'trash()',
-        alt: [
-          {
-            name: 'go-back',
-            dataType: 'fa',
-            icon: 'fa fa-arrow-left',
-            controlType: 'button',
-            action: 'goBack()',
-          }
-        ]
-      },
-      {
-        name: '#',
-        map: 'menu_config_id',
-        dataType: 'string',
-        controlType: 'label',
-      },
-      {
-        name: 'name',
-        map: 'f_name',
-        dataType: 'string',
-        controlType: 'label',
-      },
-      {
-        name: 'alias',
-        map: 'alias',
-        dataType: 'string',
-        controlType: 'label',
-        alt: [
-          {
-            name: 'alias',
-            dataType: 'string',
-            controlType: 'textBox',
-          }
-        ]
-      },
-      {
-        name: 'isCustom',
-        map: 'isCustom',
-        dataType: 'boolean',
-        controlType: 'checkbox',
-        disabled: true
-      },
-      {
-        name: 'active',
-        map: 'active',
-        dataType: 'boolean',
-        controlType: 'checkbox',
-        disabled: true,
-        alt: [
-          {
-            name: 'alias',
-            dataType: 'boolean',
-            controlType: 'checkbox',
-            disabled: false,
-          }
-        ]
-      }
-    ]
-  };
-  menuConfig;
-
+  @Input() colConfig;
+  @Input() payLoad;
+  @Input() payLoadIndex;
+  editableFields = [];
   options = {
     autoClose: false,
     keepAfterRouteChange: false,
@@ -154,21 +75,21 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
     public svMenu: MenuService,
     private notifierService: NotifierService
   ) {
-    this.svMenu.getMenuConfig(1);
-    this.svMenu.getMenuConfig(2);
+    
   }
 
   ngOnInit(): void {
-
   }
 
   ngAfterViewInit() {
-
+    this.setEditableFields();
   }
 
   rowClick(id) {
+    console.log('starting rowClick(id)');
     this.clearNotification();
     this.selectedId = id;
+    console.log('this.selectedId:', this.selectedId);
   }
 
   toEdit(id): boolean {
@@ -179,24 +100,36 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  save(id: number,configId) {
+  save(id: number, configId) {
+    console.log('starting save()');
+    console.log('id:', id);
+    console.log('this.selectedId:', this.selectedId);
     this.clearNotification();
-    const elemAlias = document.getElementById('alias_' + id) as HTMLInputElement;
-    console.log('elemAlias.value:', elemAlias.value);
-    const elemActive = this.svElem.getElem({ id: 'active_' + id }) as HTMLInputElement;
-    this.svElem.isChecked(elemActive);
-    console.log('elemActive.checked:', elemActive);
-    const updateData = {
-      alias: elemAlias.value,
-      active: this.svElem.isChecked(elemActive)
-    };
-
-    
-    this.svMenu.updateMenuConfig(updateData, configId);
+    const updateData = {};
+    this.editableFields.forEach((ef) => {
+      switch (ef.controlType){
+        case 'label':
+          updateData[ef.map] = (document.getElementById(ef.map + '_' + this.selectedId) as HTMLInputElement).value;
+          break;
+        case 'checkbox':
+          updateData[ef.map] = this.svElem.isChecked(this.svElem.getElem({ id: ef.map + '_' + this.selectedId }) as HTMLInputElement);
+          break;
+      }
+    });
+    const fieldId = this.selectedId;
+    this.svMenu.updateMenuConfig(updateData, configId,fieldId);
 
     // process notifications after 2 seconds
-    setTimeout( () => { this.showNotification(this.svMenu.resp) }, 2000 );
+    setTimeout(() => { this.showNotification(this.svMenu.resp) }, 2000);
 
+  }
+
+  // extract the editable fields
+  setEditableFields(){
+    this.editableFields = this.colConfig.columns.filter(
+      (ef) => { return ef.editable == true;}
+    );
+    console.log('editableFields:', this.editableFields);
   }
 
   trash(id) {
