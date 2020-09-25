@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { of,from, pipe } from 'rxjs';
+import { of, from, pipe } from 'rxjs';
 
 import { remapKeys } from 'curry-remap-keys';
 
@@ -9,6 +9,7 @@ import { ServerService } from './server.service';
 import { SessService } from '../../user/controllers/sess.service';
 import { UserData } from '../../user/models/user-model';
 import { ModuleMenu } from '../model/menu.model';
+
 
 interface CdMenu {
   title?: string;
@@ -68,6 +69,7 @@ export class MenuService {
   public menuDatObsv$: Observable<CdMenu[]>
   successNewMenu = false;
   menuConfigData = [];
+  configId;
   menu: any;
   resp;
   public userDataResp$: Observable<any>;
@@ -76,7 +78,9 @@ export class MenuService {
     private svServer: ServerService,
     private svSess: SessService,
     private gc: GuigContextService,
-  ) { }
+  ) { 
+    this.menu = this.initMenu();
+  }
 
   /*
   invoked following svUser::getUserData() when all menu items are fetched
@@ -86,7 +90,7 @@ export class MenuService {
     // this.setMenuData(res.data.menu_data);
     // this.userDataResp$ = userDataResp$;
 
-    if(userDataResp$){
+    if (userDataResp$) {
       this.userDataResp$ = userDataResp$;
       from(userDataResp$).subscribe(res => {
         console.log('MenuService::init()/dat:', res);
@@ -94,7 +98,7 @@ export class MenuService {
         this.processMenu(res.data.menu_data);
       });
     }
-    
+
 
   }
 
@@ -104,7 +108,7 @@ export class MenuService {
     // this.usersData$ = this.sv
   }
 
-  processMenu(menuData) {
+  async processMenu(menuData) {
     console.log('starting processMenu()');
     console.log('PagesComponent::processMenu()/svMenu.menuData', this.menuData);
     /**
@@ -136,12 +140,28 @@ export class MenuService {
         activeMenu = filteredMenu; // usc filterable menu
         break;
       case 'cd-demo':
-        activeMenu = menuData;
+
+        // filteredMenu = await menuData.filter(m => m.enabled == true);
+        menuData.forEach(async function (menu: ModuleMenu, i) {
+          if ('children' in menu) {
+            menu.children = menu.children
+              .map(
+                (sm) => {
+                  delete sm['children'];
+                  return sm;
+                });
+            menuData[i].children = await menu.children;
+          }
+        });
+        console.log('menuData', menuData);
+        // debugger;
+        activeMenu = await menuData; // usc filterable menu
+        // activeMenu = menuData;
         break;
     }
 
     // console.log('activeMenu:', JSON.stringify(activeMenu));
-    this.menu = activeMenu;
+    this.menu = await activeMenu;
     // return this.menu;
   }
 
@@ -317,10 +337,31 @@ export class MenuService {
     this.menuData = data;
   }
 
-  setRespGetAnon(data) {
+  async setRespGetAnon(data) {
+    console.log('starting setRespGetAnon(data)');
     console.log(data);
-    this.menuData = data;
-    this.menu = data;
+    data = this.mapMenu(data);
+    const menu = [];
+    data.forEach(async (m: any) => {
+      console.log('m:', m);
+      // m = await m['children'].map(
+      //   (sm, i) => {
+      //     console.log('before sm:', sm);
+      //     delete sm['children'];
+      //     console.log('after sm:', sm);
+      //     // console.log('m[i]:', m);
+      //     m['children'] = sm;
+      //     console.log('m:', m);
+      //     return m;
+      //   });
+      m['children'].forEach((sm)=>{
+        delete sm['children'];
+      });
+      menu.push(await m);
+    });
+    // console.log('await data:', JSON.stringify(data));
+    this.menuData = await menu;
+    this.menu = await menu;
   }
 
   getMenuConfig(configId) {
@@ -362,14 +403,20 @@ export class MenuService {
     this.menuConfigData[configId] = res.data;
   }
 
-  updateMenuConfig(updateData, configId, fieldId) {
+  /**
+   * Guig table update
+   * @param updateData 
+   * @param configId 
+   * @param fieldId 
+   */
+  tUpdate(updateData, fieldId) {
     console.log('starting MenuService::updateMenuConfig()');
     console.log('updateData:', updateData);
-    this.updateMenuConfigDataPost(updateData,fieldId);
+    this.updateMenuConfigDataPost(updateData, fieldId);
     this.svServer.proc(this.postData)
       .subscribe((res) => {
         console.log(res);
-        this.respUpdateMenuConfig(res, configId);
+        this.respUpdateMenuConfig(res);
       });
 
   }
@@ -381,7 +428,7 @@ export class MenuService {
               active: "0"
             }
    */
-  updateMenuConfigDataPost(updateData,fieldId) {
+  updateMenuConfigDataPost(updateData, fieldId) {
     console.log('starting MenuService::updateMenuConfigDataPost()');
     this.postData = {
       ctx: 'Sys',
@@ -401,21 +448,18 @@ export class MenuService {
             data: updateData
           }
         ],
-        token: "mT6blaIfqWhzNXQLG8ksVbc1VodSxRZ8lu5cMgda"
+        token: this.svSess.token
       },
       args: null
     }
   }
 
-  respUpdateMenuConfig(res, configId) {
+  respUpdateMenuConfig(res) {
     console.log('starting MenuService::respUpdateMenuConfig(res)');
     console.log(res);
     this.resp = res;
-    this.getMenuConfig(configId);
+    this.getMenuConfig(this.configId);
   }
-
-
-
   /**
    * 
    * @param cdMenu : cd-menu to remap
@@ -437,6 +481,25 @@ export class MenuService {
       path: 'link'
     }
     return this.mapMenu(this.cdDemoMenu());
+  }
+
+  /**
+   * menu data must be initialized to avoid
+   * initialization errors due to processing lapse
+   * against menu data;
+   */
+  initMenu(){
+    return [
+      {
+        title: '...initializing',
+        icon: 'loader-outline',
+        enabled: true,
+        link: '/pages/home/news-feed',
+        home: true,
+        children: [
+        ],
+      }
+    ];
   }
 
   ngxMenuOrig() {
@@ -2763,6 +2826,13 @@ export class MenuService {
         ],
       },
     ];
+  }
+
+  cdDemoMenu3() {
+    return [
+      { "menu_id": 1029, "title": "QuestServ", "icon": "edit-2-outline", "menu_guid": "4A26185C-3B4F-53E8-5BC4-951BC2A53E2C", "registered": 1, "location": "", "menu_action_id": 92312, "doc_id": 9467, "menu_parent_id": -1, "menu_order": 11, "link": "QuestServ", "description": "QuestServ", "module_id": 303, "moduleTypeID": 1, "module_guid": "AEF7E29D-1737-15B9-0EE9-BB3E12B6A2C7", "module_name": "QuestServ", "moduleName": "QuestServ", "is_public": 1, "is_sys_module": 0, 
+      "children": [{ "menu_id": 1030, "title": "index", "icon": "message-circle-outline", "menu_guid": "FFD4FA4D-C58F-A996-413F-A6EDF918219C", "registered": 1, "location": "", "menu_action_id": 92313, "doc_id": 9469, "menu_parent_id": 1029, "menu_order": 11, "link": "index", "description": "index", "module_id": 303, "moduleTypeID": 1, "module_guid": "AEF7E29D-1737-15B9-0EE9-BB3E12B6A2C7", "module_name": "QuestServ", "moduleName": "QuestServ", "is_public": 1, "is_sys_module": 0, "menu_action": { "module": "QuestServ", "controller": "", "action": "index-component-menu-link", "fields": [], "f_vals": [], "args": "guig", "menu_url": null, "privileged_groups": ["Everyone"] }, "cd_obj_id": 92313, "cd_obj_name": "index-component-menu-link", "cd_obj_disp_name": null, "cd_obj_guid": "68F44CA2-374C-8AEC-2F40-CF72C7BCE156", "cd_obj_type_guid": "f5df4494-5cc9-4463-8e8e-c5861703280e", "last_modification_date": null, "parent_module_guid": "AEF7E29D-1737-15B9-0EE9-BB3E12B6A2C7", "parent_class_guid": null, "parent_obj": null, "show_name": null, "obJicon": null, "show_icon": null, "curr_val": null, "enabled": null }], 
+      "menu_action": { "module": "QuestServ", "controller": "", "action": "QuestServ-module-menu-link", "fields": [], "f_vals": [], "args": "guig", "menu_url": null, "privileged_groups": ["Everyone"] }, "cd_obj_id": 92312, "cd_obj_name": "QuestServ-module-menu-link", "cd_obj_disp_name": null, "cd_obj_guid": "CD0E95B5-CFED-32A5-28D4-EAACEA9691C2", "cd_obj_type_guid": "f5df4494-5cc9-4463-8e8e-c5861703280e", "last_modification_date": null, "parent_module_guid": "-1", "parent_class_guid": null, "parent_obj": null, "show_name": null, "obJicon": null, "show_icon": null, "curr_val": null, "enabled": null }]
   }
 
   menuConfig() {

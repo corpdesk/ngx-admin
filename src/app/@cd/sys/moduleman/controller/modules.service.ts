@@ -285,9 +285,10 @@ export class ModulesService {
 
   }
 
-  // register menu
   getGetAll() {
+    console.log('starting getGetAll()');
     this.setEnvelopeGetAll();
+    console.log('this.postData:', this.postData);
     /*
     post request to server
     */
@@ -303,7 +304,7 @@ export class ModulesService {
   //         "ctx": "Sys",
   //         "m": "Moduleman",
   //         "c": "ModulesController",
-  //         "a": "getAll",
+  //         "a": "actionGetAll",
   //         "dat": {
   //             "token": "C64AC158-80F7-5AA7-D3A6-240E399B1A0A"
   //         },
@@ -315,15 +316,17 @@ export class ModulesService {
       ctx: 'Sys',
       m: 'Moduleman',
       c: 'ModulesController',
-      a: 'getAll',
+      a: 'actionGetAll',
       dat: {
-        token: this.svSess.token
+        token: this.svSess.getCdToken()
       },
       args: null
     };
   }
 
   setRespGetAll(data) {
+    console.log('starting setRespGetAll()');
+    console.log('data:', data);
     console.log(data);
     this.Modules = data;
   }

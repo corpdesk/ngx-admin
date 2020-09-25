@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { GuigTableComponent } from '../../cd-palette/guig-table/guig-table.component';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+// import { GuigTableComponent } from '../../cd-palette/guig-table/guig-table.component';
 import { MenuService } from '../../../@cd/sys/moduleman/controller/menu.service';
 
 @Component({
@@ -10,9 +10,12 @@ import { MenuService } from '../../../@cd/sys/moduleman/controller/menu.service'
 export class MenuComponent implements OnInit, AfterViewInit {
   menuConfigData;
   primaryIndex = 'menu_config_id';
+  thisInstance;
+  configId = 2;
   colConfig = {
     columns: [
       {
+        index: 0,
         name: 'edit',
         dataType: 'fa',
         icon: 'fa fa-edit',
@@ -20,6 +23,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
         action: null,
         alt: [
           {
+            index: 0,
             name: 'save',
             dataType: 'fa',
             icon: 'fa fa-save',
@@ -29,6 +33,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
         ]
       },
       {
+        index: 1,
         name: 'delete',
         dataType: 'string',
         icon: 'fa fa-trash-alt',
@@ -36,6 +41,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
         action: 'trash()',
         alt: [
           {
+            index: 1,
             name: 'go-back',
             dataType: 'fa',
             icon: 'fa fa-arrow-left',
@@ -45,18 +51,21 @@ export class MenuComponent implements OnInit, AfterViewInit {
         ]
       },
       {
+        index: 2,
         name: '#',
         map: 'menu_config_id',
         dataType: 'string',
         controlType: 'label',
       },
       {
+        index: 3,
         name: 'name',
         map: 'f_name',
         dataType: 'string',
         controlType: 'label',
       },
       {
+        index: 4,
         name: 'alias',
         map: 'alias',
         dataType: 'string',
@@ -64,6 +73,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
         editable: true,
         alt: [
           {
+            index: 4,
             name: 'alias',
             dataType: 'string',
             controlType: 'textBox',
@@ -71,6 +81,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
         ]
       },
       {
+        index: 5,
         name: 'isCustom',
         map: 'isCustom',
         dataType: 'boolean',
@@ -78,6 +89,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
         disabled: true
       },
       {
+        index: 6,
         name: 'active',
         map: 'active',
         dataType: 'boolean',
@@ -86,6 +98,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
         disabled: true,
         alt: [
           {
+            index: 6,
             name: 'alias',
             dataType: 'boolean',
             controlType: 'checkbox',
@@ -96,7 +109,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
     ]
   };
   constructor(
-    private svMenu: MenuService
+    public svMenu: MenuService
   ) {
     this.svMenu.getMenuConfig(1);
     this.svMenu.getMenuConfig(2);
@@ -107,6 +120,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    // this.thisInstance = this.svMenu;
   }
 
 }

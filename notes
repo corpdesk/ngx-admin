@@ -69,32 +69,31 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
-- refine guig-table as fully consumable component
+
+
+
+
+- create consumable inspinia/ibox
+    - context menu for ibox
+        - https://akveo.github.io/nebular/docs/components/context-menu/overview#nbcontextmenudirective
+    - list of contex should be executed at the parent component
+        - https://medium.com/@sohailnazar4/angular-calling-parent-component-function-from-child-component-5dcccdc771d9
+
+
+
 - register ngx-admn modules and menu as per original menu
-- register ngx-admn modules and menu as per menu2
+- register ngx-admn modules and menu as per 2nd guig-mode
 - register ngx-admn modules and menu as per existing back-end items (modeman,coop, booking)
-- set apropriate icons
+
 - hideChildren to allow menu item to work as link instead to attempting to expand
 - create menu item via cdapi
 
-- menu config bugs
-    - set guig context to access existing pages/moduleman/menu
-    - trouble shoot the loading of menu config
-        - confirm that it is loading id=2 and not default (id=1)
 
-    - trouble shoot the clicking of row confirm the right id is selected and maintained untill saving or go-back()
-    - menu is using wrong config or is not getting right instructions for menu fields config id
-    - editing is not updating the right row
 - adopt observables as way of distributing data in the system
     - https://medium.com/angular-in-depth/reading-the-rxjs-6-sources-map-and-pipe-94d51fec71c2
     - https://codecraft.tv/courses/angular/http/http-with-observables/
-- angular toaster:
-    - https://www.npmjs.com/package/angular-notifier
-        - https://github.com/dominique-mueller/angular-notifier
-    - https://www.npmjs.com/package/ngx-toastr
-- angularize tosters:
-    - use moduleman/dashboard page
-        - https://speckyboy.com/css-js-notification-alert-code/
+
+
 - custom elements:
     - https://stackblitz.com/edit/angular-nnyzla?file=src%2Fapp%2Fcustom-button.component.ts
     - https://stackoverflow.com/questions/55973500/new-component-inheriting-existing-html-element-angular
@@ -273,6 +272,34 @@ ToDo:
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
+
+25/09/2020
+- create consumable tab
+    - https://angular.io/guide/dynamic-component-loader
+    - test with moduleman/modules
+- 
+- refine guig-table as fully consumable component (in progress)
+
+- set apropriate icons for back-end menus
+
+- Implement angular toster: ...DONE
+
+- menu config bugs: FIXED
+    - set guig context to access existing pages/moduleman/menu
+    - trouble shoot the loading of menu config
+        - confirm that it is loading id=2 and not default (id=1)
+
+    - trouble shoot the clicking of row confirm the right id is selected and maintained untill saving or go-back()
+    - menu is using wrong config or is not getting right instructions for menu fields config id
+    - editing is not updating the right row
+
+- angular toaster: ...DONE
+    - https://www.npmjs.com/package/angular-notifier (adopted)
+        - https://github.com/dominique-mueller/angular-notifier
+    - https://www.npmjs.com/package/ngx-toastr (tested but not adopted)
+    - use moduleman/dashboard page (tested but not adopted)
+        - https://speckyboy.com/css-js-notification-alert-code/
+        
 
 22/09/2020
 load menu for anon

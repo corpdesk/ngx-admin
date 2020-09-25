@@ -36,8 +36,24 @@
         </ng-template>
         <!-- end edit/save mode -->
 
-
         <td>{{rowData[payLoadIndex]}}</td>
+        <ng-container *ngFor="let fieldData of colConfig">
+          <!-- if editable -->
+          <!-- if it is to edit, display text input -->
+          <td *ngIf="toEdit(rowData[payLoadIndex]) && fieldData.editable && fieldData.index > 1; else displayNormal">
+            
+            <input id="{{'alias_' + rowData[payLoadIndex]}}" type="text" value="{{rowData.alias}}" nbInput placeholder="{{rowData.alias}}">
+            
+          </td>
+          <!-- else diplay non-editable data -->
+          <ng-template #displayNormal>
+            <td *ngIf="fieldData.index > 1">{{rowData[fieldData.name]}}</td>
+          </ng-template>
+          <!-- end editable alias -->
+
+
+        </ng-container>
+        
         <td>{{rowData.f_name}}</td>
 
         <!-- start editable alias -->

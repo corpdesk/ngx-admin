@@ -47,7 +47,7 @@ export class PagesComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log('PagesComponent::ngAfterViewInit()/svMenu.menuData', this.svMenu.menuData);
+    // console.log('PagesComponent::ngAfterViewInit()/svMenu.menu', this.svMenu.menu);
   }
 
   // processMenu() {

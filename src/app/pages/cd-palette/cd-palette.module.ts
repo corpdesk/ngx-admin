@@ -49,6 +49,8 @@ import { TreeGridComponent, FsIconComponent } from './tree-grid/tree-grid.compon
 import { GuigTableComponent } from './guig-table/guig-table.component';
 import { CheckBoxComponent } from './check-box/check-box.component';
 import { AlertifyComponent } from './alertify/alertify.component';
+import { TabLoaderComponent } from './tab-loader/tab-loader.component';
+import { TabDirective } from '../../@cd/guig/directives/tab.directive';
 
 const materialModules = [
   MatExpansionModule,
@@ -70,7 +72,8 @@ const materialModules = [
     CarouselComponent, 
     ProfileCardComponent, 
     ProfileAccordionComponent, 
-    ProfileTwitterComponent, FriblyTreeComponent, CheckListComponent, TreeGridComponent,FsIconComponent, GuigTableComponent, CheckBoxComponent, AlertifyComponent
+    ProfileTwitterComponent, FriblyTreeComponent, CheckListComponent, TreeGridComponent,FsIconComponent, GuigTableComponent, CheckBoxComponent, AlertifyComponent, TabLoaderComponent,
+    TabDirective,
   ],
   imports: [
     CommonModule,
@@ -145,6 +148,7 @@ const materialModules = [
     FsIconComponent,
     AlertifyComponent,
     GuigTableComponent,
+    TabLoaderComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

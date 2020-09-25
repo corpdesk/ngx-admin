@@ -1,1 +1,26 @@
-<p>module works!</p>
+<!-- Adopted from https://codepen.io/markcaron/pen/MvGRYV -->
+<div class="tabset">
+    <!-- Tab 1 -->
+    <input type="radio" name="tabset" id="tab1" aria-controls="service-info" checked>
+    <label for="tab1">{{tabs[0].data.title}}</label>
+    <!-- Tab 2 -->
+    <input type="radio" name="tabset" id="tab2" aria-controls="service-schedule">
+    <label for="tab2">{{tabs[1].data.title}}</label>
+    <!-- Tab 3 -->
+    <input type="radio" name="tabset" id="tab3" aria-controls="service-facilitators">
+    <label for="tab3">{{tabs[2].data.title}}</label>
+    
+    <div class="tab-panels">
+      <section id="service-info" class="tab-panel">
+        <ngx-tab-loader [tabIndex]="tab0Index" [tabs]="tabs"></ngx-tab-loader>
+    </section>
+      <section id="service-schedule" class="tab-panel">
+        <ngx-tab-loader [tabIndex]="tab1Index" [tabs]="tabs"></ngx-tab-loader>
+      </section>
+      <section id="service-facilitators" class="tab-panel">
+        <ngx-tab-loader [tabIndex]="tab2Index" [tabs]="tabs"></ngx-tab-loader>
+      </section>
+    </div>
+    
+  </div>
+  

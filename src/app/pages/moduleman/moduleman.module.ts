@@ -13,6 +13,7 @@ import { DocprocComponent } from './docproc/docproc.component';
 import { SysConfigComponent } from './sys-config/sys-config.component';
 import { ObservComponent } from './observ/observ.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ModuleTabsService } from './module-tabs.service';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {
@@ -42,6 +43,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTreeModule } from '@angular/material/tree';
+import { ModuleListComponent } from './module-list/module-list.component';
+import { ModuleCreateComponent } from './module-create/module-create.component';
+import { ModuleDashboardComponent } from './module-dashboard/module-dashboard.component';
 
 const materialModules = [
   NbAccordionModule,
@@ -68,7 +72,10 @@ const materialModules = [
     DocprocComponent, 
     SysConfigComponent, 
     ObservComponent, 
-    DashboardComponent],
+    DashboardComponent, ModuleListComponent, ModuleCreateComponent, ModuleDashboardComponent,
+  ],
+  providers: [ModuleTabsService],
+  entryComponents: [ ModuleListComponent, ModuleCreateComponent, ModuleDashboardComponent ],
   imports: [
     CommonModule,
     NotifierModule.withConfig({

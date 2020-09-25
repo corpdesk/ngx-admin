@@ -165,6 +165,12 @@ export class SessService {
     return ret;
   }
 
+  /**
+   * localStorage.setItem('maxDistance', this.maxDistance);
+    localStorage.setItem('sess', JSON.stringify(sess));
+    localStorage.setItem('ExprTime', this.getExprTime(ttl));
+
+   */
   getSessData() {
     console.log('starting getSessData()');
     const expiration = localStorage.getItem('sess');

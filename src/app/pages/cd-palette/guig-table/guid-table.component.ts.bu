@@ -71,10 +71,11 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.setEditableFields();
+    
   }
 
   ngAfterViewInit() {
+    this.setEditableFields();
   }
 
   rowClick(id) {
@@ -108,9 +109,8 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
           break;
       }
     });
-    const fieldId = this.selectedId;
     // this.svMenu.updateMenuConfig(updateData, configId,fieldId);
-    this.consumerServer.tUpdate(updateData,fieldId);
+    this.consumerServer.tUpdate(updateData,this.selectedId);
 
     // process notifications after 2 seconds
     setTimeout(() => { this.showNotification(this.consumerServer.resp) }, 2000);
@@ -166,50 +166,5 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
   clearNotification() {
     this.notifierService.hideAll();
   }
-
-  // updateMenuConfig(updateData, configId, fieldId) {
-  //   console.log('starting MenuService::updateMenuConfig()');
-  //   console.log('updateData:', updateData);
-  //   this.updateMenuConfigDataPost(updateData, fieldId);
-  //   this.svServer.proc(this.postData)
-  //     .subscribe((res) => {
-  //       console.log(res);
-  //       this.respUpdateMenuConfig(res, configId);
-  //     });
-
-  // }
-
-  // updateMenuConfigDataPost(updateData, fieldId) {
-  //   console.log('starting MenuService::updateMenuConfigDataPost()');
-  //   this.postData = {
-  //     ctx: 'Sys',
-  //     m: 'Moduleman',
-  //     c: 'MenuConfigController',
-  //     a: 'actionUpdate',
-  //     dat: {
-  //       f_vals: [
-  //         {
-  //           filter: [
-  //             {
-  //               field: 'menu_config_id',
-  //               operator: '=',
-  //               val: fieldId
-  //             }
-  //           ],
-  //           data: updateData
-  //         }
-  //       ],
-  //       token: "mT6blaIfqWhzNXQLG8ksVbc1VodSxRZ8lu5cMgda"
-  //     },
-  //     args: null
-  //   }
-  // }
-
-  // respUpdateMenuConfig(res, configId) {
-  //   console.log('starting MenuService::respUpdateMenuConfig(res)');
-  //   console.log(res);
-  //   this.resp = res;
-  //   this.getMenuConfig(configId);
-  // }
 
 }
