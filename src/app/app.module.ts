@@ -5,13 +5,14 @@
  */
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 // import { HammerModule} from '@angular/platform-browser';
+import { NotifierModule } from "angular-notifier";
 import {
   NbChatModule,
   NbDatepickerModule,
@@ -29,6 +30,45 @@ import { CalendarModule } from 'angular-calendar';
     BrowserModule,
     BrowserAnimationsModule,
     // HammerModule,
+    NotifierModule.withConfig({
+      position: {
+        horizontal: {
+          position: "right",
+          distance: 12
+        },
+        vertical: {
+          position: "top",
+          distance: 100,
+          gap: 10
+        }
+      },
+      theme: "material",
+      behaviour: {
+        autoHide: 5000,
+        onClick: false,
+        onMouseover: "pauseAutoHide",
+        showDismissButton: true,
+        stacking: 4
+      },
+      animations: {
+        enabled: true,
+        show: {
+          preset: "slide",
+          speed: 300,
+          easing: "ease"
+        },
+        hide: {
+          preset: "fade",
+          speed: 300,
+          easing: "ease",
+          offset: 50
+        },
+        shift: {
+          speed: 300,
+          easing: "ease"
+        },
+        overlap: 150
+      }}),
     HttpClientModule,
     AppRoutingModule,
     NbSidebarModule.forRoot(),
@@ -43,7 +83,9 @@ import { CalendarModule } from 'angular-calendar';
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
   ],
+  exports:[NotifierModule],
   bootstrap: [AppComponent],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {
 }

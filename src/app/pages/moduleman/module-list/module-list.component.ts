@@ -81,71 +81,55 @@ export class ModuleListComponent implements OnInit {
       },
       {
         index: 5,
-        name: 'module_name',
-        map: 'module_name',
-        dataType: 'string',
-        controlType: 'label',
-        editable: true,
-        alt: [
-          {
-            index: 5,
-            name: 'module_name',
-            dataType: 'string',
-            controlType: 'textBox',
-          }
-        ]
-      },
-      {
-        index: 6,
         name: 'doc_id',
         map: 'doc_id',
         dataType: 'string',
         controlType: 'label',
       },
       {
-        index: 7,
+        index: 6,
         name: 'last_modification_date',
         map: 'last_modification_date',
         dataType: 'string',
         controlType: 'label',
       },
       {
-        index: 8,
+        index: 7,
         name: 'group_guid',
         map: 'group_guid',
         dataType: 'string',
         controlType: 'label',
       },
       {
-        index: 9,
+        index: 8,
         name: 'group_name',
         map: 'group_name',
         dataType: 'string',
         controlType: 'label',
       },
       {
-        index: 10,
+        index: 9,
         name: 'group_owner_id',
         map: 'group_owner_id',
         dataType: 'string',
         controlType: 'label',
       },
       {
-        index: 11,
+        index: 10,
         name: 'group_type_id',
         map: 'group_type_id',
         dataType: 'string',
         controlType: 'label',
       },
       {
-        index: 12,
+        index: 11,
         name: 'company_id',
         map: 'company_id',
         dataType: 'string',
         controlType: 'label',
       },
       {
-        index: 13,
+        index: 12,
         name: 'is_sys_module',
         map: 'is_sys_module',
         dataType: 'boolean',
@@ -153,7 +137,7 @@ export class ModuleListComponent implements OnInit {
         disabled: true
       },
       {
-        index: 14,
+        index: 13,
         name: 'is_public',
         map: 'is_public',
         dataType: 'boolean',
@@ -162,7 +146,7 @@ export class ModuleListComponent implements OnInit {
         disabled: true,
         alt: [
           {
-            index: 14,
+            index: 13,
             name: 'is_public',
             dataType: 'boolean',
             controlType: 'checkbox',
@@ -171,7 +155,7 @@ export class ModuleListComponent implements OnInit {
         ]
       },
       {
-        index: 15,
+        index: 14,
         name: 'enabled',
         map: 'enabled',
         dataType: 'boolean',
@@ -180,7 +164,7 @@ export class ModuleListComponent implements OnInit {
         disabled: true,
         alt: [
           {
-            index: 15,
+            index: 14,
             name: 'enabled',
             dataType: 'boolean',
             controlType: 'checkbox',
@@ -191,12 +175,12 @@ export class ModuleListComponent implements OnInit {
     ]
   };
   constructor(
-    // public svMenu: MenuService,
     public svModule: ModulesService,
   ) {
     // this.svMenu.getMenuConfig(1);
     // this.svMenu.getMenuConfig(2);
     this.svModule.getGetAll();
+    
   }
 
   ngOnInit(): void {

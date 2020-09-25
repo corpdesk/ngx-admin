@@ -16,6 +16,7 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
   @Input() payLoadIndex;
   @Input() consumerServer; // instance of consumer server
   editableFields = [];
+  dataFields = [];
   postData;
   options = {
     autoClose: false,
@@ -72,9 +73,11 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.setEditableFields();
+    this.setDataFields();
   }
 
   ngAfterViewInit() {
+    
   }
 
   rowClick(id) {
@@ -123,6 +126,13 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
       (ef) => { return ef.editable == true;}
     );
     console.log('editableFields:', this.editableFields);
+  }
+
+  setDataFields(){
+    this.dataFields = this.colConfig.columns.filter(
+      (df) => { return df.index > 1;}
+    );
+    console.log('dataFields:', this.dataFields);
   }
 
   trash(id) {

@@ -13,6 +13,8 @@
   </thead>
   <tbody>
     <ng-container *ngFor="let rowData of payLoad">
+
+
       <tr id="{{rowData[payLoadIndex]}}">
 
 
@@ -26,38 +28,146 @@
         </ng-template>
         <!-- end edit/save mode -->
 
+
+
+
+
         <!-- start trash/go-back mode -->
         <!-- display go-back icon  -->
         <td *ngIf="toEdit(rowData[payLoadIndex]); else displayTrashIcon"><span
             (click)="goBack(rowData[payLoadIndex])"><i class="fa fa-arrow-left text-navy"></i></span></td>
         <!-- else diplay trash icon -->
+
+
         <ng-template #displayTrashIcon>
           <td><span (click)="trash(rowData[payLoadIndex])"><i class="fa fa-trash-alt text-navy"></i></span></td>
         </ng-template>
         <!-- end edit/save mode -->
 
 
-        <td>{{rowData[payLoadIndex]}}</td>
-        <td>{{rowData.f_name}}</td>
 
-        <!-- start editable alias -->
+
+        <!-- <td>{{rowData[payLoadIndex]}}</td>
+        <td>{{rowData.f_name}}</td> -->
+
+
+
+
+
+
+        <!-- start editable text/lable -->
         <!-- if it is to edit, display text input -->
-        <td *ngIf="toEdit(rowData[payLoadIndex]); else displayNormal"><input id="{{'alias_' + rowData[payLoadIndex]}}"
-            type="text" value="{{rowData.alias}}" nbInput placeholder="{{rowData.alias}}"></td>
+        <!-- <td *ngIf="toEdit(rowData[payLoadIndex]); else displayNormal"><input id="{{'alias_' + rowData[payLoadIndex]}}"
+            type="text" value="{{rowData.alias}}" nbInput placeholder="{{rowData.alias}}"></td> -->
         <!-- else diplay non-editable data -->
-        <ng-template #displayNormal>
+        <!-- <ng-template #displayNormal>
           <td>{{rowData.alias}}</td>
-        </ng-template>
-        <!-- end editable alias -->
+        </ng-template> -->
+        <!-- end editable text/lable -->
 
-        <!-- <td>{{rowData.alias}}</td> -->
-        <td>
+
+
+
+
+
+        <!-- <td>
           <mat-checkbox disabled="true" color="primary" [checked]="rowData.isCustom"></mat-checkbox>
         </td>
+
+
+
         <td>
-          <mat-checkbox id="{{'active_' + rowData[payLoadIndex]}}" [disabled]="!toEdit(rowData[payLoadIndex])"
-            color="primary" [checked]="rowData.active"></mat-checkbox>
-        </td>
+          <mat-checkbox id="{{'active_' + rowData[payLoadIndex]}}" [disabled]="!toEdit(rowData[payLoadIndex])" color="primary" [checked]="rowData.active"></mat-checkbox>
+        </td> -->
+
+
+
+        <!-- ///////   new   //////////////////////////////////////////////////////////////-->
+
+        <!-- start data iteration -->
+        <ng-container *ngFor="let fieldData of dataFields">
+
+            <!-- start if editable -->
+            <ng-container *ngIf="fieldData.editable; else notEditable">
+                
+              
+              <!-- start switch-case for control types -->
+              <ng-container [ngSwitch]="fieldData.controlType">
+
+
+                <ng-container *ngSwitchCase="'label'">
+                  <!-- start editable text/lable -->
+                    <!-- if it is to edit, display text input -->
+                    <td *ngIf="toEdit(rowData[payLoadIndex]); else displayNormal">
+                      <input id="{{fieldData.map + '_' + rowData[payLoadIndex]}}" type="text" value="{{rowData[fieldData.map]}}" nbInput placeholder="{{rowData[fieldData.map]}}">
+                    </td>
+                  <!-- else diplay non-editable data -->
+                  <ng-template #displayNormal>
+                    <td>{{rowData[fieldData.map]}}</td>
+                  </ng-template>
+                  <!-- end editable text/lable -->
+                </ng-container>
+
+
+
+                <ng-container *ngSwitchCase="'checkbox'">
+                  <!-- start editable checkbox -->
+                    <!-- if it is to edit, display text input -->
+                    <td *ngIf="toEdit(rowData[payLoadIndex]); else displayNormal">
+                      <mat-checkbox id="{{fieldData.map + '_' + rowData[payLoadIndex]}}" [disabled]="!toEdit(rowData[payLoadIndex])" color="primary" [checked]="rowData[fieldData.map]"></mat-checkbox>
+                    </td>
+                  <!-- else diplay non-editable data -->
+                  <ng-template #displayNormal>
+                    <td>
+                      <mat-checkbox disabled="true" color="primary" [checked]="rowData[fieldData.map]"></mat-checkbox>
+                    </td>
+                  </ng-template>
+                  <!-- end editable checkbox -->
+                </ng-container>
+              </ng-container>
+              <!-- end switch-case for control types -->
+            
+            </ng-container>
+            <!-- end if editable -->
+
+
+            <!-- start if notEditable -->
+            <ng-template #notEditable>
+              
+
+              
+                <!-- start switch-case for control types -->
+                <td [ngSwitch]="fieldData.controlType">
+                  <ng-container *ngSwitchCase="'label'">
+                    {{rowData[fieldData.map]}}
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'checkbox'">
+                    <mat-checkbox disabled="true" color="primary" [checked]="rowData[fieldData.map]"></mat-checkbox>
+                  </ng-container>
+                </td>
+                <!-- end switch-case for control types -->
+
+
+              
+            </ng-template>
+            <!-- end if notEditable -->
+
+        </ng-container>
+        <!-- end data iteration -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       </tr>
     </ng-container>

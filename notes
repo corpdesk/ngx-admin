@@ -274,6 +274,12 @@ ToDo:
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
 
 25/09/2020
+- guig-table now working for both modules and menu config
+    - ...but with ERROR:
+     in src/app/pages/moduleman/company/company.component.html:2:5 - 
+     error NG8001: 'notifier-container' is not a known element:
+
+25/09/2020
 - create consumable tab
     - https://angular.io/guide/dynamic-component-loader
     - test with moduleman/modules

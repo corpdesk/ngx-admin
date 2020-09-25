@@ -1,4 +1,4 @@
-import { Component, Input, OnInit,AfterViewInit, ViewChild, ComponentFactoryResolver, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, AfterContentChecked, ViewChild, ComponentFactoryResolver, OnDestroy } from '@angular/core';
 
 import { TabDirective } from '../../../@cd/guig/directives/tab.directive';
 import { TabItem } from '../../../@cd/guig/models/tab-item';
@@ -27,11 +27,13 @@ export class TabLoaderComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('this.tabIndex:', this.tabIndex);
     this.currentTabIndex = this.tabIndex;
     // this.loadComponent();
-    // this.getAds();
   }
 
-  ngAfterViewInit(){
-    this.loadComponent();
+  ngAfterViewInit() {
+    // this.loadComponent();
+    setTimeout(() => {
+      this.loadComponent();
+    }, 2);
   }
 
   ngOnDestroy() {
@@ -53,10 +55,10 @@ export class TabLoaderComponent implements OnInit, AfterViewInit, OnDestroy {
     componentRef.instance.data = tabItem.data;
   }
 
-  getAds() {
-    this.interval = setInterval(() => {
-      this.loadComponent();
-    }, 3000);
-  }
+  // getAds() {
+  //   this.interval = setInterval(() => {
+  //     this.loadComponent();
+  //   }, 3000);
+  // }
 
 }

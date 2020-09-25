@@ -37,6 +37,8 @@
         <!-- end edit/save mode -->
 
         <td>{{rowData[payLoadIndex]}}</td>
+
+
         <ng-container *ngFor="let fieldData of colConfig">
           <!-- if editable -->
           <!-- if it is to edit, display text input -->
@@ -53,6 +55,9 @@
 
 
         </ng-container>
+
+
+        
         
         <td>{{rowData.f_name}}</td>
 
