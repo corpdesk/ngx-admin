@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { NotifierService, NotifierOptions } from "angular-notifier";
 import { HtmlElemService } from '../../../@cd/guig/html-elem.service';
+import { GuigTableConfig } from '../../../@cd/guig/models/guig-table-col.model';
 
 @Component({
   selector: 'ngx-guig-table',
@@ -11,7 +12,7 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
   @ViewChild("customNotification", { static: true }) customNotificationTmpl;
   private readonly notifier: NotifierService;
   selectedId = -1;
-  @Input() colConfig;
+  @Input() colConfig: GuigTableConfig;
   @Input() payLoad;
   @Input() payLoadIndex;
   @Input() consumerServer; // instance of consumer server
@@ -130,7 +131,7 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
 
   setDataFields(){
     this.dataFields = this.colConfig.columns.filter(
-      (df) => { return df.index > 1;}
+      (df) => { return df.index > 1 && df.hide !== true;}
     );
     console.log('dataFields:', this.dataFields);
   }

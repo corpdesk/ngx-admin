@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 // import { GuigTableComponent } from '../../cd-palette/guig-table/guig-table.component';
 import { MenuService } from '../../../@cd/sys/moduleman/controller/menu.service';
+import { GuigTableConfig } from '../../../@cd/guig/models/guig-table-col.model';
 
 @Component({
   selector: 'ngx-menu',
@@ -12,7 +13,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   primaryIndex = 'menu_config_id';
   thisInstance;
   configId = 2;
-  colConfig = {
+  colConfig: GuigTableConfig = {
     columns: [
       {
         index: 0,

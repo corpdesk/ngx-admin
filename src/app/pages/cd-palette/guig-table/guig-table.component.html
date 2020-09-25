@@ -1,11 +1,11 @@
-<notifier-container></notifier-container>
+<!-- <notifier-container></notifier-container> -->
 
 <table class="table table-striped">
   <thead>
     <tr>
       <ng-container *ngFor="let col of colConfig.columns">
 
-        <th>{{col.name}}</th>
+        <th *ngIf="col.hide !== true">{{col.name}}</th>
 
       </ng-container>
     </tr>

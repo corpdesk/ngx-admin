@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // import { MenuService } from '../../../@cd/sys/moduleman/controller/menu.service';
 import { ModulesService } from '../../../@cd/sys/moduleman/controller/modules.service';
+import { GuigTableConfig } from '../../../@cd/guig/models/guig-table-col.model';
 
 @Component({
   selector: 'ngx-module-list',
@@ -11,7 +12,7 @@ export class ModuleListComponent implements OnInit {
   modulesData;
   primaryIndex = 'module_id';
   // configId = 2;
-  colConfig = {
+  colConfig: GuigTableConfig = {
     columns: [
       {
         index: 0,
@@ -62,6 +63,7 @@ export class ModuleListComponent implements OnInit {
         map: 'module_guid',
         dataType: 'string',
         controlType: 'label',
+        hide: true,
       },
       {
         index: 4,
@@ -85,6 +87,7 @@ export class ModuleListComponent implements OnInit {
         map: 'doc_id',
         dataType: 'string',
         controlType: 'label',
+        hide: true,
       },
       {
         index: 6,
@@ -99,6 +102,7 @@ export class ModuleListComponent implements OnInit {
         map: 'group_guid',
         dataType: 'string',
         controlType: 'label',
+        hide: true,
       },
       {
         index: 8,

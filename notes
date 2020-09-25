@@ -274,6 +274,9 @@ ToDo:
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
 
 25/09/2020
+- enabled column hiding for guig-table
+
+25/09/2020
 - guig-table now working for both modules and menu config
     - ...but with ERROR:
      in src/app/pages/moduleman/company/company.component.html:2:5 - 
@@ -479,6 +482,15 @@ Set pages structure with routing:
     - https://developer.okta.com/blog/2020/01/21/angular-material-login
     - fixed PluginConfig error
 - login validation
+
+
+
+
+
+
+
+
+
 
 22/08/2020:
 - mat login with guard
