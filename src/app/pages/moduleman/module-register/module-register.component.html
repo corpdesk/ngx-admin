@@ -1,0 +1,74 @@
+<nb-card size="medium">
+    <nb-card-body>
+      <nb-stepper #stepper [linear]="linearMode" orientation="vertical">
+        <nb-step label="Module">
+          <h4>Register module</h4>
+          <p class="lorem">
+            Module name and context (app or sys) is required.
+          </p>
+          <form [formGroup]="frmRegModule" (ngSubmit)="submitForm(frmRegModule)">
+            <ng-template matStepLabel>Fill out your name</ng-template>
+            <mat-form-field>
+              <mat-label>Module Name</mat-label>
+              <input matInput placeholder="Module Name" formControlName="module_name" required>
+              <mat-error *ngIf="frmRegModule.controls.module_name.hasError('required')">
+                You must provide a <strong>name</strong>
+             </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="input-example">
+                <mat-label>Module Scope</mat-label>
+                <mat-select formControlName="is_sys_module" required>
+                  <mat-option value="0">App</mat-option>
+                  <mat-option value="1">Sys</mat-option>
+                </mat-select>
+                <mat-error *ngIf="frmRegModule.controls.is_sys_module.hasError('required')">
+                    You must select  <strong>module scope</strong>
+                 </mat-error>
+            </mat-form-field>
+          </form>
+          <p></p>
+          <button nbButton (click)="submitForm(frmRegModule)" [disabled]="frmRegModule.invalid" status="primary"><nb-icon icon="save"></nb-icon></button>
+          <button nbButton [disabled]="successRegModule" nbStepperNext >
+              <nb-icon icon="arrow-circle-right-outline"></nb-icon>
+        </button>
+        </nb-step>
+        <nb-step label="Menus">
+          <h4>Register menus for the module</h4>
+          <p class="lorem">
+            Every module has to have at least one menu item. You can use the + button to add more items.
+          </p>
+          <form [formGroup]="secondFormGroup">
+            <mat-form-field>
+              <mat-label>Menu Item</mat-label>
+              <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                     required>
+            </mat-form-field>
+            
+          </form>
+          <button nbButton status="primary"><nb-icon icon="plus-outline"></nb-icon></button>
+          <button nbButton nbStepperPrevious><nb-icon icon="arrow-circle-left-outline"></nb-icon></button>
+          <button nbButton nbStepperNext><nb-icon icon="arrow-circle-right-outline"></nb-icon></button>
+        </nb-step>
+        <nb-step label="Finnish">
+          <h4>New Items#3</h4>
+          <ul>
+              <li>New Module: ModuleXx</li>
+              <li>
+                  <ul>
+                      <li>
+                        menu item 1
+                      </li>
+                      <li>
+                        menu item 2
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+          
+          <button nbButton nbStepperPrevious><nb-icon icon="arrow-circle-left-outline"></nb-icon></button>
+        </nb-step>
+        
+      </nb-stepper>
+    </nb-card-body>
+  </nb-card>

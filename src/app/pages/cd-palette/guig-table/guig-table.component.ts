@@ -2,6 +2,7 @@ import { Component, Input, ViewChild, OnInit, AfterViewInit } from '@angular/cor
 import { NotifierService, NotifierOptions } from "angular-notifier";
 import { HtmlElemService } from '../../../@cd/guig/html-elem.service';
 import { GuigTableConfig } from '../../../@cd/guig/models/guig-table-col.model';
+import { AlertService } from '../../_alert/alert.service';
 
 @Component({
   selector: 'ngx-guig-table',
@@ -23,6 +24,12 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
     autoClose: false,
     keepAfterRouteChange: false,
   };
+
+  // options for angular-8-alert-notifications
+  alertOptions = {
+    autoClose: true,
+    keepAfterRouteChange: false
+};
 
   notifierDefaultOptions: NotifierOptions = {
     position: {
@@ -67,7 +74,8 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
 
   constructor(
     private svElem: HtmlElemService,
-    private notifierService: NotifierService
+    private notifierService: NotifierService,
+    protected alertService: AlertService,
   ) {
     
   }
@@ -146,10 +154,21 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
   }
 
   showNotification(resp) {
-    console.log('starting MenuService::showNotification(res)');
+    console.log('starting GuigTableComponent::showNotification(res)');
+    console.log('resp:', resp);
     if (resp) {
       if (resp.app_state.success > 0) {
-        const msg = resp.data.affectedRows[0].updatedRows + ' rows updated';
+        const updatedRows = resp.data.affectedRows[0].updatedRows;
+        let msg = updatedRows;
+        if(resp.data.affectedRows[0].updatedRows > 1){
+          msg += ' rows updated.';
+        }
+        else if (updatedRows==1){
+          msg += ' row updated.';
+        }
+        else if (updatedRows==0){
+          msg = 'No update was effected.';
+        }
         const msgType = 'success';
         this.notifierService.show({
           message: msg,
@@ -158,6 +177,9 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
         });
         //clear resp after display so that same value is not read again
         this.consumerServer.resp = null;
+
+        //test angular-8-alert-notifications
+        this.alertService.success(msg, this.alertOptions)
       }
       else {
         const msg = 'something went wrong:' + resp.app_state.err_msg;

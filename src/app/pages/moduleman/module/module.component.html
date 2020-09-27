@@ -1,26 +1,21 @@
-<!-- Adopted from https://codepen.io/markcaron/pen/MvGRYV -->
-<div class="tabset">
-    <!-- Tab 1 -->
-    <input type="radio" name="tabset" id="tab1" aria-controls="service-info" checked>
-    <label for="tab1">{{tabs[0].data.title}}</label>
-    <!-- Tab 2 -->
-    <input type="radio" name="tabset" id="tab2" aria-controls="service-schedule">
-    <label for="tab2">{{tabs[1].data.title}}</label>
-    <!-- Tab 3 -->
-    <input type="radio" name="tabset" id="tab3" aria-controls="service-facilitators">
-    <label for="tab3">{{tabs[2].data.title}}</label>
-    
-    <div class="tab-panels">
-      <section id="service-info" class="tab-panel">
-        <ngx-tab-loader [tabIndex]="tab0Index" [tabs]="tabs"></ngx-tab-loader>
-    </section>
-      <section id="service-schedule" class="tab-panel">
-        <ngx-tab-loader [tabIndex]="tab1Index" [tabs]="tabs"></ngx-tab-loader>
-      </section>
-      <section id="service-facilitators" class="tab-panel">
-        <ngx-tab-loader [tabIndex]="tab2Index" [tabs]="tabs"></ngx-tab-loader>
-      </section>
-    </div>
-    
+
+  <div class="tabs-container">
+      <ul class="nav nav-tabs" role="tablist">
+          <li (click)="tabActivate(0)" id="tab_0"><a class="nav-link active" data-toggle="tab"> Modules</a></li>
+          <li (click)="tabActivate(1)" id="tab_1"><a class="nav-link" data-toggle="tab">Register</a></li>
+      </ul>
+      <div class="tab-content">
+          <div role="tabpanel" id="tab-0" class="tab-pane active">
+              <div class="panel-body">
+                  <ngx-module-list></ngx-module-list>
+              </div>
+          </div>
+          <div role="tabpanel" id="tab-1" class="tab-pane">
+              <div class="panel-body">
+                <ngx-module-register></ngx-module-register>
+              </div>
+          </div>
+      </div>
+
+
   </div>
-  

@@ -448,7 +448,7 @@ export class MenuService {
             data: updateData
           }
         ],
-        token: this.svSess.token
+        token: this.svSess.getCdToken()
       },
       args: null
     }

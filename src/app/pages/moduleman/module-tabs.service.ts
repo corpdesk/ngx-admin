@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { ModuleListComponent } from './module-list/module-list.component';
-import { ModuleCreateComponent } from './module-create/module-create.component';
+import { ModuleRegisterComponent } from './module-register/module-register.component';
 import { ModuleDashboardComponent } from './module-dashboard/module-dashboard.component';
 import { TabItem } from '../../@cd/guig/models/tab-item';
 
@@ -20,9 +20,9 @@ export class ModuleTabsService {
           options: {}
         }),
 
-      new TabItem(ModuleCreateComponent,
+      new TabItem(ModuleRegisterComponent,
         {
-          title: 'Create',
+          title: 'Register',
           options: {}
         }),
 

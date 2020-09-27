@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { NotifierModule } from "angular-notifier";
+
+// import { ToastrModule } from 'ngx-toastr';
 
 import { ModulemanRoutingModule } from './moduleman-routing.module';
 import { CdPaletteModule } from '../cd-palette/cd-palette.module'; 
@@ -15,6 +17,7 @@ import { ObservComponent } from './observ/observ.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ModuleTabsService } from './module-tabs.service';
 
+
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {
   NbActionsModule,
@@ -27,6 +30,7 @@ import {
   NbSelectModule,
   NbUserModule,
   NbAccordionModule,
+  NbStepperModule,
 } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
@@ -43,9 +47,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatStepperModule } from '@angular/material/stepper';
 import { ModuleListComponent } from './module-list/module-list.component';
-import { ModuleCreateComponent } from './module-create/module-create.component';
 import { ModuleDashboardComponent } from './module-dashboard/module-dashboard.component';
+import { ModuleRegisterComponent } from './module-register/module-register.component';
 
 const materialModules = [
   NbAccordionModule,
@@ -60,6 +65,7 @@ const materialModules = [
   MatButtonModule,
   MatButtonToggleModule,
   MatTreeModule,
+  MatStepperModule,
 ];
 
 @NgModule({
@@ -72,51 +78,15 @@ const materialModules = [
     DocprocComponent, 
     SysConfigComponent, 
     ObservComponent, 
-    DashboardComponent, ModuleListComponent, ModuleCreateComponent, ModuleDashboardComponent,
+    DashboardComponent, ModuleListComponent, ModuleDashboardComponent, ModuleRegisterComponent,
   ],
   providers: [ModuleTabsService],
-  entryComponents: [ ModuleListComponent, ModuleCreateComponent, ModuleDashboardComponent ],
+  entryComponents: [ ModuleListComponent, ModuleDashboardComponent, ModuleRegisterComponent, ],
   imports: [
     CommonModule,
-    // NotifierModule.withConfig({
-    //   position: {
-    //     horizontal: {
-    //       position: "right",
-    //       distance: 12
-    //     },
-    //     vertical: {
-    //       position: "top",
-    //       distance: 100,
-    //       gap: 10
-    //     }
-    //   },
-    //   theme: "material",
-    //   behaviour: {
-    //     autoHide: 5000,
-    //     onClick: false,
-    //     onMouseover: "pauseAutoHide",
-    //     showDismissButton: true,
-    //     stacking: 4
-    //   },
-    //   animations: {
-    //     enabled: true,
-    //     show: {
-    //       preset: "slide",
-    //       speed: 300,
-    //       easing: "ease"
-    //     },
-    //     hide: {
-    //       preset: "fade",
-    //       speed: 300,
-    //       easing: "ease",
-    //       offset: 50
-    //     },
-    //     shift: {
-    //       speed: 300,
-    //       easing: "ease"
-    //     },
-    //     overlap: 150
-    //   }}),
+    ReactiveFormsModule, 
+    FormsModule,
+    // ToastrModule.forRoot(), // ToastrModule added
     CdPaletteModule,
     ModulemanRoutingModule,
     ThemeModule,
@@ -130,6 +100,7 @@ const materialModules = [
     NbDatepickerModule,
     NbSelectModule,
     NbIconModule,
+    NbStepperModule,
     ngFormsModule,
     Ng2SmartTableModule,
     ...materialModules,

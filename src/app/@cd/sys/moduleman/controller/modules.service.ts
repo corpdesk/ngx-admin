@@ -12,6 +12,7 @@ export class ModulesService {
   private postData;
   currentModule = '';
   public Modules;
+  resp;
   successNewModule = false;
   constructor(
     private svServer: ServerService,
@@ -86,7 +87,7 @@ export class ModulesService {
           }
         ],
         docproc: {},
-        token: this.svSess.token
+        token: this.svSess.getCdToken()
       },
       args: null
     };
@@ -94,12 +95,61 @@ export class ModulesService {
 
   setRespRegModule(data) {
     console.log(data);
-
-
   }
 
   /**
-   * register module
+   * Guig table update
+   * @param updateData 
+   * @param configId 
+   * @param fieldId 
+   */
+  tUpdate(updateData, fieldId) {
+    console.log('starting MenuService::updateMenuConfig()');
+    // console.log('updateData:', JSON.stringify(updateData));
+    this.updateModulePost(updateData, fieldId);
+    console.log('this.postData:', JSON.stringify(this.postData));
+    this.svServer.proc(this.postData)
+      .subscribe((res) => {
+        console.log(res);
+        this.respUpdateModule(res);
+      });
+  }
+
+  updateModulePost(updateData, fieldId) {
+    console.log('starting ModuleService::updateModulePost()');
+    this.postData = {
+      ctx: 'Sys',
+      m: 'Moduleman',
+      c: 'ModulesController',
+      a: 'actionUpdate',
+      dat: {
+        f_vals: [
+          {
+            filter: [
+              {
+                field: 'module_id',
+                operator: '=',
+                val: fieldId
+              }
+            ],
+            data: updateData
+          }
+        ],
+        token: this.svSess.getCdToken()
+      },
+      args: null
+    }
+  }
+
+  respUpdateModule(res) {
+    console.log('starting ModulesService::respUpdateModule(res)');
+    console.log(res);
+    this.resp = res;
+    this.getGetAll();
+  }
+
+  /**
+   * deregister module
    */
   deRegisterModule(moduleName, isSysModule) {
     let data = {

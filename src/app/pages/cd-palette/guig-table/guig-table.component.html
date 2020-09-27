@@ -1,15 +1,15 @@
 <!-- <notifier-container></notifier-container> -->
 
+
+<alert></alert>
+
 <table class="table table-striped">
   <thead>
     <tr>
       <ng-container *ngFor="let col of colConfig.columns">
-
         <th *ngIf="col.hide !== true">{{col.name}}</th>
-
       </ng-container>
     </tr>
-
   </thead>
   <tbody>
     <ng-container *ngFor="let rowData of payLoad">

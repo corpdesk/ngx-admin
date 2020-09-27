@@ -273,6 +273,20 @@ ToDo:
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
 
+
+
+
+27/09/2020
+- implement update module...DONE
+- test 'alert' on inspinia tab...DONE
+- angulate inspinia tab...DONE
+- develop module-register component
+    - do gui
+    - do validation
+    - do register
+    - read response
+
+
 25/09/2020
 - enabled column hiding for guig-table
 
@@ -306,6 +320,8 @@ ToDo:
     - https://www.npmjs.com/package/angular-notifier (adopted)
         - https://github.com/dominique-mueller/angular-notifier
     - https://www.npmjs.com/package/ngx-toastr (tested but not adopted)
+    - https://github.com/cornflourblue/angular-8-alert-notifications
+        - https://jasonwatmore.com/post/2019/07/05/angular-8-alert-toaster-notifications
     - use moduleman/dashboard page (tested but not adopted)
         - https://speckyboy.com/css-js-notification-alert-code/
         
