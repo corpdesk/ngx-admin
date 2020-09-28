@@ -51,6 +51,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { ModuleListComponent } from './module-list/module-list.component';
 import { ModuleDashboardComponent } from './module-dashboard/module-dashboard.component';
 import { ModuleRegisterComponent } from './module-register/module-register.component';
+import { MenuRegisterComponent } from './menu-register/menu-register.component';
+import { MenuListComponent } from './menu-list/menu-list.component';
 
 const materialModules = [
   NbAccordionModule,
@@ -78,7 +80,7 @@ const materialModules = [
     DocprocComponent, 
     SysConfigComponent, 
     ObservComponent, 
-    DashboardComponent, ModuleListComponent, ModuleDashboardComponent, ModuleRegisterComponent,
+    DashboardComponent, ModuleListComponent, ModuleDashboardComponent, ModuleRegisterComponent, MenuRegisterComponent, MenuListComponent,
   ],
   providers: [ModuleTabsService],
   entryComponents: [ ModuleListComponent, ModuleDashboardComponent, ModuleRegisterComponent, ],

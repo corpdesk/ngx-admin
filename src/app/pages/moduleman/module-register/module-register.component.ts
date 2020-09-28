@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { ToastrService } from 'ngx-toastr';
 import { ModulesService } from '../../../@cd/sys/moduleman/controller/modules.service';
+import { CdResponse } from '../../../@cd/cd.model';
 
 @Component({
   selector: 'ngx-module-register',
@@ -19,13 +20,13 @@ export class ModuleRegisterComponent implements OnInit {
     private fb: FormBuilder,
     private svModules: ModulesService,
     // private toastr: ToastrService,
-    ) {}
+  ) { }
 
   ngOnInit() {
     this.initForms();
   }
 
-  initForms(){
+  initForms() {
     this.frmRegModule = this.fb.group({
       module_name: ['', Validators.required],
       is_sys_module: ['', Validators.required]
@@ -46,14 +47,20 @@ export class ModuleRegisterComponent implements OnInit {
 
   submitForm(frm: FormGroup) {
     console.log(frm.value);
-    // this.toastr.success('Hello world!', 'Toastr fun!');
-    if(frm.invalid){
+    if (frm.invalid) {
       this.isInvalidRegModule = true;
     } else {
       frm.value.module_type_id = 1;
       console.log(frm.value);
-      this.svModules.registerModule(frm.value);
+      // this.svModules.registerModule(frm.value);
+      this.svModules.registerModuleObsv(frm.value)
+        .subscribe((resp: any) => {
+          console.log('resp:', resp);
+          if (resp.app_state.success > 0) {
+            this.successRegModule = true;
+          }
+        });
     }
-    
+
   }
 }

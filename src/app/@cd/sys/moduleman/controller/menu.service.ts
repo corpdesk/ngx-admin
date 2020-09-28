@@ -460,6 +460,11 @@ export class MenuService {
     this.resp = res;
     this.getMenuConfig(this.configId);
   }
+
+  tTrash(id){
+
+  }
+  
   /**
    * 
    * @param cdMenu : cd-menu to remap

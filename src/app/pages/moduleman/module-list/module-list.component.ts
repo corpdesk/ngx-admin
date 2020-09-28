@@ -11,7 +11,6 @@ import { GuigTableConfig } from '../../../@cd/guig/models/guig-table-col.model';
 export class ModuleListComponent implements OnInit {
   modulesData;
   primaryIndex = 'module_id';
-  // configId = 2;
   colConfig: GuigTableConfig = {
     columns: [
       {
@@ -181,10 +180,7 @@ export class ModuleListComponent implements OnInit {
   constructor(
     public svModule: ModulesService,
   ) {
-    // this.svMenu.getMenuConfig(1);
-    // this.svMenu.getMenuConfig(2);
     this.svModule.getGetAll();
-    
   }
 
   ngOnInit(): void {

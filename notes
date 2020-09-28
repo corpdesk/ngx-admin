@@ -69,10 +69,12 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
+- register module, then register menu 
+    - on register, refresh table
+- use observable so search for guig table
 
-
-
-
+- on step 2 address the new module with the registered name 
+    eg: 'Register menus for foo03 module
 - create consumable inspinia/ibox
     - context menu for ibox
         - https://akveo.github.io/nebular/docs/components/context-menu/overview#nbcontextmenudirective
@@ -85,7 +87,7 @@ ToDo:
 - register ngx-admn modules and menu as per 2nd guig-mode
 - register ngx-admn modules and menu as per existing back-end items (modeman,coop, booking)
 
-- hideChildren to allow menu item to work as link instead to attempting to expand
+
 - create menu item via cdapi
 
 
@@ -273,7 +275,14 @@ ToDo:
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
 
+28/09/2020
+- guig notifications...DONE
+    - switch notifications messages based on crud operations...DONE
+- implement 'trash' module...DONE
+    - on trash, refresh table...DONE
 
+- alert successfully register...DONE
+- hideChildren to allow menu item to work as link instead to attempting to expand ...DONE
 
 
 27/09/2020

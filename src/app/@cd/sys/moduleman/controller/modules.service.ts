@@ -40,6 +40,17 @@ export class ModulesService {
       });
   }
 
+  registerModuleObsv(data) {
+    console.log(data);
+    console.log(data.is_sys_module);
+    data = this.cleanRegData(data);
+    this.setEnvelopeRegModule(data);
+    /*
+    post login request to server
+    */
+    return this.svServer.proc(this.postData);
+  }
+
   cleanRegData(data) {
     data.is_sys_module = Number(data.is_sys_module);
     if (data.is_sys_module === 1) {
@@ -149,6 +160,27 @@ export class ModulesService {
   }
 
   /**
+   * deregiser module item
+   * @param rowData: object 
+   * tRefresh() should be called thereafter
+   * to refresh table view
+   */
+  tTrash(rowData: any){
+    return this.deRegisterModuleObsv(rowData.module_name, rowData.is_sys_module);
+  }
+
+
+
+  /**
+   * should return observable that the table can use to refresh
+   */
+  tRefreshObsv(){
+    this.setEnvelopeGetAll();
+    return this.svServer.proc(this.postData);
+  }
+
+  
+  /**
    * deregister module
    */
   deRegisterModule(moduleName, isSysModule) {
@@ -166,6 +198,22 @@ export class ModulesService {
         console.log(res);
         this.setRespRegModule(res.data);
       });
+  }
+
+  deRegisterModuleObsv(moduleName, isSysModule) {
+    console.log('starting deRegisterModuleObsv()');
+    let data = {
+      module_name: moduleName,
+      is_sys_module: isSysModule,
+      module_type_id: 1
+    };
+    data = this.cleanRegData(data);
+    this.setEnvelopeDeRegModule(data);
+    console.log('this.postData:', JSON.stringify(this.postData));
+    /*
+    post login request to server
+    */
+    return this.svServer.proc(this.postData);
   }
 
   // /**
@@ -380,5 +428,11 @@ export class ModulesService {
     console.log(data);
     this.Modules = data;
   }
+
+  tRefresh(){
+
+  }
+
+  
 
 }

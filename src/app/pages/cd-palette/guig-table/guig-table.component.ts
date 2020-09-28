@@ -14,9 +14,9 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
   private readonly notifier: NotifierService;
   selectedId = -1;
   @Input() colConfig: GuigTableConfig;
-  @Input() payLoad;
-  @Input() payLoadIndex;
-  @Input() consumerServer; // instance of consumer server
+  @Input() payLoad: any;
+  @Input() payLoadIndex: string;
+  @Input() consumerServer: any; // instance of consumer server
   editableFields = [];
   dataFields = [];
   postData;
@@ -29,7 +29,7 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
   alertOptions = {
     autoClose: true,
     keepAfterRouteChange: false
-};
+  };
 
   notifierDefaultOptions: NotifierOptions = {
     position: {
@@ -77,7 +77,7 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
     private notifierService: NotifierService,
     protected alertService: AlertService,
   ) {
-    
+
   }
 
   ngOnInit(): void {
@@ -86,7 +86,7 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    
+
   }
 
   rowClick(id) {
@@ -111,7 +111,7 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
     this.clearNotification();
     const updateData = {};
     this.editableFields.forEach((ef) => {
-      switch (ef.controlType){
+      switch (ef.controlType) {
         case 'label':
           updateData[ef.map] = (document.getElementById(ef.map + '_' + this.selectedId) as HTMLInputElement).value;
           break;
@@ -122,30 +122,52 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
     });
     const fieldId = this.selectedId;
     // this.svMenu.updateMenuConfig(updateData, configId,fieldId);
-    this.consumerServer.tUpdate(updateData,fieldId);
+    this.consumerServer.tUpdate(updateData, fieldId);
 
     // process notifications after 2 seconds
-    setTimeout(() => { this.showNotification(this.consumerServer.resp) }, 2000);
+    setTimeout(() => { this.showNotification(this.consumerServer.resp,'tUpdate') }, 2000);
 
   }
 
   // extract the editable fields
-  setEditableFields(){
+  setEditableFields() {
     this.editableFields = this.colConfig.columns.filter(
-      (ef) => { return ef.editable == true;}
+      (ef) => { return ef.editable == true; }
     );
     console.log('editableFields:', this.editableFields);
   }
 
-  setDataFields(){
+  setDataFields() {
     this.dataFields = this.colConfig.columns.filter(
-      (df) => { return df.index > 1 && df.hide !== true;}
+      (df) => { return df.index > 1 && df.hide !== true; }
     );
     console.log('dataFields:', this.dataFields);
   }
 
+  getByID(id) {
+    return this.payLoad.filter((dat) => { return dat[this.payLoadIndex] == id });
+  }
+
   trash(id) {
     this.clearNotification();
+    const rowData = this.getByID(id);
+    console.log('rowData:', rowData);
+    this.consumerServer.tTrash(rowData[0])
+      .subscribe((resp: any) => {
+        // do notification
+        this.showNotification(resp, 'tTrash');
+        /**
+         * if trashing is successfull,
+         * then refresh table
+         */
+        if (resp.app_state.success > 0) {
+          this.consumerServer.tRefreshObsv()
+            .subscribe((resp: any) => {
+              this.payLoad = resp.data;
+            })
+        }
+
+      });
   }
 
   goBack(id) {
@@ -153,33 +175,43 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
     this.selectedId = -1;
   }
 
-  showNotification(resp) {
+  showNotification(resp, fx) {
     console.log('starting GuigTableComponent::showNotification(res)');
     console.log('resp:', resp);
+    let msg = '';
+    let msgType = '';
     if (resp) {
       if (resp.app_state.success > 0) {
-        const updatedRows = resp.data.affectedRows[0].updatedRows;
-        let msg = updatedRows;
-        if(resp.data.affectedRows[0].updatedRows > 1){
-          msg += ' rows updated.';
+        switch (fx) {
+          case 'tUpdate':
+            const updatedRows = resp.data.affectedRows[0].updatedRows;
+            msg = updatedRows;
+            if (resp.data.affectedRows[0].updatedRows > 1) {
+              msg += ' rows updated.';
+            }
+            else if (updatedRows == 1) {
+              msg += ' row updated.';
+            }
+            else if (updatedRows == 0) {
+              msg = 'No update was effected.';
+            }
+            msgType = 'success';
+            //clear resp after display so that same value is not read again
+            this.consumerServer.resp = null;
+            break;
+          case 'tTrash':
+            msg = 'the data has been deleted';
+            break
         }
-        else if (updatedRows==1){
-          msg += ' row updated.';
-        }
-        else if (updatedRows==0){
-          msg = 'No update was effected.';
-        }
-        const msgType = 'success';
+
         this.notifierService.show({
           message: msg,
           type: msgType,
           template: this.customNotificationTmpl
         });
-        //clear resp after display so that same value is not read again
-        this.consumerServer.resp = null;
-
         //test angular-8-alert-notifications
-        this.alertService.success(msg, this.alertOptions)
+        this.alertService.success(msg, this.alertOptions);
+
       }
       else {
         const msg = 'something went wrong:' + resp.app_state.err_msg;
@@ -200,49 +232,5 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
     this.notifierService.hideAll();
   }
 
-  // updateMenuConfig(updateData, configId, fieldId) {
-  //   console.log('starting MenuService::updateMenuConfig()');
-  //   console.log('updateData:', updateData);
-  //   this.updateMenuConfigDataPost(updateData, fieldId);
-  //   this.svServer.proc(this.postData)
-  //     .subscribe((res) => {
-  //       console.log(res);
-  //       this.respUpdateMenuConfig(res, configId);
-  //     });
-
-  // }
-
-  // updateMenuConfigDataPost(updateData, fieldId) {
-  //   console.log('starting MenuService::updateMenuConfigDataPost()');
-  //   this.postData = {
-  //     ctx: 'Sys',
-  //     m: 'Moduleman',
-  //     c: 'MenuConfigController',
-  //     a: 'actionUpdate',
-  //     dat: {
-  //       f_vals: [
-  //         {
-  //           filter: [
-  //             {
-  //               field: 'menu_config_id',
-  //               operator: '=',
-  //               val: fieldId
-  //             }
-  //           ],
-  //           data: updateData
-  //         }
-  //       ],
-  //       token: "mT6blaIfqWhzNXQLG8ksVbc1VodSxRZ8lu5cMgda"
-  //     },
-  //     args: null
-  //   }
-  // }
-
-  // respUpdateMenuConfig(res, configId) {
-  //   console.log('starting MenuService::respUpdateMenuConfig(res)');
-  //   console.log(res);
-  //   this.resp = res;
-  //   this.getMenuConfig(configId);
-  // }
 
 }
