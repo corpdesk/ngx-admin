@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { of, from, pipe } from 'rxjs';
-
-import { remapKeys } from 'curry-remap-keys';
+import { from } from 'rxjs';
 
 import { GuigContextService } from '../../../guig/guig-context';
 import { ServerService } from './server.service';
 import { SessService } from '../../user/controllers/sess.service';
-import { UserData } from '../../user/models/user-model';
 import { ModuleMenu } from '../model/menu.model';
 
 
@@ -78,7 +75,7 @@ export class MenuService {
     private svServer: ServerService,
     private svSess: SessService,
     private gc: GuigContextService,
-  ) { 
+  ) {
     this.menu = this.initMenu();
   }
 
@@ -89,17 +86,15 @@ export class MenuService {
     // console.log('MenuService::init(res)/res.data.menu_data:', res.data.menu_data);
     // this.setMenuData(res.data.menu_data);
     // this.userDataResp$ = userDataResp$;
-
     if (userDataResp$) {
       this.userDataResp$ = userDataResp$;
       from(userDataResp$).subscribe(res => {
         console.log('MenuService::init()/dat:', res);
+        console.log('MenuService::init()/res.data.menu_data:', res.data.menu_data);
         this.menuData = res.data.menu_data;
         this.processMenu(res.data.menu_data);
       });
     }
-
-
   }
 
   setMenuData(menuData) {
@@ -141,19 +136,21 @@ export class MenuService {
         break;
       case 'cd-demo':
 
-        // filteredMenu = await menuData.filter(m => m.enabled == true);
         menuData.forEach(async function (menu: ModuleMenu, i) {
+          menu.icon = { icon: menu.icon, pack: menu.icon_type };
           if ('children' in menu) {
+            //map menu childred
             menu.children = menu.children
               .map(
-                (sm) => {
+                (sm: ModuleMenu) => {
                   delete sm['children'];
+                  sm.icon = { icon: sm.icon, pack: sm.icon_type };
                   return sm;
                 });
             menuData[i].children = await menu.children;
           }
         });
-        console.log('menuData', menuData);
+        console.log('menuData', await menuData);
         // debugger;
         activeMenu = await menuData; // usc filterable menu
         // activeMenu = menuData;
@@ -165,7 +162,37 @@ export class MenuService {
     // return this.menu;
   }
 
-  // register menu
+  // /**
+  //  * {
+  //         "ctx": "Sys",
+  //         "m": "Moduleman",
+  //         "c": "MenuController",
+  //         "a": "actionCreate",
+  //         "dat": {
+  //             "f_vals": [{
+  //                 "cd_obj": {
+  //                     "cd_obj_name": "reservation-component-menu-link",
+  //                     "cd_obj_type_guid": "f5df4494-5cc9-4463-8e8e-c5861703280e",
+  //                     "parent_module_guid": "a06f881e-41f1-45b9-87f4-8475fef7fcba"
+  //                 },
+  //                 "data": {
+  //                     "menu_name": "reservation",
+  //                     "menu_closet_file": "",
+  //                     "menu_parent_id": "982",
+  //                     "module_id": "258",
+  //                     "menu_order": "11",
+  //                     "path": "reservation",
+  //                     "menu_description": "reservation",
+  //                     "menu_lable": "reservation",
+  //                     "menu_icon": "cog",
+  //                     "active": true
+  //                 }
+  //             }],
+  //             "token": "mT6blaIfqWhzNXQLG8ksVbc1VodSxRZ8lu5cMgda"
+  //         },
+  //         "args": null
+  //     }
+  //  */
   registerMenu(data) {
     console.log(data);
     console.log(data.is_sys_module);
@@ -183,6 +210,18 @@ export class MenuService {
         }
         this.setRespRegMenu(res.data);
       });
+  }
+
+  registerMenuObsv(data) {
+    console.log('starting registerMenuObsv(data)')
+    console.log('data:', data);
+    data = this.cleanRegData(data);
+    this.setEnvelopeRegMenu(data);
+    console.log('this.postData:', JSON.stringify(this.postData));
+    /*
+    post request to server
+    */
+    return this.svServer.proc(this.postData)
   }
 
   cleanRegData(data) {
@@ -344,17 +383,17 @@ export class MenuService {
     const menu = [];
     data.forEach(async (m: any) => {
       console.log('m:', m);
-      // m = await m['children'].map(
-      //   (sm, i) => {
-      //     console.log('before sm:', sm);
-      //     delete sm['children'];
-      //     console.log('after sm:', sm);
-      //     // console.log('m[i]:', m);
-      //     m['children'] = sm;
-      //     console.log('m:', m);
-      //     return m;
-      //   });
-      m['children'].forEach((sm)=>{
+      console.log('m.icon:', m.icon);
+
+      // // process fa icons
+      // if(m.icon_type == 'fa'){
+      //   console.log('JSON.parse(m.icon:', JSON.parse(m.icon));
+      //   m.icon = JSON.parse(m.icon);
+      // }
+
+      m.icon = { icon: m.icon, pack: m.icon_type };
+
+      m['children'].forEach((sm) => {
         delete sm['children'];
       });
       menu.push(await m);
@@ -461,10 +500,10 @@ export class MenuService {
     this.getMenuConfig(this.configId);
   }
 
-  tTrash(id){
+  tTrash(id) {
 
   }
-  
+
   /**
    * 
    * @param cdMenu : cd-menu to remap
@@ -493,11 +532,11 @@ export class MenuService {
    * initialization errors due to processing lapse
    * against menu data;
    */
-  initMenu(){
+  initMenu() {
     return [
       {
         title: '...initializing',
-        icon: 'loader-outline',
+        icon: { icon: 'spinner', pack: 'fa' },
         enabled: true,
         link: '/pages/home/news-feed',
         home: true,
@@ -759,7 +798,7 @@ export class MenuService {
     return [
       {
         title: 'Home',
-        icon: 'lock-outline',
+        icon: { icon: 'anchor', pack: 'fa' },
         enabled: true,
         link: '/pages/home/news-feed',
         home: true,
@@ -2835,9 +2874,11 @@ export class MenuService {
 
   cdDemoMenu3() {
     return [
-      { "menu_id": 1029, "title": "QuestServ", "icon": "edit-2-outline", "menu_guid": "4A26185C-3B4F-53E8-5BC4-951BC2A53E2C", "registered": 1, "location": "", "menu_action_id": 92312, "doc_id": 9467, "menu_parent_id": -1, "menu_order": 11, "link": "QuestServ", "description": "QuestServ", "module_id": 303, "moduleTypeID": 1, "module_guid": "AEF7E29D-1737-15B9-0EE9-BB3E12B6A2C7", "module_name": "QuestServ", "moduleName": "QuestServ", "is_public": 1, "is_sys_module": 0, 
-      "children": [{ "menu_id": 1030, "title": "index", "icon": "message-circle-outline", "menu_guid": "FFD4FA4D-C58F-A996-413F-A6EDF918219C", "registered": 1, "location": "", "menu_action_id": 92313, "doc_id": 9469, "menu_parent_id": 1029, "menu_order": 11, "link": "index", "description": "index", "module_id": 303, "moduleTypeID": 1, "module_guid": "AEF7E29D-1737-15B9-0EE9-BB3E12B6A2C7", "module_name": "QuestServ", "moduleName": "QuestServ", "is_public": 1, "is_sys_module": 0, "menu_action": { "module": "QuestServ", "controller": "", "action": "index-component-menu-link", "fields": [], "f_vals": [], "args": "guig", "menu_url": null, "privileged_groups": ["Everyone"] }, "cd_obj_id": 92313, "cd_obj_name": "index-component-menu-link", "cd_obj_disp_name": null, "cd_obj_guid": "68F44CA2-374C-8AEC-2F40-CF72C7BCE156", "cd_obj_type_guid": "f5df4494-5cc9-4463-8e8e-c5861703280e", "last_modification_date": null, "parent_module_guid": "AEF7E29D-1737-15B9-0EE9-BB3E12B6A2C7", "parent_class_guid": null, "parent_obj": null, "show_name": null, "obJicon": null, "show_icon": null, "curr_val": null, "enabled": null }], 
-      "menu_action": { "module": "QuestServ", "controller": "", "action": "QuestServ-module-menu-link", "fields": [], "f_vals": [], "args": "guig", "menu_url": null, "privileged_groups": ["Everyone"] }, "cd_obj_id": 92312, "cd_obj_name": "QuestServ-module-menu-link", "cd_obj_disp_name": null, "cd_obj_guid": "CD0E95B5-CFED-32A5-28D4-EAACEA9691C2", "cd_obj_type_guid": "f5df4494-5cc9-4463-8e8e-c5861703280e", "last_modification_date": null, "parent_module_guid": "-1", "parent_class_guid": null, "parent_obj": null, "show_name": null, "obJicon": null, "show_icon": null, "curr_val": null, "enabled": null }]
+      {
+        "menu_id": 1029, "title": "QuestServ", "icon": "edit-2-outline", "menu_guid": "4A26185C-3B4F-53E8-5BC4-951BC2A53E2C", "registered": 1, "location": "", "menu_action_id": 92312, "doc_id": 9467, "menu_parent_id": -1, "menu_order": 11, "link": "QuestServ", "description": "QuestServ", "module_id": 303, "moduleTypeID": 1, "module_guid": "AEF7E29D-1737-15B9-0EE9-BB3E12B6A2C7", "module_name": "QuestServ", "moduleName": "QuestServ", "is_public": 1, "is_sys_module": 0,
+        "children": [{ "menu_id": 1030, "title": "index", "icon": "message-circle-outline", "menu_guid": "FFD4FA4D-C58F-A996-413F-A6EDF918219C", "registered": 1, "location": "", "menu_action_id": 92313, "doc_id": 9469, "menu_parent_id": 1029, "menu_order": 11, "link": "index", "description": "index", "module_id": 303, "moduleTypeID": 1, "module_guid": "AEF7E29D-1737-15B9-0EE9-BB3E12B6A2C7", "module_name": "QuestServ", "moduleName": "QuestServ", "is_public": 1, "is_sys_module": 0, "menu_action": { "module": "QuestServ", "controller": "", "action": "index-component-menu-link", "fields": [], "f_vals": [], "args": "guig", "menu_url": null, "privileged_groups": ["Everyone"] }, "cd_obj_id": 92313, "cd_obj_name": "index-component-menu-link", "cd_obj_disp_name": null, "cd_obj_guid": "68F44CA2-374C-8AEC-2F40-CF72C7BCE156", "cd_obj_type_guid": "f5df4494-5cc9-4463-8e8e-c5861703280e", "last_modification_date": null, "parent_module_guid": "AEF7E29D-1737-15B9-0EE9-BB3E12B6A2C7", "parent_class_guid": null, "parent_obj": null, "show_name": null, "obJicon": null, "show_icon": null, "curr_val": null, "enabled": null }],
+        "menu_action": { "module": "QuestServ", "controller": "", "action": "QuestServ-module-menu-link", "fields": [], "f_vals": [], "args": "guig", "menu_url": null, "privileged_groups": ["Everyone"] }, "cd_obj_id": 92312, "cd_obj_name": "QuestServ-module-menu-link", "cd_obj_disp_name": null, "cd_obj_guid": "CD0E95B5-CFED-32A5-28D4-EAACEA9691C2", "cd_obj_type_guid": "f5df4494-5cc9-4463-8e8e-c5861703280e", "last_modification_date": null, "parent_module_guid": "-1", "parent_class_guid": null, "parent_obj": null, "show_name": null, "obJicon": null, "show_icon": null, "curr_val": null, "enabled": null
+      }]
   }
 
   menuConfig() {

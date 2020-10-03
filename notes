@@ -69,12 +69,24 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
-- register module, then register menu 
-    - on register, refresh table
+- display success/failure notifiction on stepper 
+
+- Test notification using mat-bottom-sheet
+    - https://material.angular.io/components/bottom-sheet/overview
+- develop menu-register
+- develop menu-list
+
+- guard all moduleman routes
+- dynamically position the view point for alert
+    - guig-table...show under current row
+    - module-register...show under current 'step'
+- impement tTrash on menu-service
+
+- user join group (drag & drop)
+    - https://material.angular.io/cdk/drag-drop/overview
 - use observable so search for guig table
 
-- on step 2 address the new module with the registered name 
-    eg: 'Register menus for foo03 module
+
 - create consumable inspinia/ibox
     - context menu for ibox
         - https://akveo.github.io/nebular/docs/components/context-menu/overview#nbcontextmenudirective
@@ -87,13 +99,6 @@ ToDo:
 - register ngx-admn modules and menu as per 2nd guig-mode
 - register ngx-admn modules and menu as per existing back-end items (modeman,coop, booking)
 
-
-- create menu item via cdapi
-
-
-- adopt observables as way of distributing data in the system
-    - https://medium.com/angular-in-depth/reading-the-rxjs-6-sources-map-and-pipe-94d51fec71c2
-    - https://codecraft.tv/courses/angular/http/http-with-observables/
 
 
 - custom elements:
@@ -274,6 +279,25 @@ ToDo:
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
+
+03/10/2020
+- use fontawesome on menu
+    - https://github.com/akveo/ngx-admin/issues/5634
+    - { icon: 'bell', pack: 'fa' },
+    - { icon: 'home', pack: 'fa' },
+    - { icon: 'award-outline', pack: 'eva' },
+- module-register/...register menu
+    - show success/error message for step 1
+    - back-end response to include 'newMenu'
+    - disable 'next' buttons untill successfull submission
+- register module, then register menu 
+    - on register, refresh table
+    - set gui controll for menu insert
+    - set basic validation rules
+- on step 2 address the new module with the registered name 
+    eg: 'Register menus for foo03 module
+
+- adopt observables as way of distributing data in the system
 
 28/09/2020
 - guig notifications...DONE

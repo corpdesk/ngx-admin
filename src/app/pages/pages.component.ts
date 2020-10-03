@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { NbIconLibraries } from '@nebular/theme'; // to allow fontawesome
 import { Observable } from 'rxjs/Observable';
 import { map, filter } from 'rxjs/operators';
 import { from } from 'rxjs';
@@ -33,14 +34,21 @@ export class PagesComponent implements OnInit, AfterViewInit {
     private gc: GuigContextService,
     public svMenu: MenuService,
     private svSess: SessService,
+    private iconLibraries: NbIconLibraries, // to allow font awesome
   ) {
     console.log('PagesComponent::constructor()/svMenu.menuData', this.svMenu.menuData);
-    // this.svMenu.getGetAll(environment.clientAppId);
+    this.iconLibraries.registerFontPack('fa', { packClass: 'fa', iconClassPrefix: 'fa' });
+    this.iconLibraries.registerFontPack('fas', { packClass: 'fas', iconClassPrefix: 'fas' });
+    this.iconLibraries.registerFontPack('far', { packClass: 'far', iconClassPrefix: 'far' });
+
+    const elemIcon = document.getElementsByClassName('menu-icon') as HTMLCollectionOf<Element>;
+    console.log('elemIcon:', elemIcon);
   }
 
   ngOnInit() {
     console.log('PagesComponent::OnInit()/svMenu.menuData', this.svMenu.menuData);
     console.log('this.svSess.token:', this.svSess.token);
+    
     if (!this.svSess.token) {
       this.svMenu.getGetAnon(environment.clientAppId);
     }
@@ -48,6 +56,8 @@ export class PagesComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     // console.log('PagesComponent::ngAfterViewInit()/svMenu.menu', this.svMenu.menu);
+    
+
   }
 
   // processMenu() {
