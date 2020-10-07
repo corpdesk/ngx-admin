@@ -10,7 +10,8 @@ import { Group } from '../../user/models/group-model';
 export class GroupService {
   postData: any;
   cd_token: any;
-  selectedGroups: Group[];
+  selectedGroups: Group[] = [];
+  isInvalidSelGroups = true;
   constructor(
     private svServer: ServerService,
     private svSess: SessService,

@@ -28,7 +28,8 @@ export class UserService {
   public usersData$: Observable<UserData[]>;
   // CdResponse
   public userDataResp$: Observable<any>;
-  selectedUsers: User[];
+  isInvalidSelUsers = true;
+  selectedUsers: User[] = [];
 
   constructor(
     private svAppState: AppStateService,

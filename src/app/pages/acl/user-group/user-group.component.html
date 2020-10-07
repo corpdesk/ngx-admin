@@ -11,20 +11,15 @@
         <ngx-user-select></ngx-user-select>
 
         <p></p>
-        <button nbButton 
-          (click)="getSelectedUsers()"
-          status="primary">
-          <nb-icon icon="save"></nb-icon>
-        </button>
-        <button nbButton  nbStepperNext>
+        <button 
+        nbButton 
+        [disabled]="svUser.isInvalidSelUsers" 
+        nbStepperNext>
           <nb-icon icon="arrow-circle-right-outline"></nb-icon>
         </button>
       </nb-step>
-      <nb-step label="Menus">
-        <h4>Register menus for '' module</h4>
-        <p class="lorem">
-          Every module has to have at least one menu item. You can use the + button to add more items.
-        </p>
+      <nb-step label="Group">
+        <h4>Select group/s to move the users</h4>
         <ngx-group-select></ngx-group-select>
         <button 
         (click)="submitGroupMembers()"
@@ -35,31 +30,10 @@
         <button nbButton nbStepperPrevious>
           <nb-icon icon="arrow-circle-left-outline"></nb-icon>
         </button>
-        <button nbButton nbStepperNext>
+        <!-- <button nbButton [disabled]="svGroup.isInvalidSelGroups" nbStepperNext>
           <nb-icon icon="arrow-circle-right-outline"></nb-icon>
-        </button>
+        </button> -->
       </nb-step>
-      <nb-step label="Finnish">
-        <div class="col-md-12">
-          <h4>New Module:</h4>
-          <!-- <h2>{{regDataModule.module_name}}</h2> -->
-          <small>Below are the current menu items:</small>
-          <!-- <ul class="list-group clear-list m-t">
-            <li *ngFor="let menu of currentMenu" class="list-group-item fist-item">
-              <span class="float-right">
-                <mat-slide-toggle color="primary" [checked]="menu.enabled"></mat-slide-toggle>
-              </span>
-              <nb-icon [icon]="menu.icon" [pack]="menu.icon_type"></nb-icon>
-              {{menu.title}}
-            </li>
-          </ul> -->
-        </div>
-
-        <button nbButton nbStepperPrevious>
-          <nb-icon icon="arrow-circle-left-outline"></nb-icon>
-        </button>
-      </nb-step>
-
     </nb-stepper>
   </nb-card-body>
 </nb-card>

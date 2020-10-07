@@ -74,7 +74,7 @@ ToDo:
     - https://blog.briebug.com/blog/angular-how-to-implement-drag-and-drop-in-a-material-tree
     - https://stackblitz.com/edit/mat-tree-with-drag-and-drop?file=app%2Ftree-flat-overview-example.ts
 
-- validation for stepper 'next'/'prev'
+
 
 - myspace/group-stepper
     - create-group
@@ -302,6 +302,10 @@ ToDo:
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
+
+
+07/10/2020
+- validation for stepper 'next'/'prev' and refinement
 
 07/10/2020
 - implement select, checkbox, search for selecting users & groups

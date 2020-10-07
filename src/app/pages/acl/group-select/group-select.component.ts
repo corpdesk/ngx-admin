@@ -41,12 +41,9 @@ export class GroupSelectComponent implements OnInit, AfterViewInit, OnDestroy {
         (resp: any) => {
           console.log('GroupSelectComponents::ngOnInit()/resp.data:', resp.data);
           this.groups = resp.data;
+          this.filteredGroupsMulti.next(this.groups.slice());
         }
       );
-    this.groupMultiCtrl.setValue([]);
-
-    // load the initial user list
-    this.filteredGroupsMulti.next(this.groups.slice());
 
     // listen for search field value changes
     this.groupMultiFilterCtrl.valueChanges
@@ -55,6 +52,12 @@ export class GroupSelectComponent implements OnInit, AfterViewInit, OnDestroy {
         this.filterGroupsMulti();
         console.log('groupMultiCtrl.value:', this.groupMultiCtrl.value);
         this.svGroup.selectedGroups = this.groupMultiCtrl.value;
+        if(this.svGroup.selectedGroups.length > 0){
+          this.svGroup.isInvalidSelGroups = false;
+        }
+        else{
+          this.svGroup.isInvalidSelGroups = true;
+        }
       });
   }
 

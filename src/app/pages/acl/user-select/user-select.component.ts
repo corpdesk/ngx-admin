@@ -31,30 +31,35 @@ export class UserSelectComponent implements OnInit, AfterViewInit, OnDestroy {
   protected _onDestroy = new Subject<void>();
   constructor(
     public svUser: UserService,
-  ) { }
+  ) { 
+    
+  }
 
   ngOnInit() {
     this.svUser.getUsersObsv()
       .subscribe(
         (resp: any) => {
-          console.log('UserSelectComponents::ngOnInit()/resp.data:', resp.data);
+          console.log('UserSelectComponents::constructor()/resp.data:', resp.data);
           this.users = resp.data;
+          this.filteredUsersMulti.next(this.users.slice());
         }
       );
-    // set initial selection
-    //this.userMultiCtrl.setValue([this.users[10], this.users[11], this.users[12]]);
-    this.userMultiCtrl.setValue([]);
 
-    // load the initial user list
-    this.filteredUsersMulti.next(this.users.slice());
-
+    
     // listen for search field value changes
     this.userMultiFilterCtrl.valueChanges
       .pipe(takeUntil(this._onDestroy))
       .subscribe(() => {
         this.filterUsersMulti();
-        console.log('userMultiCtrl.value:', this.userMultiCtrl.value);
+        // console.log('userMultiCtrl.value:', this.userMultiCtrl.value);
         this.svUser.selectedUsers = this.userMultiCtrl.value;
+        if(this.svUser.selectedUsers.length > 0){
+          this.svUser.isInvalidSelUsers = false;
+        }
+        else{
+          this.svUser.isInvalidSelUsers = true;
+        }
+        
       });
   }
 
