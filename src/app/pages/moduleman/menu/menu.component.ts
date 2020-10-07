@@ -121,7 +121,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // this.thisInstance = this.svMenu;
   }
 
 }

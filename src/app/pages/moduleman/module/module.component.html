@@ -1,8 +1,7 @@
-
-  <div class="tabs-container">
+<div class="tabs-container">
       <ul class="nav nav-tabs" role="tablist">
-          <li (click)="tabActivate(0)" id="tab_0"><a class="nav-link active" data-toggle="tab"> Modules</a></li>
-          <li (click)="tabActivate(1)" id="tab_1"><a class="nav-link" data-toggle="tab">Register</a></li>
+          <li (click)="svTabs.tabActivate(0)" id="tab_0"><a class="nav-link active" data-toggle="tab"> Modules</a></li>
+          <li (click)="svTabs.tabActivate(1)" id="tab_1"><a class="nav-link" data-toggle="tab">Register</a></li>
       </ul>
       <div class="tab-content">
           <div role="tabpanel" id="tab-0" class="tab-pane active">
@@ -16,6 +15,4 @@
               </div>
           </div>
       </div>
-
-
   </div>

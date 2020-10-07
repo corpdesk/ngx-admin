@@ -69,10 +69,33 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
+- develop group-tree-view
+- tree: drag and drop:
+    - https://blog.briebug.com/blog/angular-how-to-implement-drag-and-drop-in-a-material-tree
+    - https://stackblitz.com/edit/mat-tree-with-drag-and-drop?file=app%2Ftree-flat-overview-example.ts
+
+- validation for stepper 'next'/'prev'
+
+- myspace/group-stepper
+    - create-group
+    - select-friend
+    - invite to group
+    - view my-created-groups
+    - view groups where I am a member
+    - group-types-lable
+
+
+
+- myspace/doctray/groups-invitation
+    - accept-accept group invitation
+
+
+
 - display success/failure notifiction on stepper 
 
 - Test notification using mat-bottom-sheet
     - https://material.angular.io/components/bottom-sheet/overview
+
 - develop menu-register
 - develop menu-list
 
@@ -279,6 +302,19 @@ ToDo:
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
+
+07/10/2020
+- implement select, checkbox, search for selecting users & groups
+    - https://www.npmjs.com/package/ngx-mat-select-search
+    - https://gqairzmny.github.stackblitz.io
+
+- users
+    - setepper/select-users
+    - select-group/submitJoinGroup()
+
+- groups
+    - setepper/select-groups
+    - select-group/submitJoinGroup()
 
 03/10/2020
 - use fontawesome on menu
@@ -556,6 +592,10 @@ Set pages structure with routing:
 - capture form data on login()
 
 22/08/2020:
+- generate acl module
+    - generate user component
+    - generate group component
+    
 - generate cd-auth module
     - ng g module cd-auth --routing
 - generate components for auth, login and register

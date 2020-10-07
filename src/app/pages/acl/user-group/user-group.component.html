@@ -1,0 +1,65 @@
+<nb-card>
+  <nb-card-body>
+    <nb-stepper #stepper [linear]="linearMode" orientation="vertical">
+      <nb-step label="User">
+
+        <!-- search box -->
+        <!-- <form class="g-search">
+          <input type="text" placeholder="Search.." name="search">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form> -->
+        <ngx-user-select></ngx-user-select>
+
+        <p></p>
+        <button nbButton 
+          (click)="getSelectedUsers()"
+          status="primary">
+          <nb-icon icon="save"></nb-icon>
+        </button>
+        <button nbButton  nbStepperNext>
+          <nb-icon icon="arrow-circle-right-outline"></nb-icon>
+        </button>
+      </nb-step>
+      <nb-step label="Menus">
+        <h4>Register menus for '' module</h4>
+        <p class="lorem">
+          Every module has to have at least one menu item. You can use the + button to add more items.
+        </p>
+        <ngx-group-select></ngx-group-select>
+        <button 
+        (click)="submitGroupMembers()"
+        nbButton 
+        status="primary">
+          <nb-icon icon="plus-outline"></nb-icon>
+        </button>
+        <button nbButton nbStepperPrevious>
+          <nb-icon icon="arrow-circle-left-outline"></nb-icon>
+        </button>
+        <button nbButton nbStepperNext>
+          <nb-icon icon="arrow-circle-right-outline"></nb-icon>
+        </button>
+      </nb-step>
+      <nb-step label="Finnish">
+        <div class="col-md-12">
+          <h4>New Module:</h4>
+          <!-- <h2>{{regDataModule.module_name}}</h2> -->
+          <small>Below are the current menu items:</small>
+          <!-- <ul class="list-group clear-list m-t">
+            <li *ngFor="let menu of currentMenu" class="list-group-item fist-item">
+              <span class="float-right">
+                <mat-slide-toggle color="primary" [checked]="menu.enabled"></mat-slide-toggle>
+              </span>
+              <nb-icon [icon]="menu.icon" [pack]="menu.icon_type"></nb-icon>
+              {{menu.title}}
+            </li>
+          </ul> -->
+        </div>
+
+        <button nbButton nbStepperPrevious>
+          <nb-icon icon="arrow-circle-left-outline"></nb-icon>
+        </button>
+      </nb-step>
+
+    </nb-stepper>
+  </nb-card-body>
+</nb-card>

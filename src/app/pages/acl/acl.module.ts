@@ -1,23 +1,7 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-// import { ToastrModule } from 'ngx-toastr';
-
-import { ModulemanRoutingModule } from './moduleman-routing.module';
-import { CdPaletteModule } from '../cd-palette/cd-palette.module'; 
-import { MenuComponent } from './menu/menu.component';
-import { ModulemanComponent } from './moduleman/moduleman.component';
-import { ModuleComponent } from './module/module.component';
-import { CompanyComponent } from './company/company.component';
-import { ConsumerComponent } from './consumer/consumer.component';
-import { DocprocComponent } from './docproc/docproc.component';
-import { SysConfigComponent } from './sys-config/sys-config.component';
-import { ObservComponent } from './observ/observ.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ModuleTabsService } from './module-tabs.service';
-
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {
   NbActionsModule,
@@ -48,11 +32,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatStepperModule } from '@angular/material/stepper';
-import { ModuleListComponent } from './module-list/module-list.component';
-import { ModuleDashboardComponent } from './module-dashboard/module-dashboard.component';
-import { ModuleRegisterComponent } from './module-register/module-register.component';
-import { MenuRegisterComponent } from './menu-register/menu-register.component';
-import { MenuListComponent } from './menu-list/menu-list.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+
+import { AclRoutingModule } from './acl-routing.module';
+import { UserComponent } from './user/user.component';
+import { GroupComponent } from './group/group.component';
+import { AclComponent } from './acl/acl.component';
+import { GrusComponent } from './grus/grus.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { GroupListComponent } from './group-list/group-list.component';
+import { UserGroupComponent } from './user-group/user-group.component';
+import { GroupNestedComponent } from './group-nested/group-nested.component';
+import { GroupMemberComponent } from './group-member/group-member.component';
+import { UserSelectComponent } from './user-select/user-select.component';
+import { GroupSelectComponent } from './group-select/group-select.component';
+import { GroupTreeViewComponent } from './group-tree-view/group-tree-view.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -67,31 +61,20 @@ const materialModules = [
   MatButtonToggleModule,
   MatTreeModule,
   MatStepperModule,
+  NgxMatSelectSearchModule,
 ];
 
 @NgModule({
-  declarations: [
-    MenuComponent, 
-    ModulemanComponent, 
-    ModuleComponent, 
-    CompanyComponent, 
-    ConsumerComponent, 
-    DocprocComponent, 
-    SysConfigComponent, 
-    ObservComponent, 
-    DashboardComponent, ModuleListComponent, ModuleDashboardComponent, ModuleRegisterComponent, MenuRegisterComponent, MenuListComponent,
-  ],
-  providers: [ModuleTabsService],
-  entryComponents: [ ModuleListComponent, ModuleDashboardComponent, ModuleRegisterComponent, ],
+  declarations: [UserComponent, GroupComponent, AclComponent, GrusComponent, UserListComponent, GroupListComponent, UserGroupComponent, GroupNestedComponent, GroupMemberComponent, UserSelectComponent, GroupSelectComponent, GroupTreeViewComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule, 
     FormsModule,
     // ToastrModule.forRoot(), // ToastrModule added
-    NbAccordionModule,
-    CdPaletteModule,
-    ModulemanRoutingModule,
+    // CdPaletteModule,
+    AclRoutingModule,
     ThemeModule,
+    NbAccordionModule,
     NbInputModule,
     NbCardModule,
     NbButtonModule,
@@ -105,7 +88,8 @@ const materialModules = [
     NbStepperModule,
     ngFormsModule,
     Ng2SmartTableModule,
+    ReactiveFormsModule,
     ...materialModules,
   ]
 })
-export class ModulemanModule { }
+export class AclModule { }

@@ -1,0 +1,80 @@
+@import '../../../../assets/cd/inspinia/css/style.css';
+@import '../../../../assets/cd/scss/modules/fonts';
+@import '../../../../assets/cd/scss/modules/inspiniaMatDark';
+
+.m-t-md {
+    margin-top: 20px;
+}
+.list-unstyled {
+    padding-left: 50px;
+    list-style: none;
+}
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+// user agent stylesheet
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+label {
+    padding-left: 15px;
+}
+
+.list-unstyled {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+
+////////////
+.mail-tools{
+    background-color: gray;
+}
+
+//////////////
+* {
+    box-sizing: border-box;
+  }
+  
+  form.g-search input[type=text] {
+    padding: 10px;
+    font-size: 12px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #363636;
+    color: #fff;
+  }
+  
+  form.g-search button {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: #5d5e5e;
+    color: white;
+    font-size: 12px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+  }
+  
+  form.g-search button:hover {
+    background: #292929;
+  }
+  
+  form.g-search::after {
+    content: "";
+    clear: both;
+    display: table;
+  }

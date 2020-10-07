@@ -1,0 +1,20 @@
+<mat-form-field>
+  <mat-select [formControl]="userMultiCtrl" noEntriesFoundLabel="No option found" placeholder="Users" [multiple]="true" #multiSelect>
+    <mat-option>
+      <ngx-mat-select-search placeholderLabel="Search" [formControl]="userMultiFilterCtrl"></ngx-mat-select-search>
+    </mat-option>
+    <mat-option *ngFor="let user of filteredUsersMulti | async" [value]="user">
+      {{user.username}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<br>
+<p>
+  Selected Users:
+</p>
+<ul class="list-unstyled m-t-md" *ngFor="let user of userMultiCtrl?.value">
+  <li>
+    <span class="fas fa-check-square m-r-xs"></span>
+    <label>{{user.username}}</label>
+  </li>
+</ul>

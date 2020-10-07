@@ -1,0 +1,21 @@
+<mat-form-field>
+    <mat-select [formControl]="groupMultiCtrl" noEntriesFoundLabel="No option found" placeholder="Groups" [multiple]="true" #multiSelect>
+      <mat-option>
+        <ngx-mat-select-search placeholderLabel="Search" [formControl]="groupMultiFilterCtrl"></ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let group of filteredGroupsMulti | async" [value]="group">
+        {{group.group_name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <p>
+    Selected Groups:
+  </p>
+  <ul class="list-unstyled m-t-md" *ngFor="let group of groupMultiCtrl?.value">
+    <li>
+      <span class="fas fa-check-square m-r-xs"></span>
+      <label>{{group.group_name}}</label>
+    </li>
+  </ul>
+  

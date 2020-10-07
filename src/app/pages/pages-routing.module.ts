@@ -27,14 +27,17 @@ const routes: Routes = [{
       path: 'cd-kiosk',
       loadChildren: () => import('./cd-kiosk/cd-kiosk.module')
         .then(m => m.CdKioskModule),
-    }
-    ,
+    },
     {
       path: 'moduleman',
       loadChildren: () => import('./moduleman/moduleman.module')
         .then(m => m.ModulemanModule),
-    }
-    ,
+    },
+    {
+      path: 'acl',
+      loadChildren: () => import('./acl/acl.module')
+        .then(m => m.AclModule),
+    },
     {
       path: 'dashboard',
       component: ECommerceComponent,

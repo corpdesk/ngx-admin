@@ -1284,6 +1284,36 @@ export class MenuService {
         ],
       },
       {
+        title: 'Acl',
+        icon: 'lock-outline',
+        enabled: true,
+        home: false,
+        children: [
+          {
+            title: 'user',
+            link: '/pages/acl/user',
+            enabled: true
+          }, {
+            title: 'group',
+            link: '/pages/acl/group',
+            enabled: true
+          },{
+            title: 'grus',
+            link: '/pages/acl/grus',
+            enabled: true
+          },{
+            title: 'user-select',
+            link: '/pages/acl/user-select',
+            enabled: true
+          }
+          ,{
+            title: 'group-select',
+            link: '/pages/acl/group-select',
+            enabled: true
+          }
+        ],
+      },
+      {
         title: 'NEB-TEMPLATES',
         group: true,
         enabled: true,

@@ -1,7 +1,7 @@
 import { Injectable, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { map, filter } from 'rxjs/operators';
-import { of,from, pipe } from 'rxjs';
+import { of, from, pipe } from 'rxjs';
 import { CdResponse } from '../../../cd.model';
 import { ServerService } from '../../moduleman/controller/server.service';
 import { AppStateService } from '../../moduleman/controller/app-state.service';
@@ -18,7 +18,7 @@ import { User, UserData } from '../models/user-model';
 })
 export class UserService {
   private postData;
-
+  cd_token: string;
   userData: User[] = [];
   userName = "";
   fullName = "";
@@ -28,6 +28,7 @@ export class UserService {
   public usersData$: Observable<UserData[]>;
   // CdResponse
   public userDataResp$: Observable<any>;
+  selectedUsers: User[];
 
   constructor(
     private svAppState: AppStateService,
@@ -44,59 +45,20 @@ export class UserService {
     */
   init(res) {
     console.log('starting UserService::init()');
-    if(res){
+    if (res) {
       console.log('UserService::init()/res:', res);
-      // this.userData = res.data.user_data;
-      // this.userName = this.userData[0].username;
-      // this.fullName = this.userData[0].fname + ' ' + this.userData[0].lname;
+      this.cd_token = res.app_state.sess.cd_token;
     }
-    
+
   }
 
   getUserData(loginResp) {
     console.log('starting UserService::getUserData()');
     console.log('UserService::getUserData()/loginResp:', loginResp);
-    // this.setUserDataPost(loginResp);
-    /*
-    post login request to server
-    */
-    // this.svServer.proc(this.postData)
-    //   .subscribe((res) => {
-    //     console.log('UserService::getUserData()/subscribe/res>>');
-    //     console.log(res);
-    //     this.setUserData(res);
-    //   });
-
-
-    // ATTEMPT 2
-    // this.usersData$ = this.getUserDataO(loginResp);
-    
-    
-    // ATTEMPT 3
     this.setUserDataResp(loginResp);
-    // TEST ATTEMPT 3
-    // of(this.userDataResp$)
-    //   .subscribe((res) => {
-    //     console.log('UserService::getUserData()/subscribe/res>>');
-    //     console.log(res);
-    //     this.setUserData();
-    //   });
-
   }
 
-  // getUserDataO(loginResp): Observable<UserData[]> {
-  //   console.log('starting UserService::getUserDataO()');
-  //   this.userDataResp$ = of(this.setUserDataPost(loginResp));
-    
-  //   return this.userDataResp$
-  //     .pipe(
-  //       map((res: any) => {
-  //         console.log('getUserDataO/res:', res);
-  //         return res.data;
-  //       }));
-  // }
-
-  setUserDataResp(loginResp){
+  setUserDataResp(loginResp) {
     console.log('UserService::setUserDataResp()/loginResp:', loginResp);
     this.setUserDataPost(loginResp);
     this.userDataResp$ = this.svServer.proc(this.postData);
@@ -129,7 +91,7 @@ export class UserService {
         console.log('UserService::setUserData()/subscribe/res>>');
         console.log(res);
         this.init(res);
-        
+
         this.svNotif.init(res);
         this.svScheduler.init(res);
         this.svAppState.setMode('anon');
@@ -137,6 +99,29 @@ export class UserService {
         environment.consumer = res['data']['consumer'];
       });
 
+  }
+
+  getUsersObsv() {
+    console.log('starting getUsersObsv()');
+    this.setEnvelopeUsers();
+    console.log('this.postData:', JSON.stringify(this.postData));
+    /*
+    post request to server and return observable
+    */
+    return this.svServer.proc(this.postData);
+  }
+
+  setEnvelopeUsers() {
+    this.postData = {
+      ctx: 'Sys',
+      m: 'User',
+      c: 'UserController',
+      a: 'actionGetAll',
+      dat: {
+        token: this.cd_token
+      },
+      args: null
+    };
   }
 
   registerUser(data) {
@@ -256,5 +241,16 @@ export class UserService {
     // console.log(data);
   }
 
+  list() {
+
+  }
+
+  joinGroup(user) {
+
+  }
+
+  getUserGroups() {
+
+  }
 
 }
