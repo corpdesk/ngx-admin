@@ -38,14 +38,7 @@ export class UserGroupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  initForms() {
-    this.frmSelUsers = this.fb.group({
-      // user_name: ['', Validators.required],
-    });
-    // this.frmJoinGroup = this.fb.group({
-    //   // group_name: ['', Validators.required],
-    // });
-  }
+  
 
   /* Handle form errors in Angular 8 */
   public errorHandling = (frm, control: string, error: string) => {
@@ -56,29 +49,7 @@ export class UserGroupComponent implements OnInit {
     return this.frmSelUsers.controls;
   }
 
-  // submitUserGroup(frm: FormGroup) {
-  //   console.log(frm.value);
-  //   this.regDataModule = frm.value;
-  //   if (frm.invalid) {
-  //     this.isInvalidSelUsers = true;
-  //   } else {
-  //     frm.value.module_type_id = 1;
-  //     console.log(frm.value);
-
-  //     // this.svModules.registerModuleObsv(frm.value)
-  //     //   .subscribe((resp: any) => {
-  //     //     console.log('resp:', resp);
-  //     //     if (resp.app_state.success > 0) {
-  //     //       this.successRegModule = true;
-  //     //       this.newModule = resp.data.newModule[0];
-  //     //       this.regModuleAffectedRows = resp.data.affectedRows;
-  //     //       console.log('this.newModule:', this.newModule);
-  //     //       console.log('this.regModuleAffectedRows:', this.regModuleAffectedRows);
-  //     //     }
-  //     //   });
-  //   }
-
-  // }
+  
 
   menuParentId() {
     console.log('starting menuParentId()')

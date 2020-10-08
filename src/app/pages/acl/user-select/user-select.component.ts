@@ -14,7 +14,7 @@ import { User, USERS } from './demo-data';
 })
 export class UserSelectComponent implements OnInit, AfterViewInit, OnDestroy {
   /** list of users */
-  protected users: User[] = [{username: 'anon', user_id: 1000}];
+  protected users: User[] = [{ username: 'anon', user_id: 1000 }];
 
   /** control for the selected user for multi-selection */
   public userMultiCtrl: FormControl = new FormControl();
@@ -31,8 +31,8 @@ export class UserSelectComponent implements OnInit, AfterViewInit, OnDestroy {
   protected _onDestroy = new Subject<void>();
   constructor(
     public svUser: UserService,
-  ) { 
-    
+  ) {
+
   }
 
   ngOnInit() {
@@ -45,21 +45,22 @@ export class UserSelectComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       );
 
-    
+
     // listen for search field value changes
     this.userMultiFilterCtrl.valueChanges
       .pipe(takeUntil(this._onDestroy))
       .subscribe(() => {
         this.filterUsersMulti();
-        // console.log('userMultiCtrl.value:', this.userMultiCtrl.value);
-        this.svUser.selectedUsers = this.userMultiCtrl.value;
-        if(this.svUser.selectedUsers.length > 0){
-          this.svUser.isInvalidSelUsers = false;
+        console.log('userMultiCtrl.value:', this.userMultiCtrl.value);
+        if (this.userMultiCtrl.value) {
+          this.svUser.selectedUsers = this.userMultiCtrl.value;
+          if (this.svUser.selectedUsers.length > 0) {
+            this.svUser.isInvalidSelUsers = false;
+          }
+          else {
+            this.svUser.isInvalidSelUsers = true;
+          }
         }
-        else{
-          this.svUser.isInvalidSelUsers = true;
-        }
-        
       });
   }
 

@@ -1302,13 +1302,8 @@ export class MenuService {
             link: '/pages/acl/grus',
             enabled: true
           },{
-            title: 'user-select',
-            link: '/pages/acl/user-select',
-            enabled: true
-          }
-          ,{
-            title: 'group-select',
-            link: '/pages/acl/group-select',
+            title: 'acl-consumer',
+            link: '/pages/acl/acl-consumer',
             enabled: true
           }
         ],

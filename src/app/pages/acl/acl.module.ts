@@ -35,6 +35,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 import { AclRoutingModule } from './acl-routing.module';
+import { ModulemanModule } from '../moduleman/moduleman.module';
 import { UserComponent } from './user/user.component';
 import { GroupComponent } from './group/group.component';
 import { AclComponent } from './acl/acl.component';
@@ -47,6 +48,11 @@ import { GroupMemberComponent } from './group-member/group-member.component';
 import { UserSelectComponent } from './user-select/user-select.component';
 import { GroupSelectComponent } from './group-select/group-select.component';
 import { GroupTreeViewComponent } from './group-tree-view/group-tree-view.component';
+import { ConsumerComponent } from './consumer/consumer.component';
+import { ConsumerResourcesComponent } from './consumer-resources/consumer-resources.component';
+import { ConsumerSelectComponent } from './consumer-select/consumer-select.component';
+import { ConsumerListComponent } from './consumer-list/consumer-list.component';
+import { AclConsumerComponent } from './acl-consumer/acl-consumer.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -65,13 +71,14 @@ const materialModules = [
 ];
 
 @NgModule({
-  declarations: [UserComponent, GroupComponent, AclComponent, GrusComponent, UserListComponent, GroupListComponent, UserGroupComponent, GroupNestedComponent, GroupMemberComponent, UserSelectComponent, GroupSelectComponent, GroupTreeViewComponent],
+  declarations: [UserComponent, GroupComponent, AclComponent, GrusComponent, UserListComponent, GroupListComponent, UserGroupComponent, GroupNestedComponent, GroupMemberComponent, UserSelectComponent, GroupSelectComponent, GroupTreeViewComponent, ConsumerComponent, ConsumerResourcesComponent, ConsumerSelectComponent, ConsumerListComponent, AclConsumerComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule, 
     FormsModule,
     // ToastrModule.forRoot(), // ToastrModule added
     // CdPaletteModule,
+    ModulemanModule,
     AclRoutingModule,
     ThemeModule,
     NbAccordionModule,

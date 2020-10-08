@@ -7,7 +7,8 @@ import { GroupComponent } from './group/group.component';
 import { AclComponent } from './acl/acl.component';
 import { GrusComponent } from './grus/grus.component';
 import { UserSelectComponent } from './user-select/user-select.component';
-import { GroupSelectComponent } from './group-select/group-select.component';
+import { ConsumerComponent } from './consumer/consumer.component';
+import { AclConsumerComponent } from './acl-consumer/acl-consumer.component';
 
 
 
@@ -33,15 +34,10 @@ const routes: Routes = [
         canActivate: [AuthGuardService],
       },
       {
-        path: 'user-select',
-        component: UserSelectComponent,
+        path: 'acl-consumer',
+        component: AclConsumerComponent,
         canActivate: [AuthGuardService],
-      },
-      {
-        path: 'group-select',
-        component: GroupSelectComponent,
-        canActivate: [AuthGuardService],
-      },
+      }
     ]
   }
 ];

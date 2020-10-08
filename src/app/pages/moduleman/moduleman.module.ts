@@ -35,6 +35,7 @@ import {
 
 import { ThemeModule } from '../../@theme/theme.module';
 import { FormsModule as ngFormsModule } from '@angular/forms';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -53,6 +54,7 @@ import { ModuleDashboardComponent } from './module-dashboard/module-dashboard.co
 import { ModuleRegisterComponent } from './module-register/module-register.component';
 import { MenuRegisterComponent } from './menu-register/menu-register.component';
 import { MenuListComponent } from './menu-list/menu-list.component';
+import { ModuleSelectComponent } from './module-select/module-select.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -79,7 +81,8 @@ const materialModules = [
     DocprocComponent, 
     SysConfigComponent, 
     ObservComponent, 
-    DashboardComponent, ModuleListComponent, ModuleDashboardComponent, ModuleRegisterComponent, MenuRegisterComponent, MenuListComponent,
+    DashboardComponent, ModuleListComponent, ModuleDashboardComponent, ModuleRegisterComponent, 
+    MenuRegisterComponent, MenuListComponent, ModuleSelectComponent,
   ],
   providers: [ModuleTabsService],
   entryComponents: [ ModuleListComponent, ModuleDashboardComponent, ModuleRegisterComponent, ],
@@ -87,6 +90,7 @@ const materialModules = [
     CommonModule,
     ReactiveFormsModule, 
     FormsModule,
+    NgxMatSelectSearchModule,
     // ToastrModule.forRoot(), // ToastrModule added
     NbAccordionModule,
     CdPaletteModule,
@@ -106,6 +110,7 @@ const materialModules = [
     ngFormsModule,
     Ng2SmartTableModule,
     ...materialModules,
-  ]
+  ],
+  exports:[ModuleSelectComponent]
 })
 export class ModulemanModule { }

@@ -15,7 +15,7 @@ import { Group, GROUPS } from './demo-data';
 })
 export class GroupSelectComponent implements OnInit, AfterViewInit, OnDestroy {
   /** list of groups */
-  protected groups: Group[] = [{group_name: '...loading', group_id: -1}];
+  protected groups: Group[] = [{ group_name: '...loading', group_id: -1 }];
 
   /** control for the selected group for multi-selection */
   public groupMultiCtrl: FormControl = new FormControl();
@@ -51,12 +51,14 @@ export class GroupSelectComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(() => {
         this.filterGroupsMulti();
         console.log('groupMultiCtrl.value:', this.groupMultiCtrl.value);
-        this.svGroup.selectedGroups = this.groupMultiCtrl.value;
-        if(this.svGroup.selectedGroups.length > 0){
-          this.svGroup.isInvalidSelGroups = false;
-        }
-        else{
-          this.svGroup.isInvalidSelGroups = true;
+        if (this.groupMultiCtrl.value) {
+          this.svGroup.selectedGroups = this.groupMultiCtrl.value;
+          if (this.svGroup.selectedGroups.length > 0) {
+            this.svGroup.isInvalidSelGroups = false;
+          }
+          else {
+            this.svGroup.isInvalidSelGroups = true;
+          }
         }
       });
   }

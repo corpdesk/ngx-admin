@@ -69,7 +69,17 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
-- develop group-tree-view
+
+
+select module, view menu items
+
+develop ability to view modules and their menu in modules/tree-view
+
+register Moduleman and its menu to allow 
+
+use tree-grid to view modules/menu in hierarchial format
+
+
 - tree: drag and drop:
     - https://blog.briebug.com/blog/angular-how-to-implement-drag-and-drop-in-a-material-tree
     - https://stackblitz.com/edit/mat-tree-with-drag-and-drop?file=app%2Ftree-flat-overview-example.ts
@@ -303,6 +313,14 @@ ToDo:
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
 
+08/10/2020
+- Stepper: register consumer resource: module
+    - select module/s
+    - select consumer/s
+    - submit
+move current user to foo02
+change the guig context to load menus from backend
+check if foo02 is loaded
 
 07/10/2020
 - validation for stepper 'next'/'prev' and refinement

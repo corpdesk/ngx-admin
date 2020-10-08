@@ -13,7 +13,10 @@ export class ModulesService {
   currentModule = '';
   public Modules;
   resp;
+  selectedModules = [];
+  isInvalidSelModules = true;
   successNewModule = false;
+
   constructor(
     private svServer: ServerService,
     private svSess: SessService,
@@ -395,6 +398,13 @@ export class ModulesService {
         console.log(res);
         this.setRespGetAll(res.data);
       });
+  }
+
+  getGetAllObsv() {
+    console.log('starting getGetAll()');
+    this.setEnvelopeGetAll();
+    console.log('this.postData:', this.postData);
+    return this.svServer.proc(this.postData)
   }
 
   // /**

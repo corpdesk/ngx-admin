@@ -1,0 +1,21 @@
+<mat-form-field>
+    <mat-select [formControl]="moduleMultiCtrl" noEntriesFoundLabel="No option found" placeholder="Modules" [multiple]="true" #multiSelect>
+      <mat-option>
+        <ngx-mat-select-search placeholderLabel="Search" [formControl]="moduleMultiFilterCtrl"></ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let module of filteredModulesMulti | async" [value]="module">
+        {{module.module_name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <p>
+    Selected Modules:
+  </p>
+  <ul class="list-unstyled m-t-md" *ngFor="let module of moduleMultiCtrl?.value">
+    <li>
+      <span class="fas fa-check-square m-r-xs"></span>
+      <label>{{module.module_name}}</label>
+    </li>
+  </ul>
+  

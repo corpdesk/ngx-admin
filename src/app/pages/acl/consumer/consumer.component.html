@@ -1,0 +1,33 @@
+<nb-card>
+    <nb-card-body>
+      <nb-stepper #stepper [linear]="linearMode" orientation="vertical">
+        <nb-step label="Module">
+          <ngx-module-select></ngx-module-select>
+          <p></p>
+          <button 
+          nbButton 
+          [disabled]="svConsumer.isInvalidSelConsumers" 
+          nbStepperNext>
+            <nb-icon icon="arrow-circle-right-outline"></nb-icon>
+          </button>
+        </nb-step>
+        <nb-step label="Consumer">
+          <h4>Select group/s to move the users</h4>
+          <ngx-consumer-select></ngx-consumer-select>
+          <button 
+          (click)="subscribeModule()"
+          nbButton 
+          status="primary">
+            <nb-icon icon="plus-outline"></nb-icon>
+          </button>
+          <button nbButton nbStepperPrevious>
+            <nb-icon icon="arrow-circle-left-outline"></nb-icon>
+          </button>
+          <!-- <button nbButton [disabled]="svGroup.isInvalidSelGroups" nbStepperNext>
+            <nb-icon icon="arrow-circle-right-outline"></nb-icon>
+          </button> -->
+        </nb-step>
+      </nb-stepper>
+    </nb-card-body>
+  </nb-card>
+  
