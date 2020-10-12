@@ -72,4 +72,6 @@ export interface ModuleMenu {
   curr_val?: string,
   enabled?: boolean,
   icon_type?: string
+  group?: boolean;
+  
 }

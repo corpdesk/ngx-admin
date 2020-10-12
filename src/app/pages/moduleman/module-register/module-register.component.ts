@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { ToastrService } from 'ngx-toastr';
 import { ModulesService } from '../../../@cd/sys/moduleman/controller/modules.service';
 import { MenuService } from '../../../@cd/sys/moduleman/controller/menu.service';
-import { CdResponse } from '../../../@cd/cd.model';
 
 @Component({
   selector: 'ngx-module-register',

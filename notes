@@ -69,13 +69,20 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
-
+- register ngx-admn modules and menu as per original menu
+- register ngx-admn modules and menu as per existing back-end items (modeman,coop, booking)
+- deregister consumer resource
+- remove user
+- select module, add menu item
+- enable/disable menu item 
+- set module order from gui
+- edit menu detail on gui
+- improve guard to comply with acl
+    - (otherwise once logged in, direct url can expose restricted resources)
 
 select module, view menu items
 
 develop ability to view modules and their menu in modules/tree-view
-
-register Moduleman and its menu to allow 
 
 use tree-grid to view modules/menu in hierarchial format
 
@@ -125,13 +132,6 @@ use tree-grid to view modules/menu in hierarchial format
         - https://akveo.github.io/nebular/docs/components/context-menu/overview#nbcontextmenudirective
     - list of contex should be executed at the parent component
         - https://medium.com/@sohailnazar4/angular-calling-parent-component-function-from-child-component-5dcccdc771d9
-
-
-
-- register ngx-admn modules and menu as per original menu
-- register ngx-admn modules and menu as per 2nd guig-mode
-- register ngx-admn modules and menu as per existing back-end items (modeman,coop, booking)
-
 
 
 - custom elements:
@@ -312,6 +312,187 @@ use tree-grid to view modules/menu in hierarchial format
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
+
+12/10/2020
+- allow options for icon packages eva, fa, fas, far
+- enable back-end path field for naviagtion in ngx-amdin
+- set 'group' menu
+- register ngx-admn modules and menu as per 2nd guig-mode
+
+    - register module: 'packages'
+    - {
+        title: 'Package',
+        icon: 'lock-outline',
+        enabled: true,
+        home: false,
+        children: [
+          {
+            title: 'dashboard',
+            link: '/pages/moduleman/dashboard',
+            enabled: true
+          },
+          {
+            title: 'module',
+            link: '/pages/moduleman/module',
+            enabled: true
+          },
+          {
+            title: 'menu',
+            link: '/pages/moduleman/menu',
+            enabled: true
+          },
+          {
+            title: 'company',
+            link: '/pages/moduleman/company',
+            enabled: true
+          },
+          {
+            title: 'consumer',
+            link: '/pages/moduleman/consumer',
+            enabled: true
+          },
+          {
+            title: 'docproc',
+            link: '/pages/moduleman/docproc',
+            enabled: true
+          },
+          {
+            title: 'observ',
+            link: '/pages/moduleman/observ',
+            enabled: true
+          }
+        ],
+      }
+    - register module: 'Home'
+- Register menu-items:
+        - children: [
+          {
+            title: 'News',
+            link: '/pages/home/news-feed',
+            enabled: true
+          },
+          {
+            title: 'about',
+            link: '/pages/home/about',
+            enabled: true
+          },
+          {
+            title: 'Events',
+            link: '/pages/home/events',
+            enabled: false
+          },
+          {
+            title: 'Products',
+            link: '/pages/home/products',
+            enabled: false
+          },
+          {
+            title: 'Resources',
+            link: '/pages/home/resources',
+            enabled: false
+          },
+          {
+            title: 'Services',
+            link: '/pages/home/services',
+            enabled: false
+          }
+        ]
+
+
+        {
+        title: 'Acl',
+        icon: 'lock-outline',
+        enabled: true,
+        home: false,
+        children: [
+          {
+            title: 'user',
+            link: '/pages/acl/user',
+            enabled: true
+          }, {
+            title: 'group',
+            link: '/pages/acl/group',
+            enabled: true
+          },{
+            title: 'grus',
+            link: '/pages/acl/grus',
+            enabled: true
+          },{
+            title: 'acl-consumer',
+            link: '/pages/acl/acl-consumer',
+            enabled: true
+          }
+        ],
+      }
+
+      {
+        title: 'My Space',
+        icon: 'lock-outline',
+        enabled: true,
+        home: false,
+        children: [
+          {
+            title: 'dashboard',
+            link: '/pages/my-account/dashboard',
+            enabled: true
+          },
+          {
+            title: 'inteRact',
+            link: '/pages/my-account/inte-ract',
+            enabled: true
+          },
+          {
+            title: 'Personal Info',
+            link: '/pages/my-account/personal-data',
+            enabled: true
+          },
+          {
+            title: 'Activity',
+            link: '/pages/my-account/activity',
+            enabled: true
+          },
+          {
+            title: 'Calendar',
+            link: '/pages/my-account/calendar',
+            enabled: false
+          },
+          {
+            title: 'Planner',
+            link: '/pages/my-account/planner',
+            enabled: true
+          },
+          {
+            title: 'Memo',
+            link: '/pages/my-account/cd-memo',
+            enabled: false
+          },
+          {
+            title: 'InTray',
+            link: '/pages/my-account/in-tray',
+            enabled: false
+          },
+          {
+            title: 'ReadDoc',
+            link: '/pages/my-account/read-doc',
+            enabled: false
+          },
+          {
+            title: 'ComposeDoc',
+            link: '/pages/my-account/compose-doc',
+            enabled: false
+          },
+          {
+            title: 'DocTray',
+            link: '/pages/my-account/doc-tray',
+            enabled: true
+          },
+          {
+            title: 'Contacts',
+            link: '/pages/my-account/contacts',
+            enabled: false
+          }
+        ],
+      }
 
 08/10/2020
 - Stepper: register consumer resource: module

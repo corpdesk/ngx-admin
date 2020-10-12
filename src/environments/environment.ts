@@ -10,7 +10,7 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'http://192.168.100.76/cdapi/public/api/cd',
+  apiEndpoint: 'http://localhost/cdapi/public/api/cd',
   consumerToken: 'B0B3DA99-1859-A499-90F6-1E3F69575DCD',
   consumer: null,
   clientAppId: 2,

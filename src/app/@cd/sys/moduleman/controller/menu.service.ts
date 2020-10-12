@@ -138,6 +138,11 @@ export class MenuService {
 
         menuData.forEach(async function (menu: ModuleMenu, i) {
           menu.icon = { icon: menu.icon, pack: menu.icon_type };
+          // if group, remove icon and children
+          if(menu.group){
+            delete menu.children;
+            delete menu.icon;
+          }
           if ('children' in menu) {
             //map menu childred
             menu.children = menu.children
@@ -145,6 +150,7 @@ export class MenuService {
                 (sm: ModuleMenu) => {
                   delete sm['children'];
                   sm.icon = { icon: sm.icon, pack: sm.icon_type };
+                  
                   return sm;
                 });
             menuData[i].children = await menu.children;

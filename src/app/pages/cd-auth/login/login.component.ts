@@ -71,7 +71,7 @@ export class LoginComponent
           this.svSess.createSess(res, this.svUser);
           // this.svUser.getUserData(res);
           console.log('login_res:', res);
-          this.svUser.currentUser = { name: `${res.data[0].username}`, picture: `http://192.168.100.76/user-resources/${res.data[0].user_guid}/avatar-01/a.jpg` };
+          this.svUser.currentUser = { name: `${res.data[0].username}`, picture: `http://localhost/user-resources/${res.data[0].user_guid}/avatar-01/a.jpg` };
           this.svNav.userMenu = [
             { title: 'Profile', link: '/pages/cd-auth/register' },
             { title: 'Log out', link: '/pages/cd-auth/logout' }
