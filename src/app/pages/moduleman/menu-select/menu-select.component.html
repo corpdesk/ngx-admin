@@ -1,0 +1,21 @@
+<mat-form-field>
+    <mat-select [formControl]="menuMultiCtrl" noEntriesFoundLabel="No option found" placeholder="Menus" [multiple]="true" #multiSelect>
+      <mat-option>
+        <ngx-mat-select-search placeholderLabel="Search" [formControl]="menuMultiFilterCtrl"></ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let menu of filteredMenusMulti | async" [value]="menu">
+        {{menu.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <p>
+    Selected Menus:
+  </p>
+  <ul class="list-unstyled m-t-md" *ngFor="let menu of menuMultiCtrl?.value">
+    <li>
+      <span class="fas fa-check-square m-r-xs"></span>
+      <label>{{menu.title}}</label>
+    </li>
+  </ul>
+  

@@ -313,6 +313,40 @@ use tree-grid to view modules/menu in hierarchial format
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
 
+
+15/10/2020
+- search module list
+- search menu list
+- view menu-list
+- register menu
+    - set name
+    - select module/none
+    - select parent/none
+    - isGroup
+    - const regDataMenu = {
+      cd_obj: {
+        cd_obj_name: this.regDataMenu.menu_name + '-component-menu-link',
+        cd_obj_type_guid: 'f5df4494-5cc9-4463-8e8e-c5861703280e',
+        parent_module_guid: this.newModule.module_guid
+      },
+      data: {
+        menu_name: this.regDataMenu.menu_name,
+        menu_closet_file: '',
+        menu_parent_id: this.menuParentId(),
+        module_id: this.newModule.module_id,
+        menu_order: '11',
+        path: '/pages/' + this.regDataModule.module_name + '/' + this.regDataMenu.menu_name,
+        menu_description: this.regDataMenu.menu_description,
+        menu_lable: this.regDataMenu.menu_name,
+        menu_icon: this.regDataMenu.menu_icon,
+        icon_type: this.regDataMenu.icon_type,
+        active: true
+      }
+    };
+
+    - register group menu (GUEST, PERSONAL, CD-APPS)
+
+
 12/10/2020
 - allow options for icon packages eva, fa, fas, far
 - enable back-end path field for naviagtion in ngx-amdin

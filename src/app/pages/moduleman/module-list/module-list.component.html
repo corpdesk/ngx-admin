@@ -1,3 +1,18 @@
+<div class="row">
+    <form  [formGroup]="frmSearchModule">
+        <mat-form-field>
+            <mat-placeholder>Search module</mat-placeholder>
+            <input 
+            (input)="search(frmSearchModule,'change')"
+            matInput 
+            type="search" 
+            formControlName="searchModule">
+            <button (click)="search(frmSearchModule, 'submit')"   mat-button matSuffix mat-stroked-button aria-label="search">
+              <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
+</div>
 <ngx-guig-table 
 [payLoad]="modulesData"
 [payLoadIndex]="primaryIndex"

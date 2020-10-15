@@ -50,11 +50,14 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ModuleListComponent } from './module-list/module-list.component';
+import { MatIconModule } from '@angular/material/icon';
 import { ModuleDashboardComponent } from './module-dashboard/module-dashboard.component';
 import { ModuleRegisterComponent } from './module-register/module-register.component';
 import { MenuRegisterComponent } from './menu-register/menu-register.component';
 import { MenuListComponent } from './menu-list/menu-list.component';
 import { ModuleSelectComponent } from './module-select/module-select.component';
+import { MenuSelectComponent } from './menu-select/menu-select.component';
+
 
 const materialModules = [
   MatFormFieldModule,
@@ -69,6 +72,7 @@ const materialModules = [
   MatButtonToggleModule,
   MatTreeModule,
   MatStepperModule,
+  MatIconModule,
 ];
 
 @NgModule({
@@ -82,7 +86,7 @@ const materialModules = [
     SysConfigComponent, 
     ObservComponent, 
     DashboardComponent, ModuleListComponent, ModuleDashboardComponent, ModuleRegisterComponent, 
-    MenuRegisterComponent, MenuListComponent, ModuleSelectComponent,
+    MenuRegisterComponent, MenuListComponent, ModuleSelectComponent, MenuSelectComponent,
   ],
   providers: [ModuleTabsService],
   entryComponents: [ ModuleListComponent, ModuleDashboardComponent, ModuleRegisterComponent, ],

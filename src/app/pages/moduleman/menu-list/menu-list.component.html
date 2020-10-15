@@ -1,1 +1,21 @@
-<p>menu-list works!</p>
+<div class="row">
+    <form  [formGroup]="frmSearchMenu">
+        <mat-form-field>
+            <mat-placeholder>Search menu</mat-placeholder>
+            <input 
+            (input)="search(frmSearchMenu,'change')"
+            matInput 
+            type="search" 
+            formControlName="searchMenu">
+            <button (click)="search(frmSearchMenu, 'submit')"   mat-button matSuffix mat-stroked-button aria-label="search">
+              <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
+</div>
+<ngx-guig-table 
+[payLoad]="menuData" 
+[payLoadIndex]="primaryIndex" 
+[colConfig]="colConfig"
+[consumerServer]="svMenu">
+</ngx-guig-table>

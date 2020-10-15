@@ -27,6 +27,7 @@ export class MenuModel {
   cd_obj_type_guid?: string;
   last_modification_date?: string;
   parent_module_guid?: string;
+  title?:string;
 }
 
 export interface SubMenu {

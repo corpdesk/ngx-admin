@@ -53,9 +53,9 @@ export class ModuleRegisterComponent implements OnInit {
     return frm.controls[control].hasError(error);
   }
 
-  get dataControls() {
-    return this.frmRegModule.controls;
-  }
+  // get dataControls() {
+  //   return this.frmRegModule.controls;
+  // }
 
   submitModuleForm(frm: FormGroup) {
     console.log(frm.value);

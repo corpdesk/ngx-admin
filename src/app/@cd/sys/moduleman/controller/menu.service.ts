@@ -69,6 +69,8 @@ export class MenuService {
   configId;
   menu: any;
   resp;
+  selectedMenus = [];
+  isInvalidSelMenus = true;
   public userDataResp$: Observable<any>;
   public userData;
   constructor(
@@ -83,9 +85,6 @@ export class MenuService {
   invoked following svUser::getUserData() when all menu items are fetched
   */
   init(userDataResp$: Observable<any>) {
-    // console.log('MenuService::init(res)/res.data.menu_data:', res.data.menu_data);
-    // this.setMenuData(res.data.menu_data);
-    // this.userDataResp$ = userDataResp$;
     if (userDataResp$) {
       this.userDataResp$ = userDataResp$;
       from(userDataResp$).subscribe(res => {
@@ -100,7 +99,6 @@ export class MenuService {
   setMenuData(menuData) {
     console.log('setMenuData(menuData)/this.menuData:', menuData);
     this.menuData = menuData;
-    // this.usersData$ = this.sv
   }
 
   async processMenu(menuData) {
@@ -309,6 +307,15 @@ export class MenuService {
       });
   }
 
+  getGetAllObsv(clientAppId) {
+    console.log('starting MenuService::getGetAllObsv(clientAppId)');
+    this.setEnvelopeGetAll(clientAppId);
+    /*
+    post request to server
+    */
+    return this.svServer.proc(this.postData);
+  }
+
   getGetAnon(clientAppId) {
     console.log('starting MenuService::getGetAnon(clientAppId)');
     this.setEnvelopeGetAnon(clientAppId);
@@ -350,7 +357,6 @@ export class MenuService {
           }
         ],
         token: this.svSess.token,
-        // token: '1669D61B-3769-3F58-7755-20652AB91448'
       },
       args: null
     };

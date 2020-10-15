@@ -1,6 +1,31 @@
-<ngx-guig-table 
-[payLoad]="menuConfigData[configId]"
-[payLoadIndex]="primaryIndex"
-[colConfig]="colConfig"
-[consumerServer]="svMenu"
-></ngx-guig-table>
+
+
+<div class="tabs-container">
+    <ul class="nav nav-tabs" role="tablist">
+        <li (click)="svTabs.tabActivate(0)" id="tab_0"><a class="nav-link active" data-toggle="tab"> Config</a></li>
+        <li (click)="svTabs.tabActivate(1)" id="tab_1"><a class="nav-link" data-toggle="tab">Register</a></li>
+        <li (click)="svTabs.tabActivate(2)" id="tab_2"><a class="nav-link" data-toggle="tab">List</a></li>
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" id="tab-0" class="tab-pane active">
+            <div class="panel-body">
+                <ngx-guig-table 
+                    [payLoad]="menuConfigData[configId]"
+                    [payLoadIndex]="primaryIndex"
+                    [colConfig]="colConfig"
+                    [consumerServer]="svMenu"
+                ></ngx-guig-table>
+            </div>
+        </div>
+        <div role="tabpanel" id="tab-1" class="tab-pane">
+            <div class="panel-body">
+              <ngx-menu-register></ngx-menu-register>
+            </div>
+        </div>
+        <div role="tabpanel" id="tab-2" class="tab-pane">
+            <div class="panel-body">
+              <ngx-menu-list></ngx-menu-list>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { MenuService } from '../../../@cd/sys/moduleman/controller/menu.service';
 import { ModulesService } from '../../../@cd/sys/moduleman/controller/modules.service';
 import { GuigTableConfig } from '../../../@cd/guig/models/guig-table-col.model';
+import { JsHelperService } from '../../../@cd/guig/js-helper.service';
 
 @Component({
   selector: 'ngx-module-list',
@@ -10,6 +12,8 @@ import { GuigTableConfig } from '../../../@cd/guig/models/guig-table-col.model';
 })
 export class ModuleListComponent implements OnInit {
   modulesData;
+  modulesDataOrig;
+  frmSearchModule: FormGroup;
   primaryIndex = 'module_id';
   colConfig: GuigTableConfig = {
     columns: [
@@ -178,13 +182,68 @@ export class ModuleListComponent implements OnInit {
     ]
   };
   constructor(
+    private fb: FormBuilder,
     public svModule: ModulesService,
+    public svJsHelper: JsHelperService,
   ) {
-    this.svModule.getGetAll();
+    //this.svModule.getGetAll();
+    this.svModule.getGetAllObsv()
+    .subscribe((res: any) => {
+      console.log('MenuService::getGetAll(clientAppId)/res:', res);
+      //this.menuData = res.data;
+      this.modulesData = res.data.map((m)=>{
+        if(m.enabled == null){
+          m.enabled = false;
+        }
+        return m;
+      });
+      this.modulesDataOrig = this.modulesData;
+      console.log('this.modulesData:',this.modulesData);
+      console.log('this.modulesDataOrig:',this.modulesDataOrig);
+    });
   }
 
   ngOnInit(): void {
-    this.modulesData = this.svModule.Modules;
+    this.initForms();
+    // this.modulesData = this.svModule.Modules;
+    // this.modulesDataOrig = this.svModule.Modules;
+  }
+
+
+  initForms() {
+    this.frmSearchModule = this.fb.group({
+      searchModule: ['', Validators.required],
+    });
+  }
+
+  search(frm: FormGroup, mode){
+    console.log('search is clicked');
+    console.log('frm.value.searchModule:', frm.value.searchModule);
+    const key = frm.value.searchModule;
+    // this.menuDataOrig = this.menuData;
+    if(mode == 'change' && key.length > 1){
+      this.menuFilter(key);
+    }
+
+    if(mode == 'submit'){
+      this.menuFilter(key);
+    }
+
+    if(key.length == 0){
+      this.modulesData = this.modulesDataOrig;
+    }
+  }
+
+  menuFilter(key){
+    this.modulesData = this.modulesData.filter((m)=>{
+      const ret1 = this.svJsHelper.kmpSearch(key,m.module_name);
+      if( ret1 > -1 ){
+        return true;
+      }
+      else{
+        return false;
+      }
+    });
   }
 
 }

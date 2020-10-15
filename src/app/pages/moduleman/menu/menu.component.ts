@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-// import { GuigTableComponent } from '../../cd-palette/guig-table/guig-table.component';
 import { MenuService } from '../../../@cd/sys/moduleman/controller/menu.service';
 import { GuigTableConfig } from '../../../@cd/guig/models/guig-table-col.model';
+import { TabsService } from '../../../@cd/guig/tabs.service';
 
 @Component({
   selector: 'ngx-menu',
@@ -110,7 +110,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
     ]
   };
   constructor(
-    public svMenu: MenuService
+    public svMenu: MenuService,
+    public svTabs: TabsService,
   ) {
     this.svMenu.getMenuConfig(1);
     this.svMenu.getMenuConfig(2);
