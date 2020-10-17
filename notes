@@ -313,6 +313,12 @@ use tree-grid to view modules/menu in hierarchial format
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
 
+16/10/2020
+- menu header (manual setup)
+    - save as module
+    - set order
+    - module: enable public
+    - menu: enable group
 
 15/10/2020
 - search module list

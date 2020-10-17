@@ -10,6 +10,7 @@ import { JsHelperService } from '../../../@cd/guig/js-helper.service';
   styleUrls: ['./menu-list.component.scss']
 })
 export class MenuListComponent implements OnInit {
+  component = "MenuListComponent";
   menuData;
   menuDataOrig;
   primaryIndex = 'menu_id';
@@ -66,6 +67,7 @@ export class MenuListComponent implements OnInit {
         index: 3,
         name: 'title',
         map: 'title',
+        tField: 'menu_name',
         dataType: 'string',
         controlType: 'label',
       },
@@ -73,6 +75,7 @@ export class MenuListComponent implements OnInit {
         index: 4,
         name: 'icon',
         map: 'icon',
+        tField: 'menu_icon',
         dataType: 'string',
         controlType: 'label',
         editable: true,
@@ -89,6 +92,7 @@ export class MenuListComponent implements OnInit {
         index: 5,
         name: 'icon_type',
         map: 'icon_type',
+        tField: 'menu_icon',
         dataType: 'string',
         controlType: 'label',
         editable: true,
@@ -103,15 +107,16 @@ export class MenuListComponent implements OnInit {
       },
       {
         index: 6,
-        name: 'menu_order',
-        map: 'menu_order',
+        name: 'menu_parent_id',
+        map: 'menu_parent_id',
+        tField: 'menu_parent_id',
         dataType: 'string',
         controlType: 'label',
         editable: true,
         alt: [
           {
             index: 6,
-            name: 'menu_order',
+            name: 'menu_parent_id',
             dataType: 'string',
             controlType: 'textBox',
           }
@@ -119,15 +124,33 @@ export class MenuListComponent implements OnInit {
       },
       {
         index: 7,
+        name: 'menu_order',
+        map: 'menu_order',
+        tField: 'menu_order',
+        dataType: 'string',
+        controlType: 'label',
+        editable: true,
+        alt: [
+          {
+            index: 7,
+            name: 'menu_order',
+            dataType: 'string',
+            controlType: 'textBox',
+          }
+        ]
+      },
+      {
+        index: 8,
         name: 'group',
         map: 'group',
+        tField: 'group',
         dataType: 'boolean',
         controlType: 'checkbox',
         editable: true,
         disabled: true,
         alt: [
           {
-            index: 7,
+            index: 8,
             name: 'group',
             dataType: 'boolean',
             controlType: 'checkbox',
@@ -136,16 +159,17 @@ export class MenuListComponent implements OnInit {
         ]
       },
       {
-        index: 8,
+        index: 9,
         name: 'enabled',
         map: 'enabled',
+        tField: 'active',
         dataType: 'boolean',
         controlType: 'checkbox',
         editable: true,
         disabled: true,
         alt: [
           {
-            index: 8,
+            index: 9,
             name: 'enabled',
             dataType: 'boolean',
             controlType: 'checkbox',
@@ -154,15 +178,16 @@ export class MenuListComponent implements OnInit {
         ]
       },
       {
-        index: 9,
+        index: 10,
         name: 'link',
         map: 'link',
+        tField: 'path',
         dataType: 'string',
         controlType: 'label',
         editable: true,
         alt: [
           {
-            index: 9,
+            index: 10,
             name: 'link',
             dataType: 'string',
             controlType: 'textBox',

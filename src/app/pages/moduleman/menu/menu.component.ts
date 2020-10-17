@@ -9,6 +9,7 @@ import { TabsService } from '../../../@cd/guig/tabs.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit, AfterViewInit {
+  component = "MenuComponent";
   menuConfigData;
   primaryIndex = 'menu_config_id';
   thisInstance;

@@ -17,6 +17,7 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
   @Input() payLoad: any;
   @Input() payLoadIndex: string;
   @Input() consumerServer: any; // instance of consumer server
+  @Input() consumerComponent: any; // instance of consumer component
   editableFields = [];
   dataFields = [];
   postData;
@@ -108,21 +109,22 @@ export class GuigTableComponent implements OnInit, AfterViewInit {
     console.log('starting save()');
     console.log('id:', id);
     console.log('this.selectedId:', this.selectedId);
+    console.log('this.consumerComponent:', this.consumerComponent);
     this.clearNotification();
     const updateData = {};
     this.editableFields.forEach((ef) => {
       switch (ef.controlType) {
         case 'label':
-          updateData[ef.map] = (document.getElementById(ef.map + '_' + this.selectedId) as HTMLInputElement).value;
+          updateData[ef.tField] = (document.getElementById(ef.map + '_' + this.selectedId) as HTMLInputElement).value;
           break;
         case 'checkbox':
-          updateData[ef.map] = this.svElem.isChecked(this.svElem.getElem({ id: ef.map + '_' + this.selectedId }) as HTMLInputElement);
+          updateData[ef.tField] = this.svElem.isChecked(this.svElem.getElem({ id: ef.map + '_' + this.selectedId }) as HTMLInputElement);
           break;
       }
     });
     const fieldId = this.selectedId;
     // this.svMenu.updateMenuConfig(updateData, configId,fieldId);
-    this.consumerServer.tUpdate(updateData, fieldId);
+    this.consumerServer.tUpdate(updateData, fieldId, this.consumerComponent);
 
     // process notifications after 2 seconds
     setTimeout(() => { this.showNotification(this.consumerServer.resp,'tUpdate') }, 2000);

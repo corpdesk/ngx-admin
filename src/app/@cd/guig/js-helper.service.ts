@@ -10,6 +10,8 @@ export class JsHelperService {
   // Searches for the given pattern string in the given text string using the Knuth-Morris-Pratt string matching algorithm.
   // If the pattern is found, this returns the index of the start of the earliest match in 'text'. Otherwise -1 is returned.
   kmpSearch(pattern, text) {
+    pattern = pattern.toLowerCase();
+    text = text.toLowerCase();
     if (pattern.length == 0)
       return 0; // Immediate match
   

@@ -11,6 +11,7 @@ import { JsHelperService } from '../../../@cd/guig/js-helper.service';
   styleUrls: ['./module-list.component.scss']
 })
 export class ModuleListComponent implements OnInit {
+  component = "ModuleListComponent";
   modulesData;
   modulesDataOrig;
   frmSearchModule: FormGroup;
@@ -64,6 +65,7 @@ export class ModuleListComponent implements OnInit {
         index: 3,
         name: 'module_guid',
         map: 'module_guid',
+        tField: 'module_guid',
         dataType: 'string',
         controlType: 'label',
         hide: true,
@@ -72,6 +74,7 @@ export class ModuleListComponent implements OnInit {
         index: 4,
         name: 'module_name',
         map: 'module_name',
+        tField: 'module_name',
         dataType: 'string',
         controlType: 'label',
         editable: true,
@@ -103,6 +106,7 @@ export class ModuleListComponent implements OnInit {
         index: 7,
         name: 'group_guid',
         map: 'group_guid',
+        tField: 'group_guid',
         dataType: 'string',
         controlType: 'label',
         hide: true,
@@ -111,6 +115,7 @@ export class ModuleListComponent implements OnInit {
         index: 8,
         name: 'group_name',
         map: 'group_name',
+        tField: 'group_name',
         dataType: 'string',
         controlType: 'label',
       },
@@ -118,6 +123,7 @@ export class ModuleListComponent implements OnInit {
         index: 9,
         name: 'group_owner_id',
         map: 'group_owner_id',
+        tField: 'group_owner_id',
         dataType: 'string',
         controlType: 'label',
       },
@@ -125,6 +131,7 @@ export class ModuleListComponent implements OnInit {
         index: 10,
         name: 'group_type_id',
         map: 'group_type_id',
+        tField: 'group_type_id',
         dataType: 'string',
         controlType: 'label',
       },
@@ -132,6 +139,7 @@ export class ModuleListComponent implements OnInit {
         index: 11,
         name: 'company_id',
         map: 'company_id',
+        tField: 'company_id',
         dataType: 'string',
         controlType: 'label',
       },
@@ -139,6 +147,7 @@ export class ModuleListComponent implements OnInit {
         index: 12,
         name: 'is_sys_module',
         map: 'is_sys_module',
+        tField: 'is_sys_module',
         dataType: 'boolean',
         controlType: 'checkbox',
         disabled: true
@@ -147,6 +156,7 @@ export class ModuleListComponent implements OnInit {
         index: 13,
         name: 'is_public',
         map: 'is_public',
+        tField: 'is_public',
         dataType: 'boolean',
         controlType: 'checkbox',
         editable: true,
@@ -165,6 +175,7 @@ export class ModuleListComponent implements OnInit {
         index: 14,
         name: 'enabled',
         map: 'enabled',
+        tField: 'enabled',
         dataType: 'boolean',
         controlType: 'checkbox',
         editable: true,

@@ -137,7 +137,7 @@ export class MenuService {
         menuData.forEach(async function (menu: ModuleMenu, i) {
           menu.icon = { icon: menu.icon, pack: menu.icon_type };
           // if group, remove icon and children
-          if(menu.group){
+          if (menu.group) {
             delete menu.children;
             delete menu.icon;
           }
@@ -148,7 +148,7 @@ export class MenuService {
                 (sm: ModuleMenu) => {
                   delete sm['children'];
                   sm.icon = { icon: sm.icon, pack: sm.icon_type };
-                  
+
                   return sm;
                 });
             menuData[i].children = await menu.children;
@@ -392,25 +392,38 @@ export class MenuService {
     console.log('starting setRespGetAnon(data)');
     console.log(data);
     data = this.mapMenu(data);
-    const menu = [];
+    let menu = [];
     data.forEach(async (m: any) => {
       console.log('m:', m);
       console.log('m.icon:', m.icon);
+      // if group, remove icon and children
+      if (m.group == true) {
+        delete m.children;
+        delete m.icon;
+      }
 
-      // // process fa icons
-      // if(m.icon_type == 'fa'){
-      //   console.log('JSON.parse(m.icon:', JSON.parse(m.icon));
-      //   m.icon = JSON.parse(m.icon);
-      // }
+      if ('icon' in m) {
+        m.icon = { icon: m.icon, pack: m.icon_type };
+      }
 
-      m.icon = { icon: m.icon, pack: m.icon_type };
+      if ('children' in m) {
+        m.children.forEach((sm) => {
+          // if group, remove icon and children
+          if (sm.group == true) {
+            delete sm.children;
+            delete sm.icon;
+          }
 
-      m['children'].forEach((sm) => {
-        delete sm['children'];
-      });
+          if ('icon' in m) {
+            sm.icon = { icon: sm.icon, pack: sm.icon_type };
+          }
+          delete sm['children'];
+        });
+      }
       menu.push(await m);
     });
-    // console.log('await data:', JSON.stringify(data));
+
+    console.dir('menu:', menu);
     this.menuData = await menu;
     this.menu = await menu;
   }
@@ -460,15 +473,30 @@ export class MenuService {
    * @param configId 
    * @param fieldId 
    */
-  tUpdate(updateData, fieldId) {
+  tUpdate(updateData, fieldId, component) {
     console.log('starting MenuService::updateMenuConfig()');
     console.log('updateData:', updateData);
-    this.updateMenuConfigDataPost(updateData, fieldId);
-    this.svServer.proc(this.postData)
-      .subscribe((res) => {
-        console.log(res);
-        this.respUpdateMenuConfig(res);
-      });
+    console.log('component:', component);
+    switch (component) {
+      case 'MenuComponent':
+        this.updateMenuConfigDataPost(updateData, fieldId);
+        this.svServer.proc(this.postData)
+          .subscribe((res) => {
+            console.log(res);
+            this.respUpdateMenuConfig(res);
+          });
+        break;
+      case 'MenuListComponent':
+        this.updateMenuPost(updateData, fieldId);
+        console.log('updateMenuPost/his.postData:', this.postData)
+        this.svServer.proc(this.postData)
+          .subscribe((res) => {
+            console.log(res);
+            this.respUpdateMenu(res);
+          });
+        break;
+    }
+
 
   }
 
@@ -510,6 +538,39 @@ export class MenuService {
     console.log(res);
     this.resp = res;
     this.getMenuConfig(this.configId);
+  }
+
+  updateMenuPost(updateData, fieldId) {
+    console.log('starting MenuService::updateMenuPost()');
+    this.postData = {
+      ctx: 'Sys',
+      m: 'Moduleman',
+      c: 'MenuController',
+      a: 'actionUpdate',
+      dat: {
+        f_vals: [
+          {
+            filter: [
+              {
+                field: 'menu_id',
+                operator: '=',
+                val: fieldId
+              }
+            ],
+            data: updateData
+          }
+        ],
+        token: this.svSess.getCdToken()
+      },
+      args: null
+    }
+  }
+
+  respUpdateMenu(res) {
+    console.log('starting MenuService::respUpdateMenu(res)');
+    console.log(res);
+    this.resp = res;
+    // this.getMenuConfig(this.configId);
   }
 
   tTrash(id) {
@@ -1309,11 +1370,11 @@ export class MenuService {
             title: 'group',
             link: '/pages/acl/group',
             enabled: true
-          },{
+          }, {
             title: 'grus',
             link: '/pages/acl/grus',
             enabled: true
-          },{
+          }, {
             title: 'acl-consumer',
             link: '/pages/acl/acl-consumer',
             enabled: true

@@ -93,6 +93,11 @@ export class MenuRegisterComponent implements OnInit {
     if(this.regDataMenu.group == ""){
       this.regDataMenu.group = false;
     }
+
+    let m_parent_id = this.svMenu.selectedMenus[0].menu_id;
+    if(this.regDataMenu.group){
+      m_parent_id = -1;
+    }
     // console.log('this.regDataMenu:', this.regDataMenu);
     // console.log('this.svModules.selectedModules:', this.svModules.selectedModules[0]);
     // console.log('Parent Menu: this.svMenu:', this.svMenu.selectedMenus);
