@@ -70,7 +70,7 @@ git push origin feat/material-theme --no-verify
 
 ToDo:
 - register ngx-admn modules and menu as per original menu
-- register ngx-admn modules and menu as per existing back-end items (modeman,coop, booking)
+
 - deregister consumer resource
 - remove user
 - select module, add menu item
@@ -313,7 +313,15 @@ use tree-grid to view modules/menu in hierarchial format
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
 
-16/10/2020
+18/10/2020
+- (continue) register ngx-admn modules and menu as per existing back-end items
+    - services
+    - PMS
+    - hrm
+    - accts
+    - pub
+
+17/10/2020
 - menu header (manual setup)
     - save as module
     - set order

@@ -36,16 +36,12 @@ export class MenuRegisterComponent implements OnInit {
   }
 
   initForms() {
-    // this.frmRegModule = this.fb.group({
-    //   module_name: ['', Validators.required],
-    //   is_sys_module: ['', Validators.required]
-    // });
     this.frmRegMenu = this.fb.group({
       menu_name: ['', Validators.required],
       menu_description: ['',],
       menu_icon: ['', Validators.required],
       icon_type: ['', Validators.required],
-      group: ['', Validators.required],
+      group: [''],
     });
   }
 
@@ -53,40 +49,6 @@ export class MenuRegisterComponent implements OnInit {
   public errorHandling = (frm, control: string, error: string) => {
     return frm.controls[control].hasError(error);
   }
-
-  // get dataControls() {
-  //   // return this.frmRegModule.controls;
-  // }
-
-  // submitModuleForm(frm: FormGroup) {
-  //   console.log(frm.value);
-  //   this.regDataModule = frm.value;
-  //   if (frm.invalid) {
-  //     this.isInvalidRegModule = true;
-  //   } else {
-  //     frm.value.module_type_id = 1;
-  //     console.log(frm.value);
-  //     // this.svModules.registerModule(frm.value);
-  //     this.svModules.registerModuleObsv(frm.value)
-  //       .subscribe((resp: any) => {
-  //         console.log('resp:', resp);
-  //         if (resp.app_state.success > 0) {
-  //           this.successRegModule = true;
-  //           this.newModule = resp.data.newModule[0];
-  //           this.regModuleAffectedRows = resp.data.affectedRows;
-  //           console.log('this.newModule:', this.newModule);
-  //           console.log('this.regModuleAffectedRows:', this.regModuleAffectedRows);
-  //         }
-  //       });
-  //   }
-
-  // }
-
-  // menuParentId(){
-  //   console.log('starting menuParentId()')
-  //   const parentMenu = this.regModuleAffectedRows.filter(affrectedRow => affrectedRow.m == 'menu');
-  //   return parentMenu[0].rowID;
-  // }
 
   submitMenuForm(frm: FormGroup) {
     this.regDataMenu = frm.value;
@@ -98,9 +60,7 @@ export class MenuRegisterComponent implements OnInit {
     if(this.regDataMenu.group){
       m_parent_id = -1;
     }
-    // console.log('this.regDataMenu:', this.regDataMenu);
-    // console.log('this.svModules.selectedModules:', this.svModules.selectedModules[0]);
-    // console.log('Parent Menu: this.svMenu:', this.svMenu.selectedMenus);
+    
     const regDataMenu = {
       cd_obj: {
         cd_obj_name: this.regDataMenu.menu_name + '-component-menu-link',
@@ -126,6 +86,8 @@ export class MenuRegisterComponent implements OnInit {
     console.log('regDataMenu:', regDataMenu);
 
     if (frm.invalid) {
+      console.log('form is invalid');
+      console.log('frm:', frm);
       this.isInvalidRegMenu = true;
     } else {
 
