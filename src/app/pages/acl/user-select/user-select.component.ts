@@ -103,7 +103,11 @@ export class UserSelectComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     // filter the users
     this.filteredUsersMulti.next(
-      this.users.filter(user => user.username.toLowerCase().indexOf(search) > -1)
+      this.users.filter(
+        (user) => {
+          console.log('user:', user);
+          user.username.toLowerCase().indexOf(search) > -1
+        })
     );
   }
 

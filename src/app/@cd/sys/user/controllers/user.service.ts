@@ -24,7 +24,7 @@ export class UserService {
   fullName = "";
   contacts = [];
   allUsers = [];
-  currentUser = { name: 'Login/Register', picture: 'assets/cd/branding/coop/avatarCircle.svg' };
+  currentUser: any;
   public usersData$: Observable<UserData[]>;
   // CdResponse
   public userDataResp$: Observable<any>;
@@ -49,6 +49,10 @@ export class UserService {
     if (res) {
       console.log('UserService::init()/res:', res);
       this.cd_token = res.app_state.sess.cd_token;
+      // { name: 'Login/Register', picture: 'assets/cd/branding/coop/avatarCircle.svg' }
+      this.currentUser = res.data;
+      this.currentUser.name = 'Login/Register';
+      this.currentUser.picture = 'assets/cd/branding/coop/avatarCircle.svg';
     }
 
   }

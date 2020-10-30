@@ -8,6 +8,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 // import { FileUploader } from 'ng2-file-upload';
 import { HttpHeaders } from '@angular/common/http';
 import { ServerService } from '../../moduleman/controller/server.service';
+import { SessService } from '../../user/controllers/sess.service';
 
 class ImageSnippet {
   pending = false;
@@ -21,6 +22,7 @@ class ImageSnippet {
 })
 export class MessagesService {
   token;
+  postData;
   params;
   currentUser;
   messeges;
@@ -39,7 +41,8 @@ export class MessagesService {
 
   constructor(
     private http: HttpClient,
-    private svServer: ServerService
+    private svServer: ServerService,
+    private svSess: SessService,
   ) {
     this.selectedMsg = new Object();
     this.selectedMsg.attachment_guid = null;
@@ -48,8 +51,8 @@ export class MessagesService {
   init(res) {
     console.log('starting MessagesService::init()');
     console.log(res);
-    
-    if(res){
+
+    if (res) {
       this.token = res.app_state.sess.cd_token;
       this.messeges = res.data.memo_summ;
       this.contacts = res.data.contacts;
@@ -59,7 +62,7 @@ export class MessagesService {
       console.log('this.selectedMsg>>');
       console.log(this.selectedMsg);
     }
-    
+
 
     // this.uploader.onAfterAddingFile = (file) => {
     //   file.withCredentials = false;
@@ -74,6 +77,9 @@ export class MessagesService {
     //   console.log(progress['progress']);
     // };
   }
+
+
+  
 
   setMessage(msgID) {
     console.log('starting MessagesService::setMessage(' + msgID + ')');
@@ -183,16 +189,16 @@ export class MessagesService {
     //   formData.append('dat', JSON.stringify(this.params.dat));
     //   this.setHeaders();
 
-      ///////////////////////////////////////
-      // this.svServer.proc(data).subscribe(
-      //   (res) => {
-      //     this.onSuccess();
-      //   },
-      //   (err) => {
-      //     this.onError();
-      //   });
-      ///////////////////////////////////////
-      // this.submitFile(formData, fileItem.name, j);
+    ///////////////////////////////////////
+    // this.svServer.proc(data).subscribe(
+    //   (res) => {
+    //     this.onSuccess();
+    //   },
+    //   (err) => {
+    //     this.onError();
+    //   });
+    ///////////////////////////////////////
+    // this.submitFile(formData, fileItem.name, j);
     // });
     // this.uploader.clearQueue();
   }

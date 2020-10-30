@@ -97,6 +97,7 @@ const materialModules = [
     Ng2SmartTableModule,
     ReactiveFormsModule,
     ...materialModules,
-  ]
+  ],
+  exports:[UserSelectComponent,GroupSelectComponent]
 })
 export class AclModule { }

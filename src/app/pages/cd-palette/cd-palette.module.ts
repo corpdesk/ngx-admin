@@ -1,6 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ToastrModule } from 'ngx-toastr';
 import { AlertModule } from '../_alert/alert.module';
 import { NotifierModule } from "angular-notifier";
@@ -40,6 +41,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
 import { ProfileAccordionComponent } from './profile-accordion/profile-accordion.component';
 import { ProfileTwitterComponent } from './profile-twitter/profile-twitter.component';
@@ -51,6 +54,7 @@ import { CheckBoxComponent } from './check-box/check-box.component';
 import { AlertifyComponent } from './alertify/alertify.component';
 import { TabLoaderComponent } from './tab-loader/tab-loader.component';
 import { TabDirective } from '../../@cd/guig/directives/tab.directive';
+import { SelectSearchComponent } from './select-search/select-search.component';
 
 const materialModules = [
   MatExpansionModule,
@@ -64,7 +68,9 @@ const materialModules = [
   MatRadioModule,
   MatButtonModule,
   MatButtonToggleModule,
-  MatDividerModule
+  MatDividerModule,
+  MatChipsModule,
+  MatIconModule,
 ];
 
 @NgModule({
@@ -74,9 +80,11 @@ const materialModules = [
     ProfileAccordionComponent, 
     ProfileTwitterComponent, FriblyTreeComponent, CheckListComponent, TreeGridComponent,FsIconComponent, GuigTableComponent, CheckBoxComponent, AlertifyComponent, TabLoaderComponent,
     TabDirective,
+    SelectSearchComponent,
   ],
   imports: [
     CommonModule,
+    NgxMatSelectSearchModule,
     CdPaletteRoutingModule,
     FormsModule, 
     ReactiveFormsModule,
@@ -149,6 +157,7 @@ const materialModules = [
     AlertifyComponent,
     GuigTableComponent,
     TabLoaderComponent,
+    SelectSearchComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -1,1 +1,85 @@
-<p>compose-doc works!</p>
+<div class="mail-box-header">
+  <div class="float-right tooltip-demo">
+    <a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top"
+      title="Move to draft folder"><i class="fa fa-pencil"></i> Draft</a>
+    <a href="mailbox.html" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
+      title="Discard email"><i class="fa fa-times"></i> Discard</a>
+  </div>
+  <h2>
+    Compose mail
+  </h2>
+</div>
+<div class="mail-box">
+
+
+  <div class="mail-body">
+
+    <form [formGroup]="frmMemo">
+      
+      <div class="form-group row"><label class="col-sm-2 col-form-label">To:</label>
+
+        <div class="col-sm-10">
+          <ngx-select-search 
+          #selectTo 
+          [isInvalidSelItems]="isInvalidSelTo"
+          (sendSelData) = "getSelectedTo($event)"
+          [nameField]="nameField" 
+          [IdField]="IdField" 
+          [ConsumerInstance]="svUser" 
+          [fetchData]="fetchUserTo">
+          </ngx-select-search>
+        </div>
+      </div>
+      <div class="form-group row"><label class="col-sm-2 col-form-label">Cc:</label>
+
+        <div class="col-sm-10">
+          <ngx-select-search #selectCc
+           [isInvalidSelItems]="isInvalidSelCc" 
+           (sendSelData) = "getSelectedCc($event)"
+           [nameField]="nameField"
+            [IdField]="IdField" [ConsumerInstance]="svUser" [fetchData]="fetchUserCc">
+          </ngx-select-search>
+        </div>
+      </div>
+      <div class="form-group row"><label class="col-sm-2 col-form-label">Bcc:</label>
+
+        <div class="col-sm-10">
+          <ngx-select-search #selectBcc 
+          [isInvalidSelItems]="isInvalidSelBcc"
+          (sendSelData) = "getSelectedBcc($event)"
+          [nameField]="nameField"
+            [IdField]="IdField" [ConsumerInstance]="svUser" [fetchData]="fetchUserBcc">
+          </ngx-select-search>
+          </div>
+      </div>
+      <div class="form-group row"><label class="col-sm-2 col-form-label">Subject:</label>
+
+        <div class="col-sm-10"><input formControlName="doc_subject" type="text" class="form-control" value=""></div>
+      </div>
+    </form>
+
+  </div>
+
+  <div class="mail-text h-200">
+    <!-- <div [froalaEditor]='options'>Hello, Froala!</div> -->
+    <!-- <div  [froalaEditor]="options" (froalaInit)="initializeLink($event)"></div> -->
+    <!-- <ngx-text-editor [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="htmlContent"></ngx-text-editor> -->
+
+    <!-- @kolkov/angular-editor -->
+    <!-- nb: the text is held assigned to htmlContent -->
+    <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent"></angular-editor>
+    <!-- for reactive forms...use: -->
+    <!-- <angular-editor formControlName="htmlContent" [config]="editorConfig"></angular-editor> -->
+
+
+  </div>
+  <div class="mail-body text-right tooltip-demo">
+    <a (click)="initComm(frmMemo)" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top"
+      title="Send"><i class="fa fa-reply"></i> Send</a>
+    <a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top"
+      title="Discard email"><i class="fa fa-times"></i> Discard</a>
+    <a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top"
+      title="Move to draft folder"><i class="fa fa-pencil"></i> Draft</a>
+  </div>
+  <div class="clearfix"></div>
+</div>

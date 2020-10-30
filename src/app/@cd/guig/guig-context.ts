@@ -40,14 +40,14 @@ export class GuigContextService {
             info: 'the initial modification including cd-auth and cd-menu',
             changableTheme: false,
             logoMode: 1,
-            active: false
+            active: true
         },
         {
             name: 'cd-demo',
             info: 'use cd-menu-demo',
             changableTheme: false,
             logoMode: 1,
-            active: true
+            active: false
         }
     ];
     constructor() {

@@ -69,6 +69,9 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
+- receive message
+- notification for new message
+
 - register ngx-admn modules and menu as per original menu
 
 - deregister consumer resource
@@ -313,6 +316,26 @@ use tree-grid to view modules/menu in hierarchial format
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
 
+
+30/10/2020
+- create cd-pallete/select-search
+    - clone from user select
+    - set data to originate from @Input
+    - set array of chips to hold selected recepients
+- send message
+    - select 'docTo'
+    - modify select to have @Input for:
+        - showSelected
+    - modify select to multiple instances in one page
+    - check initComm for initializing conversation
+    - test initComm() from gui
+
+21/10/2020
+- confirm messaging api
+    - fetch messages for given user
+    - fetch specific message for given user
+    - fetch messages for specific conversation
+    - send message
 18/10/2020
 - (continue) register ngx-admn modules and menu as per existing back-end items
     - services

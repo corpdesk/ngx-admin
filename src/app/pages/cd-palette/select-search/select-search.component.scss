@@ -1,0 +1,24 @@
+.example-chip-list {
+  width: 100%;
+}
+
+.clean-bg {
+  background: inherit !important;
+}
+
+.nb-theme-material-dark .mat-chip .mat-standard-chip .mat-chip-remove {
+  background: inherit !important;
+}
+
+.mat-chip-remove{
+    background: inherit !important;
+}
+
+.mat-chip {
+  font-size: 10px !important;
+  font-weight: 400;
+}
+
+.mat-standard-chip {
+  min-height: 24px;
+}
