@@ -69,7 +69,12 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
+PMS:
+- gantt
+- task manager
+
 - on loading reply-doc populate the subject
+- on loading reply-doc populate subscribers
 - on repyComm(), can we view the reply on out-box for sender and in-box for other subscribers
     - message to reply:
 
@@ -323,6 +328,9 @@ use tree-grid to view modules/menu in hierarchial format
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
+
+02/11/2020
+- set up outbox view
 
 02/11/2020
 - correct bug on avatar display for header

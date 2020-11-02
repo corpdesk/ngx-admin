@@ -11,21 +11,26 @@ import { MessagesService } from '../../../@cd/sys/comm/controllers/messages.serv
 export class IntrayComponent implements OnInit {
   messages;
   
+  
   constructor(
     public svConversation: CommconversationService,
     public svMesseges: MessagesService,
   ) { }
 
   ngOnInit(): void {
-    this.svConversation.ConversationInboxObsv()
-      .subscribe((ret: any) => {
-        console.log('ret:', ret);
-        this.svConversation.conversation = ret.data.conversation;
-        this.messages = this.svConversation.conversation;
-        console.log('this.messages:', this.messages);
-        console.log('this.svConversation.conversation:', this.svConversation.conversation);
-      });
-    
+    // this.svConversation.ConversationInboxObsv()
+    //   .subscribe((ret: any) => {
+    //     console.log('ret:', ret);
+    //     this.svConversation.conversation = ret.data.conversation;
+    //     this.messages = this.svConversation.conversation;
+    //     this.svConversation.InBoxData = this.svConversation.conversation;
+    //     this.svConversation.countInBox = this.messages.length;
+    //     this.updateUnread();
+    //     // console.log('unreadMessages:', unreadMessages);
+    //     console.log('this.messages:', this.messages);
+    //     console.log('this.svConversation.conversation:', this.svConversation.conversation);
+    //   }); 
+    this.svConversation.init();
   }
 
   rowSelect(ctx) {
@@ -36,7 +41,10 @@ export class IntrayComponent implements OnInit {
     console.log('IntrayComponent::rowSelect()/this.svConversation.clickedCommConversationID:', this.svConversation.clickedCommConversationID);
     const options: DocModeOpts = { commconversation_id: ctx.commconversation_id };
     this.svConversation.setMode('READ-DOC', options);
+    this.svConversation.updateUnread();
   }
+
+  
 
   docAttended(attended){
     if(attended){

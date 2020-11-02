@@ -4,12 +4,15 @@
       <div class="ibox ">
         <div class="ibox-content mailbox-content">
           <div class="file-manager">
-            <a class="btn btn-block btn-primary compose-mail" (click)="svConversation.setMode('COMPOSE-DOC',null)">Compose Mail</a>
+            <a class="btn btn-block btn-primary compose-mail"
+              (click)="svConversation.setMode('COMPOSE-DOC',null)">Compose Mail</a>
             <div class="space-25"></div>
             <h5>Folders</h5>
             <ul class="folder-list m-b-md" style="padding: 0">
-              <li><a (click)="svConversation.setMode('IN-TRAY',null)"> <i class="fa fa-inbox "></i> Unread <span
-                    class="label label-warning float-right">16</span> </a></li>
+              <li id="memo-menu-inbox" class="memo-menu"><a (click)="svConversation.setMode('IN-TRAY',null)"> <i class="fa fa-inbox "></i> Inbox <span
+                    class="label label-warning float-right">{{svConversation.countInBox}}</span> </a></li>
+              <li id="memo-menu-outbox"><a (click)="svConversation.setMode('OUT-TRAY',null)"> <i class="fas fa-share-square"></i> Outbox <span
+                    class="label label-warning float-right">{{svConversation.countOutBox}}</span> </a></li>
               <li><a href="mailbox.html"> <i class="fa fa-envelope"></i> Send Mail</a></li>
               <li><a href="mailbox.html"> <i class="fa fa-certificate"></i> Important</a></li>
               <li><a href="mailbox.html"> <i class="fa fa-firstdraft"></i> Drafts <span
