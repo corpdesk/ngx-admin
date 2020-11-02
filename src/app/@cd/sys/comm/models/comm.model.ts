@@ -78,12 +78,15 @@ export interface ConversationItem {
     sender_email?: string;
     sender_mobile?: string;
     sender_avatar?: string;
-    attended?: boolean;
+    attended?: any;
     commattended_id?: number;
     commatt_user_id?: number;
     selected?: boolean;
     flag?: object;
     memo_draft?: boolean;
+    commconversationsub_id?:number;
+    sub_email?: string;
+    sub_mobile?: string;
 }
 
 export interface ConversationMeta {
@@ -111,6 +114,10 @@ export interface ConversationMeta {
 export interface CommConversationSub {
     user_id: number; // subscriber user_id
     sub_type_id: number; // type of subscriber
+    commconversation_id?: number;
+    commconversationsub_id?: number;
+    commconversationsub_invited?: boolean;
+    commconversationsub_accepted?: boolean;
 }
 
 /**
@@ -121,7 +128,7 @@ export interface CommConversationSub {
 export interface CommData {
     subject: string;
     commconversationsub: any;
-    messageData: ConversationItem;
+    data: ConversationItem;
 }
 
 

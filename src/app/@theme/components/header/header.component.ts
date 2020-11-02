@@ -88,10 +88,10 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.userService.getUsers()
       .pipe(takeUntil(this.destroy$))
-      .subscribe((users: any) => 
-      {
+      .subscribe((users: any) => {
         // this.user = users.anon;
-        // this.user = this.svUser.currentUser;
+        // this.user = this.svUser.currentProfile;
+        
         console.log('svUser.userData', this.svUser.userData);
       });
 
@@ -162,7 +162,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       case 'Log out':
         this.svSess.logout();
         // this.svNav.nav('/pages/home/news-feed');
-        this.svUser.currentUser = { name: 'Login/Register', picture: 'assets/cd/branding/coop/avatarCircle.svg' };
+        this.svUser.currentProfile = { name: 'Login/Register', picture: 'assets/cd/branding/coop/avatarCircle.svg' };
         this.svNav.userMenu = [
           { title: 'Login', link: '/pages/cd-auth/login' },
           { title: 'Register', link: '/pages/cd-auth/register' }

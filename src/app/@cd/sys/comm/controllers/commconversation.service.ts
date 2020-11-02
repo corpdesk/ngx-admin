@@ -4,7 +4,7 @@ import { from } from 'rxjs';
 import { ServerService } from '../../moduleman/controller/server.service';
 import { SessService } from '../../user/controllers/sess.service';
 import { UserService } from '../../user/controllers/user.service';
-import { DocModeOpts, ConversationItem, ConversationMeta, CommConversationSub } from '../models/comm.model';
+import { DocModeOpts, ConversationItem, ConversationMeta, CommConversationSub, CommData } from '../models/comm.model';
 
 
 @Injectable({
@@ -13,6 +13,7 @@ import { DocModeOpts, ConversationItem, ConversationMeta, CommConversationSub } 
 export class CommconversationService {
   UserData;
   postData;
+  subscribers: CommConversationSub[]; // conversation subscribers
   conversation: ConversationItem[] = [
     {
       commconversation_id: 2618,
@@ -170,6 +171,7 @@ export class CommconversationService {
   docModeInTray = true;
   docModeComposeDoc = false;
   docModeReadDoc = false;
+  docModeReplyDoc = false;
   clickedCommConversationID = -1;
   constructor(
     private svServer: ServerService,
@@ -180,8 +182,6 @@ export class CommconversationService {
 
   }
 
-
-
   setMode(docMode, options: DocModeOpts) {
     console.log('this.conversation:', this.conversation);
     switch (docMode) {
@@ -189,11 +189,13 @@ export class CommconversationService {
         this.docModeInTray = true;
         this.docModeComposeDoc = false;
         this.docModeReadDoc = false;
+        this.docModeReplyDoc = false;
         break;
       case 'COMPOSE-DOC':
         this.docModeInTray = false;
         this.docModeComposeDoc = true;
         this.docModeReadDoc = false;
+        this.docModeReplyDoc = false;
         break;
       case 'READ-DOC':
 
@@ -207,8 +209,25 @@ export class CommconversationService {
             this.docModeInTray = false;
             this.docModeComposeDoc = false;
             this.docModeReadDoc = true;
+            this.docModeReplyDoc = false;
           });
 
+        break;
+      case 'REPLY-DOC':
+        this.getConversationObsv(options.commconversation_id)
+          .subscribe((ret: any) => {
+            console.log('getConversationObsv/subscribe/ret:', ret);
+            console.log('this.svUser.currentUser;:', this.svUser.currentUser);
+            this.UserData = this.svUser.currentUser.user_data[0];
+            this.selectedMessage = ret.data.conversation;
+            this.clickedCommConversationID = options.commconversation_id;
+            this.subscribers = ret.data.subscribers;
+            this.docModeInTray = false;
+            this.docModeComposeDoc = false;
+            this.docModeReadDoc = false;
+            this.docModeReplyDoc = true;
+          });
+        
         break;
     }
   }
@@ -392,4 +411,122 @@ export class CommconversationService {
       args: null
     };
   }
+
+  /*
+  * for flaging memo as 'read'
+  */
+  flagOpenMemoObsv(docID) {
+    console.log('starting flagOpenMemoObsv()');
+    this.setEnvelopeFlagOpenMemo(docID);
+    console.log('this.postData:', JSON.stringify(this.postData));
+    return this.svServer.proc(this.postData)
+  }
+  //   {
+  //     "ctx": "Sys",
+  //     "m": "Comm",
+  //     "c": "MemoController",
+  //     "a": "actionFlagOpenMemo",
+  //     "dat": {
+  //         "f_vals": [
+  //             {
+  //                 "data": {
+  //                     "doc_id": 10258
+  //                 }
+  //             }
+  //         ],
+  //         "token": "050D1CF3-BFCB-1B99-80A2-501FECEFF53C"
+  //     },
+  //     "args": null
+  // }
+  setEnvelopeFlagOpenMemo(docID) {
+    this.postData = {
+      ctx: 'Sys',
+      m: 'Comm',
+      c: 'MemoController',
+      a: 'actionFlagOpenMemo',
+      dat: {
+        f_vals: [
+          {
+            "data": {
+              "doc_id": docID
+            }
+          }
+        ],
+        token: this.svSess.getCdToken()
+      },
+      args: null
+    };
+  }
+
+  /*
+  * for initializing conversation eg new chat or new memo
+  * otherwise use sendComm() to reply or contributng to existing conversation
+  * works for any communication eg chat, memo, doc comments
+  * 
+  */
+ replyCommObsv(replyCommData: CommData) {
+  console.log('starting getConversationObsv()');
+  this.setEnvelopeReplyComm(replyCommData);
+  console.log('this.postData:', JSON.stringify(this.postData));
+  return this.svServer.proc(this.postData)
+}
+
+//   {
+//     "ctx": "Sys",
+//     "m": "Comm",
+//     "c": "MemoController",
+//     "a": "actionInitComm",
+//     "dat": {
+//         "f_vals": [
+//             {
+//                 "subject": "fgve",
+//                 "commconversationsub": [
+//                     {
+//                         "user_id": 1010,
+//                         "sub_type_id": 1
+//                     },
+//                     {
+//                         "user_id": 1002,
+//                         "sub_type_id": 7
+//                     },
+//                     {
+//                         "user_id": 1003,
+//                         "sub_type_id": 7
+//                     },
+//                     {
+//                         "user_id": 1011,
+//                         "sub_type_id": 3
+//                     },
+//                     {
+//                         "user_id": 1015,
+//                         "sub_type_id": 4
+//                     }
+//                 ],
+//                 "data": {
+//                     "memo_message": "hujk gfr",
+//                     "attachment_id": null,
+//                     "memo_type_id": 4,
+//                     "memo_draft": null
+//                 }
+//             }
+//         ],
+//         "token": "9EA92E8F-AECC-559F-DBCC-BE66BE272FE8"
+//     },
+//     "args": null
+// }
+setEnvelopeReplyComm(replyCommData) {
+  this.postData = {
+    ctx: 'Sys',
+    m: 'Comm',
+    c: 'MemoController',
+    a: 'actionReplyComm',
+    dat: {
+      f_vals: [
+        replyCommData
+      ],
+      token: this.svSess.getCdToken()
+    },
+    args: null
+  };
+}
 }

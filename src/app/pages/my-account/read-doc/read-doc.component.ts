@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { subscribeOn } from 'rxjs/operators';
 import { CommconversationService } from '../../../@cd/sys/comm/controllers/commconversation.service';
+import { DocModeOpts, ConversationItem, CommConversationSub, CommData } from '../../../@cd/sys/comm/models/comm.model';
 
 @Component({
   selector: 'ngx-read-doc',
@@ -8,23 +10,25 @@ import { CommconversationService } from '../../../@cd/sys/comm/controllers/commc
 })
 export class ReadDocComponent implements OnInit, AfterViewInit {
   @ViewChild('divMessage') divMessage: ElementRef;
-  selectedConversation;
+  selectedConversation: ConversationItem;
   constructor(
     public svConversation: CommconversationService,
   ) { }
 
   ngOnInit(): void {
-    // console.log('ReadDocComponent::ngOnInit()/this.svConversation.clickedCommConversationID:', this.svConversation.clickedCommConversationID);
-    // // getConversationObsv(commconversationID)
-    // this.svConversation.clickedCommConversationID = 99;
-    // console.log('ReadDocComponent::ngOnInit()/this.svConversation.clickedCommConversationID:', this.svConversation.clickedCommConversationID);
     console.log("this.svConversation.conversation:", this.svConversation.conversation);
     this.selectedConversation = this.svConversation.demoSelectedConversation()[0];
     console.log('this.selectedConversation:', this.selectedConversation);
-    
+    // flag memo as 'seen'
+    const docID = this.selectedConversation.doc_id;
+    this.svConversation.flagOpenMemoObsv(docID)
+      .subscribe((ret) => {
+        console.log(ret);
+      });
+
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.loadHtml();
   }
 

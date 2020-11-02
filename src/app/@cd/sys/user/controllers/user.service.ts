@@ -25,6 +25,7 @@ export class UserService {
   contacts = [];
   allUsers = [];
   currentUser: any;
+  currentProfile: any = { name: 'Login/Register', picture: 'assets/cd/branding/coop/avatarCircle.svg' };
   public usersData$: Observable<UserData[]>;
   // CdResponse
   public userDataResp$: Observable<any>;
@@ -38,7 +39,10 @@ export class UserService {
     private svNotif: NotificationService,
     private svScheduler: SchedulerService,
     private svMessages: MessagesService
-  ) { }
+  ) { 
+    // this.currentProfile.name = 'Login/Register';
+    // this.currentProfile.picture = 'assets/cd/branding/coop/avatarCircle.svg';
+  }
 
   /*
     set userData
@@ -51,8 +55,12 @@ export class UserService {
       this.cd_token = res.app_state.sess.cd_token;
       // { name: 'Login/Register', picture: 'assets/cd/branding/coop/avatarCircle.svg' }
       this.currentUser = res.data;
-      this.currentUser.name = 'Login/Register';
-      this.currentUser.picture = 'assets/cd/branding/coop/avatarCircle.svg';
+      // this.currentUser.name = 'Login/Register';
+      this.currentProfile.name = res.data.user_data[0].username;
+      // this.currentUser.picture = 'assets/cd/branding/coop/avatarCircle.svg';
+      const avatarUrl = `http://localhost/user-resources/${res.data.user_data[0].user_guid}/avatar-01/a.jpg`;
+      console.log('avatarUrl:', avatarUrl);
+      this.currentProfile.picture = avatarUrl;
     }
 
   }

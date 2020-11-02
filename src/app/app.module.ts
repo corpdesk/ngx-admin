@@ -23,9 +23,10 @@ import {
   NbWindowModule,
 } from '@nebular/theme';
 import { CalendarModule } from 'angular-calendar';
+import { SanitizeHtmlPipe } from './@cd/guig/sanitize-html.pipe';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SanitizeHtmlPipe],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

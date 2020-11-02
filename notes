@@ -69,9 +69,17 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
-- receive message
-- notification for new message
+- on loading reply-doc populate the subject
+- on repyComm(), can we view the reply on out-box for sender and in-box for other subscribers
+    - message to reply:
 
+
+- receive message: working
+- view message
+- flag message as 'seen'
+- notification for new message
+- count for unread memos
+- mark mail for cc/bcc recepients
 - register ngx-admn modules and menu as per original menu
 
 - deregister consumer resource
@@ -315,6 +323,12 @@ use tree-grid to view modules/menu in hierarchial format
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
+
+02/11/2020
+- correct bug on avatar display for header
+- reply message
+    - click 'reply' to open reply-page
+    - send reply messege and view it on ibox of recepient
 
 
 30/10/2020

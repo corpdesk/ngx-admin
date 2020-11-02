@@ -8,7 +8,7 @@
             <div class="space-25"></div>
             <h5>Folders</h5>
             <ul class="folder-list m-b-md" style="padding: 0">
-              <li><a (click)="svConversation.setMode('IN-TRAY',null)"> <i class="fa fa-inbox "></i> Inbox <span
+              <li><a (click)="svConversation.setMode('IN-TRAY',null)"> <i class="fa fa-inbox "></i> Unread <span
                     class="label label-warning float-right">16</span> </a></li>
               <li><a href="mailbox.html"> <i class="fa fa-envelope"></i> Send Mail</a></li>
               <li><a href="mailbox.html"> <i class="fa fa-certificate"></i> Important</a></li>
@@ -46,6 +46,7 @@
       <ngx-intray *ngIf="svConversation.docModeInTray"></ngx-intray>
       <ngx-read-doc *ngIf="svConversation.docModeReadDoc"></ngx-read-doc>
       <ngx-compose-doc *ngIf="svConversation.docModeComposeDoc"></ngx-compose-doc>
+      <ngx-reply-doc *ngIf="svConversation.docModeReplyDoc"></ngx-reply-doc>
       <!-- end doc content -->
     </div>
   </div>

@@ -1,0 +1,24 @@
+@import '../../../../assets/cd/inspinia/css/style.css';
+@import '../../../../assets/cd/scss/modules/fonts';
+@import '../../../../assets/cd/scss/modules/inspiniaMatDark';
+// "node_modules/chart.js/dist/Chart.min.js",
+// "node_modules/jquery/dist/jquery.min.js"
+// @import '../../../../assets/cd/froala/froala_editor.pkgd.css';
+// @import '../../../../assets/cd/froala/froala_style.css';
+// @import '../../../../assets/cd/froala/themes/dark.css';
+
+// .fr-box, 
+// .fr-basic, 
+.angular-editor-toolbar {
+  background: rgb(43, 42, 42) !important;
+  background-color: rgb(43, 42, 42) !important;
+  border: 1px solid rgb(100, 100, 100)
+}
+
+// .example-chip-list {
+//   width: 100%;
+// }
+
+.nb-theme-material-dark .mat-chip.mat-standard-chip .mat-chip-remove {
+  background: inherit !important;
+}

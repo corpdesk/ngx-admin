@@ -1,4 +1,3 @@
-
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
@@ -8,13 +7,14 @@ import { UserService } from '../../../@cd/sys/user/controllers/user.service';
 import { User } from '../../../@cd/sys/user/models/user-model';
 
 @Component({
-  selector: 'ngx-compose-doc',
-  templateUrl: './compose-doc.component.html',
-  styleUrls: ['./compose-doc.component.scss']
+  selector: 'ngx-reply-doc',
+  templateUrl: './reply-doc.component.html',
+  styleUrls: ['./reply-doc.component.scss']
 })
-export class ComposeDocComponent implements OnInit, AfterViewInit {
+export class ReplyDocComponent implements OnInit, AfterViewInit {
   htmlContent;
   editor;
+  IsBccRepy = false;
   frmMemo: FormGroup;
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -76,6 +76,7 @@ export class ComposeDocComponent implements OnInit, AfterViewInit {
   IdField = 'user_id';
 
   convSubscribers: CommConversationSub[] = [];
+  replySubscribers: any[] = [];
 
 
   public options: Object = {
@@ -111,7 +112,7 @@ export class ComposeDocComponent implements OnInit, AfterViewInit {
       docBcc: ['', Validators.required],
       doc_subject: ['', Validators.required]
     });
-    
+
   }
 
   ngAfterViewInit() {
@@ -154,67 +155,77 @@ export class ComposeDocComponent implements OnInit, AfterViewInit {
 
   processSubscribers() {
     console.log('starting processSubscribers()');
-    console.log('this.svUser.currentUser.user_id:', this.svUser.currentUser.user_id);
-    console.log('this.svUser.currentUser:', this.svUser.currentUser);
-    let sub: CommConversationSub = {
-      user_id: this.svUser.currentUser.user_data[0].user_id,
-      sub_type_id: 1 // sender
-    };
-
-    this.convSubscribers.push(sub);
-    console.log('sub:', sub);
-
-    this.selectedTo.forEach((user: User) => {
-      console.log('Before: sub:', sub);
-      sub = {
-        user_id: user.user_id,
-        sub_type_id: 7
-      };
-      this.convSubscribers.push(sub);
-      console.log('After: sub:', sub);
-    });
-
-    this.selectedCc.forEach((user: User) => {
-      console.log('Before: sub:', sub);
-      sub = {
-        user_id: user.user_id,
-        sub_type_id: 3
-      };
-      this.convSubscribers.push(sub);
-      console.log('After: sub:', sub);
-    });
-
-    this.selectedBcc.forEach((user: User) => {
-      console.log('Before: sub:', sub);
-      sub = {
-        user_id: user.user_id,
-        sub_type_id: 4
-      };
-      this.convSubscribers.push(sub);
-      console.log('After: sub:', sub);
-    });
+    console.log('this.convSubscribers:', this.convSubscribers);
+    this.convSubscribers = [];
+    this.convSubscribers = this.svConversation.subscribers;
+    this.setReplySubscribers();
   }
 
-  
-  initComm(frm: FormGroup) {
-    console.log('starting initComm(frm)');
+  // set original sender as recepient sub_type_id = 7;
+  // set cuid as sub_type_id = 1;
+  // all other cc remain as cc
+  // all other bcc remain as bcc
+  // if sender is bcc, then no other user is subscriber to the reply
+  setReplySubscribers() {
+    console.log('starting setReplySubscribers()');
+    console.log('this.convSubscribers:', this.convSubscribers);
+    console.log('this.svConversation.UserData.user_id:', this.svConversation.UserData.user_id);
+    const cuid = this.svConversation.UserData.user_id;
+    const convID = this.svConversation.selectedMessage[0].commconversation_id;
+    this.replySubscribers = [];
+    this.convSubscribers.forEach((s) => {
+      console.log('s:', s);
+      s.commconversation_id = convID;
+      // set original sender as recepient sub_type_id = 7;
+      if (s.sub_type_id == 1) {
+        s.sub_type_id = 7;
+      }
+
+      // set cuid as sub_type_id = 1;
+      if (s.user_id == cuid) {
+        // if sender is bcc, then no other user is subscriber to the reply
+        if (s.sub_type_id == 4) {
+          this.IsBccRepy = true;
+        }
+        s.sub_type_id = 1;
+      }
+
+
+      this.replySubscribers.push(s);
+    });
+
+    // if sender is bcc, then no other user is subscriber to the reply
+    if (this.IsBccRepy) {
+      console.log('this.replySubscribers:', this.replySubscribers);
+      this.replySubscribers = this.replySubscribers.filter((s) => {
+        if (s.sub_type_id == 7 || s.sub_type_id == 1) {
+          return true;
+        }
+      });
+    }
+  }
+
+  replyComm(frm: FormGroup) {
+    console.log('starting replyComm(frm)');
     this.processSubscribers();
     console.log('sendComm/this.convSubscribers:', this.convSubscribers);
+    console.log('this.svConversation.selectedMessage:', this.svConversation.selectedMessage);
     const docSubject = frm.controls.doc_subject.value;
     console.log('frm.controls.doc_subject.value:', frm.controls.doc_subject.value);
     const msg = this.htmlContent;
 
-    const initCommData: CommData = {
-      subject: docSubject,
-      commconversationsub: this.convSubscribers,
+    const replyCommData: CommData = {
+      subject: this.svConversation.selectedMessage[0].subject,
+      commconversationsub: this.replySubscribers,
       data: {
         memo_message: msg,
         attachment_id: null,
-        memo_type_id: 4,
-        memo_draft: null
+        memo_type_id: 9,
+        memo_draft: null,
+        commconversation_id: this.svConversation.selectedMessage[0].commconversation_id,
       }
     };
-    this.svConversation.initCommObsv(initCommData)
+    this.svConversation.replyCommObsv(replyCommData)
       .subscribe((ret: any) => {
         console.log('ret.data:', ret.data);
       });
