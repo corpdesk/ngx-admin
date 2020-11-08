@@ -26,6 +26,16 @@ export class HtmlElemService {
     return document.getElementById(selector.id) as HTMLInputElement;
   }
 
+  addClassByID(id,cls){
+    const elem = document.getElementById(id) as HTMLElement;
+    elem.classList.add(cls);
+  }
+
+  removeClassByID(id,cls){
+    const elem = document.getElementById(id) as HTMLElement;
+    elem.classList.remove(cls);
+  }
+
   isMat(control: HTMLInputElement){
     const tagName = control.tagName
     const strTyp = tagName.substring(0, 4).toLowerCase();

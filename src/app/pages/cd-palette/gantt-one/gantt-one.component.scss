@@ -1,0 +1,150 @@
+@import '../../../../assets/cd/inspinia/css/style.css';
+@import '../../../../assets/cd/scss/modules/fonts';
+@import '../../../../assets/cd/scss/modules/inspiniaMatDark';
+
+.gantt-wrapper {
+  // font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  margin: 30px;
+  display: flex;
+  font-size: 12px;
+
+  @function zoom($size) {
+    $xfactor: 1;
+    $pxsize: $size * $xfactor;
+    @return #{$pxsize}px;
+  }
+
+  .left-labels {
+    margin-top: 20px;
+
+    .left-label {
+      height: 50px;
+      padding: 0px 16px;
+      font-weight: bold;
+    }
+  }
+
+  .gantt-scroll-wrapper {
+    /*overflow: auto;*/
+
+    .gantt-scroll {
+      display: flex;
+      position: relative;
+      flex-direction: column;
+
+      .grid-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+
+        .year {
+          border-left: 1px dashed rgba(255, 255, 255, 0.555);
+          width: zoom(365);
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+
+          &:last-child {
+            left: zoom(365);
+          }
+
+          .month-grid {
+            height: 100%;
+
+            .month {
+              height: 100%;
+              display: inline-block;
+              border-right: 1px dashed rgba(255, 255, 255, 0.205);
+
+              &:nth-child(1),
+              &:nth-child(3),
+              &:nth-child(5),
+              &:nth-child(7),
+              &:nth-child(8),
+              &:nth-child(10),
+              &:nth-child(12) {
+                width: zoom(31);
+              }
+
+              &:nth-child(2) {
+                width: zoom(28);
+              }
+
+              &:nth-child(4),
+              &:nth-child(6),
+              &:nth-child(9),
+              &:nth-child(11) {
+                width: zoom(30);
+              }
+            }
+          }
+
+          .year-label {
+            position: absolute;
+            top: 0px;
+            padding: 0px 5px;
+            font-weight: bold;
+            border-radius: 10px;
+            border-bottom-left-radius: 0px;
+            border-top-left-radius: 0px;
+          }
+        }
+      }
+
+      .row-wrapper {
+        z-index: 2;
+
+        .gantt-row {
+          .gantt-range {
+            height: 30px;
+            margin: 20px;
+            transition: all 0.2s;
+            opacity: 0.4;
+            position: relative;
+            background: #2196F3;
+
+            &.active {
+              background: #8BC34A;
+              opacity: 0.8;
+            }
+
+            .start-label,
+            .end-label {
+              position: absolute;
+              padding: 9px 1px;
+              font-size: 10px;
+              width: 70px;
+              text-align: center;
+              color: black;
+              display: none;
+
+            }
+
+            .end-label {
+              right: 0px;
+              bottom: 0px;
+            }
+
+            .start-label {
+              left: 0px;
+              top: 0px;
+            }
+
+            &:hover {
+              opacity: 1;
+
+              .start-label,
+              .end-label {
+                display: block;
+              }
+            }
+          }
+        }
+
+      }
+    }
+  }
+}

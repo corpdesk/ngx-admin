@@ -1,0 +1,60 @@
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato" />
+<div class="gantt-wrapper">
+
+  <div class="left-labels">
+    <ng-container *ngFor="let task of tasksData">
+      <div class="left-label">
+        {{task.taskLable}}
+      </div>
+    </ng-container>
+  </div>
+  <div class="gantt-scroll-wrapper">
+
+    <div class="gantt-scroll ">
+      <div class="grid-wrapper">
+        <div class="year">
+          <div class="year-label">2019</div>
+          <div class="month-grid">
+            <div class="month"></div>
+            <div class="month"></div>
+            <div class="month"></div>
+            <div class="month"></div>
+            <div class="month"></div>
+            <div class="month"></div>
+            <div class="month"></div>
+            <div class="month"></div>
+            <div class="month"></div>
+            <div class="month"></div>
+          </div>
+        </div>
+        <div class="year">
+          <div class="year-label">2020</div>
+          <div class="month-grid">
+            <div class="month"></div>
+            <div class="month"></div>
+            <div class="month"></div>
+            <div class="month"></div>
+            <div class="month"></div>
+            <div class="month"></div>
+            <div class="month"></div>
+            <div class="month"></div>
+            <div class="month"></div>
+            <div class="month"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row-wrapper">
+        <ng-container *ngFor="let task of tasksData">
+          <div class="gantt-row">
+            <div id="{{task.id}}">
+              <span class="start-label">{{task.startLable}}</span>
+              <span class="end-label">{{task.endLable}}</span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,447 @@
+<div id="demo">
+  <div class="gantt-wrapper">
+    <div (click)="cdGanttContainer.scroll(-1)" class="arrow arrow-left"><span class="arrow-icon"></span></div>
+    <div ngxScrollable #cdGanttContainer="ngxScrollable" [scrollUnit]="20" class="gantt-container">
+      <div id="cdGanttHeader" class="gantt-header">
+        <div class="gantt-header-months" style="width: 1860px;">
+          <div class="gantt-header-month" style="width: 620px;">July 2016</div>
+          <div class="gantt-header-month" style="width: 620px;">August 2016</div>
+          <div class="gantt-header-month" style="width: 600px;">September 2016</div>
+          <div class="gantt-header-month" style="width: 20px;">October 2016</div>
+        </div>
+        <div class="gantt-header-days" style="width: 1860px;">
+          <!-- <div class="gantt-header-day" style="width: 20px;">1</div>
+          <div class="gantt-header-day" style="width: 20px;">2</div>
+          <div class="gantt-header-day" style="width: 20px;">3</div>
+          <div class="gantt-header-day" style="width: 20px;">4</div>
+          <div class="gantt-header-day" style="width: 20px;">5</div>
+          <div class="gantt-header-day" style="width: 20px;">6</div>
+          <div class="gantt-header-day" style="width: 20px;">7</div>
+          <div class="gantt-header-day" style="width: 20px;">8</div>
+          <div class="gantt-header-day" style="width: 20px;">9</div>
+          <div class="gantt-header-day" style="width: 20px;">10</div>
+          <div class="gantt-header-day" style="width: 20px;">11</div>
+          <div class="gantt-header-day" style="width: 20px;">12</div>
+          <div class="gantt-header-day" style="width: 20px;">13</div>
+          <div class="gantt-header-day" style="width: 20px;">14</div>
+          <div class="gantt-header-day" style="width: 20px;">15</div>
+          <div class="gantt-header-day" style="width: 20px;">16</div>
+          <div class="gantt-header-day" style="width: 20px;">17</div>
+          <div class="gantt-header-day" style="width: 20px;">18</div>
+          <div class="gantt-header-day" style="width: 20px;">19</div>
+          <div class="gantt-header-day" style="width: 20px;">20</div>
+          <div class="gantt-header-day" style="width: 20px;">21</div>
+          <div class="gantt-header-day" style="width: 20px;">22</div>
+          <div class="gantt-header-day" style="width: 20px;">23</div>
+          <div class="gantt-header-day" style="width: 20px;">24</div>
+          <div class="gantt-header-day" style="width: 20px;">25</div>
+          <div class="gantt-header-day" style="width: 20px;">26</div>
+          <div class="gantt-header-day" style="width: 20px;">27</div>
+          <div class="gantt-header-day" style="width: 20px;">28</div>
+          <div class="gantt-header-day" style="width: 20px;">29</div>
+          <div class="gantt-header-day" style="width: 20px;">30</div> -->
+          <!-- goo -->
+          <!-- <div id="gantt-header-day-15" class="gantt-header-day" (mouseenter)="colMouseEnter(15) "  (mouseleave)="colMouseLeave(15)" style="width: 20px;">31</div> -->
+          <ng-container *ngFor="let headDay of DAYS_JULY">
+            <div id="{{'gantt-header-day' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}" class="gantt-header-day" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "  (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px;">{{headDay.d}}</div>
+          </ng-container>
+          <!-- ending july header-day -->
+          
+          <!-- starting august header-day -->
+
+          <ng-container *ngFor="let headDay of DAYS_AUG">
+            <div id="{{'gantt-header-day' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}" class="gantt-header-day" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "  (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px;">{{headDay.d}}</div>
+          </ng-container>
+
+          <!-- <div class="gantt-header-day" style="width: 20px;">1</div>
+          <div class="gantt-header-day" style="width: 20px;">2</div>
+          <div class="gantt-header-day" style="width: 20px;">3</div>
+          <div class="gantt-header-day" style="width: 20px;">4</div>
+          <div class="gantt-header-day" style="width: 20px;">5</div>
+          <div class="gantt-header-day" style="width: 20px;">6</div>
+          <div class="gantt-header-day" style="width: 20px;">7</div>
+          <div class="gantt-header-day" style="width: 20px;">8</div>
+          <div class="gantt-header-day" style="width: 20px;">9</div>
+          <div class="gantt-header-day" style="width: 20px;">10</div>
+          <div class="gantt-header-day" style="width: 20px;">11</div>
+          <div class="gantt-header-day" style="width: 20px;">12</div>
+          <div class="gantt-header-day" style="width: 20px;">13</div>
+          <div class="gantt-header-day" style="width: 20px;">14</div>
+          <div class="gantt-header-day" style="width: 20px;">15</div>
+          <div class="gantt-header-day" style="width: 20px;">16</div>
+          <div class="gantt-header-day" style="width: 20px;">17</div>
+          <div class="gantt-header-day" style="width: 20px;">18</div>
+          <div class="gantt-header-day" style="width: 20px;">19</div>
+          <div class="gantt-header-day" style="width: 20px;">20</div>
+          <div class="gantt-header-day" style="width: 20px;">21</div>
+          <div class="gantt-header-day" style="width: 20px;">22</div>
+          <div class="gantt-header-day" style="width: 20px;">23</div>
+          <div class="gantt-header-day" style="width: 20px;">24</div>
+          <div class="gantt-header-day" style="width: 20px;">25</div>
+          <div class="gantt-header-day" style="width: 20px;">26</div>
+          <div class="gantt-header-day" style="width: 20px;">27</div>
+          <div class="gantt-header-day" style="width: 20px;">28</div>
+          <div class="gantt-header-day" style="width: 20px;">29</div>
+          <div class="gantt-header-day" style="width: 20px;">30</div>
+          <div class="gantt-header-day" style="width: 20px;">31</div> -->
+
+
+
+          <!-- ending august header-day -->
+          <!-- starting september header-day -->
+
+          <ng-container *ngFor="let headDay of DAYS_SEPT">
+            <div id="{{'gantt-header-day' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}" class="gantt-header-day" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "  (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px;">{{headDay.d}}</div>
+          </ng-container>
+
+          <!-- <div class="gantt-header-day" style="width: 20px;">1</div>
+          <div class="gantt-header-day" style="width: 20px;">2</div>
+          <div class="gantt-header-day" style="width: 20px;">3</div>
+          <div class="gantt-header-day" style="width: 20px;">4</div>
+          <div class="gantt-header-day" style="width: 20px;">5</div>
+          <div class="gantt-header-day" style="width: 20px;">6</div>
+          <div class="gantt-header-day" style="width: 20px;">7</div>
+          <div class="gantt-header-day" style="width: 20px;">8</div>
+          <div class="gantt-header-day" style="width: 20px;">9</div>
+          <div class="gantt-header-day" style="width: 20px;">10</div>
+          <div class="gantt-header-day" style="width: 20px;">11</div>
+          <div class="gantt-header-day" style="width: 20px;">12</div>
+          <div class="gantt-header-day" style="width: 20px;">13</div>
+          <div class="gantt-header-day" style="width: 20px;">14</div>
+          <div class="gantt-header-day" style="width: 20px;">15</div>
+          <div class="gantt-header-day" style="width: 20px;">16</div>
+          <div class="gantt-header-day" style="width: 20px;">17</div>
+          <div class="gantt-header-day" style="width: 20px;">18</div>
+          <div class="gantt-header-day" style="width: 20px;">19</div>
+          <div class="gantt-header-day" style="width: 20px;">20</div>
+          <div class="gantt-header-day" style="width: 20px;">21</div>
+          <div class="gantt-header-day" style="width: 20px;">22</div>
+          <div class="gantt-header-day" style="width: 20px;">23</div>
+          <div class="gantt-header-day" style="width: 20px;">24</div>
+          <div class="gantt-header-day" style="width: 20px;">25</div>
+          <div class="gantt-header-day" style="width: 20px;">26</div>
+          <div class="gantt-header-day" style="width: 20px;">27</div>
+          <div class="gantt-header-day" style="width: 20px;">28</div>
+          <div class="gantt-header-day" style="width: 20px;">29</div>
+          <div class="gantt-header-day" style="width: 20px;">30</div> -->
+          <!-- ending september gantt-header-day -->
+
+
+
+
+          <!-- starting october gantt-header-day -->
+          <!-- <div class="gantt-header-day" style="width: 20px;">1</div> -->
+          <ng-container *ngFor="let headDay of DAYS_OCT">
+            <div id="{{'gantt-header-day' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}" class="gantt-header-day" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "  (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px;">{{headDay.d}}</div>
+          </ng-container>
+          <!-- ending october gantt-header-day -->
+        </div>
+        <!-- ending class="gantt-header-days" -->
+
+        <!-- starting class="gantt-header-days-min" -->
+        <div class="gantt-header-days-min" style="width: 1860px;">
+          <!-- starting july gantt-header-day-min -->
+          <ng-container *ngFor="let headDay of DAYS_JULY">
+            <div id="{{'gantt-header-day-min' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}" class="gantt-header-day-min" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "  (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px;">{{headDay.dow}}</div>
+          </ng-container>
+          <!-- <div class="gantt-header-day-min" style="width: 20px;">Fr</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Sa</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Su</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Mo</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Tu</div>
+          <div class="gantt-header-day-min" style="width: 20px;">We</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Th</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Fr</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Sa</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Su</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Mo</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Tu</div>
+          <div class="gantt-header-day-min" style="width: 20px;">We</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Th</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Fr</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Sa</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Su</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Mo</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Tu</div>
+          <div class="gantt-header-day-min" style="width: 20px;">We</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Th</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Fr</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Sa</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Su</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Mo</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Tu</div>
+          <div class="gantt-header-day-min" style="width: 20px;">We</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Th</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Fr</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Sa</div> -->
+          <!-- goo -->
+          <!-- <div class="gantt-header-day-min" style="width: 20px;">Su</div> -->
+          <!-- ending july -->
+
+          <!-- starting august -->
+          <ng-container *ngFor="let headDay of DAYS_AUG">
+            <div id="{{'gantt-header-day-min' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}" class="gantt-header-day-min" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "  (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px;">{{headDay.dow}}</div>
+          </ng-container>
+          <!-- <div class="gantt-header-day-min active" style="width: 20px;">Mo</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Tu</div>
+          <div class="gantt-header-day-min" style="width: 20px;">We</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Th</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Fr</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Sa</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Su</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Mo</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Tu</div>
+          <div class="gantt-header-day-min" style="width: 20px;">We</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Th</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Fr</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Sa</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Su</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Mo</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Tu</div>
+          <div class="gantt-header-day-min" style="width: 20px;">We</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Th</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Fr</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Sa</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Su</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Mo</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Tu</div>
+          <div class="gantt-header-day-min" style="width: 20px;">We</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Th</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Fr</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Sa</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Su</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Mo</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Tu</div> -->
+          <!-- end august -->
+
+          <!-- start sept -->
+          <ng-container *ngFor="let headDay of DAYS_SEPT">
+            <div id="{{'gantt-header-day-min' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}" class="gantt-header-day-min" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "  (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px;">{{headDay.dow}}</div>
+          </ng-container>
+          <!-- <div class="gantt-header-day-min" style="width: 20px;">We</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Th</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Fr</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Sa</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Su</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Mo</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Tu</div>
+          <div class="gantt-header-day-min" style="width: 20px;">We</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Th</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Fr</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Sa</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Su</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Mo</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Tu</div>
+          <div class="gantt-header-day-min" style="width: 20px;">We</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Th</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Fr</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Sa</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Su</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Mo</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Tu</div>
+          <div class="gantt-header-day-min" style="width: 20px;">We</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Th</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Fr</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Sa</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Su</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Mo</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Tu</div>
+          <div class="gantt-header-day-min" style="width: 20px;">We</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Th</div>
+          <div class="gantt-header-day-min" style="width: 20px;">Fr</div> -->
+          <!-- end sept -->
+
+          <!-- start oct -->
+          <ng-container *ngFor="let headDay of DAYS_OCT">
+            <div id="{{'gantt-header-day-min' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}" class="gantt-header-day-min" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "  (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px;">{{headDay.dow}}</div>
+          </ng-container>
+          <!-- <div class="gantt-header-day-min" style="width: 20px;">Sa</div> -->
+        </div>
+        <!-- ending class="gantt-header-days-min" -->
+      </div>
+      <div id="cd-gantt-grid" class="gantt-grid" style="width: 1860px;">
+        <div id="cd-gantt-grid-cols" class="gantt-grid-cols">
+          <!-- start july -->
+          <ng-container *ngFor="let headDay of DAYS_JULY">
+              
+            <!-- if end month do vertical split line -->
+            <div *ngIf="headDay.d == headDay.mDays; else normalDay1" id="{{'gantt-grid-col' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}" class="gantt-grid-col" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "  (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px; height: 114px;border-color: rgb(190, 197, 204);"></div>
+            <ng-template #normalDay1>
+                <div id="{{'gantt-grid-col' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}" class="gantt-grid-col" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "  (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px; height: 114px;"></div>
+            </ng-template>
+          </ng-container>
+          <!-- 
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div> -->
+          <!-- goo -->
+          <!-- <div id="gantt-grid-col-15" class="gantt-grid-col" style="width: 20px; height: 114px; border-color: rgb(190, 197, 204);"></div> -->
+          <!-- end july -->
+
+          <!-- start august -->
+          <ng-container *ngFor="let headDay of DAYS_AUG">
+            <div *ngIf="headDay.d == headDay.mDays; else normalDay2" id="{{'gantt-grid-col' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}" class="gantt-grid-col" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "  (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px; height: 114px;border-color: rgb(190, 197, 204);"></div>
+            <ng-template #normalDay2>
+                <div id="{{'gantt-grid-col' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}" class="gantt-grid-col" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "  (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px; height: 114px;"></div>
+            </ng-template>
+          </ng-container>
+          <!-- <div class="gantt-grid-col active" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div> 
+          <div class="gantt-grid-col" style="width: 20px; height: 114px; border-color: rgb(190, 197, 204);"></div>-->
+          <!-- end august -->
+
+          <!-- start sept -->
+          <ng-container *ngFor="let headDay of DAYS_SEPT">
+            <div *ngIf="headDay.d == headDay.mDays; else normalDay3" id="{{'gantt-grid-col' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}" class="gantt-grid-col" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "  (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px; height: 114px;border-color: rgb(190, 197, 204);"></div>
+            <ng-template #normalDay3>
+                <div id="{{'gantt-grid-col' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}" class="gantt-grid-col" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "  (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px; height: 114px;"></div>
+            </ng-template>
+          </ng-container>
+          <!-- <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div>
+          <div class="gantt-grid-col" style="width: 20px; height: 114px; border-color: rgb(190, 197, 204);"></div> -->
+          <!-- end sept -->
+          
+          <!-- start oct -->
+          <ng-container *ngFor="let headDay of DAYS_OCT">
+            <div id="{{'gantt-grid-col' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}" class="gantt-grid-col" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "  (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px; height: 114px;"></div>
+          </ng-container>
+          <!-- <div class="gantt-grid-col" style="width: 20px; height: 114px;"></div> -->
+          <!-- end oct -->
+
+        <!-- start rows -->
+        </div>
+        <div class="gantt-grid-rows">
+          <div class="gantt-grid-row" style="width: 1860px; height: 38px;"></div>
+          <div class="gantt-grid-row" style="width: 1860px; height: 38px;"></div>
+          <div class="gantt-grid-row" style="width: 1860px; height: 38px;"></div>
+        </div>
+      </div>
+      <!-- end rows -->
+
+      <!-- start events -->
+      <div id="cd-gantt-events" class="gantt-events" style="width: 1860px;">
+
+        <div class="gantt-event-row" style="height: 38px;">
+          <div class="gantt-event" style="left: 400px;"><a class="gantt-event-block tourFly"
+              style="width: 100px; line-height: 10px;" href="http://www.example.com/1" target="_blank">4 Gece</a>
+            <div class="gantt-event-icon">
+              <div class="tourFly"></div>
+            </div>
+            <div class="gantt-event-price">798 EUR</div>
+            <div class="gantt-event-desc">Zaporojie Turu</div>
+          </div>
+        </div>
+
+        <div class="gantt-event-row" style="height: 38px;">
+          <div class="gantt-event" style="left: 400px;"><a class="gantt-event-block tourFly"
+              style="width: 80px; line-height: 10px;" href="http://www.gezinomi.com/amsterdam-ilkbahar-yaz-turu"
+              target="_blank">3 Gece</a>
+            <div class="gantt-event-icon">
+              <div class="tourFly"></div>
+            </div>
+            <div class="gantt-event-price">1098 EUR</div>
+            <div class="gantt-event-desc">Amsterdam İlkbahar , Yaz Turu </div>
+          </div>
+        </div>
+
+        <div class="gantt-event-row" style="height: 38px;">
+          <div class="gantt-event" style="left: 400px;"><a class="gantt-event-block tourFly"
+              style="width: 1s0px; line-height: 10px;" href="http://www.example.com/1" target="_blank">41 Gece</a>
+            <div class="gantt-event-icon">
+              <div class="tourFly"></div>
+            </div>
+            <div class="gantt-event-price">798xx EUR</div>
+            <div class="gantt-event-desc">xxZaporojie Turu</div>
+          </div>
+        </div>
+
+      </div>
+      <!-- start events -->
+
+    </div>
+    <div (click)="cdGanttContainer.scroll(1)"class="arrow arrow-right"><span class="arrow-icon"></span></div>
+  </div>
+</div>

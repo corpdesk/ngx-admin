@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PmsRoutingModule } from './pms-routing.module';
+import { CdPaletteModule } from '../cd-palette/cd-palette.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { GanttComponent } from './gantt/gantt.component';
@@ -14,7 +15,8 @@ import { ActivityComponent } from './activity/activity.component';
   declarations: [DashboardComponent, ProjectsComponent, GanttComponent, SchedulerComponent, PmsComponent, ActivityComponent],
   imports: [
     CommonModule,
-    PmsRoutingModule
+    PmsRoutingModule,
+    CdPaletteModule,
   ]
 })
 export class PmsModule { }

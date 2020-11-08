@@ -1,0 +1,40 @@
+<!-- <hello name="{{ name }}"></hello> -->
+<div class="row">
+    <h1>My First Attribute Directive</h1>
+ 
+ 
+<h4>Pick a highlight color</h4>
+ 
+ 
+<div>
+  <input type="radio" name="colors" (click)="color='lightgreen'">Green
+  <input type="radio" name="colors" (click)="color='yellow'">Yellow
+  <input type="radio" name="colors" (click)="color='cyan'">Cyan
+</div>
+ 
+ 
+ <p ngxHighlight>Highlight me!</p>
+
+ <p ngxHighlight>Highlight me too!</p>
+</div>
+<p>
+  Add items to expand the list width, then click on the buttons to scroll.
+</p>
+
+<button class="cahgne-list-btn" (click)="add()">Add Item To List</button>
+<button class="cahgne-list-btn" (click)="remove()">Remove Item</button>
+
+<hr />
+
+<section class="list-with-scroll">
+
+  <div class="list" ngxScrollable #list="ngxScrollable" [scrollUnit]="150">
+    <div *ngFor="let i of items" class="item">{{i}}</div>
+  </div>
+
+  <button class="scroll-button" *ngIf="list.isOverflow" [class.disable]="!list.canScrollStart" (click)="list.scroll(-1)"
+    id="scroll-left">&#8678;</button>
+
+  <button class="scroll-button" *ngIf="list.isOverflow" [class.disable]="!list.canScrollEnd"
+    (click)="list.scroll(1)">&#8680;</button>
+</section>

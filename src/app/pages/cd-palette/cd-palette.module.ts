@@ -5,6 +5,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ToastrModule } from 'ngx-toastr';
 import { AlertModule } from '../_alert/alert.module';
 import { NotifierModule } from "angular-notifier";
+import { NgGanttEditorModule } from 'ng-gantt';
 
 
 import { CdPaletteRoutingModule } from './cd-palette-routing.module';
@@ -55,6 +56,16 @@ import { AlertifyComponent } from './alertify/alertify.component';
 import { TabLoaderComponent } from './tab-loader/tab-loader.component';
 import { TabDirective } from '../../@cd/guig/directives/tab.directive';
 import { SelectSearchComponent } from './select-search/select-search.component';
+import { GanttOneComponent } from './gantt-one/gantt-one.component';
+import { GanttTwoComponent } from './gantt-two/gantt-two.component';
+import { GanttThreeComponent } from './gantt-three/gantt-three.component';
+import { GanttFourComponent } from './gantt-four/gantt-four.component';
+import { GanttFiveComponent } from './gantt-five/gantt-five.component';
+import { GanttSixComponent } from './gantt-six/gantt-six.component';
+import { GanttSevenComponent } from './gantt-seven/gantt-seven.component';
+import { GanttEightComponent } from './gantt-eight/gantt-eight.component';
+import { ScrollableDirective } from './scrollable.directive';
+import { HighlightDirective } from './highlight.directive';
 
 const materialModules = [
   MatExpansionModule,
@@ -81,6 +92,16 @@ const materialModules = [
     ProfileTwitterComponent, FriblyTreeComponent, CheckListComponent, TreeGridComponent,FsIconComponent, GuigTableComponent, CheckBoxComponent, AlertifyComponent, TabLoaderComponent,
     TabDirective,
     SelectSearchComponent,
+    GanttOneComponent,
+    GanttTwoComponent,
+    GanttThreeComponent,
+    GanttFourComponent,
+    GanttFiveComponent,
+    GanttSixComponent,
+    GanttSevenComponent,
+    GanttEightComponent,
+    ScrollableDirective,
+    HighlightDirective,
   ],
   imports: [
     CommonModule,
@@ -89,6 +110,7 @@ const materialModules = [
     FormsModule, 
     ReactiveFormsModule,
     ToastrModule.forRoot(), // ToastrModule added
+    NgGanttEditorModule,
     AlertModule,
     FontAwesomeModule,
     ThemeModule,
@@ -158,6 +180,14 @@ const materialModules = [
     GuigTableComponent,
     TabLoaderComponent,
     SelectSearchComponent,
+    GanttOneComponent,
+    GanttTwoComponent,
+    GanttThreeComponent,
+    GanttFourComponent,
+    GanttFiveComponent,
+    GanttSixComponent,
+    GanttSevenComponent,
+    GanttEightComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

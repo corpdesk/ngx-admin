@@ -119,7 +119,8 @@
               "node_modules/echarts/dist/extension/bmap.min.js",
               "node_modules/chart.js/dist/Chart.min.js",
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/slick-carousel/slick/slick.min.js"
+              "node_modules/slick-carousel/slick/slick.min.js",
+              "node_modules/jquery.gantt/dist/jquery-gantt.js"
             ],
             "styles": [
               "node_modules/angular-calendar/css/angular-calendar.css",
@@ -133,7 +134,8 @@
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
               "src/app/@theme/styles/styles.scss",
               "node_modules/slick-carousel/slick/slick.scss",
-              "node_modules/slick-carousel/slick/slick-theme.scss"
+              "node_modules/slick-carousel/slick/slick-theme.scss",
+              "node_modules/jquery.gantt/dist/jquery-gantt.css"
             ],
             "assets": [
               "src/assets",

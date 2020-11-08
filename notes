@@ -71,6 +71,22 @@ git push origin feat/material-theme --no-verify
 ToDo:
 PMS:
 - gantt
+    - npm install --save jsgantt-improved ng-gantt
+    - npm install --save @types/jquery  
+    - npm install moment --save
+    - note: alternative to moment: https://github.com/joanllenas/ngx-date-fns
+    - npm install jquery.gantt: // to reverse
+    - try apply html and css from jquery.Gantt...DONE
+        - install moment to manage auto dates data...DONE
+        - develop monthData...DONE
+        - implement hover effects for cols...DONE
+        - implement hover on event bar...DONE
+        - implement scroll
+            - Custom Scroll: https://stackblitz.com/edit/my-angular-scroll-better?file=src%2Fapp%2Fscrollable.directive.ts
+        - end-month line
+        - show task details
+    - 
+    - Gantt Granulation: year, month, week, day, hour
 - task manager
 
 - on loading reply-doc populate the subject
@@ -328,6 +344,22 @@ use tree-grid to view modules/menu in hierarchial format
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
+
+08/11/2020
+- gantt
+    - npm install --save jsgantt-improved ng-gantt
+    - npm install --save @types/jquery  
+    - npm install moment --save
+    - note: alternative to moment: https://github.com/joanllenas/ngx-date-fns
+    - npm install jquery.gantt: // to reverse
+    - try apply html and css from jquery.Gantt...DONE
+        - install moment to manage auto dates data...DONE
+        - develop monthData...DONE
+        - implement hover effects for cols...DONE
+        - implement hover on event bar...DONE
+        - implement scroll
+            - Custom Scroll: https://stackblitz.com/edit/my-angular-scroll-better?file=src%2Fapp%2Fscrollable.directive.ts
+        - end-month line
 
 02/11/2020
 - set up outbox view
