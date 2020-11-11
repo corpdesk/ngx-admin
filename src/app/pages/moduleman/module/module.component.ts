@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModulesService } from '../../../@cd/sys/moduleman/controller/modules.service';
+import { ModulesService } from '../../../@cd/sys/moduleman/controllers/modules.service';
 import { TabsService } from '../../../@cd/guig/tabs.service';
 import { GuigTableConfig } from '../../../@cd/guig/models/guig-table-col.model';
 // import { ModuleTabsService } from '../module-tabs.service';

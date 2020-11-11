@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModulesService } from '../../../@cd/sys/moduleman/controller/modules.service';
-import { MenuService } from '../../../@cd/sys/moduleman/controller/menu.service';
+import { ModulesService } from '../../../@cd/sys/moduleman/controllers/modules.service';
+import { MenuService } from '../../../@cd/sys/moduleman/controllers/menu.service';
 
 @Component({
   selector: 'ngx-module-register',

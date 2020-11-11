@@ -7,7 +7,7 @@ import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 // import { FileUploader } from 'ng2-file-upload';
 import { HttpHeaders } from '@angular/common/http';
-import { ServerService } from '../../moduleman/controller/server.service';
+import { ServerService } from '../../moduleman/controllers/server.service';
 import { SessService } from '../../user/controllers/sess.service';
 
 class ImageSnippet {

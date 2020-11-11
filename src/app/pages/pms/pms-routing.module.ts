@@ -8,6 +8,13 @@ import { GanttComponent } from './gantt/gantt.component';
 import { SchedulerComponent } from './scheduler/scheduler.component';
 import { PmsComponent } from './pms/pms.component';
 import { ActivityComponent }  from './activity/activity.component';
+import { ProjectSummaryComponent } from './project-summary/project-summary.component';
+import { ProjectDetailsComponent } from './project-details/project-details.component';
+import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
+import { ProjectInfoComponent } from './project-info/project-info.component';
+import { ProjectTabsComponent } from './project-tabs/project-tabs.component';
+import { ProjectListComponent } from './project-list/project-list.component';
+import { ProjectRegisterComponent } from './project-register/project-register.component';
 
 const routes: Routes = [
   {
@@ -16,7 +23,27 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        component: DashboardComponent,
+        component: ProjectDashboardComponent,
+        canActivate: [ AuthGuardService ],
+      },
+      {
+        path: 'info',
+        component: ProjectInfoComponent,
+        canActivate: [ AuthGuardService ],
+      },
+      {
+        path: 'tabs',
+        component: ProjectTabsComponent,
+        canActivate: [ AuthGuardService ],
+      },
+      {
+        path: 'list',
+        component: ProjectListComponent,
+        canActivate: [ AuthGuardService ],
+      },
+      {
+        path: 'register',
+        component: ProjectRegisterComponent,
         canActivate: [ AuthGuardService ],
       },
       {
@@ -27,6 +54,16 @@ const routes: Routes = [
       {
         path: 'gantt',
         component: GanttComponent,
+        canActivate: [ AuthGuardService ],
+      },
+      {
+        path: 'summary',
+        component: ProjectSummaryComponent,
+        canActivate: [ AuthGuardService ],
+      },
+      {
+        path: 'details',
+        component: ProjectDetailsComponent,
         canActivate: [ AuthGuardService ],
       },
       {

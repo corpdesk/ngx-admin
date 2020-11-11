@@ -3,8 +3,8 @@ import { FormControl } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { MatSelect } from '@angular/material/select';
-import { MenuService } from '../../../@cd/sys/moduleman/controller/menu.service';
-import { MenuModel } from '../../../@cd/sys/moduleman/model/menu.model';
+import { MenuService } from '../../../@cd/sys/moduleman/controllers/menu.service';
+import { MenuModel } from '../../../@cd/sys/moduleman/models/menu.model';
 
 @Component({
   selector: 'ngx-menu-select',

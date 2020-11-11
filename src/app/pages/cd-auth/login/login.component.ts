@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ServerService } from '../../../@cd/sys/moduleman/controller/server.service';
+import { ServerService } from '../../../@cd/sys/moduleman/controllers/server.service';
 import { SessService } from '../../../@cd/sys/user/controllers/sess.service';
 import { UserService } from '../../../@cd/sys/user/controllers/user.service';
 import { FormsService } from '../../../@cd/guig/forms.service';

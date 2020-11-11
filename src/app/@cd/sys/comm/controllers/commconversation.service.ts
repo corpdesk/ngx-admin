@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { from } from 'rxjs';
-import { ServerService } from '../../moduleman/controller/server.service';
+import { ServerService } from '../../moduleman/controllers/server.service';
 import { SessService } from '../../user/controllers/sess.service';
 import { UserService } from '../../user/controllers/user.service';
 import { DocModeOpts, ConversationItem, ConversationMeta, CommConversationSub, CommData } from '../models/comm.model';

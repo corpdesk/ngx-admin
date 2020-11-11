@@ -70,22 +70,31 @@ git push origin feat/material-theme --no-verify
 
 ToDo:
 PMS:
+- create/Edit project
+    - adopt from 'create module/menu' wizards
+- create/edit task
+- create from template
+- create from existing
+- prject attributes
+    - unmapped (without being mapped to specific date)
+    - mapped (mapped to calendar)
+    - commencementDate
+    - endDate
+    - task name
+    - taskCommenceDate
+    - taskEndDate
+    - taskCost
+    - subTask
+    - Resources
+        - physical resources
+        - human resource
+    
+
 - gantt
-    - npm install --save jsgantt-improved ng-gantt
-    - npm install --save @types/jquery  
-    - npm install moment --save
-    - note: alternative to moment: https://github.com/joanllenas/ngx-date-fns
-    - npm install jquery.gantt: // to reverse
-    - try apply html and css from jquery.Gantt...DONE
-        - install moment to manage auto dates data...DONE
-        - develop monthData...DONE
-        - implement hover effects for cols...DONE
-        - implement hover on event bar...DONE
-        - implement scroll
-            - Custom Scroll: https://stackblitz.com/edit/my-angular-scroll-better?file=src%2Fapp%2Fscrollable.directive.ts
-        - end-month line
-        - show task details
-    - 
+    - show task details
+    - tooltip
+        - https://medium.com/angular-in-depth/building-tooltips-for-angular-3cdaac16d138
+        - https://stackblitz.com/edit/angular-tooltip-directive
     - Gantt Granulation: year, month, week, day, hour
 - task manager
 
@@ -344,6 +353,12 @@ use tree-grid to view modules/menu in hierarchial format
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
+
+11/11/2020
+- implement 'create new project'
+- set menu items for 'Pms' module
+- implement project/task services
+- directrory naming corrections for 'controllers' and 'modules'
 
 08/11/2020
 - gantt

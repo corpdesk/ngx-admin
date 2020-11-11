@@ -10,7 +10,7 @@ import { RippleService } from '../../../@core/utils/ripple.service';
 import { environment } from '../../../../environments/environment';
 import { SessService } from '../../../@cd/sys/user/controllers/sess.service';
 import { UserService } from '../../../@cd/sys/user/controllers/user.service';
-import { MenuService } from '../../../@cd/sys/moduleman/controller/menu.service';
+import { MenuService } from '../../../@cd/sys/moduleman/controllers/menu.service';
 import { GuigContextService } from '../../../@cd/guig/guig-context';
 import { SideBarService } from '../../../@cd/guig/side-bar.service';
 import { NavService } from '../../../@cd/guig/nav.service';

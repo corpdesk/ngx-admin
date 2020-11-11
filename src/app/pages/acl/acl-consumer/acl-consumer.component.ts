@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ModulesService } from '../../../@cd/sys/moduleman/controller/modules.service';
-import { CdModule } from '../../../@cd/sys/moduleman/model/module.model';
-import { ConsumerService } from '../../../@cd/sys/moduleman/controller/consumer.service';
-import { ConsumerResourceService } from '../../../@cd/sys/moduleman/controller/consumer-resource.service';
-import { Consumer, ConsumerResource } from '../../../@cd/sys/moduleman/model/consumer.model';
+import { ModulesService } from '../../../@cd/sys/moduleman/controllers/modules.service';
+import { CdModule } from '../../../@cd/sys/moduleman/models/module.model';
+import { ConsumerService } from '../../../@cd/sys/moduleman/controllers/consumer.service';
+import { ConsumerResourceService } from '../../../@cd/sys/moduleman/controllers/consumer-resource.service';
+import { Consumer, ConsumerResource } from '../../../@cd/sys/moduleman/models/consumer.model';
 
 @Component({
   selector: 'ngx-acl-consumer',

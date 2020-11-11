@@ -3,8 +3,8 @@ import { FormControl } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { MatSelect } from '@angular/material/select';
-import { ConsumerService } from '../../../@cd/sys/moduleman/controller/consumer.service';
-import { Consumer } from '../../../@cd/sys/moduleman/model/consumer.model';
+import { ConsumerService } from '../../../@cd/sys/moduleman/controllers/consumer.service';
+import { Consumer } from '../../../@cd/sys/moduleman/models/consumer.model';
 
 
 @Component({

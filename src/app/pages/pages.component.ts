@@ -3,7 +3,7 @@ import { NbIconLibraries } from '@nebular/theme'; // to allow fontawesome
 import { Observable } from 'rxjs/Observable';
 import { map, filter } from 'rxjs/operators';
 import { from } from 'rxjs';
-import { MenuService } from '../@cd/sys/moduleman/controller/menu.service';
+import { MenuService } from '../@cd/sys/moduleman/controllers/menu.service';
 import { SessService } from '../@cd/sys/user/controllers/sess.service';
 import { GuigContextService } from '../@cd/guig/guig-context';
 import { environment } from '../../environments/environment';

@@ -5,8 +5,8 @@ import { map, filter } from 'rxjs/operators';
 import * as moment from 'moment';
 
 // import {environment} from '../../environments/environment';
-import { ServerService } from '../../moduleman/controller/server.service';
-import { AppStateService } from '../../moduleman/controller/app-state.service';
+import { ServerService } from '../../moduleman/controllers/server.service';
+import { AppStateService } from '../../moduleman/controllers/app-state.service';
 // import { UserService } from '../../../../@core/mock/users.service';
 import { UserService } from './user.service';
 

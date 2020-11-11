@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { MenuService } from '../../../@cd/sys/moduleman/controller/menu.service';
+import { MenuService } from '../../../@cd/sys/moduleman/controllers/menu.service';
 import { GuigTableConfig } from '../../../@cd/guig/models/guig-table-col.model';
 import { TabsService } from '../../../@cd/guig/tabs.service';
 

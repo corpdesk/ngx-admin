@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Log } from '../model/observ-model';
+import { Log } from '../models/observ-model';
 
 @Injectable({
   providedIn: 'root',

@@ -6,6 +6,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { AlertModule } from '../_alert/alert.module';
 import { NotifierModule } from "angular-notifier";
 import { NgGanttEditorModule } from 'ng-gantt';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+
+
 
 
 import { CdPaletteRoutingModule } from './cd-palette-routing.module';
@@ -24,6 +27,7 @@ import {
   NbSelectModule,
   NbUserModule,
   NbTreeGridModule,
+  NbTooltipModule,
 } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
@@ -44,6 +48,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
 import { ProfileAccordionComponent } from './profile-accordion/profile-accordion.component';
 import { ProfileTwitterComponent } from './profile-twitter/profile-twitter.component';
@@ -66,6 +71,7 @@ import { GanttSevenComponent } from './gantt-seven/gantt-seven.component';
 import { GanttEightComponent } from './gantt-eight/gantt-eight.component';
 import { ScrollableDirective } from './scrollable.directive';
 import { HighlightDirective } from './highlight.directive';
+import { CdTooltipDirective } from './cd-tooltip.directive';
 
 const materialModules = [
   MatExpansionModule,
@@ -82,6 +88,7 @@ const materialModules = [
   MatDividerModule,
   MatChipsModule,
   MatIconModule,
+  MatTooltipModule,
 ];
 
 @NgModule({
@@ -102,6 +109,7 @@ const materialModules = [
     GanttEightComponent,
     ScrollableDirective,
     HighlightDirective,
+    CdTooltipDirective,
   ],
   imports: [
     CommonModule,
@@ -111,6 +119,7 @@ const materialModules = [
     ReactiveFormsModule,
     ToastrModule.forRoot(), // ToastrModule added
     NgGanttEditorModule,
+    TooltipModule.forRoot(),
     AlertModule,
     FontAwesomeModule,
     ThemeModule,
@@ -126,6 +135,7 @@ const materialModules = [
     NbIconModule,
     ngFormsModule,
     NbTreeGridModule,
+    NbTooltipModule,
     // NotifierModule.withConfig({
     //   position: {
     //     horizontal: {

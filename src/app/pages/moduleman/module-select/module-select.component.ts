@@ -3,8 +3,8 @@ import { FormControl } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { MatSelect } from '@angular/material/select';
-import { ModulesService } from '../../../@cd/sys/moduleman/controller/modules.service';
-import { CdModule } from '../../../@cd/sys/moduleman/model/module.model';
+import { ModulesService } from '../../../@cd/sys/moduleman/controllers/modules.service';
+import { CdModule } from '../../../@cd/sys/moduleman/models/module.model';
 
 
 

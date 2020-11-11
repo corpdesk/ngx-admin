@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConsumerService } from '../../../@cd/sys/moduleman/controller/consumer.service';
+import { ConsumerService } from '../../../@cd/sys/moduleman/controllers/consumer.service';
 
 @Component({
   selector: 'ngx-consumer',

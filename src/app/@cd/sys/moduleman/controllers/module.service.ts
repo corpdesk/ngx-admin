@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable'; // not working
 import 'rxjs/add/operator/map';
 
 
-import { ModuleData } from '../model/module.model';
+import { ModuleData } from '../models/module.model';
 // import { Http } from '@angular/http'; // not working
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Compiler, Inject, ReflectiveInjector, Injector, COMPILER_OPTIONS } from '@angular/core';

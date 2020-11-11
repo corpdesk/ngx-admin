@@ -18,6 +18,12 @@ export class GanttSevenComponent implements OnInit {
   DAYS_SEPT;
   DAYS_OCT;
   posHome;
+  view = {
+    isVisible : true,
+    title: 'hello 🤔',
+    dateRangeText:'date RangeText 🔥🔥',
+    data : 'data ⚡'
+  };
   week = [
     {
       index: 0,
@@ -73,7 +79,7 @@ export class GanttSevenComponent implements OnInit {
     this.DAYS_SEPT = this.getDays("2016-09-01", "2016-10-01");
     this.DAYS_OCT = this.getDays("2016-10-01", "2016-10-02");
     console.log(this.DAYS_JULY);
-
+    
   }
 
   ngOnInit(): void {

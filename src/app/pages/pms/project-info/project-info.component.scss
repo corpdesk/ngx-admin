@@ -1,0 +1,16 @@
+@import '../../../../assets/cd/inspinia/css/style.css';
+@import '../../../../assets/cd/scss/modules/fonts';
+@import '../../../../assets/cd/scss/modules/inspiniaMatDark';
+
+.wrapper {
+    font-family: 'Lato', sans-serif;
+    dt,dd{
+        font-size: 9pt;
+    }
+    
+}
+
+
+small{
+    font-size: 7pt;
+}

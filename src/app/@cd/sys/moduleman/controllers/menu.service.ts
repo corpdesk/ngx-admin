@@ -5,7 +5,7 @@ import { from } from 'rxjs';
 import { GuigContextService } from '../../../guig/guig-context';
 import { ServerService } from './server.service';
 import { SessService } from '../../user/controllers/sess.service';
-import { ModuleMenu } from '../model/menu.model';
+import { ModuleMenu } from '../models/menu.model';
 
 
 interface CdMenu {
@@ -1076,6 +1076,36 @@ export class MenuService {
           {
             title: 'Projects',
             link: '/pages/pms/projects',
+            enabled: true
+          },
+          {
+            title: 'info',
+            link: '/pages/pms/info',
+            enabled: true
+          },
+          {
+            title: 'tabs',
+            link: '/pages/pms/tabs',
+            enabled: true
+          },
+          {
+            title: 'list',
+            link: '/pages/pms/list',
+            enabled: true
+          },
+          {
+            title: 'register',
+            link: '/pages/pms/register',
+            enabled: true
+          },
+          {
+            title: 'summary',
+            link: '/pages/pms/summary',
+            enabled: true
+          },
+          {
+            title: 'details',
+            link: '/pages/pms/details',
             enabled: true
           },
           {
