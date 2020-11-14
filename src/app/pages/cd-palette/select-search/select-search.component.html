@@ -1,5 +1,5 @@
 <mat-form-field>
-    <mat-select [formControl]="itemMultiCtrl" noEntriesFoundLabel="No option found" placeholder="" [multiple]="true" #multiSelect>
+    <mat-select [formControl]="itemMultiCtrl" noEntriesFoundLabel="No option found" [placeholder]="placeholder" [multiple]="true" #multiSelect>
       <mat-option>
         <ngx-mat-select-search placeholderLabel="Search" [formControl]="itemMultiFilterCtrl"></ngx-mat-select-search>
       </mat-option>

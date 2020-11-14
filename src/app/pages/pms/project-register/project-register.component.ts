@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../../@cd/app/pms/controllers/project.service';
-import { MenuService } from '../../../@cd/sys/moduleman/controllers/menu.service';
+import { ScheduleService } from '../../../@cd/sys/scheduler/controllers/schedule.service';
 
 @Component({
   selector: 'ngx-project-register',
@@ -15,20 +15,54 @@ export class ProjectRegisterComponent implements OnInit {
   successRegProject = false;
   regDataProject = { module_name: '', is_sys_module: '' };
   newProject: any;
-  regDataMenu: any;
-  newMenu: any;
+  regDataSchedule: any;
+  newSchedule: any;
   regProjectAffectedRows: any;
-  isInvalidRegMenu = true;
-  successRegMenu = false;
-  frmRegMenu: FormGroup;
-  regMenuAffectedRows: any;
-  currentMenu: any;
+  isInvalidRegSchedule = true;
+  successRegSchedule = false;
+  frmRegSchedule: FormGroup;
+  regScheduleAffectedRows: any;
+  currentSchedule: any;
+
+  // select project params
+  fetchProjData = 'getProjectsObsv'; // server method for fetching
+  isInvalidSelProj = true;
+  selectedProj = [];
+  Projects = [{}];
+  projNameField = 'project_name';
+  projIdField = 'project_id';
+  ProjectsData;
+
+  // select schedule params
+  fetchScheduleData = 'getScheduleObsv'; // server method for fetching
+  isInvalidSelSchedule = true;
+  selectedSchedule = [];
+  Schedules = [{}];
+  scheduleNameField = 'schedule_name';
+  scheduleIdField = 'schedule_id';
+  ScheduleData;
 
   constructor(
     private fb: FormBuilder,
-    private svProject: ProjectService,
-    private svMenu: MenuService,
-  ) { }
+    public svProject: ProjectService,
+    public svSchedule: ScheduleService,
+  ) {
+    this.svProject.getProjectsObsv()
+      .subscribe(
+        (resp: any) => {
+          console.log('ProjectComponents::constructor()/this.svProject.getProjectsObsv()/resp.data:', resp.data);
+          this.ProjectsData = resp.data;
+        }
+      );
+
+    this.svSchedule.getScheduleObsv()
+      .subscribe(
+        (resp: any) => {
+          console.log('ProjectComponents::constructor()/this.svSchedule.getScheduleObsv()/resp.data:', resp.data);
+          this.ScheduleData = resp.data;
+        }
+      );
+  }
 
   ngOnInit() {
     this.initForms();
@@ -38,11 +72,9 @@ export class ProjectRegisterComponent implements OnInit {
     this.frmRegProject = this.fb.group({
       project_name: ['', Validators.required]
     });
-    this.frmRegMenu = this.fb.group({
-      menu_name: ['', Validators.required],
-      menu_description: ['',],
-      menu_icon: ['', Validators.required],
-      icon_type: ['', Validators.required],
+    this.frmRegSchedule = this.fb.group({
+      schedule_name: ['', Validators.required],
+      schedule_description: ['',],
     });
   }
 
@@ -77,54 +109,54 @@ export class ProjectRegisterComponent implements OnInit {
 
   }
 
-  menuParentId(){
-    console.log('starting menuParentId()')
-    const parentMenu = this.regProjectAffectedRows.filter(affrectedRow => affrectedRow.m == 'menu');
-    return parentMenu[0].rowID;
+  scheduleParentId() {
+    console.log('starting scheduleParentId()')
+    const parentSchedule = this.regProjectAffectedRows.filter(affrectedRow => affrectedRow.m == 'schedule');
+    return parentSchedule[0].rowID;
   }
 
-  submitMenuForm(frm: FormGroup) {
-    this.regDataMenu = frm.value;
-    const regDataMenu = {
-      cd_obj: {
-        cd_obj_name: this.regDataMenu.menu_name + '-component-menu-link',
-        cd_obj_type_guid: 'f5df4494-5cc9-4463-8e8e-c5861703280e',
-        parent_module_guid: this.newProject.module_guid
-      },
-      data: {
-        menu_name: this.regDataMenu.menu_name,
-        menu_closet_file: '',
-        menu_parent_id: this.menuParentId(),
-        module_id: this.newProject.module_id,
-        menu_order: '11',
-        path: '/pages/' + this.regDataProject.module_name + '/' + this.regDataMenu.menu_name,
-        menu_description: this.regDataMenu.menu_description,
-        menu_lable: this.regDataMenu.menu_name,
-        menu_icon: this.regDataMenu.menu_icon,
-        icon_type: this.regDataMenu.icon_type,
-        active: true
-      }
+  submitScheduleForm(frm: FormGroup) {
+    console.log('frm.value:', frm.value);
+    this.regDataSchedule = frm.value;
+    console.log('this.newProject:', this.newProject);
+    const project_id = this.newProject.project_id;
+    console.log('project_id:', project_id);
+
+    const regDataSchedule = {
+      schedule_name: this.regDataSchedule.schedule_name,
+      schedule_description: this.regDataSchedule.schedule_description,
+      active: true
     };
 
     if (frm.invalid) {
-      this.isInvalidRegMenu = true;
+      console.log('form is invalid');
+      this.isInvalidRegSchedule = true;
     } else {
-      frm.value.module_type_id = 1;
       console.log('frm.value:', frm.value);
 
-      this.svMenu.registerMenuObsv(regDataMenu)
+      this.svSchedule.registerScheduleObsv(regDataSchedule)
         .subscribe((resp: any) => {
           console.log('resp:', resp);
           if (resp.app_state.success > 0) {
-            this.successRegMenu = true;
-            this.newMenu = resp.data.newMenu[0];
-            this.regMenuAffectedRows = resp.data.affectedRows;
-            this.currentMenu = resp.data.currentMenu; 
-            console.log('this.newMenu:', this.newMenu);
-            console.log('this.currentMenu:', this.currentMenu);
-            console.log('this.regMenuAffectedRows:', this.regMenuAffectedRows);
+            this.successRegSchedule = true;
+            this.newSchedule = resp.data.newSchedule[0];
+            this.regScheduleAffectedRows = resp.data.affectedRows;
+            this.currentSchedule = resp.data.currentSchedule;
+            console.log('this.newSchedule:', this.newSchedule);
+            console.log('this.regScheduleAffectedRows:', this.regScheduleAffectedRows);
           }
         });
     }
+  }
+
+  getSelectedProj(selProj) {
+    console.log('selProj:', selProj);
+    this.selectedProj = selProj;
+  }
+
+  // getSelectedSchedule
+  getSelectedSchedule(selSchedule) {
+    console.log('selProj:', selSchedule);
+    this.selectedSchedule = selSchedule;
   }
 }

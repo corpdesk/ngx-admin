@@ -15,12 +15,13 @@ import { Emitter } from '@fullcalendar/angular';
 export class SelectSearchComponent implements OnInit, AfterViewInit, OnDestroy {
   
   selectData: any = []; // data source
-  @Output() sendSelData = new EventEmitter();
+  @Output() sendSelData = new EventEmitter(); // used to set sel items on selection change
   @Input() isInvalidSelItems = true;
   @Input() nameField;
   @Input() IdField;
   @Input() ConsumerInstance;
   @Input() fetchData;
+  @Input() placeholder="Items";
 
   selectedItems = [];
 

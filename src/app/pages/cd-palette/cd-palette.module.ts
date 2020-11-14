@@ -72,6 +72,7 @@ import { GanttEightComponent } from './gantt-eight/gantt-eight.component';
 import { ScrollableDirective } from './scrollable.directive';
 import { HighlightDirective } from './highlight.directive';
 import { CdTooltipDirective } from './cd-tooltip.directive';
+import { GuigFontsComponent } from './guig-fonts/guig-fonts.component';
 
 const materialModules = [
   MatExpansionModule,
@@ -110,6 +111,7 @@ const materialModules = [
     ScrollableDirective,
     HighlightDirective,
     CdTooltipDirective,
+    GuigFontsComponent,
   ],
   imports: [
     CommonModule,
@@ -198,6 +200,7 @@ const materialModules = [
     GanttSixComponent,
     GanttSevenComponent,
     GanttEightComponent,
+    GuigFontsComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

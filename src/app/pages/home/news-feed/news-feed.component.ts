@@ -16,19 +16,19 @@ export class NewsFeedComponent implements OnInit, AfterViewInit {
     content: [
       {
         numbertext: '1 / 3',
-        src: '../../../../assets/cd/imges/img_mountains_wide.jpg',
+        src: '/assets/cd/imges/img_mountains_wide.jpg',
         style: 'width:100%',
         caption: 'Caption Text'
       },
       {
         numbertext: '2 / 3',
-        src: '../../../../assets/cd/imges/img_nature_wide.jpg',
+        src: '/assets/cd/imges/img_nature_wide.jpg',
         style: 'width:100%',
         caption: 'Caption Two'
       },
       {
         numbertext: '3 / 3',
-        src: '../../../../assets/cd/imges/img_snow_wide.jpg',
+        src: '/assets/cd/imges/img_snow_wide.jpg',
         style: 'width:100%',
         caption: 'Caption Three'
       }

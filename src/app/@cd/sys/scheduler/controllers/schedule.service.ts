@@ -2,26 +2,27 @@ import { Injectable } from '@angular/core';
 import { ServerService } from '../../../sys/moduleman/controllers/server.service';
 import { SessService } from '../../../sys/user/controllers/sess.service';
 
+
 @Injectable({
   providedIn: 'root'
 })
-export class ProjectService {
-  private postData;
+export class ScheduleService {
+  postData;
   constructor(
     private svServer: ServerService,
     private svSess: SessService,
   ) { }
 
-  getProjectsObsv(){
-    this.setEnvelopeGetProjects();
+  getScheduleObsv(){
+    this.setEnvelopeGetSchedules();
     return this.svServer.proc(this.postData);
   }
 
-  setEnvelopeGetProjects() {
+  setEnvelopeGetSchedules() {
     this.postData = {
-      ctx: 'App',
-      m: 'Pms',
-      c: 'ProjectController',
+      ctx: 'Sys',
+      m: 'Scheduler',
+      c: 'ScheduleController',
       a: 'actionGet',
       dat: {
         token: this.svSess.getCdToken()
@@ -30,17 +31,17 @@ export class ProjectService {
     };
   }
 
-  registerProjectObsv(data) {
+  registerScheduleObsv(data) {
     console.log(data);
-    this.setEnvelopeRegProject(data);
+    this.setEnvelopeRegSchedule(data);
     return this.svServer.proc(this.postData);
   }
 
-  setEnvelopeRegProject(regData) {
+  setEnvelopeRegSchedule(regData) {
     this.postData = {
-      ctx: 'App',
-      m: 'Pms',
-      c: 'ProjectController',
+      ctx: 'Sys',
+      m: 'Scheduler',
+      c: 'ScheduleController',
       a: 'actionCreate',
       dat: {
         f_vals: [

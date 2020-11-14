@@ -1,108 +1,123 @@
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 <nb-card size="medium">
-    <nb-card-body>
-      <nb-stepper #stepper [linear]="linearMode" orientation="vertical">
-        <nb-step label="Project">
-          <h4>Register Project</h4>
-          <p class="lorem">
-            Project name is required.
+  <nb-card-body>
+    <nb-stepper #stepper [linear]="linearMode" orientation="vertical">
+      <nb-step label="Create/Edit">
+        <h4>Create</h4>
+        <!-- <p class="lorem">
+          Select whether you want to edit or create
+        </p> -->
+        <form>
+          <p>
+            <mat-radio-group color="primary">
+              <mat-radio-button value="1" [checked]="true">Create New Project&nbsp;</mat-radio-button>
+              <mat-radio-button value="2">Add Schedule to Project&nbsp;</mat-radio-button>
+            </mat-radio-group>
           </p>
-          <form [formGroup]="frmRegProject" (ngSubmit)="submitProjectForm(frmRegProject)">
-            <ng-template matStepLabel>Fill out project name</ng-template>
-            <mat-form-field>
-              <mat-label>Project Name</mat-label>
-              <input matInput placeholder="Project Name" formControlName="project_name" required>
-              <mat-error *ngIf="frmRegProject.controls.project_name.hasError('required')">
-                You must provide a <strong>name</strong>
-              </mat-error>
-            </mat-form-field>
-            <br>
-            <!-- <mat-form-field class="input-example">
-              <mat-label>Project Scope</mat-label>
-              <mat-select formControlName="is_sys_module" required>
-                <mat-option value="0">App</mat-option>
-                <mat-option value="1">Sys</mat-option>
-              </mat-select>
-              <mat-error *ngIf="frmRegProject.controls.is_sys_module.hasError('required')">
-                You must select <strong>module scope</strong>
-              </mat-error>
-            </mat-form-field> -->
-          </form>
-          <p></p>
-          <button nbButton (click)="submitProjectForm(frmRegProject)" [disabled]="frmRegProject.invalid || successRegProject"
-            status="primary">
+
+        </form>
+        <p></p>
+        
+        <button nbButton  nbStepperNext>
+          <nb-icon icon="arrow-circle-right-outline"></nb-icon>
+        </button>
+      </nb-step>
+      <nb-step label="Project">
+        <form [formGroup]="frmRegProject" (ngSubmit)="submitProjectForm(frmRegProject)">
+          <mat-form-field>
+            <mat-label>Project Name</mat-label>
+            <input matInput placeholder="Project Name" formControlName="project_name" required>
+            <mat-error *ngIf="frmRegProject.controls.project_name.hasError('required')">
+              You must provide a <strong>name</strong>
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <ngx-select-search 
+            #selectProj 
+            [isInvalidSelItems]="isInvalidSelProj" 
+            (sendSelData)="getSelectedProj($event)"
+            [nameField]="projNameField" 
+            [IdField]="projIdField" 
+            [ConsumerInstance]="svProject" 
+            [fetchData]="fetchProjData"
+            placeholder="Projects"
+            >
+          </ngx-select-search>
+          <br>
+          <button nbButton (click)="submitProjectForm(frmRegProject)"
+            [disabled]="frmRegProject.invalid || successRegProject" status="primary">
             <nb-icon icon="save"></nb-icon>
           </button>
           <button nbButton [disabled]="!successRegProject" nbStepperNext>
             <nb-icon icon="arrow-circle-right-outline"></nb-icon>
           </button>
-        </nb-step>
-        <nb-step label="Menus">
-          <h4>Register menus for '{{regDataProject.module_name}}' module</h4>
-          <p class="lorem">
-            Every module has to have at least one menu item. You can use the + button to add more items.
-          </p>
-          <form [formGroup]="frmRegMenu" (ngSubmit)="submitMenuForm(frmRegMenu)">
-            <mat-form-field>
-              <mat-label>Menu Name</mat-label>
-              <input matInput formControlName="menu_name" placeholder="Menu Name" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-              <mat-label>Menu Description</mat-label>
-              <input matInput formControlName="menu_description" placeholder="menu_description">
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-              <mat-label>Menu Icon</mat-label>
-              <input matInput formControlName="menu_icon" placeholder="Menu Icon" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field class="input-example">
-              <mat-label>Icon Package</mat-label>
-              <mat-select formControlName="icon_type" required>
-                <mat-option value="eva">eva</mat-option>
-                <mat-option value="fa">fa</mat-option>
-                <mat-option value="fas">fas</mat-option>
-                <mat-option value="far">far</mat-option>
-              </mat-select>
-              <mat-error *ngIf="frmRegMenu.controls.icon_type.hasError('required')">
-                You must select <strong>module scope</strong>
-              </mat-error>
-            </mat-form-field>
-            <br>
-          </form>
-          <button nbButton (click)="submitMenuForm(frmRegMenu)" [disabled]="frmRegMenu.invalid" status="primary">
-            <nb-icon icon="plus-outline"></nb-icon>
-          </button>
-          <button nbButton nbStepperPrevious>
-            <nb-icon icon="arrow-circle-left-outline"></nb-icon>
-          </button>
-          <button nbButton [disabled]="!successRegMenu" nbStepperNext>
-            <nb-icon icon="arrow-circle-right-outline"></nb-icon>
-          </button>
-        </nb-step>
-        <nb-step label="Finnish">
-          <div class="col-md-12">
-            <h4>New Project:</h4><h2>{{regDataProject.module_name}}</h2>
-            <small>Below are the current menu items:</small>
-            <ul class="list-group clear-list m-t">
-                <li *ngFor="let menu of currentMenu" class="list-group-item fist-item">
-                    <span class="float-right">
-                      <mat-slide-toggle color="primary" [checked]="menu.enabled"></mat-slide-toggle>
-                    </span>
-                    <nb-icon [icon]="menu.icon" [pack]="menu.icon_type"></nb-icon>
-                    {{menu.title}}
-                </li>
-            </ul>
+        </form>
+
+      </nb-step>
+      <nb-step label="Schedules">
+        <h4>Register schedule for '{{regDataProject.module_name}}' module</h4>
+        <p class="lorem">
+          Every module has to have at least one schedule item. You can use the + button to add more items.
+        </p>
+        <form [formGroup]="frmRegSchedule" (ngSubmit)="submitScheduleForm(frmRegSchedule)">
+          <mat-form-field>
+            <mat-label>Schedule Name</mat-label>
+            <input matInput placeholder="Schedule Name" formControlName="schedule_name" required>
+            <mat-error *ngIf="frmRegSchedule.controls.schedule_name.hasError('required')">
+              You must provide a <strong>name</strong>
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>Schedule Description</mat-label>
+            <input matInput formControlName="schedule_description" placeholder="schedule_description">
+          </mat-form-field>
+          <br>
+          <ngx-select-search 
+            #selectSchedule 
+            [isInvalidSelItems]="isInvalidSelSchedule" 
+            (sendSelData)="getSelectedSchedule($event)"
+            [nameField]="scheduleNameField" 
+            [IdField]="scheduleIdField" 
+            [ConsumerInstance]="svSchedule" 
+            [fetchData]="fetchScheduleData"
+            placeholder="Schedules"
+            >
+          </ngx-select-search>
+          <br>
+          <br>
+        </form>
+        <button nbButton (click)="submitScheduleForm(frmRegSchedule)" status="primary">
+          <nb-icon icon="plus-outline"></nb-icon>
+        </button>
+        <button nbButton nbStepperPrevious>
+          <nb-icon icon="arrow-circle-left-outline"></nb-icon>
+        </button>
+        <button nbButton [disabled]="!successRegSchedule" nbStepperNext>
+          <nb-icon icon="arrow-circle-right-outline"></nb-icon>
+        </button>
+      </nb-step>
+      <nb-step label="Finnish">
+        <div class="col-md-12">
+          <h4>New Project:</h4>
+          <h2>{{regDataProject.module_name}}</h2>
+          <small>Below are the current schedule items:</small>
+          <ul class="list-group clear-list m-t">
+            <li *ngFor="let schedule of currentSchedule" class="list-group-item fist-item">
+              <span class="float-right">
+                <mat-slide-toggle color="primary" [checked]="schedule.enabled"></mat-slide-toggle>
+              </span>
+              <nb-icon [icon]="schedule.icon" [pack]="schedule.icon_type"></nb-icon>
+              {{schedule.title}}
+            </li>
+          </ul>
         </div>
-  
-          <button nbButton nbStepperPrevious>
-            <nb-icon icon="arrow-circle-left-outline"></nb-icon>
-          </button>
-        </nb-step>
-  
-      </nb-stepper>
-    </nb-card-body>
-  </nb-card>
-  
-  
+
+        <button nbButton nbStepperPrevious>
+          <nb-icon icon="arrow-circle-left-outline"></nb-icon>
+        </button>
+      </nb-step>
+
+    </nb-stepper>
+  </nb-card-body>
+</nb-card>

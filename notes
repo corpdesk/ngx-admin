@@ -69,9 +69,13 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
+- use select method adopted for doc-compose for menu and module components
+          <ngx-select-search #selectTo [isInvalidSelItems]="isInvalidSelTo" (sendSelData)="getSelectedTo($event)"
+            [nameField]="nameField" [IdField]="IdField" [ConsumerInstance]="svUser" [fetchData]="fetchUserTo">
+          </ngx-select-search>
+
 PMS:
-- create/Edit project
-    - adopt from 'create module/menu' wizards
+- integrate scheduler
 - create/edit task
 - create from template
 - create from existing
@@ -353,6 +357,19 @@ use tree-grid to view modules/menu in hierarchial format
     - https://flatlogic.com/templates/sing-app-angular/demo
     - https://rohit.codes/simplifyng/dashboard/pro
     - http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/#/app/dashboard
+
+- create/Edit project
+    - adopt from 'create module/menu' wizards
+    - implement create project
+    - Step 1. select create/edit
+    - if create, then: 
+        - 2. 'create project', 
+        - 3 'create schedule'
+    - if edit, then 
+        - 2. Select project
+            - getProjects
+        - 3. View details to edit
+
 
 11/11/2020
 - implement 'create new project'
