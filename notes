@@ -69,10 +69,9 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
-- use select method adopted for doc-compose for menu and module components
-          <ngx-select-search #selectTo [isInvalidSelItems]="isInvalidSelTo" (sendSelData)="getSelectedTo($event)"
-            [nameField]="nameField" [IdField]="IdField" [ConsumerInstance]="svUser" [fetchData]="fetchUserTo">
-          </ngx-select-search>
+- set gantt as consumable
+    - Params (title, start-date, task-data, )
+
 
 PMS:
 - integrate scheduler
@@ -370,6 +369,13 @@ use tree-grid to view modules/menu in hierarchial format
             - getProjects
         - 3. View details to edit
 
+15/11/2020
+- set all params to be controlled from the class...not html template
+    - set styles dynamically from class
+- use select method adopted for doc-compose for menu and module components
+          <ngx-select-search #selectTo [isInvalidSelItems]="isInvalidSelTo" (sendSelData)="getSelectedTo($event)"
+            [nameField]="nameField" [IdField]="IdField" [ConsumerInstance]="svUser" [fetchData]="fetchUserTo">
+          </ngx-select-search>
 
 11/11/2020
 - implement 'create new project'
