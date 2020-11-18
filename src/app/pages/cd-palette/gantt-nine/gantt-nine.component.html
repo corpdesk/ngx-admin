@@ -1,14 +1,19 @@
+<!-- font set -->
 <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+<!-- header -->
 <div class="row">
   <div class="col-lg-9">
     <div class="m-b-md">
-      <a href="#" class="btn btn-white btn-xs float-right">Edit project</a>
+      <a (click)="addSchedule()" class="btn btn-white btn-xs float-right">Edit project</a>
 
-      <h2>Tasks Gantt:</h2>
+      <h2>{{title}}</h2>
     </div>
 
   </div>
 </div>
+
+<!-- start gantt -->
 <div id="demo">
   <div class="gantt-wrapper">
     <div (click)="cdGanttContainer.scroll(-1)" class="arrow arrow-left"><span class="arrow-icon"></span></div>
@@ -30,7 +35,7 @@
         <!-- ending class="gantt-header-days" -->
 
         <!-- starting class="gantt-header-days-min" -->
-        <div class="gantt-header-days-min" style="width: 1860px;">
+        <div id="ganttHeaderDaysMin" class="gantt-header-days-min" style="width: 1860px;">
           <ng-container *ngFor="let headDay of DAYS">
             <div id="{{'gantt-header-day-min' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}"
               class="gantt-header-day-min" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "
@@ -39,7 +44,7 @@
         </div>
         <!-- ending class="gantt-header-days-min" -->
       </div>
-      <div id="cd-gantt-grid" class="gantt-grid" style="width: 1860px;">
+      <div id="cdGanttGrid" class="gantt-grid" style="width: 1860px;">
         <div id="cd-gantt-grid-cols" class="gantt-grid-cols">
 
           <ng-container *ngFor="let headDay of DAYS">
@@ -62,15 +67,12 @@
             <ng-container *ngFor="let task of projTasks">
                 <div id="{{task.taskGanttGridRow.id}}" class="gantt-grid-row" style="width: 1860px; height: 38px;"></div>
             </ng-container>
-          <!-- <div class="gantt-grid-row" style="width: 1860px; height: 38px;"></div>
-          <div class="gantt-grid-row" style="width: 1860px; height: 38px;"></div>
-          <div class="gantt-grid-row" style="width: 1860px; height: 38px;"></div> -->
         </div>
       </div>
       <!-- end rows -->
 
       <!-- start events -->
-      <div id="cd-gantt-events" class="gantt-events" style="width: 1860px;">
+      <div id="cdGanttEvents" class="gantt-events" style="width: 1860px;">
 
         <ng-container *ngFor="let task of projTasks">
 

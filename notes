@@ -69,11 +69,11 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
-- set gantt as consumable
-    - Params (title, start-date, task-data, )
-
 
 PMS:
+- refreshing gantt on addTask()
+- set gantt as consumable
+    - Params (title, start-date, task-data, )
 - integrate scheduler
 - create/edit task
 - create from template
@@ -368,6 +368,11 @@ use tree-grid to view modules/menu in hierarchial format
         - 2. Select project
             - getProjects
         - 3. View details to edit
+
+18/11/2020
+- refreshing gantt on addTask()...in progress
+- set gantt as consumable
+    - Params (title, start-date, task-data, )...DONE
 
 15/11/2020
 - set all params to be controlled from the class...not html template

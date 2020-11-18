@@ -74,6 +74,7 @@ import { HighlightDirective } from './highlight.directive';
 import { CdTooltipDirective } from './cd-tooltip.directive';
 import { GuigFontsComponent } from './guig-fonts/guig-fonts.component';
 import { GanttNineComponent } from './gantt-nine/gantt-nine.component';
+import { GanttTenComponent } from './gantt-ten/gantt-ten.component';
 
 const materialModules = [
   MatExpansionModule,
@@ -114,6 +115,7 @@ const materialModules = [
     CdTooltipDirective,
     GuigFontsComponent,
     GanttNineComponent,
+    GanttTenComponent,
   ],
   imports: [
     CommonModule,
