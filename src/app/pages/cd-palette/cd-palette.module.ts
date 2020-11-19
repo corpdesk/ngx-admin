@@ -205,6 +205,7 @@ const materialModules = [
     GanttSevenComponent,
     GanttEightComponent,
     GanttNineComponent,
+    GanttTenComponent,
     GuigFontsComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

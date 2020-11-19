@@ -370,6 +370,9 @@ use tree-grid to view modules/menu in hierarchial format
         - 3. View details to edit
 
 18/11/2020
+- refresh gant dynamically
+
+18/11/2020
 - refreshing gantt on addTask()...in progress
 - set gantt as consumable
     - Params (title, start-date, task-data, )...DONE

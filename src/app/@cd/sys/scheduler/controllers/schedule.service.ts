@@ -19,7 +19,7 @@ export class ScheduleService {
         taskCost: 'USD43.00',
         taskDesc: 'Descrp one',
         taskGanttGridRow: {
-          id: 'taskGanttGridRow-2',
+          id: 'taskGanttGridRow-1',
           width: 0,
           height: 38
         },
@@ -63,7 +63,7 @@ export class ScheduleService {
         taskCost: 'USD76.00',
         taskDesc: 'Descrp three',
         taskGanttGridRow: {
-          id: 'taskGanttGridRow-2',
+          id: 'taskGanttGridRow-3',
           width: 0,
           height: 38
         },

@@ -1,5 +1,5 @@
 // Based on: https://oguzhanoya.github.io/jquery-gantt/
-import { Component, OnInit, AfterViewInit, ViewChild, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, Input, ElementRef, ViewEncapsulation } from '@angular/core';
 import { ScheduleService } from '../../../@cd/sys/scheduler/controllers/schedule.service'
 import * as moment from 'moment';
 
@@ -11,7 +11,8 @@ interface dDay {
 @Component({
   selector: 'ngx-gantt-nine',
   templateUrl: './gantt-nine.component.html',
-  styleUrls: ['./gantt-nine.component.scss']
+  styleUrls: ['./gantt-nine.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class GanttNineComponent implements OnInit, AfterViewInit {
 
@@ -23,7 +24,7 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
       taskCost: 'USD43.00',
       taskDesc: 'Descrp one',
       taskGanttGridRow: {
-        id: 'taskGanttGridRow-2',
+        id: 'taskGanttGridRow-1',
         width: 0,
         height: 38
       },
@@ -67,7 +68,7 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
       taskCost: 'USD76.00',
       taskDesc: 'Descrp three',
       taskGanttGridRow: {
-        id: 'taskGanttGridRow-2',
+        id: 'taskGanttGridRow-3',
         width: 0,
         height: 38
       },
@@ -319,7 +320,7 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
 
       this.totalCellsWidth = this.durationDays * this.cellWidthUnit;
 
-      this.totalTaskHeight = this.projTasks.length * this.taskUnitHeight;
+      this.totalTaskHeight = this.svSchedule.schedule.length * this.taskUnitHeight;
       // console.log('totalDays:', this.durationDays);
       while (dateEnd.diff(dateStart, 'days') >= 0) {
         const iDow = dateStart.day();
@@ -385,7 +386,7 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
     const cdGanttGrid = document.getElementById('cdGanttGrid') as HTMLElement;
     cdGanttGrid.style.width = `${this.totalCellsWidth}px`;
 
-    this.projTasks.forEach((task) => {
+    this.svSchedule.schedule.forEach((task) => {
       const taskGanttGridRow = document.getElementById(task.taskGanttGridRow.id) as HTMLElement;
       const taskGanttEventRow = document.getElementById(task.taskGanttEventRow.id) as HTMLElement;
       const divGanttEvent = document.getElementById(task.divGanttEvent.id) as HTMLElement;
@@ -418,8 +419,8 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   }
 
   removeHeaderMonths() {
-    this.level2.forEach((header) => {
-      let element = document.getElementById(header.id);
+    this.level2.forEach((h) => {
+      let element = document.getElementById(h.id);
       element.parentNode.removeChild(element);
     });
   }
@@ -427,25 +428,232 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   setHeaderMonths() {
     this.removeHeaderMonths();
     const ganttHeaderMonths = this.elementRef.nativeElement.querySelector('#ganttHeaderMonths');
-    const htmlHeader = `<div  class="gantt-header-month" style="width: 580px;" id="ganttHeaderMonth-2">February, 2020</div>
-    <div  class="gantt-header-month" style="width: 620px;" id="ganttHeaderMonth-3">March, 2020</div>
-    <div  class="gantt-header-month" style="width: 600px;" id="ganttHeaderMonth-4">April, 2020</div>
-    <div  class="gantt-header-month" style="width: 20px;" id="ganttHeaderMonth-5">May, 2020</div>`;
-    ganttHeaderMonths.insertAdjacentHTML('beforeend', htmlHeader);
-    // this.level2.forEach((h) => {
-    //   const month = Number(h.l2index) - 1;
-    //   // console.log('month:', month);
-    //   const countDays = this.DAYS.filter((d) => d.m == month).length;
-    //   // console.log('countDays:', countDays);
-    //   const width = this.cellWidthUnit * countDays;
-    //   // console.log('width:', width);
-    //   // taskGanttGridRow.style.width = `${width}px`;
-    //   const htmlHeader = `<div id="${h.id}" class="gantt-header-month" style="width: ${width}px;">${h.l2name + ', ' + h.l3name}</div>`;
-    //   ganttHeaderMonths.insertAdjacentHTML('beforeend', htmlHeader);
-
-    // });
-
+    // ganttHeaderMonths.style
+    let htmlHeader = '';
+    this.level2.forEach((h) => {
+      const month = Number(h.l2index) - 1;
+      const countDays = this.DAYS.filter((d) => d.m == month).length;
+      const width = this.cellWidthUnit * countDays;
+      htmlHeader += `<div id="${h.id}" class="gantt-header-month" style="width: ${width}px;">${h.l2name + ', ' + h.l3name}</div>`;
+    });
+    ganttHeaderMonths.style.width = `${this.totalCellsWidth}px`;
+    ganttHeaderMonths.insertAdjacentHTML('afterbegin', htmlHeader);
   }
+
+  removeHeaderDays() {
+    this.DAYS.forEach((h) => {
+      const headerDay = document.getElementById('gantt-header-day' + '-' + h.d + '-' + h.m + '-' + h.y) as HTMLElement;
+      headerDay.parentNode.removeChild(headerDay);
+    });
+  }
+
+  setHeaderDays() {
+    this.removeHeaderDays();
+    const ganttHeaderDays = this.elementRef.nativeElement.querySelector('#ganttHeaderDays') as HTMLElement;
+    const cls = 'gantt-header-day';
+    let htmlHeader = '';
+    this.DAYS.forEach((h) => {
+      htmlHeader += `<div id="${cls + '-' + h.d + '-' + h.m + '-' + h.y}"
+      class="gantt-header-day" (mouseenter)="colMouseEnter(${h.d},${h.m},${h.y})"
+      (mouseleave)="colMouseLeave(${h.d},${h.m},${h.y})" style="width: ${this.cellWidthUnit}px;">${h.d}</div>`;
+    });
+    ganttHeaderDays.style.width = `${this.totalCellsWidth}px`;
+    ganttHeaderDays.insertAdjacentHTML('afterbegin', htmlHeader);
+    this.setMouseEnter(cls);
+    this.setMouseLeave(cls);
+  }
+
+  setMouseEnter(cls) {
+    this.DAYS.forEach((h) => {
+      // const dayMouseEnter = this.elementRef.nativeElement.querySelector(`#${'gantt-header-day' + '-' + h.d + '-' + h.m + '-' + h.y}`) as HTMLElement;
+      const elem = this.elementRef.nativeElement.querySelector(`#${cls + '-' + h.d + '-' + h.m + '-' + h.y}`) as HTMLElement;
+      elem.addEventListener("mouseenter", function (event) {
+
+        const headerDay = document.getElementById(`gantt-header-day-${h.d}-${h.m}-${h.y}`) as HTMLElement;
+        const headerDayMin = document.getElementById(`gantt-header-day-min-${h.d}-${h.m}-${h.y}`) as HTMLElement;
+        const gridCol = document.getElementById(`gantt-grid-col-${h.d}-${h.m}-${h.y}`) as HTMLElement;
+
+        if (headerDay) {
+          headerDay.classList.add('active');
+        }
+
+        if (headerDayMin) {
+          headerDayMin.classList.add('active');
+        }
+
+        if (gridCol) {
+          gridCol.classList.add('active');
+        }
+
+        // highlight the mouseenter target
+        // event.target.style.color = "purple";
+
+        // reset the color after a short delay
+        setTimeout(function () {
+          // event.target.style.color = "";
+        }, 5);
+      }, false);
+    });
+  }
+
+  setMouseLeave(cls) {
+    this.DAYS.forEach((h) => {
+      const elem = this.elementRef.nativeElement.querySelector(`#${cls + '-' + h.d + '-' + h.m + '-' + h.y}`) as HTMLElement;
+      elem.addEventListener("mouseleave", function (event) {
+
+        const headerDay = document.getElementById(`gantt-header-day-${h.d}-${h.m}-${h.y}`) as HTMLElement;
+        const headerDayMin = document.getElementById(`gantt-header-day-min-${h.d}-${h.m}-${h.y}`) as HTMLElement;
+        const gridCol = document.getElementById(`gantt-grid-col-${h.d}-${h.m}-${h.y}`) as HTMLElement;
+
+        if (headerDay) {
+          headerDay.classList.remove('active');
+        }
+
+        if (headerDayMin) {
+          headerDayMin.classList.remove('active');
+        }
+
+        if (gridCol) {
+          gridCol.classList.remove('active');
+        }
+
+        // highlight the mouseenter target
+        // event.target.style.color = "purple";
+
+        // reset the color after a short delay
+        setTimeout(function () {
+          // event.target.style.color = "";
+        }, 5);
+      }, false);
+    });
+  }
+
+  removeHeaderDaysMin() {
+    this.DAYS.forEach((h) => {
+      const headerDayMin = document.getElementById('gantt-header-day-min' + '-' + h.d + '-' + h.m + '-' + h.y) as HTMLElement;
+      headerDayMin.parentNode.removeChild(headerDayMin);
+    });
+  }
+
+  setHeaderDaysMin() {
+    this.removeHeaderDaysMin();
+    const ganttHeaderDaysMin = this.elementRef.nativeElement.querySelector('#ganttHeaderDaysMin') as HTMLElement;
+    const cls = 'gantt-header-day-min';
+    let htmlHeader = '';
+    this.DAYS.forEach((h) => {
+      htmlHeader += `<div id="${cls + '-' + h.d + '-' + h.m + '-' + h.y}"
+      class="gantt-header-day-min" (mouseenter)="colMouseEnter(${h.d},${h.m},${h.y}) "
+      (mouseleave)="colMouseLeave(${h.d},${h.m},${h.y})" style="width: ${this.cellWidthUnit}px;">${h.dow}</div>`;
+    });
+    ganttHeaderDaysMin.style.width = `${this.totalCellsWidth}px`;
+    ganttHeaderDaysMin.insertAdjacentHTML('afterbegin', htmlHeader);
+    this.setMouseEnter(cls);
+    this.setMouseLeave(cls);
+  }
+
+  removeGridCols() {
+    this.DAYS.forEach((h) => {
+      const headerDayMin = document.getElementById('gantt-grid-col' + '-' + h.d + '-' + h.m + '-' + h.y) as HTMLElement;
+      headerDayMin.parentNode.removeChild(headerDayMin);
+    });
+  }
+
+  setGridCols() {
+    this.removeGridCols();
+    const cdGanttGrid = this.elementRef.nativeElement.querySelector('#cdGanttGridCols') as HTMLElement;
+    const cls = 'gantt-grid-col';
+    cdGanttGrid.style.width = `${this.totalCellsWidth}px`;
+    const cdGanttGridCols = this.elementRef.nativeElement.querySelector('#cdGanttGridCols') as HTMLElement;
+    let htmlHeader = '';
+    this.DAYS.forEach((h) => {
+      // if end month
+      if (h.d == h.mDays) {
+        htmlHeader += `<div id="${cls + '-' + h.d + '-' + h.m + '-' + h.y}" 
+          class="gantt-grid-col"
+          (mouseenter)="colMouseEnter(${h.d},${h.m},${h.y}) "
+          (mouseleave)="colMouseLeave(${h.d},${h.m},${h.y})"
+          style="width: ${this.cellWidthUnit}px; height: ${this.totalTaskHeight}px;border-color: rgb(190, 197, 204);"></div>`;
+      } else {
+        htmlHeader += `<div id="${cls + '-' + h.d + '-' + h.m + '-' + h.y}"
+          class="gantt-grid-col" 
+          (mouseenter)="colMouseEnter(${h.d},${h.m},${h.y})"
+          (mouseleave)="colMouseLeave(${h.d},${h.m},${h.y})" style="width: ${this.cellWidthUnit}px; height: ${this.totalTaskHeight}px;"></div>`;
+      }
+
+    });
+    cdGanttGridCols.insertAdjacentHTML('afterbegin', htmlHeader);
+    this.setMouseEnter(cls);
+    this.setMouseLeave(cls);
+  }
+
+  removeGridRows() {
+    this.svSchedule.schedule.forEach((task) => {
+      const gridRow = document.getElementById(`${task.taskGanttGridRow.id}`) as HTMLElement;
+      gridRow.parentNode.removeChild(gridRow);
+    });
+  }
+
+  setGridRows() {
+    this.removeGridRows();
+    const ganttGridRows = this.elementRef.nativeElement.querySelector('#ganttGridRows') as HTMLElement;
+    let htmlHeader = '';
+    this.svSchedule.schedule.forEach((task) => {
+      htmlHeader += `<div id="${task.taskGanttGridRow.id}" class="gantt-grid-row" style="width: ${this.totalCellsWidth}px; height: ${this.taskUnitHeight}px;"></div>`;
+    });
+    ganttGridRows.insertAdjacentHTML('afterbegin', htmlHeader);
+  }
+
+  removeGanttEvents() {
+    this.svSchedule.schedule.forEach((task) => {
+      const gridRow = document.getElementById(`${task.taskGanttEventRow.id}`) as HTMLElement;
+      gridRow.parentNode.removeChild(gridRow);
+    });
+  }
+
+  setGanttEvents() {
+    this.removeGanttEvents();
+    const cdGanttEvents = this.elementRef.nativeElement.querySelector('#cdGanttEvents') as HTMLElement;
+    let htmlHeader = '';
+    this.svSchedule.schedule.forEach((task) => {
+      htmlHeader += `<div id="${task.taskGanttEventRow.id}" class="gantt-event-row" style="height: ${this.taskUnitHeight}px;">
+        <div id="${task.divGanttEvent.id}" ngxCdTooltip [tooltipTitle]="displayToolTip(${task})" placement="left" delay="500"
+          class="gantt-event" style="left: 100px;">
+          <a 
+            id="${task.taskGanttEventBlock.id}" 
+            class="gantt-event-block tourFly"
+            style="width: 100px; line-height: 10px;" 
+            href="http://www.example.com/1"
+            target="_blank">${task.taskName}</a>
+          <div class="gantt-event-icon">
+            <div class="tourFly"></div>
+          </div>
+          <div class="gantt-event-price">${task.taskCost}</div>
+          <div class="gantt-event-desc">${task.taskDesc}</div>
+        </div>
+      </div>`;
+    });
+    cdGanttEvents.style.width = `${this.totalCellsWidth}px`;
+    cdGanttEvents.insertAdjacentHTML('afterbegin', htmlHeader);
+    this.taskSize();
+  }
+
+  taskToolTip(task) {
+    console.log(task);
+    return "tool tip text";
+  }
+
+  taskSize() {
+    this.svSchedule.schedule.forEach((task) => {
+      const divGanttEvent = document.getElementById(task.divGanttEvent.id) as HTMLElement;
+      const taskGanttEventBlock = document.getElementById(task.taskGanttEventBlock.id) as HTMLElement;
+      const left = (Number(task.divGanttEvent.startDay) + 1) * this.cellWidthUnit;
+      divGanttEvent.style.left = `${left}px`;
+      const width = Number(task.taskGanttEventBlock.noOfDays) * this.cellWidthUnit;
+      taskGanttEventBlock.style.width = `${width}px`;
+    });
+  }
+
+
 
   addSchedule() {
     const newSchedule = {
@@ -471,8 +679,12 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
       }
     };
     //this.svSchedule.schedule.push(newSchedule);
-    // this.removeHeaderMonths();
-    //this.setHeaderMonths();
+    this.setHeaderMonths();
+    this.setHeaderDays();
+    this.setHeaderDaysMin();
+    this.setGridCols()
+    this.setGridRows()
+    this.setGanttEvents()
     // this.level2 = [];
     // this.DAYS = this.getDays();
     // this.render();
@@ -480,7 +692,7 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
     this.setRow(newSchedule);
   }
 
-  setRowShell(){
+  setRowShell() {
     const cdGanttEvents = this.elementRef.nativeElement.querySelector('#cdGanttEvents');
     const htmlRow = `<div class="gantt-event" style="left: 400px;">
     <a class="gantt-event-block tourFly" href="http://www.example.com/1" target="_blank" style="width: 100px; line-height: 10px;">4 Gece</a>

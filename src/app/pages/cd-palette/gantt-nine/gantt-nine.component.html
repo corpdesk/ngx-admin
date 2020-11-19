@@ -45,7 +45,7 @@
         <!-- ending class="gantt-header-days-min" -->
       </div>
       <div id="cdGanttGrid" class="gantt-grid" style="width: 1860px;">
-        <div id="cd-gantt-grid-cols" class="gantt-grid-cols">
+        <div id="cdGanttGridCols" class="gantt-grid-cols">
 
           <ng-container *ngFor="let headDay of DAYS">
             <!-- if end month do vertical split line -->
@@ -63,7 +63,7 @@
 
           <!-- start rows -->
         </div>
-        <div class="gantt-grid-rows">
+        <div id="ganttGridRows" class="gantt-grid-rows">
             <ng-container *ngFor="let task of projTasks">
                 <div id="{{task.taskGanttGridRow.id}}" class="gantt-grid-row" style="width: 1860px; height: 38px;"></div>
             </ng-container>
