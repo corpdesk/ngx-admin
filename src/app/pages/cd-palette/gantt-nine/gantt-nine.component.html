@@ -20,36 +20,36 @@
     <div ngxScrollable #cdGanttContainer="ngxScrollable" [scrollUnit]="scrollUnit" class="gantt-container">
       <div id="cdGanttHeader" class="gantt-header">
         <div id="ganttHeaderMonths" class="gantt-header-months" style="width: 1860px;">
-            <ng-container *ngFor="let lablel of level2">
+            <!-- <ng-container *ngFor="let lablel of level2">
                 <div id="{{lablel.id}}" class="gantt-header-month" style="width: 620px;">{{lablel.l2name + ', ' + lablel.l3name}}</div>
-            </ng-container>
+            </ng-container> -->
         </div>
         <div id="ganttHeaderDays" class="gantt-header-days" style="width: 1860px;">
           <!-- generate calendar time line for the stipulated period -->
-          <ng-container *ngFor="let headDay of DAYS">
+          <!-- <ng-container *ngFor="let headDay of DAYS">
             <div id="{{'gantt-header-day' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}"
               class="gantt-header-day" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "
               (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px;">{{headDay.d}}</div>
-          </ng-container>
+          </ng-container> -->
         </div>
         <!-- ending class="gantt-header-days" -->
 
         <!-- starting class="gantt-header-days-min" -->
         <div id="ganttHeaderDaysMin" class="gantt-header-days-min" style="width: 1860px;">
-          <ng-container *ngFor="let headDay of DAYS">
+          <!-- <ng-container *ngFor="let headDay of DAYS">
             <div id="{{'gantt-header-day-min' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}"
               class="gantt-header-day-min" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "
               (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px;">{{headDay.dow}}</div>
-          </ng-container>
+          </ng-container> -->
         </div>
         <!-- ending class="gantt-header-days-min" -->
       </div>
       <div id="cdGanttGrid" class="gantt-grid" style="width: 1860px;">
         <div id="cdGanttGridCols" class="gantt-grid-cols">
 
-          <ng-container *ngFor="let headDay of DAYS">
+          <!-- <ng-container *ngFor="let headDay of DAYS"> -->
             <!-- if end month do vertical split line -->
-            <div *ngIf="headDay.d == headDay.mDays; else normalDay1"
+            <!-- <div *ngIf="headDay.d == headDay.mDays; else normalDay1"
               id="{{'gantt-grid-col' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}" class="gantt-grid-col"
               (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "
               (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)"
@@ -58,15 +58,15 @@
               <div id="{{'gantt-grid-col' + '-' + headDay.d + '-' + headDay.m + '-' + headDay.y}}"
                 class="gantt-grid-col" (mouseenter)="colMouseEnter(headDay.d,headDay.m,headDay.y) "
                 (mouseleave)="colMouseLeave(headDay.d,headDay.m,headDay.y)" style="width: 20px; height: 114px;"></div>
-            </ng-template>
-          </ng-container>
+            </ng-template> -->
+          <!-- </ng-container> -->
 
           <!-- start rows -->
         </div>
         <div id="ganttGridRows" class="gantt-grid-rows">
-            <ng-container *ngFor="let task of projTasks">
+            <!-- <ng-container *ngFor="let task of projTasks">
                 <div id="{{task.taskGanttGridRow.id}}" class="gantt-grid-row" style="width: 1860px; height: 38px;"></div>
-            </ng-container>
+            </ng-container> -->
         </div>
       </div>
       <!-- end rows -->
@@ -74,7 +74,7 @@
       <!-- start events -->
       <div id="cdGanttEvents" class="gantt-events" style="width: 1860px;">
 
-        <ng-container *ngFor="let task of projTasks">
+        <!-- <ng-container *ngFor="let task of projTasks">
 
           <div id="{{task.taskGanttEventRow.id}}" class="gantt-event-row" style="height: 38px;">
             <div id="{{task.divGanttEvent.id}}" ngxCdTooltip tooltipTitle="tootip on left" placement="left" delay="500"
@@ -90,7 +90,7 @@
             </div>
           </div>
 
-        </ng-container>
+        </ng-container> -->
 
       </div>
       <!-- start events -->

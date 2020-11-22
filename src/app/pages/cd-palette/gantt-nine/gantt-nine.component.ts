@@ -220,35 +220,12 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   }
 
   render() {
-    // console.log('this.cellWidthUnit:', this.cellWidthUnit);
-    // console.log('this.taskUnitHeight:', this.taskUnitHeight);
-    // console.log('this.durationDays:', this.durationDays);
-    // console.log('this.totalCellsWidth:', this.totalCellsWidth);
-    // console.log('this.totalTaskHeight:', this.totalTaskHeight);
-    // console.log('this.ganttHeaderMonths.id:', this.ganttHeaderMonths.id);
-    // console.log('this.level2:', this.level2);
-
-    // this.setHeaderMonths();
-
-    const ganttHeaderMonths = document.getElementById(this.ganttHeaderMonths.id) as HTMLElement;
-    ganttHeaderMonths.style.width = `${this.ganttHeaderMonths.width}px`;
-
-    const ganttHeaderDays = document.getElementById(this.ganttHeaderMonths.id) as HTMLElement;
-    ganttHeaderDays.style.width = `${this.totalCellsWidth}px`;
-
-    this.level2.forEach((label) => {
-      const taskGanttGridRow = document.getElementById(label.id) as HTMLElement;
-
-      const month = Number(label.l2index) - 1;
-      // console.log('month:', month);
-      const countDays = this.DAYS.filter((d) => d.m == month).length;
-      // console.log('countDays:', countDays);
-      const width = this.cellWidthUnit * countDays;
-      // console.log('width:', width);
-      taskGanttGridRow.style.width = `${width}px`;
-    });
-
-    this.setTaskBars();
+    this.setHeaderMonths();
+    this.setHeaderDays();
+    this.setHeaderDaysMin();
+    this.setGridCols();
+    this.setGridRows();
+    this.setGanttEvents();
   }
 
   getEndDate() {
@@ -308,6 +285,7 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   // the endin day
   getDays() {
     console.log('starting getDays(fromDate, afterEnd)');
+    this.level2 = [];
     const fromDate = this.dateStartStr;
     const afterEnd = this.getEndDate();
     const fxDays = () => {
@@ -338,7 +316,6 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
         // console.log('mStr:', mStr);
 
         // set level2 data, for labelling the header
-        // this.level2 = [];
         if (dateStart.format('D') == '1') {
           const l2Dat = {
             id: 'ganttHeaderMonth-' + String(mInt + 1),
@@ -421,11 +398,15 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   removeHeaderMonths() {
     this.level2.forEach((h) => {
       let element = document.getElementById(h.id);
-      element.parentNode.removeChild(element);
+      if(element){
+        element.parentNode.removeChild(element);
+      }
     });
   }
 
   setHeaderMonths() {
+    console.log('starting setHeaderMonths()');
+    console.log('level2:', this.level2);
     this.removeHeaderMonths();
     const ganttHeaderMonths = this.elementRef.nativeElement.querySelector('#ganttHeaderMonths');
     // ganttHeaderMonths.style
@@ -443,7 +424,10 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   removeHeaderDays() {
     this.DAYS.forEach((h) => {
       const headerDay = document.getElementById('gantt-header-day' + '-' + h.d + '-' + h.m + '-' + h.y) as HTMLElement;
-      headerDay.parentNode.removeChild(headerDay);
+      if(headerDay){
+        headerDay.parentNode.removeChild(headerDay);
+      }
+      
     });
   }
 
@@ -531,7 +515,10 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   removeHeaderDaysMin() {
     this.DAYS.forEach((h) => {
       const headerDayMin = document.getElementById('gantt-header-day-min' + '-' + h.d + '-' + h.m + '-' + h.y) as HTMLElement;
-      headerDayMin.parentNode.removeChild(headerDayMin);
+      if(headerDayMin){
+        headerDayMin.parentNode.removeChild(headerDayMin);
+      }
+      
     });
   }
 
@@ -554,7 +541,9 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   removeGridCols() {
     this.DAYS.forEach((h) => {
       const headerDayMin = document.getElementById('gantt-grid-col' + '-' + h.d + '-' + h.m + '-' + h.y) as HTMLElement;
-      headerDayMin.parentNode.removeChild(headerDayMin);
+      if(headerDayMin){
+        headerDayMin.parentNode.removeChild(headerDayMin);
+      }
     });
   }
 
@@ -589,7 +578,9 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   removeGridRows() {
     this.svSchedule.schedule.forEach((task) => {
       const gridRow = document.getElementById(`${task.taskGanttGridRow.id}`) as HTMLElement;
-      gridRow.parentNode.removeChild(gridRow);
+      if(gridRow){
+        gridRow.parentNode.removeChild(gridRow);
+      }
     });
   }
 
@@ -605,8 +596,10 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
 
   removeGanttEvents() {
     this.svSchedule.schedule.forEach((task) => {
-      const gridRow = document.getElementById(`${task.taskGanttEventRow.id}`) as HTMLElement;
-      gridRow.parentNode.removeChild(gridRow);
+      const gridEventRow = document.getElementById(`${task.taskGanttEventRow.id}`) as HTMLElement;
+      if(gridEventRow){
+        gridEventRow.parentNode.removeChild(gridEventRow);
+      }
     });
   }
 
@@ -678,18 +671,9 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
         noOfDays: 8,
       }
     };
-    //this.svSchedule.schedule.push(newSchedule);
-    this.setHeaderMonths();
-    this.setHeaderDays();
-    this.setHeaderDaysMin();
-    this.setGridCols()
-    this.setGridRows()
-    this.setGanttEvents()
-    // this.level2 = [];
-    // this.DAYS = this.getDays();
-    // this.render();
-
-    this.setRow(newSchedule);
+    this.svSchedule.schedule.push(newSchedule);
+    this.DAYS = this.getDays();
+    this.render();
   }
 
   setRowShell() {

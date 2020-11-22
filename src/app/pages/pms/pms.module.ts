@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 import { PmsRoutingModule } from './pms-routing.module';
 import { CdPaletteModule } from '../cd-palette/cd-palette.module';
@@ -50,10 +51,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { TaskRegisterComponent } from './task-register/task-register.component';
 import { TaskSelectComponent } from './task-select/task-select.component';
 import { TaskListComponent } from './task-list/task-list.component';
+import { NewScheduleComponent } from './new-schedule/new-schedule.component';
 
 
 const materialModules = [
@@ -70,11 +73,12 @@ const materialModules = [
   MatTreeModule,
   MatStepperModule,
   MatIconModule,
+  MatDividerModule,
 ];
 
 
 @NgModule({
-  declarations: [DashboardComponent, ProjectsComponent, GanttComponent, SchedulerComponent, PmsComponent, ActivityComponent, ProjectSummaryComponent, ProjectDetailsComponent, ProjectDashboardComponent, ProjectInfoComponent, ProjectTabsComponent, ProjectListComponent, ProjectRegisterComponent, ProjectSelectComponent, TaskRegisterComponent, TaskSelectComponent, TaskListComponent],
+  declarations: [DashboardComponent, ProjectsComponent, GanttComponent, SchedulerComponent, PmsComponent, ActivityComponent, ProjectSummaryComponent, ProjectDetailsComponent, ProjectDashboardComponent, ProjectInfoComponent, ProjectTabsComponent, ProjectListComponent, ProjectRegisterComponent, ProjectSelectComponent, TaskRegisterComponent, TaskSelectComponent, TaskListComponent, NewScheduleComponent],
   imports: [
     CommonModule,
     PmsRoutingModule,
@@ -100,6 +104,7 @@ const materialModules = [
     NbStepperModule,
     ngFormsModule,
     Ng2SmartTableModule,
+    NgxMaterialTimepickerModule.setLocale('ar-AE'),
     ...materialModules,
   ]
 })

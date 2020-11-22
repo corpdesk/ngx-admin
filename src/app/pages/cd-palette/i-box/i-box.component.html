@@ -1,0 +1,52 @@
+<div class="ibox">
+  <div class="ibox-title">
+    <h5>New data for the report</h5> <span class="label label-primary">IN+</span>
+    <div class="ibox-tools show">
+      <a class="collapse-link" href="#">
+        <i class="fa fa-chevron-up"></i>
+      </a>
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
+        <i class="fa fa-wrench"></i>
+      </a>
+      <ul class="dropdown-menu dropdown-user show" x-placement="bottom-start"
+        style="position: absolute; top: 17px; left: 26px; will-change: top, left;">
+        <li><a href="#" class="dropdown-item">Config option 1</a>
+        </li>
+        <li><a href="#" class="dropdown-item">Config option 2</a>
+        </li>
+      </ul>
+      <a class="close-link" href="#">
+        <i class="fa fa-times"></i>
+      </a>
+    </div>
+  </div>
+  <div class="ibox-content" style="">
+    <div>
+
+        <mat-form-field class="input-example">
+            <mat-label>Input</mat-label>
+            <input matInput autocomplete="off">
+            <mat-hint>hint</mat-hint>
+          </mat-form-field>
+  <p></p>
+          <mat-form-field class="input-example">
+            <mat-label>Select</mat-label>
+            <mat-select>
+              <mat-option value="1">Option 1</mat-option>
+              <mat-option value="2">Option 2</mat-option>
+              <mat-option value="3">Option 3</mat-option>
+            </mat-select>
+            <mat-hint>hint</mat-hint>
+          </mat-form-field>
+          <p></p>
+          <mat-form-field class="input-example">
+            <mat-label>Datepicker</mat-label>
+            <input matInput autocomplete="off" [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-hint>hint</mat-hint>
+          </mat-form-field>
+          <p></p>
+    </div>
+  </div>
+</div>

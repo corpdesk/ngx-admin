@@ -1,0 +1,118 @@
+<div class="col-lg-6">
+  <nb-card>
+    <nb-card-header>New Schedule</nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-lg-6">
+              <form [formGroup]="frmNewSchedule" (ngSubmit)="registerSchedule(frmNewSchedule)">
+                <mat-error *ngIf="loginInvalid">
+                  {{errMsg}}
+                </mat-error>
+                <mat-form-field class="input-example">
+                  <mat-label>User Name</mat-label>
+                  <input matInput formControlName="schedule_name" placeholder="Schedule Name"
+                    id="schedule_name" autocomplete="off" required autofocus>
+                  <mat-error class="caption status-danger">
+                    Username is required!
+                  </mat-error>
+                </mat-form-field>
+                <p></p>
+                <div class="sched-duration">
+                    <table style="width:100%">
+                      <tr>
+                        <th class="sched-head">years</th>
+                        <th class="sched-head"></th>
+                        <th class="sched-head">months</th>
+                        <th class="sched-head"></th>
+                        <th class="sched-head">weeks</th>
+                        <th class="sched-head"></th>
+                        <th class="sched-head">d</th>
+                        <th class="sched-head"></th>
+                        <th class="sched-head">h</th>
+                        <th class="sched-head"></th>
+                        <th class="sched-head">m</th>
+                      </tr>
+                      <tr>
+                        <td class="sched-fa"><i class="fas fa-angle-up"></i></td>
+                        <td class="sched-fa"></td>
+                        <td class="sched-fa"><i class="fas fa-angle-up"></i></td>
+                        <td class="sched-fa"></td>
+                        <td class="sched-fa"><i class="fas fa-angle-up"></i></td>
+                        <td class="sched-fa"></td>
+                        <td class="sched-fa"><i class="fas fa-angle-up"></i></td>
+                        <td class="sched-fa"></td>
+                        <td class="sched-fa"><i class="fas fa-angle-up"></i></td>
+                        <td class="sched-fa"></td>
+                        <td class="sched-fa"><i (click)="increment('min')" class="fas fa-angle-up"></i></td>
+                      </tr>
+                      <tr>
+                        <td class="sched-val">
+                          <mat-form-field [style.width.px]=60>
+                            <input matInput class="duration-val" value="{{Days}}">
+                          </mat-form-field>
+                        </td>
+                        <td class="sched-fa">:</td>
+                        <td class="sched-val">
+                          <mat-form-field [style.width.px]=60>
+                            <input matInput class="duration-val" value="{{Days}}">
+                          </mat-form-field>
+                        </td>
+                        <td class="sched-fa">:</td>
+                        <td class="sched-val">
+                          <mat-form-field [style.width.px]=60>
+                            <input matInput class="duration-val" value="{{Days}}">
+                          </mat-form-field>
+                        </td>
+                        <td class="sched-fa">:</td>
+                        <td class="sched-val">
+                          <mat-form-field [style.width.px]=60>
+                            <input matInput class="duration-val" value="{{Days}}">
+                          </mat-form-field>
+                        </td>
+                        <td class="sched-fa">:</td>
+                        <td class="sched-val">
+                          <mat-form-field [style.width.px]=60>
+                            <input matInput class="duration-val" value="{{Days}}">
+                          </mat-form-field>
+                        </td>
+                        <td class="sched-fa">:</td>
+                        <td class="sched-val">
+                          <mat-form-field [style.width.px]=60>
+                            <input matInput (change)="changeMin()" formControlName="durationMin" class="duration-val" value="">
+                          </mat-form-field>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="sched-fa"><i class="fas fa-angle-down"></i></td>
+                        <td class="sched-fa"></td>
+                        <td class="sched-fa"><i class="fas fa-angle-down"></i></td>
+                        <td class="sched-fa"></td>
+                        <td class="sched-fa"><i class="fas fa-angle-down"></i></td>
+                        <td class="sched-fa"></td>
+                        <td class="sched-fa"><i class="fas fa-angle-down"></i></td>
+                        <td class="sched-fa"></td>
+                        <td class="sched-fa"><i class="fas fa-angle-down"></i></td>
+                        <td class="sched-fa"></td>
+                        <td class="sched-fa"><i (click)="decrement('min')" class="fas fa-angle-down"></i></td>
+                      </tr>
+                    </table>
+                  </div>
+                <p></p>
+                <button mat-raised-button [disabled]="submitted || !frmNewSchedule.valid" color="primary">
+                  Login
+                </button>
+              </form>
+              <p></p>
+              <mat-divider></mat-divider>
+              <p></p>
+              <section class="another-action" aria-label="Register">
+                Don't have an account? <a class="text-link" routerLink="../register">Register</a>
+              </section>
+              <p></p>
+              <p></p>
+            </div>
+          </div>
+      
+    </nb-card-body>
+  </nb-card>
+</div>

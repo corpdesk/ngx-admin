@@ -14,8 +14,7 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent
-  implements OnInit {
+export class LoginComponent implements OnInit {
   loginInvalid = false;
   rememberMe = true;
   submitted = false;

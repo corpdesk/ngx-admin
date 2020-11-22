@@ -75,6 +75,7 @@ import { CdTooltipDirective } from './cd-tooltip.directive';
 import { GuigFontsComponent } from './guig-fonts/guig-fonts.component';
 import { GanttNineComponent } from './gantt-nine/gantt-nine.component';
 import { GanttTenComponent } from './gantt-ten/gantt-ten.component';
+import { IBoxComponent } from './i-box/i-box.component';
 
 const materialModules = [
   MatExpansionModule,
@@ -116,6 +117,7 @@ const materialModules = [
     GuigFontsComponent,
     GanttNineComponent,
     GanttTenComponent,
+    IBoxComponent,
   ],
   imports: [
     CommonModule,
@@ -207,6 +209,7 @@ const materialModules = [
     GanttNineComponent,
     GanttTenComponent,
     GuigFontsComponent,
+    IBoxComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
