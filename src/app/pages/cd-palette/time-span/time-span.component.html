@@ -1,0 +1,63 @@
+<div class="row">
+  <p></p>
+  <div class="sched-duration">
+    <form [formGroup]="frmTimeSpan">
+      <table style="width:100%">
+        <tr>
+          <th class="sched-head">weeks</th>
+          <th class="sched-head"></th>
+          <th class="sched-head">d</th>
+          <th class="sched-head"></th>
+          <th class="sched-head">h</th>
+          <th class="sched-head"></th>
+          <th class="sched-head">m</th>
+        </tr>
+        <tr>
+          <td class="sched-fa"><i (click)="increment('week')" class="fas fa-angle-up"></i></td>
+          <td class="sched-fa"></td>
+          <td class="sched-fa"><i (click)="increment('day')" class="fas fa-angle-up"></i></td>
+          <td class="sched-fa"></td>
+          <td class="sched-fa"><i (click)="increment('hour')" class="fas fa-angle-up"></i></td>
+          <td class="sched-fa"></td>
+          <td class="sched-fa"><i (click)="increment('min')" class="fas fa-angle-up"></i></td>
+        </tr>
+        <tr>
+          <td class="sched-val">
+            <mat-form-field [style.width.px]=60>
+              <input matInput (change)="changeWeek()" formControlName="durationWeek" class="duration-val" value="00">
+            </mat-form-field>
+          </td>
+          <td class="sched-fa">:</td>
+          <td class="sched-val">
+            <mat-form-field [style.width.px]=60>
+              <input matInput (change)="changeDay()" formControlName="durationDay" class="duration-val" value="00">
+            </mat-form-field>
+          </td>
+          <td class="sched-fa">:</td>
+          <td class="sched-val">
+            <mat-form-field [style.width.px]=60>
+              <input matInput (change)="changeHour()" formControlName="durationHour" class="duration-val" value="00">
+            </mat-form-field>
+          </td>
+          <td class="sched-fa">:</td>
+          <td class="sched-val">
+            <mat-form-field [style.width.px]=60>
+              <input matInput (change)="changeMin()" formControlName="durationMin" class="duration-val" value="00">
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="sched-fa"><i (click)="decrement('week')" class="fas fa-angle-down"></i></td>
+          <td class="sched-fa"></td>
+          <td class="sched-fa"><i (click)="decrement('day')" class="fas fa-angle-down"></i></td>
+          <td class="sched-fa"></td>
+          <td class="sched-fa"><i (click)="decrement('hour')" class="fas fa-angle-down"></i></td>
+          <td class="sched-fa"></td>
+          <td class="sched-fa"><i (click)="decrement('min')" class="fas fa-angle-down"></i></td>
+        </tr>
+      </table>
+    </form>
+
+  </div>
+  
+</div>

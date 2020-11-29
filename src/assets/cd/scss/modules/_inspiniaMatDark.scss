@@ -403,6 +403,42 @@ p {
   background: inherit !important;
 }
 
+// stepper
+.header .step .label{
+  background: none;
+}
+
+nb-stepper .step-content {
+  width: 100%;
+  border-radius: 5px;
+  background-color: rgb(77, 75, 75);
+}
+
+.hr-line-dashed {
+  border-top: solid 1px gray;
+}
+
+.step-content .label {
+  background-color: rgb(134, 133, 133);
+}
+
+li span {
+  font-size: 9pt;
+}
+
+.list-group .clear-list .list-group-item {
+  font-size: 9pt;
+}
+
+.step-content {
+  overflow-y: scroll;
+}
+
+// list group
+.list-group .clear-list .list-group-item{
+  border-top: 1px solid #7c7c7c;
+}
+
 
 
 // end tabs dark theme

@@ -7,7 +7,6 @@ import { ServerService } from '../../moduleman/controllers/server.service';
 import { AppStateService } from '../../moduleman/controllers/app-state.service';
 import { MenuService } from '../../moduleman/controllers/menu.service';
 import { NotificationService } from '../../comm/controllers/notification.service';
-import { SchedulerService } from '../../scheduler/controllers/scheduler.service';
 import { MessagesService } from '../../comm/controllers/messages.service';
 import { environment } from '../../../../../environments/environment';
 import { User, UserData } from '../models/user-model';
@@ -37,7 +36,6 @@ export class UserService {
     private svServer: ServerService,
     private svMenu: MenuService,
     private svNotif: NotificationService,
-    private svScheduler: SchedulerService,
     private svMessages: MessagesService
   ) { 
     // this.currentProfile.name = 'Login/Register';
@@ -106,7 +104,6 @@ export class UserService {
         this.init(res);
 
         this.svNotif.init(res);
-        this.svScheduler.init(res);
         this.svAppState.setMode('anon');
         this.svMessages.init(res);
         environment.consumer = res['data']['consumer'];

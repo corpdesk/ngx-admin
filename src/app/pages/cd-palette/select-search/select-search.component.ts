@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -15,13 +15,14 @@ import { Emitter } from '@fullcalendar/angular';
 export class SelectSearchComponent implements OnInit, AfterViewInit, OnDestroy {
   
   selectData: any = []; // data source
-  @Output() sendSelData = new EventEmitter(); // used to set sel items on selection change
+  @Output() sendSelData = new EventEmitter(); // used to sync sel items to consumer
   @Input() isInvalidSelItems = true;
   @Input() nameField;
   @Input() IdField;
   @Input() ConsumerInstance;
   @Input() fetchData;
-  @Input() placeholder="Items";
+  @Input() placeholder='Items';
+  @Input() multiple='true';
 
   selectedItems = [];
 

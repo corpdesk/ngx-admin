@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 import { PmsRoutingModule } from './pms-routing.module';
 import { CdPaletteModule } from '../cd-palette/cd-palette.module';
@@ -53,10 +53,27 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMomentDateModule } from '@angular/material-moment-adapter'
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
+
+export const DateFormats = {
+  parse: {
+    dateInput: ['DD-MM-YY']
+  },
+  display: {
+    dateInput: 'DD-MM-YY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 import { TaskRegisterComponent } from './task-register/task-register.component';
 import { TaskSelectComponent } from './task-select/task-select.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { NewScheduleComponent } from './new-schedule/new-schedule.component';
+
 
 
 const materialModules = [
@@ -74,6 +91,8 @@ const materialModules = [
   MatStepperModule,
   MatIconModule,
   MatDividerModule,
+  MatMomentDateModule,
+  MomentDateModule
 ];
 
 
@@ -84,7 +103,7 @@ const materialModules = [
     PmsRoutingModule,
     CdPaletteModule,
     CommonModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     FormsModule,
     NgxMatSelectSearchModule,
     // ToastrModule.forRoot(), // ToastrModule added
@@ -98,14 +117,20 @@ const materialModules = [
     NbUserModule,
     NbCheckboxModule,
     NbRadioModule,
-    NbDatepickerModule,
     NbSelectModule,
     NbIconModule,
     NbStepperModule,
+    NbDatepickerModule.forRoot(),
     ngFormsModule,
     Ng2SmartTableModule,
     NgxMaterialTimepickerModule.setLocale('ar-AE'),
     ...materialModules,
-  ]
+  ],
+  providers: [
+    MatDatepickerModule,
+    MatNativeDateModule,
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: DateFormats }
+  ],
 })
 export class PmsModule { }

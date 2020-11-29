@@ -76,6 +76,7 @@ import { GuigFontsComponent } from './guig-fonts/guig-fonts.component';
 import { GanttNineComponent } from './gantt-nine/gantt-nine.component';
 import { GanttTenComponent } from './gantt-ten/gantt-ten.component';
 import { IBoxComponent } from './i-box/i-box.component';
+import { TimeSpanComponent } from './time-span/time-span.component';
 
 const materialModules = [
   MatExpansionModule,
@@ -118,6 +119,7 @@ const materialModules = [
     GanttNineComponent,
     GanttTenComponent,
     IBoxComponent,
+    TimeSpanComponent,
   ],
   imports: [
     CommonModule,
@@ -210,6 +212,7 @@ const materialModules = [
     GanttTenComponent,
     GuigFontsComponent,
     IBoxComponent,
+    TimeSpanComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

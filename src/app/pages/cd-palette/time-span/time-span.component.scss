@@ -1,0 +1,49 @@
+.sched-duration{
+  margin: 12px;
+  padding-top: 8px;
+}
+.sched-head {
+  text-align: center;
+  font-size: 9pt;
+}
+
+.sched-fa {
+  text-align: center;
+}
+
+.sched-fa:hover {
+  background-color: rgb(43, 39, 40);
+}
+
+.sched-val {
+  text-align: center;
+  border-radius: 5px;
+  background-color: rgb(67, 67, 68);
+}
+
+.sched-val .mat-form-field-wrapper {
+  width: 35px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(68, 67, 67) !important;
+}
+
+td .mat-form-field {
+  width: 35px !important;
+  padding: 0px;
+  margin: 0px;
+}
+
+.mat-select-arrow-wrapper {
+  vertical-align: top;
+}
+
+td .mat-input-element {
+  width: 35px !important;
+}
+
+td .duration-val {
+  text-align: center;
+}

@@ -1,5 +1,5 @@
 <mat-form-field>
-    <mat-select [formControl]="itemMultiCtrl" noEntriesFoundLabel="No option found" [placeholder]="placeholder" [multiple]="true" #multiSelect>
+    <mat-select [formControl]="itemMultiCtrl" noEntriesFoundLabel="No option found" [placeholder]="placeholder" [multiple]="multiple" #multiSelect>
       <mat-option>
         <ngx-mat-select-search placeholderLabel="Search" [formControl]="itemMultiFilterCtrl"></ngx-mat-select-search>
       </mat-option>
@@ -9,15 +9,6 @@
     </mat-select>
   </mat-form-field>
   <br>
-  <!-- <p>
-    Selected UsersW:
-  </p>
-  <ul class="list-unstyled m-t-md" *ngFor="let item of itemMultiCtrl?.value">
-    <li>
-      <span class="fas fa-check-square m-r-xs"></span>
-      <label>{{item[nameField]}}</label>
-    </li>
-  </ul> -->
 
   <ng-container *ngIf="selectionIsValid">
     <mat-form-field class="example-chip-list">

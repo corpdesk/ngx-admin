@@ -151,4 +151,12 @@ export class ScheduleService {
     };
     this.schedule.push(newSchedule);
   }
+
+  leading0(val){
+    if(val < 10 && val > -1){
+      return '0' + val;
+    } else {
+      return val;
+    }
+  }
 }

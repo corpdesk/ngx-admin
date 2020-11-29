@@ -71,7 +71,32 @@ git push origin feat/material-theme --no-verify
 ToDo:
 
 PMS:
-- 
+Project Schedule Settings
+Case 1:
+- project commence_time must be set
+- schedule commene_time must be set
+- schedule name
+- duration
+- end date
+
+Case 2:
+- schedule that is set to start based on on the timing of another schedule:
+    - eg: start after schedul-x
+    - start 2 days before/after a given schedule
+    
+Case 3:
+- project commence date is not known
+- all schedules anchord to the project are done with relative timing
+- set project commence_date to map all schedule on a calendar
+
+Case 4:
+- set schedule for repeat
+
+Case 5:
+- invite participant
+- set project roles
+
+
 - set task to extend beyond gantt area
 - set task to start before the gantt area
 - set task task to spread beyond one month
