@@ -101,9 +101,9 @@ export class ScheduleService {
     };
   }
 
-  registerScheduleObsv(data) {
-    console.log(data);
-    this.setEnvelopeRegSchedule(data);
+  registerScheduleObsv(regData) {
+    console.log(regData);
+    this.setEnvelopeRegSchedule(regData);
     return this.svServer.proc(this.postData);
   }
 
@@ -115,9 +115,7 @@ export class ScheduleService {
       a: 'actionCreate',
       dat: {
         f_vals: [
-          {
-            data: regData
-          }
+          regData
         ],
         docproc: {},
         token: this.svSess.getCdToken()

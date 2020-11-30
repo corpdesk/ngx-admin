@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { timeData, ScheduleSettings } from '../../../@cd/sys/scheduler/models/schedule.model';
+import { TimeData, ScheduleSettings, ScheduleRegData } from '../../../@cd/sys/scheduler/models/schedule.model';
 import { ProjectService } from '../../../@cd/app/pms/controllers/project.service';
 import { ScheduleService } from '../../../@cd/sys/scheduler/controllers/schedule.service';
 import { TimeSpanComponent } from '../../cd-palette/time-span/time-span.component';
@@ -22,7 +22,7 @@ export class NewScheduleComponent implements OnInit {
   linearMode = true;
   regScheduleInvalid = false;
   startDate = new Date();
-  selDuration: timeData;
+  selDuration: TimeData;
   summary = {
     project: null,
     form: null,
@@ -31,6 +31,7 @@ export class NewScheduleComponent implements OnInit {
     durationData: null,
     durationDisplay: null,
     end_date: null,
+    regData: null,
   };
   submitted = false;
   frmRegSchedule: FormGroup;
@@ -74,7 +75,7 @@ export class NewScheduleComponent implements OnInit {
     this.svProject.getProjectsObsv()
       .subscribe(
         (resp: any) => {
-          console.log('ProjectComponents::constructor()/this.svProject.getProjectsObsv()/resp.data:', resp.data);
+          console.log('NewScheduleComponent::constructor()/this.svProject.getProjectsObsv()/resp.data:', resp.data);
           this.ProjectsData = resp.data;
         }
       );
@@ -82,7 +83,7 @@ export class NewScheduleComponent implements OnInit {
     this.svSchedule.getScheduleObsv()
       .subscribe(
         (resp: any) => {
-          console.log('ProjectComponents::constructor()/this.svSchedule.getScheduleObsv()/resp.data:', resp.data);
+          console.log('NewScheduleComponent::constructor()/this.svSchedule.getScheduleObsv()/resp.data:', resp.data);
           this.ScheduleData = resp.data;
         }
       );
@@ -126,7 +127,9 @@ export class NewScheduleComponent implements OnInit {
         break;
       case 2:
         this.summary.durationData = this.ts.getData();
+        console.log('this.summary.durationData:', this.summary.durationData);
         this.summary.durationDisplay = this.ts.getDisplay();
+        this.setRegData();
         break;
     }
 
@@ -140,8 +143,41 @@ export class NewScheduleComponent implements OnInit {
     }
   }
 
-  registerSchedule(frm: FormGroup) {
-    console.log(frm);
+  setRegData() {
+    console.log('starting setRegData()');
+    console.log('this.summary:', this.summary);
+    let regData: ScheduleRegData = {
+      schedulestage: {
+        static_time_based: null,
+        days: null,
+        hrs: null,
+        mins: null,
+        secs: null,
+      },
+      data: {
+        schedule_name: null,
+        project_id: null,
+      }
+    };
+    regData.schedulestage.static_time_based = true;
+    regData.schedulestage.mins = this.summary.durationData.mins;
+    regData.schedulestage.hrs = this.summary.durationData.hrs;
+    regData.schedulestage.days = this.summary.durationData.days + (this.summary.durationData.days * this.summary.durationData.weeks);
+    regData.data.schedule_name = this.summary.form.schedule_name;
+    regData.data.project_id = this.summary.project.project_id;
+    this.summary.regData = regData;
+  }
+
+  registerSchedule() {
+    console.log('starting registerSchedule()');
+    console.log('')
+    this.svSchedule.registerScheduleObsv(this.summary.regData)
+      .subscribe(
+        (resp: any) => {
+          console.log('NewScheduleComponent::registerSchedule()/this.svSchedule.registerScheduleObsv()/resp.data:', resp.data);
+          console.log('resp.data:', resp.data);
+        }
+      );
   }
 
   resetTimeSpan() {
@@ -156,11 +192,11 @@ export class NewScheduleComponent implements OnInit {
     return moment.unix(epoch).format(DATETIME_FORMAT);
   }
 
-  getEndDate(startMoment, durationData) {
+  getEndDate(startMoment, durationData): TimeData {
     let endMoment;
-    endMoment = moment(startMoment).add(durationData.wk, 'weeks');
-    endMoment = moment(endMoment).add(durationData.day, 'days');
-    endMoment = moment(endMoment).add(durationData.hr, 'hours');
+    endMoment = moment(startMoment).add(durationData.weeks, 'weeks');
+    endMoment = moment(endMoment).add(durationData.days, 'days');
+    endMoment = moment(endMoment).add(durationData.hrs, 'hours');
     endMoment = moment(endMoment).add(durationData.min, 'minutes');
     return endMoment.format(DATETIME_FORMAT);
   }

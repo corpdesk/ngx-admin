@@ -27,7 +27,7 @@
         <!-- end tools -->
         <div class="hr-line-dashed"></div>
         <!-- end devider -->
-        <form [formGroup]="frmRegSchedule" (ngSubmit)="registerSchedule(frmRegSchedule)">
+        <form [formGroup]="frmRegSchedule" (ngSubmit)="registerSchedule()">
           <mat-error *ngIf="regScheduleInvalid">
             {{errMsg}}
           </mat-error>
@@ -118,7 +118,7 @@
               title="Refresh inbox"><i class="fas fa-power-off"></i> </button>
             <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mark as read"><i
                 class="fas fa-edit"></i> </button>
-            <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mark as important"><i
+            <button (click)="registerSchedule()" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mark as important"><i
                 class="fa fa-save"></i> </button>
             <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title=""
               data-original-title="Move to trash"><i class="far fa-trash-alt"></i> </button>

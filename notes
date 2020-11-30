@@ -79,6 +79,10 @@ Case 1:
 - duration
 - end date
 
+- save schedule
+- view schedules in gantt
+- edit schedule
+
 Case 2:
 - schedule that is set to start based on on the timing of another schedule:
     - eg: start after schedul-x
@@ -95,6 +99,13 @@ Case 4:
 Case 5:
 - invite participant
 - set project roles
+
+Case 6:
+- push notifications
+- automated action
+- live update of display data
+
+
 
 
 - set task to extend beyond gantt area
@@ -403,6 +414,17 @@ use tree-grid to view modules/menu in hierarchial format
         - 2. Select project
             - getProjects
         - 3. View details to edit
+
+30/11/2020
+- save schedule
+
+29/11/2020
+Case 1:
+- project commence_time must be set
+- schedule commene_time must be set
+- schedule name
+- duration
+- end date
 
 22/11/2020
 - create custom duration selector

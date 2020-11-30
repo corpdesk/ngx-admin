@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { timeData } from '../../../@cd/sys/scheduler/models/schedule.model';
+import { TimeData } from '../../../@cd/sys/scheduler/models/schedule.model';
 
 @Component({
   selector: 'ngx-time-span',
@@ -9,12 +9,12 @@ import { timeData } from '../../../@cd/sys/scheduler/models/schedule.model';
 })
 export class TimeSpanComponent implements OnInit {
   @Output() sendSelData = new EventEmitter(); // used to sync sel items to consumer
-  selectedItems: timeData = {
-    wk: null,
-    day: null,
-    hr: null,
-    min: null,
-    sec: null,
+  selectedItems: TimeData = {
+    weeks: null,
+    days: null,
+    hrs: null,
+    mins: null,
+    secs: null,
   };
 
   selMin = 0;
@@ -201,21 +201,21 @@ export class TimeSpanComponent implements OnInit {
         console.log('validateMin/2:');
         // const toHours = this.getTimeFromMins(Number(val));
         const mins = Number(val);
-        const display: timeData = this.secondsToDhms(mins * 60);
+        const display: TimeData = this.secondsToDhms(mins * 60);
         // moment.utc(moment.duration(4500, "seconds").asMilliseconds()).format("HH:mm")
         // const toHours = moment().startOf('day').add(Number(val), 'minutes').format('hh:mm A');
         console.log('toHours:', display);
         this.sendSelData.emit(display);
-        if (display.hr > 0) {
-          this.frmTimeSpan.controls.durationHour.setValue(this.formattimeData(display.hr));
+        if (display.hrs > 0) {
+          this.frmTimeSpan.controls.durationHour.setValue(this.formatTimeData(display.hrs));
         }
-        if (display.day > 0) {
-          this.frmTimeSpan.controls.durationDay.setValue(this.formattimeData(display.day));
+        if (display.days > 0) {
+          this.frmTimeSpan.controls.durationDay.setValue(this.formatTimeData(display.days));
         }
-        if (display.wk > 0) {
-          this.frmTimeSpan.controls.durationWeek.setValue(this.formattimeData(display.wk));
+        if (display.weeks > 0) {
+          this.frmTimeSpan.controls.durationWeek.setValue(this.formatTimeData(display.weeks));
         }
-        ret = display.min;
+        ret = display.mins;
       }
       console.log('validateMin/3:');
       if (Number(val) < 0) {
@@ -262,15 +262,15 @@ export class TimeSpanComponent implements OnInit {
         const hours = Number(val);
         const display = this.secondsToDhms(hours * 60 * 60);
         console.log('display:', display);
-        if (display.day > 0) {
-          display.day = display.day + currentDayVal;
-          this.frmTimeSpan.controls.durationDay.setValue(this.formattimeData(display.day));
+        if (display.days > 0) {
+          display.days = display.days + currentDayVal;
+          this.frmTimeSpan.controls.durationDay.setValue(this.formatTimeData(display.days));
         }
-        if (display.wk > 0) {
-          display.wk = display.wk + currentWeekVal;
-          this.frmTimeSpan.controls.durationWeek.setValue(this.formattimeData(display.wk));
+        if (display.weeks > 0) {
+          display.weeks = display.weeks + currentWeekVal;
+          this.frmTimeSpan.controls.durationWeek.setValue(this.formatTimeData(display.weeks));
         }
-        ret = display.hr;
+        ret = display.hrs;
       }
       console.log('validateHour/3:');
       if (Number(val) < 0) {
@@ -314,11 +314,11 @@ export class TimeSpanComponent implements OnInit {
         const days = Number(val);
         const display = this.secondsToDhms(days * 60 * 60 * 24);
         console.log('display:', display);
-        if (display.wk > 0) {
-          display.wk = display.wk + currentWeekVal;
-          this.frmTimeSpan.controls.durationWeek.setValue(this.formattimeData(display.wk));
+        if (display.weeks > 0) {
+          display.weeks = display.weeks + currentWeekVal;
+          this.frmTimeSpan.controls.durationWeek.setValue(this.formatTimeData(display.weeks));
         }
-        ret = display.day;
+        ret = display.days;
       }
       console.log('validateDay/3:');
       if (Number(val) < 0) {
@@ -361,7 +361,7 @@ export class TimeSpanComponent implements OnInit {
         const weeks = Number(val);
         const display = this.secondsToDhms(weeks * 60 * 60 * 24 * 7);
         console.log('display:', display);
-        ret = display.wk;
+        ret = display.weeks;
       }
       console.log('validateWeek/3:');
       if (Number(val) < 0) {
@@ -403,10 +403,10 @@ export class TimeSpanComponent implements OnInit {
 
     var hours = Math.floor(mins / 60);
     var minutes = mins % 60;
-    return { hr: hours, min: minutes };
+    return { hrs: hours, mins: minutes };
   }
 
-  secondsToDhms(seconds): timeData {
+  secondsToDhms(seconds): TimeData {
     console.log('starting secondsToDhms(seconds)');
     seconds = Number(seconds);
     
@@ -423,9 +423,9 @@ export class TimeSpanComponent implements OnInit {
     console.log('h:', h);
     // let d;
     // const splitFromDay = this.splitDays(seconds/(3600 * 24));
-    // if (splitFromDay.wk >= 1) {
-    //   w = splitFromDay.wk;
-    //   d = splitFromDay.day;
+    // if (splitFromDay.weeks >= 1) {
+    //   w = splitFromDay.weeks;
+    //   d = splitFromDay.days;
     // } else {
     //   d = 0;
     // }
@@ -433,9 +433,9 @@ export class TimeSpanComponent implements OnInit {
     // let h = Math.floor(seconds % (3600 * 24));
     // let h;
     // const splitFromHr = this.splitHours(seconds / 3600);
-    // if (splitFromHr.hr >= 1) {
-    //   h = splitFromHr.hr;
-    //   d = splitFromHr.day;
+    // if (splitFromHr.hrs >= 1) {
+    //   h = splitFromHr.hrs;
+    //   d = splitFromHr.days;
     // } else {
     //   h = 0;
     // }
@@ -445,26 +445,26 @@ export class TimeSpanComponent implements OnInit {
     let s = Math.floor(seconds % 60);
     console.log('s:', s);
 
-    // var dtimeData = d > 0 ? d + (d == 1 ? " day, " : " days, ") : "";
-    // var htimeData = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
-    // var mtimeData = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
-    // var stimeData = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
-    // return {d: dtimeData, h: htimeData, m: mtimeData, s: stimeData};
-    return { wk: w, day: d, hr: h, min: m, sec: s };
+    // var dTimeData = d > 0 ? d + (d == 1 ? " day, " : " days, ") : "";
+    // var hTimeData = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+    // var mTimeData = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+    // var sTimeData = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+    // return {d: dTimeData, h: hTimeData, m: mTimeData, s: sTimeData};
+    return { weeks: w, days: d, hrs: h, mins: m, secs: s };
   }
 
-  splitHours(numberOfHours): timeData {
+  splitHours(numberOfHours): TimeData {
     console.log('starting splitHours(numberOfHours)');
     let Days = Math.floor(numberOfHours / 24);
     let Remainder = numberOfHours % 24;
     let Hours = Math.floor(Remainder);
     let Minutes = Math.floor(60 * (Remainder - Hours));
-    const ret = { wk: 0, day: Days, hr: Hours, min: Minutes, sec: 0 };
+    const ret = { weeks: 0, days: Days, hrs: Hours, mins: Minutes, secs: 0 };
     console.log('ret:', ret);
     return ret;
   }
 
-  splitDays(days): timeData {
+  splitDays(days): TimeData {
     console.log('starting splitDays(days)');
     console.log('days:', days);
     let Weeks = Math.floor(days / 7);
@@ -472,21 +472,23 @@ export class TimeSpanComponent implements OnInit {
     let Days = days % 7;
     console.log('Days:', Days);
     const ret = {
-      wk: Weeks,
-      day: Days,
-      hr: 0, min: 0, sec: 0
+      weeks: Weeks,
+      days: Days,
+      hrs: 0, mins: 0, secs: 0
     };
     console.log('ret:', ret);
     return ret;
   }
 
-  public getData(): timeData{
+  public getData(): TimeData{
+    console.log('starting getData()');
+    console.log('this.frmTimeSpan.controls.durationHour.value:', this.frmTimeSpan.controls.durationHour.value);
     return { 
-      wk: Number(this.frmTimeSpan.controls.durationWeek.value), 
-      day: Number(this.frmTimeSpan.controls.durationDay.value), 
-      hr: Number(this.frmTimeSpan.controls.durationHour.value), 
-      min: Number(this.frmTimeSpan.controls.durationMin.value), 
-      sec: 0 
+      weeks: Number(this.frmTimeSpan.controls.durationWeek.value), 
+      days: Number(this.frmTimeSpan.controls.durationDay.value), 
+      hrs: Number(this.frmTimeSpan.controls.durationHour.value), 
+      mins: Number(this.frmTimeSpan.controls.durationMin.value), 
+      secs: 0 
     }
   }
 
@@ -505,7 +507,7 @@ export class TimeSpanComponent implements OnInit {
     this.selWeek = 0;
   }
 
-  formattimeData(val) {
+  formatTimeData(val) {
     if (val > -1 && val < 10) {
       return '0' + String(val);
     } else {
