@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ScheduleService } from '../../../@cd/sys/scheduler/controllers/schedule.service'
+import { TimeData, ScheduleSettings, ScheduleRegData } from '../../../@cd/sys/scheduler/models/schedule.model';
+import { ProjectService } from '../../../@cd/app/pms/controllers/project.service';
+import { ScheduleService } from '../../../@cd/sys/scheduler/controllers/schedule.service';
+import { TimeSpanComponent } from '../../cd-palette/time-span/time-span.component';
 
 @Component({
   selector: 'ngx-gantt',
@@ -8,7 +11,7 @@ import { ScheduleService } from '../../../@cd/sys/scheduler/controllers/schedule
 })
 export class GanttComponent implements OnInit {
   title = 'Proj Tasks:';
-  dateStartStr = '2020-02-01';
+  dateStartStr = '2019-02-01';
   projTasks = [
     {
       taskName: 'Task1',
@@ -77,9 +80,13 @@ export class GanttComponent implements OnInit {
       }
     }
   ];
+
   constructor(
-    public svSchedule: ScheduleService
-    ) { }
+    public svSchedule: ScheduleService,
+    
+    ) { 
+      
+    }
 
   ngOnInit(): void {
   }

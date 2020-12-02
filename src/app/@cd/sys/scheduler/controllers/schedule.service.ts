@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ServerService } from '../../../sys/moduleman/controllers/server.service';
 import { SessService } from '../../../sys/user/controllers/sess.service';
+import { ScheduleSettings } from '../models/schedule.model';
+import * as moment from 'moment';
+
+const DATETIME_FORMAT = ScheduleSettings.DATETIME_FORMAT;
+const TIME_FORMAT = ScheduleSettings.TIME_FORMAT;
+const DATE_FORMAT = ScheduleSettings.DATE_FORMAT;
 
 
 @Injectable({
@@ -12,7 +18,7 @@ export class ScheduleService {
   constructor(
     private svServer: ServerService,
     private svSess: SessService,
-  ) { 
+  ) {
     this.schedule = [
       {
         taskName: 'Task1',
@@ -83,7 +89,7 @@ export class ScheduleService {
     ]
   }
 
-  getScheduleObsv(){
+  getScheduleObsv() {
     this.setEnvelopeGetSchedules();
     return this.svServer.proc(this.postData);
   }
@@ -95,6 +101,31 @@ export class ScheduleService {
       c: 'ScheduleController',
       a: 'actionGet',
       dat: {
+        token: this.svSess.getCdToken()
+      },
+      args: null
+    };
+  }
+
+  getProjectScheduleObsv(projectID) {
+    this.setEnvelopeGetProjectSchedule(projectID);
+    return this.svServer.proc(this.postData);
+  }
+
+  setEnvelopeGetProjectSchedule(projectID) {
+    this.postData = {
+      ctx: 'Sys',
+      m: 'Scheduler',
+      c: 'ScheduleController',
+      a: 'actionGetProjectSchedule',
+      dat: {
+        f_vals: [
+          {
+            data: {
+                    project_id: projectID
+            }
+        }
+        ],
         token: this.svSess.getCdToken()
       },
       args: null
@@ -124,7 +155,7 @@ export class ScheduleService {
     };
   }
 
-  addSchedule(){
+  addSchedule() {
     const newSchedule = {
       taskName: 'Task4',
       taskCost: 'USD76.00',
@@ -150,8 +181,16 @@ export class ScheduleService {
     this.schedule.push(newSchedule);
   }
 
-  leading0(val){
-    if(val < 10 && val > -1){
+  mysqlToEpoch(mysqlTime) {
+    return new Date(mysqlTime.replace(' ', 'T')).getTime() / 1000;
+  }
+
+  epochToDateTime(epoch) {
+    return moment.unix(epoch).format(DATETIME_FORMAT);
+  }
+
+  leading0(val) {
+    if (val < 10 && val > -1) {
       return '0' + val;
     } else {
       return val;

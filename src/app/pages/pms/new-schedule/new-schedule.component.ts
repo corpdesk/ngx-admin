@@ -120,8 +120,8 @@ export class NewScheduleComponent implements OnInit {
         this.summary.form = frm.value;
         this.summary.commence_date = `${cDate.date}-${this.svSchedule.leading0(cDate.month)}-${this.svSchedule.leading0(cDate.year)} 00:00:00`;
         const projStartDate = this.summary.project.commence_date;
-        let projStartEpoch = this.mysqlToEpoch(projStartDate);
-        const projectStartMoment = this.epochToDateTime(projStartEpoch);
+        let projStartEpoch = this.svSchedule.mysqlToEpoch(projStartDate);
+        const projectStartMoment = this.svSchedule.epochToDateTime(projStartEpoch);
         this.summary.projectStartEpoch = projStartEpoch;
         this.summary.project.commence_date = projectStartMoment;
         break;
@@ -157,14 +157,16 @@ export class NewScheduleComponent implements OnInit {
       data: {
         schedule_name: null,
         project_id: null,
+        commence_date: null,
       }
     };
     regData.schedulestage.static_time_based = true;
     regData.schedulestage.mins = this.summary.durationData.mins;
     regData.schedulestage.hrs = this.summary.durationData.hrs;
-    regData.schedulestage.days = this.summary.durationData.days + (this.summary.durationData.days * this.summary.durationData.weeks);
+    regData.schedulestage.days = this.summary.durationData.days + (this.summary.durationData.weeks * 7);
     regData.data.schedule_name = this.summary.form.schedule_name;
     regData.data.project_id = this.summary.project.project_id;
+    regData.data.commence_date = this.summary.form.commence_date;
     this.summary.regData = regData;
   }
 
@@ -182,14 +184,6 @@ export class NewScheduleComponent implements OnInit {
 
   resetTimeSpan() {
     this.ts.reset();
-  }
-
-  mysqlToEpoch(mysqlTime) {
-    return new Date(mysqlTime.replace(' ', 'T')).getTime() / 1000;
-  }
-
-  epochToDateTime(epoch) {
-    return moment.unix(epoch).format(DATETIME_FORMAT);
   }
 
   getEndDate(startMoment, durationData): TimeData {

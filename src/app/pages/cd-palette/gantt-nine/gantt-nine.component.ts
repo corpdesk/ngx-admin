@@ -1,6 +1,9 @@
 // Based on: https://oguzhanoya.github.io/jquery-gantt/
 import { Component, OnInit, AfterViewInit, ViewChild, Input, ElementRef, ViewEncapsulation } from '@angular/core';
-import { ScheduleService } from '../../../@cd/sys/scheduler/controllers/schedule.service'
+import { ScheduleService } from '../../../@cd/sys/scheduler/controllers/schedule.service';
+//ScheduleView
+import { ScheduleView } from '../../../@cd/sys/scheduler/models/schedule.model';
+import { ProjectService } from '../../../@cd/app/pms/controllers/project.service';
 import * as moment from 'moment';
 
 interface dDay {
@@ -86,13 +89,14 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
       }
     }
   ];
+  projSchedules = [];
   cellWidthUnit = 20; // width unit 20px
   taskUnitHeight = 38; // height unit 38px
   durationDays = 0;
   totalCellsWidth = 0;
   totalTaskHeight = 0;
 
-  // granularity allow abstructing time unit
+  // granularity allow abstruction of time unit
   // this should then give way to setting 'zoomable time views'
   granularity = [
     {
@@ -177,10 +181,21 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
       dowStr: 'Saturday'
     }
   ];
+
+  // select project params
+  fetchProjData = 'getProjectsObsv'; // server method for fetching
+  isInvalidSelProj = true;
+  selectedProj = [];
+  Projects = [{}];
+  projNameField = 'project_name';
+  projIdField = 'project_id';
+  ProjectsData;
+
   @ViewChild('cdGanttHeader', { read: ElementRef }) public cdGanttHeader: ElementRef<any>;
   constructor(
     private elementRef: ElementRef,
-    public svSchedule: ScheduleService
+    public svSchedule: ScheduleService,
+    public svProject: ProjectService,
   ) {
     this.ganttHeaderMonths = {
       id: 'ganttHeaderMonths',
@@ -220,6 +235,7 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   }
 
   render() {
+    console.log('starting render()');
     this.setHeaderMonths();
     this.setHeaderDays();
     this.setHeaderDaysMin();
@@ -354,6 +370,7 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   }
 
   setTaskBars() {
+    console.log('starting setTaskBars()');
     const cdGanttEvents = document.getElementById('cdGanttEvents') as HTMLElement;
     cdGanttEvents.style.width = `${this.totalCellsWidth}px`;
     //ganttHeaderDaysMin
@@ -387,9 +404,11 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
         console.log('task.taskGanttEventRow.id:', task.taskGanttEventRow.id);
       }
       const left = (Number(task.divGanttEvent.startDay) + 1) * this.cellWidthUnit;
+      console.log('left:', left);
       divGanttEvent.style.left = `${left}px`;
       // divGanttEvent.style.left = `${task.divGanttEvent.startDay}px`;
       const width = Number(task.taskGanttEventBlock.noOfDays) * this.cellWidthUnit;
+      console.log('width:', width);
       taskGanttEventBlock.style.width = `${width}px`;
       // taskGanttEventBlock.style.width = `${task.taskGanttEventBlock.width}px`;
     });
@@ -398,7 +417,7 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   removeHeaderMonths() {
     this.level2.forEach((h) => {
       let element = document.getElementById(h.id);
-      if(element){
+      if (element) {
         element.parentNode.removeChild(element);
       }
     });
@@ -424,14 +443,15 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   removeHeaderDays() {
     this.DAYS.forEach((h) => {
       const headerDay = document.getElementById('gantt-header-day' + '-' + h.d + '-' + h.m + '-' + h.y) as HTMLElement;
-      if(headerDay){
+      if (headerDay) {
         headerDay.parentNode.removeChild(headerDay);
       }
-      
+
     });
   }
 
   setHeaderDays() {
+    console.log('starting setHeaderDays()');
     this.removeHeaderDays();
     const ganttHeaderDays = this.elementRef.nativeElement.querySelector('#ganttHeaderDays') as HTMLElement;
     const cls = 'gantt-header-day';
@@ -515,14 +535,15 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   removeHeaderDaysMin() {
     this.DAYS.forEach((h) => {
       const headerDayMin = document.getElementById('gantt-header-day-min' + '-' + h.d + '-' + h.m + '-' + h.y) as HTMLElement;
-      if(headerDayMin){
+      if (headerDayMin) {
         headerDayMin.parentNode.removeChild(headerDayMin);
       }
-      
+
     });
   }
 
   setHeaderDaysMin() {
+    console.log('starting setHeaderDaysMin()');
     this.removeHeaderDaysMin();
     const ganttHeaderDaysMin = this.elementRef.nativeElement.querySelector('#ganttHeaderDaysMin') as HTMLElement;
     const cls = 'gantt-header-day-min';
@@ -541,13 +562,14 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   removeGridCols() {
     this.DAYS.forEach((h) => {
       const headerDayMin = document.getElementById('gantt-grid-col' + '-' + h.d + '-' + h.m + '-' + h.y) as HTMLElement;
-      if(headerDayMin){
+      if (headerDayMin) {
         headerDayMin.parentNode.removeChild(headerDayMin);
       }
     });
   }
 
   setGridCols() {
+    console.log('starting setGridCols()');
     this.removeGridCols();
     const cdGanttGrid = this.elementRef.nativeElement.querySelector('#cdGanttGridCols') as HTMLElement;
     const cls = 'gantt-grid-col';
@@ -578,13 +600,14 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   removeGridRows() {
     this.svSchedule.schedule.forEach((task) => {
       const gridRow = document.getElementById(`${task.taskGanttGridRow.id}`) as HTMLElement;
-      if(gridRow){
+      if (gridRow) {
         gridRow.parentNode.removeChild(gridRow);
       }
     });
   }
 
   setGridRows() {
+    console.log('starting setGridRows()');
     this.removeGridRows();
     const ganttGridRows = this.elementRef.nativeElement.querySelector('#ganttGridRows') as HTMLElement;
     let htmlHeader = '';
@@ -597,24 +620,30 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   removeGanttEvents() {
     this.svSchedule.schedule.forEach((task) => {
       const gridEventRow = document.getElementById(`${task.taskGanttEventRow.id}`) as HTMLElement;
-      if(gridEventRow){
+      if (gridEventRow) {
         gridEventRow.parentNode.removeChild(gridEventRow);
       }
     });
   }
 
   setGanttEvents() {
+    console.log('starting setGanttEvents()');
     this.removeGanttEvents();
     const cdGanttEvents = this.elementRef.nativeElement.querySelector('#cdGanttEvents') as HTMLElement;
     let htmlHeader = '';
     this.svSchedule.schedule.forEach((task) => {
+      const left = (Number(task.divGanttEvent.startDay) - 1) * this.cellWidthUnit;
+      console.log('left:', left);
+      console.log('task.divGanttEvent.startDay:', task.divGanttEvent.startDay);
+      const width = Number(task.taskGanttEventBlock.noOfDays) * this.cellWidthUnit;
+      console.log('task.taskGanttEventBlock.noOfDays:', task.taskGanttEventBlock.noOfDays);
       htmlHeader += `<div id="${task.taskGanttEventRow.id}" class="gantt-event-row" style="height: ${this.taskUnitHeight}px;">
         <div id="${task.divGanttEvent.id}" ngxCdTooltip [tooltipTitle]="displayToolTip(${task})" placement="left" delay="500"
-          class="gantt-event" style="left: 100px;">
+          class="gantt-event" style="left: ${left}px;">
           <a 
             id="${task.taskGanttEventBlock.id}" 
             class="gantt-event-block tourFly"
-            style="width: 100px; line-height: 10px;" 
+            style="width: ${width}px; line-height: 10px;" 
             href="http://www.example.com/1"
             target="_blank">${task.taskName}</a>
           <div class="gantt-event-icon">
@@ -627,7 +656,7 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
     });
     cdGanttEvents.style.width = `${this.totalCellsWidth}px`;
     cdGanttEvents.insertAdjacentHTML('afterbegin', htmlHeader);
-    this.taskSize();
+    // this.taskSize();
   }
 
   taskToolTip(task) {
@@ -730,6 +759,81 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
     // taskGanttEventBlock.style.width = `${task.taskGanttEventBlock.width}px`;
 
   }
+
+  getSelectedProj(selProj) {
+    console.log('selProj:', selProj);
+    this.selectedProj = selProj;
+    this.loadSchedules();
+  }
+
+  loadSchedules() {
+    console.log('starting load()');
+    this.svSchedule.getProjectScheduleObsv(this.selectedProj['project_id'])
+      .subscribe(
+        (resp: any) => {
+          console.log('GanttComponent::load()/this.svSchedule.getProjectScheduleObsv()/resp.data:', resp.data);
+          this.processSchedules(resp.data);
+        }
+      );
+  }
+
+  async processSchedules(schedules: ScheduleView[]) {
+    console.log('starting processSchedules(schedules)');
+    console.log('schedules:', schedules);
+    this.projTasks = [];
+    schedules.forEach((s, i) => {
+      const schedule = {
+        taskName: s.schedule_name,
+        taskCost: 'USD43.00',
+        taskDesc: s.schedule_description,
+        schedule: s,
+        taskGanttGridRow: {
+          id: 'taskGanttGridRow-' + s.schedule_id,
+          width: 0,
+          height: 38
+        },
+        taskGanttEventRow: {
+          id: 'taskGanttEventRow-' + s.schedule_id,
+          height: 38
+        },
+        divGanttEvent: {
+          id: 'divGanttEvent-' + s.schedule_id,
+          startDay: this.setCommenceDay(s)
+        },
+        taskGanttEventBlock: {
+          id: 'taskGanttEventBlock-' + s.schedule_id,
+          noOfDays: s.days,
+        }
+      };
+      this.projTasks.push(schedule);
+      // if(i == (schedules.length - 1)){
+      //   this.svSchedule.schedule = this.projTasks;
+      //   this.DAYS = this.getDays();
+      //   this.render();
+      // }
+    });
+
+    this.svSchedule.schedule = this.projTasks;
+    console.log('this.svSchedule.schedule:', this.svSchedule.schedule);
+    this.DAYS = this.getDays();
+    this.render();
+  }
+
+  setCommenceDay(s: ScheduleView) {
+    console.log('starting getStartDay()');
+    let dateStartStrEpoch = this.svSchedule.mysqlToEpoch(this.dateStartStr);
+    console.log('dateStartStrEpoch:', dateStartStrEpoch);
+    let commence_dateEpoch = this.svSchedule.mysqlToEpoch(s.commence_date);
+    console.log('commence_dateEpoch:', commence_dateEpoch);
+    const diffTime = Math.abs(commence_dateEpoch - dateStartStrEpoch);
+    const diffDays = Math.ceil(diffTime / (60 * 60 * 24));
+    console.log('this.dateStartStr:', this.dateStartStr);
+    console.log('s.commence_date:', s.commence_date);
+    console.log('s.days:', s.days);
+    console.log('diffDays:', diffDays);
+    return diffDays;
+  }
+
 
 }
 

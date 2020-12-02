@@ -78,12 +78,16 @@ Case 1:
 - schedule name
 - duration
 - end date
-
 - save schedule
-- view schedules in gantt
-- edit schedule
+- confirm adding weeks to days on saving
+- load schedules
+- view schedules in gant
+- correct insertion for scheduler/commence_date
+- distinguish between scheduler/commence_date and project/commence_date in scheduler_view
+
 
 Case 2:
+- edit schedule
 - schedule that is set to start based on on the timing of another schedule:
     - eg: start after schedul-x
     - start 2 days before/after a given schedule
@@ -112,6 +116,7 @@ Case 6:
 - set task to start before the gantt area
 - set task task to spread beyond one month
 - click view existing task details
+
 - set editing form
 - set entry form for gantt
     - npm install --save ngx-material-timepicker
@@ -414,6 +419,13 @@ use tree-grid to view modules/menu in hierarchial format
         - 2. Select project
             - getProjects
         - 3. View details to edit
+
+02/12/2020
+- confirm adding weeks to days on saving
+- load schedules
+- view schedules in gant
+- correct insertion for scheduler/commence_date
+- distinguish between scheduler/commence_date and project/commence_date in scheduler_view
 
 30/11/2020
 - save schedule

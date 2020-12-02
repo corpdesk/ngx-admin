@@ -56,6 +56,49 @@ export interface ScheduleRegData {
   }
 }
 
+export interface ScheduleView {
+  active: any;
+  calendar_next_stage: number;
+  commence_date: string;
+  consumer_guid: string;
+  days: number;
+  doc_id: number;
+  duration: number;
+  duration_unit: any;
+  hrs: number;
+  init_stage_id: number;
+  max_participants: number;
+  min_participants: number;
+  mins: number;
+  project_description: string;
+  project_guid: string;
+  project_id: number;
+  project_name: string;
+  reminder_stage_id: number;
+  schedule_condition_id: number;
+  schedule_description: string;
+  schedule_guid: string;
+  schedule_id: number;
+  schedule_name: string;
+  schedulecomm_id: number;
+  schedulestage_description: string;
+  schedulestage_duration2next: number;
+  schedulestage_duration2previous: number;
+  schedulestage_guid: string;
+  schedulestage_id: number;
+  schedulestage_is_conditional: any;
+  schedulestage_msg: string;
+  schedulestage_name: string;
+  schedulestage_next: number;
+  schedulestage_order: number;
+  schedulestage_previous: number;
+  secs: number;
+  stage_timeout: number;
+  static_time_based: any;
+  time_based_order: number;
+  ussd_menu_id: number;
+}
+
 export class ScheduleSettings {
   public static TIME_FORMAT = 'HH:mm:ss';
   public static DATE_FORMAT = 'DD-MM-YYYY';
