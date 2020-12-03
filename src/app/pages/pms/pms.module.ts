@@ -59,10 +59,10 @@ import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-ad
 
 export const DateFormats = {
   parse: {
-    dateInput: ['DD-MM-YY']
+    dateInput: ['YYYY-MM-DD']
   },
   display: {
-    dateInput: 'DD-MM-YY',
+    dateInput: 'YYYY-MM-DD',
     monthYearLabel: 'MMM YYYY',
     dateA11yLabel: 'LL',
     monthYearA11yLabel: 'MMMM YYYY',

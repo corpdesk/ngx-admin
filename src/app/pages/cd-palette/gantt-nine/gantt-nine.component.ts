@@ -1,10 +1,13 @@
 // Based on: https://oguzhanoya.github.io/jquery-gantt/
 import { Component, OnInit, AfterViewInit, ViewChild, Input, ElementRef, ViewEncapsulation } from '@angular/core';
 import { ScheduleService } from '../../../@cd/sys/scheduler/controllers/schedule.service';
-//ScheduleView
-import { ScheduleView } from '../../../@cd/sys/scheduler/models/schedule.model';
+import { ScheduleView, ScheduleSettings } from '../../../@cd/sys/scheduler/models/schedule.model';
 import { ProjectService } from '../../../@cd/app/pms/controllers/project.service';
 import * as moment from 'moment';
+
+const CURRENCY = ScheduleSettings.CURRENCY;
+const CHAR_WIDTH = 5;
+const MAX_DESC_LEN = 100;
 
 interface dDay {
   d: number;
@@ -95,6 +98,8 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   durationDays = 0;
   totalCellsWidth = 0;
   totalTaskHeight = 0;
+
+
 
   // granularity allow abstruction of time unit
   // this should then give way to setting 'zoomable time views'
@@ -632,31 +637,103 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
     const cdGanttEvents = this.elementRef.nativeElement.querySelector('#cdGanttEvents') as HTMLElement;
     let htmlHeader = '';
     this.svSchedule.schedule.forEach((task) => {
-      const left = (Number(task.divGanttEvent.startDay) - 1) * this.cellWidthUnit;
+      const left = (Number(task.divGanttEvent.startDay) + 1) * this.cellWidthUnit;
       console.log('left:', left);
       console.log('task.divGanttEvent.startDay:', task.divGanttEvent.startDay);
       const width = Number(task.taskGanttEventBlock.noOfDays) * this.cellWidthUnit;
       console.log('task.taskGanttEventBlock.noOfDays:', task.taskGanttEventBlock.noOfDays);
+      const taskName = this.getTaskName(task, width);
+      const taskIcon = this.getTaskIcon(task);
+      const taskLink = this.getTaskLink(task);
+      const taskCost = this.getTaskCost(task);
+      const taskDesc = this.taskDesc(task);
+      const taskOnClick = this.taskOnClick(task);
       htmlHeader += `<div id="${task.taskGanttEventRow.id}" class="gantt-event-row" style="height: ${this.taskUnitHeight}px;">
         <div id="${task.divGanttEvent.id}" ngxCdTooltip [tooltipTitle]="displayToolTip(${task})" placement="left" delay="500"
           class="gantt-event" style="left: ${left}px;">
           <a 
             id="${task.taskGanttEventBlock.id}" 
+            ${taskOnClick}
             class="gantt-event-block tourFly"
             style="width: ${width}px; line-height: 10px;" 
-            href="http://www.example.com/1"
-            target="_blank">${task.taskName}</a>
+            ${taskLink}
+            target="_blank">${taskName}</a>
           <div class="gantt-event-icon">
-            <div class="tourFly"></div>
+            ${taskIcon}
           </div>
-          <div class="gantt-event-price">${task.taskCost}</div>
-          <div class="gantt-event-desc">${task.taskDesc}</div>
+          <div class="gantt-event-price">${taskCost}</div>
+          <div class="gantt-event-desc">${taskDesc}</div>
         </div>
       </div>`;
     });
     cdGanttEvents.style.width = `${this.totalCellsWidth}px`;
     cdGanttEvents.insertAdjacentHTML('afterbegin', htmlHeader);
     // this.taskSize();
+  }
+
+  /**
+   *  10 chars fills 40px width
+      so one char spans 4px
+      The following show how much chars of lable can be allowed
+      min width with text = 3 chars + 3 dots = 4 x 3 + 4x3 = 24
+      which means min width with text = 24
+      Else
+      if lable-chars + 2 > width, 
+      then... show 3 dots + (width - 3)/4px chars
+   * @param task 
+   * @param width 
+   */
+  getTaskName(task, width) {
+    console.log('starting getTaskName(task, width)');
+    console.log('task.taskName:', task.taskName);
+    console.log('width:', width);
+    console.log('task.taskName.length:', task.taskName.length);
+    // do not show
+    if (width < 24 || task.taskName == '') {
+      return '';
+    }
+    else if (((task.taskName.length + 3) * CHAR_WIDTH) > width) {
+      const displayChars = (width - (5 * CHAR_WIDTH)) / CHAR_WIDTH;
+      return task.taskName.substr(0, displayChars) + '...';
+    }
+    else if ((task.taskName.length + CHAR_WIDTH) * CHAR_WIDTH < width) {
+      return task.taskName;
+    }
+    else {
+      return task.taskName;
+    }
+
+  }
+
+  getTaskIcon(task) {
+    return '<i class="fab fa-pagelines"></i>'
+  }
+
+  getTaskLink(task) {
+    // return 'href="http://www.example.com/1"';
+    return '';
+  }
+
+  getTaskCost(task) {
+    return CURRENCY + task.taskCost;
+  }
+
+  taskDesc(task) {
+    if (task.taskDesc == null) {
+      task.taskDesc = '';
+    }
+    return task.taskDesc;
+  }
+
+  taskOnClick(task) {
+    const id = task.taskGanttEventBlock.id;
+    // return `onclick="taskBarAction('${id}')"`;
+    return '';
+  }
+
+  taskBarAction(id) {
+    console.log('starting taskBarAction(task)');
+    console.log('id:', id);
   }
 
   taskToolTip(task) {
@@ -784,7 +861,7 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
     schedules.forEach((s, i) => {
       const schedule = {
         taskName: s.schedule_name,
-        taskCost: 'USD43.00',
+        taskCost: String(s.schedule_cost),
         taskDesc: s.schedule_description,
         schedule: s,
         taskGanttGridRow: {
@@ -806,11 +883,6 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
         }
       };
       this.projTasks.push(schedule);
-      // if(i == (schedules.length - 1)){
-      //   this.svSchedule.schedule = this.projTasks;
-      //   this.DAYS = this.getDays();
-      //   this.render();
-      // }
     });
 
     this.svSchedule.schedule = this.projTasks;

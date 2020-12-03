@@ -88,6 +88,7 @@ Case 1:
 
 Case 2:
 - edit schedule
+- completion status of task bar
 - schedule that is set to start based on on the timing of another schedule:
     - eg: start after schedul-x
     - start 2 days before/after a given schedule
@@ -419,6 +420,30 @@ use tree-grid to view modules/menu in hierarchial format
         - 2. Select project
             - getProjects
         - 3. View details to edit
+
+03/12/2020
+refinement:
+- appearance of description...done
+- reduce size of lables
+- change icon
+    - icon html setting:
+          <div class="gantt-event-icon">
+            <div class="tourFly"></div>
+          </div>
+    - icon css setting:
+        .gantt-wrapper .gantt-container .gantt-events .gantt-event .gantt-event-icon > .tourFly {
+            width: 17px;
+            height: 17px;
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAb1BMVEUAAAC9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8e9w8cXImY3AAAAJHRSTlMABZv4EdGzq6KVjXRkXQn87uLeu5SRbEA2IRvIqoZ5VVBIMCaNv17HAAAAh0lEQVQYGQXBh0HDQAAAMb2d3iGhd7j9Z0QCAHx/AgC2tfCzfx4AD/XOpua3h+MfdrU6MY73VV2u61oNMA73VdV6AIzDXVW/ABjXqgMAHquaAHisaVNLsLssV5u6eTl3PsE4LqsdpnoCbOsZL3N7gKkvmFoDLOY9vM53ALYf4NYCYPEKTk/4B7gWC+clE1bCAAAAAElFTkSuQmCC");
+        }
+
+- if lable, description, icon, or price is not available, display for the text should be off.
+- project date showing 'Invalid date'
+- display of selected start date is not accurate
+
+- use '...' when lable is longer than bar or longer than max allowed
+- user '...' when descripion is longer than max allowed
+- set taskbar click event...NOT DONE YET
 
 02/12/2020
 - confirm adding weeks to days on saving

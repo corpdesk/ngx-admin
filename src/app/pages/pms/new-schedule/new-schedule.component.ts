@@ -8,7 +8,6 @@ import { TimeSpanComponent } from '../../cd-palette/time-span/time-span.componen
 import * as moment from 'moment';
 
 const DATETIME_FORMAT = ScheduleSettings.DATETIME_FORMAT;
-const TIME_FORMAT = ScheduleSettings.TIME_FORMAT;
 const DATE_FORMAT = ScheduleSettings.DATE_FORMAT;
 
 @Component({
@@ -27,6 +26,7 @@ export class NewScheduleComponent implements OnInit {
     project: null,
     form: null,
     projectStartEpoch: null,
+    scheduleStartEpoch: null,
     commence_date: null,
     durationData: null,
     durationDisplay: null,
@@ -66,6 +66,7 @@ export class NewScheduleComponent implements OnInit {
     this.frmRegSchedule = new FormGroup({
       schedule_name: new FormControl(),
       commence_date: new FormControl(),
+      schedule_description: new FormControl(),
     });
 
     this.frmRegMenu = new FormGroup({
@@ -102,32 +103,30 @@ export class NewScheduleComponent implements OnInit {
   }
 
   getSelectedProj(selProj) {
-    console.log('selProj:', selProj);
     this.selectedProj = selProj;
   }
 
   getSelectedDuration(selDuration) {
-    console.log('selDuration:', selDuration);
     this.selDuration = selDuration;
-    console.log('this.selDuration:', this.selDuration);
   }
 
   getParams(step, frm) {
-    const cDate = frm.value.commence_date._i;
+    console.log('starting getParams(step,frm)');
+    let cDate = frm.value.commence_date._i;
+
     switch (step) {
       case 1:
         this.summary.project = this.selectedProj;
         this.summary.form = frm.value;
-        this.summary.commence_date = `${cDate.date}-${this.svSchedule.leading0(cDate.month)}-${this.svSchedule.leading0(cDate.year)} 00:00:00`;
-        const projStartDate = this.summary.project.commence_date;
+        this.summary.commence_date = `${this.svSchedule.leading0(cDate.year)}-${this.svSchedule.leading0(cDate.month + 1)}-${cDate.date} 00:00:00`;
+        this.summary.scheduleStartEpoch = this.svSchedule.mysqlToEpoch(this.summary.commence_date);
+        const projStartDate = this.selectedProj['commence_date'];
         let projStartEpoch = this.svSchedule.mysqlToEpoch(projStartDate);
         const projectStartMoment = this.svSchedule.epochToDateTime(projStartEpoch);
         this.summary.projectStartEpoch = projStartEpoch;
-        this.summary.project.commence_date = projectStartMoment;
         break;
       case 2:
         this.summary.durationData = this.ts.getData();
-        console.log('this.summary.durationData:', this.summary.durationData);
         this.summary.durationDisplay = this.ts.getDisplay();
         this.setRegData();
         break;
@@ -145,7 +144,6 @@ export class NewScheduleComponent implements OnInit {
 
   setRegData() {
     console.log('starting setRegData()');
-    console.log('this.summary:', this.summary);
     let regData: ScheduleRegData = {
       schedulestage: {
         static_time_based: null,
@@ -158,8 +156,10 @@ export class NewScheduleComponent implements OnInit {
         schedule_name: null,
         project_id: null,
         commence_date: null,
+        schedule_description: null,
       }
     };
+
     regData.schedulestage.static_time_based = true;
     regData.schedulestage.mins = this.summary.durationData.mins;
     regData.schedulestage.hrs = this.summary.durationData.hrs;
@@ -167,6 +167,7 @@ export class NewScheduleComponent implements OnInit {
     regData.data.schedule_name = this.summary.form.schedule_name;
     regData.data.project_id = this.summary.project.project_id;
     regData.data.commence_date = this.summary.form.commence_date;
+    regData.data.schedule_description = this.summary.form.schedule_description;
     this.summary.regData = regData;
   }
 

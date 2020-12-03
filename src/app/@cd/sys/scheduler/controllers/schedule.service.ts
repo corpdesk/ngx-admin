@@ -19,74 +19,7 @@ export class ScheduleService {
     private svServer: ServerService,
     private svSess: SessService,
   ) {
-    this.schedule = [
-      {
-        taskName: 'Task1',
-        taskCost: 'USD43.00',
-        taskDesc: 'Descrp one',
-        taskGanttGridRow: {
-          id: 'taskGanttGridRow-1',
-          width: 0,
-          height: 38
-        },
-        taskGanttEventRow: {
-          id: 'taskGanttEventRow-1',
-          height: 38
-        },
-        divGanttEvent: {
-          id: 'divGanttEvent-1',
-          startDay: 3
-        },
-        taskGanttEventBlock: {
-          id: 'taskGanttEventBlock-1',
-          noOfDays: 5,
-        }
-      },
-      {
-        taskName: 'Task2',
-        taskCost: 'USD15.00',
-        taskDesc: 'Descrp two',
-        taskGanttGridRow: {
-          id: 'taskGanttGridRow-2',
-          width: 0,
-          height: 38
-        },
-        taskGanttEventRow: {
-          id: 'taskGanttEventRow-2',
-          height: 38
-        },
-        divGanttEvent: {
-          id: 'divGanttEvent-2',
-          startDay: 15
-        },
-        taskGanttEventBlock: {
-          id: 'taskGanttEventBlock-2',
-          noOfDays: 12,
-        }
-      },
-      {
-        taskName: 'Task3',
-        taskCost: 'USD76.00',
-        taskDesc: 'Descrp three',
-        taskGanttGridRow: {
-          id: 'taskGanttGridRow-3',
-          width: 0,
-          height: 38
-        },
-        taskGanttEventRow: {
-          id: 'taskGanttEventRow-3',
-          height: 38
-        },
-        divGanttEvent: {
-          id: 'divGanttEvent-3',
-          startDay: 23
-        },
-        taskGanttEventBlock: {
-          id: 'taskGanttEventBlock-3',
-          noOfDays: 5,
-        }
-      }
-    ]
+    this.schedule = []
   }
 
   getScheduleObsv() {
@@ -122,9 +55,9 @@ export class ScheduleService {
         f_vals: [
           {
             data: {
-                    project_id: projectID
+              project_id: projectID
             }
-        }
+          }
         ],
         token: this.svSess.getCdToken()
       },
@@ -182,7 +115,11 @@ export class ScheduleService {
   }
 
   mysqlToEpoch(mysqlTime) {
-    return new Date(mysqlTime.replace(' ', 'T')).getTime() / 1000;
+    console.log('starting mysqlToEpoch(mysqlTime)');
+    console.log('mysqlTime:', mysqlTime);
+    const tStr = mysqlTime.replace(' ', 'T');
+    console.log('tStr:', tStr);
+    return new Date(tStr).getTime() / 1000;
   }
 
   epochToDateTime(epoch) {

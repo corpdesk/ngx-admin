@@ -52,7 +52,7 @@
           </mat-form-field>
           <br>
           <mat-form-field>
-            <input matInput formControlName="commence_date" [matDatepicker]="picker" placeholder="Commencement date">
+            <input matInput readonly formControlName="commence_date" [matDatepicker]="picker" placeholder="Commencement date">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
           </mat-form-field>
