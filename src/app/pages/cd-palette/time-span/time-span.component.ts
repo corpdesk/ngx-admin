@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { TimeData } from '../../../@cd/sys/scheduler/models/schedule.model';
 
@@ -9,6 +9,7 @@ import { TimeData } from '../../../@cd/sys/scheduler/models/schedule.model';
 })
 export class TimeSpanComponent implements OnInit {
   @Output() sendSelData = new EventEmitter(); // used to sync sel items to consumer
+  @Input() value: TimeData;
   selectedItems: TimeData = {
     weeks: null,
     days: null,

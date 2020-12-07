@@ -73,6 +73,7 @@ import { TaskRegisterComponent } from './task-register/task-register.component';
 import { TaskSelectComponent } from './task-select/task-select.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { NewScheduleComponent } from './new-schedule/new-schedule.component';
+import { TaskEditComponent } from './task-edit/task-edit.component';
 
 
 
@@ -97,7 +98,7 @@ const materialModules = [
 
 
 @NgModule({
-  declarations: [DashboardComponent, ProjectsComponent, GanttComponent, SchedulerComponent, PmsComponent, ActivityComponent, ProjectSummaryComponent, ProjectDetailsComponent, ProjectDashboardComponent, ProjectInfoComponent, ProjectTabsComponent, ProjectListComponent, ProjectRegisterComponent, ProjectSelectComponent, TaskRegisterComponent, TaskSelectComponent, TaskListComponent, NewScheduleComponent],
+  declarations: [DashboardComponent, ProjectsComponent, GanttComponent, SchedulerComponent, PmsComponent, ActivityComponent, ProjectSummaryComponent, ProjectDetailsComponent, ProjectDashboardComponent, ProjectInfoComponent, ProjectTabsComponent, ProjectListComponent, ProjectRegisterComponent, ProjectSelectComponent, TaskRegisterComponent, TaskSelectComponent, TaskListComponent, NewScheduleComponent, TaskEditComponent],
   imports: [
     CommonModule,
     PmsRoutingModule,

@@ -69,6 +69,9 @@ git push origin feat/material-theme --no-verify
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ToDo:
+Floating Button:
+https://mdbootstrap.com/snippets/jquery/vrivero/2265260#html-tab-view
+- chat
 
 PMS:
 Project Schedule Settings
@@ -87,8 +90,13 @@ Case 1:
 
 
 Case 2:
+- implement click event to schedules task-bars
+    - create emittable for task-bar(gantt-nine) click
+    - consumer to sense clicked task-bar
+    - consumer to view setpper  for create/edit
+    - consumer onTaskBarClicked(), stepper invoke next()
 - edit schedule
-- completion status of task bar
+- completion status on task bar
 - schedule that is set to start based on on the timing of another schedule:
     - eg: start after schedul-x
     - start 2 days before/after a given schedule
@@ -420,6 +428,14 @@ use tree-grid to view modules/menu in hierarchial format
         - 2. Select project
             - getProjects
         - 3. View details to edit
+
+07/12/2020
+- implement click event to schedules task-bars
+    - create emittable for task-bar(gantt-nine) click
+    - consumer to sense clicked task-bar
+    - consumer to view setpper  for create/edit
+    - consumer onTaskBarClicked(), stepper invoke next()
+
 
 03/12/2020
 refinement:

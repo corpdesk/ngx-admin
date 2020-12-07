@@ -48,6 +48,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { MatBadgeModule } from '@angular/material/badge';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
 import { ProfileAccordionComponent } from './profile-accordion/profile-accordion.component';
@@ -77,6 +78,7 @@ import { GanttNineComponent } from './gantt-nine/gantt-nine.component';
 import { GanttTenComponent } from './gantt-ten/gantt-ten.component';
 import { IBoxComponent } from './i-box/i-box.component';
 import { TimeSpanComponent } from './time-span/time-span.component';
+import { HeaderOneComponent } from './header-one/header-one.component';
 
 const materialModules = [
   MatExpansionModule,
@@ -94,6 +96,7 @@ const materialModules = [
   MatChipsModule,
   MatIconModule,
   MatTooltipModule,
+  MatBadgeModule,
 ];
 
 @NgModule({
@@ -120,6 +123,7 @@ const materialModules = [
     GanttTenComponent,
     IBoxComponent,
     TimeSpanComponent,
+    HeaderOneComponent,
   ],
   imports: [
     CommonModule,
@@ -213,6 +217,7 @@ const materialModules = [
     GuigFontsComponent,
     IBoxComponent,
     TimeSpanComponent,
+    HeaderOneComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

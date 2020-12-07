@@ -1,8 +1,10 @@
 // Based on: https://oguzhanoya.github.io/jquery-gantt/
-import { Component, OnInit, AfterViewInit, ViewChild, Input, ElementRef, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, Input,Output, ElementRef, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { ScheduleService } from '../../../@cd/sys/scheduler/controllers/schedule.service';
 import { ScheduleView, ScheduleSettings } from '../../../@cd/sys/scheduler/models/schedule.model';
 import { ProjectService } from '../../../@cd/app/pms/controllers/project.service';
+import { HeaderOneComponent } from '../header-one/header-one.component';
+
 import * as moment from 'moment';
 
 const CURRENCY = ScheduleSettings.CURRENCY;
@@ -21,77 +23,12 @@ interface dDay {
   encapsulation: ViewEncapsulation.None,
 })
 export class GanttNineComponent implements OnInit, AfterViewInit {
-
+  @ViewChild(HeaderOneComponent) compHeader: HeaderOneComponent;
   @Input() title = 'Tasks:';
   @Input() dateStartStr = '2019-02-01';
-  @Input() projTasks = [
-    {
-      taskName: 'Task1',
-      taskCost: 'USD43.00',
-      taskDesc: 'Descrp one',
-      taskGanttGridRow: {
-        id: 'taskGanttGridRow-1',
-        width: 0,
-        height: 38
-      },
-      taskGanttEventRow: {
-        id: 'taskGanttEventRow-1',
-        height: 38
-      },
-      divGanttEvent: {
-        id: 'divGanttEvent-1',
-        startDay: 16
-      },
-      taskGanttEventBlock: {
-        id: 'taskGanttEventBlock-1',
-        noOfDays: 5,
-      }
-    },
-    {
-      taskName: 'Task2',
-      taskCost: 'USD15.00',
-      taskDesc: 'Descrp two',
-      taskGanttGridRow: {
-        id: 'taskGanttGridRow-2',
-        width: 0,
-        height: 38
-      },
-      taskGanttEventRow: {
-        id: 'taskGanttEventRow-2',
-        height: 38
-      },
-      divGanttEvent: {
-        id: 'divGanttEvent-2',
-        startDay: 22
-      },
-      taskGanttEventBlock: {
-        id: 'taskGanttEventBlock-2',
-        noOfDays: 7,
-      }
-    },
-    {
-      taskName: 'Task3',
-      taskCost: 'USD76.00',
-      taskDesc: 'Descrp three',
-      taskGanttGridRow: {
-        id: 'taskGanttGridRow-3',
-        width: 0,
-        height: 38
-      },
-      taskGanttEventRow: {
-        id: 'taskGanttEventRow-3',
-        height: 38
-      },
-      divGanttEvent: {
-        id: 'divGanttEvent-3',
-        startDay: 19
-      },
-      taskGanttEventBlock: {
-        id: 'taskGanttEventBlock-3',
-        noOfDays: 10,
-      }
-    }
-  ];
+  @Input() projTasks = [];
+  @Output() sendSelSchedule = new EventEmitter(); // used to sync sel items to consumer
+  selectedSchedule;
   projSchedules = [];
   cellWidthUnit = 20; // width unit 20px
   taskUnitHeight = 38; // height unit 38px
@@ -99,7 +36,42 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   totalCellsWidth = 0;
   totalTaskHeight = 0;
 
-
+  //header:
+  headerData = {
+    title: 'Project Title',
+    byLine: 'date',
+    description: '',
+    featureStats: {
+      no: '206 480',
+      item: 'Sales in last 24h'
+    },
+    stats: [
+      {
+        no: 142,
+        item: 'Projects'
+      },
+      {
+        no: 22,
+        item: 'Followers'
+      },
+      {
+        no: 61,
+        item: 'Comments'
+      },
+      {
+        no: 44,
+        item: 'Articles'
+      },
+      {
+        no: 154,
+        item: 'Tags'
+      },
+      {
+        no: 32,
+        item: 'Friends'
+      }
+    ]
+  }
 
   // granularity allow abstruction of time unit
   // this should then give way to setting 'zoomable time views'
@@ -647,13 +619,11 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
       const taskLink = this.getTaskLink(task);
       const taskCost = this.getTaskCost(task);
       const taskDesc = this.taskDesc(task);
-      const taskOnClick = this.taskOnClick(task);
       htmlHeader += `<div id="${task.taskGanttEventRow.id}" class="gantt-event-row" style="height: ${this.taskUnitHeight}px;">
         <div id="${task.divGanttEvent.id}" ngxCdTooltip [tooltipTitle]="displayToolTip(${task})" placement="left" delay="500"
           class="gantt-event" style="left: ${left}px;">
           <a 
             id="${task.taskGanttEventBlock.id}" 
-            ${taskOnClick}
             class="gantt-event-block tourFly"
             style="width: ${width}px; line-height: 10px;" 
             ${taskLink}
@@ -668,21 +638,14 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
     });
     cdGanttEvents.style.width = `${this.totalCellsWidth}px`;
     cdGanttEvents.insertAdjacentHTML('afterbegin', htmlHeader);
-    // this.taskSize();
+
+    this.svSchedule.schedule.forEach((task) => {
+      this.elementRef.nativeElement.querySelector(`#${task.taskGanttEventBlock.id}`)
+        .addEventListener('click', this.taskOnClick.bind(this));
+    });
+
   }
 
-  /**
-   *  10 chars fills 40px width
-      so one char spans 4px
-      The following show how much chars of lable can be allowed
-      min width with text = 3 chars + 3 dots = 4 x 3 + 4x3 = 24
-      which means min width with text = 24
-      Else
-      if lable-chars + 2 > width, 
-      then... show 3 dots + (width - 3)/4px chars
-   * @param task 
-   * @param width 
-   */
   getTaskName(task, width) {
     console.log('starting getTaskName(task, width)');
     console.log('task.taskName:', task.taskName);
@@ -725,10 +688,27 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
     return task.taskDesc;
   }
 
-  taskOnClick(task) {
-    const id = task.taskGanttEventBlock.id;
-    // return `onclick="taskBarAction('${id}')"`;
-    return '';
+  taskOnClick(e: any) {
+    console.log('starting taskOnClick(e)')
+    // console.log('e.target.id', e.target.id)
+    // console.log('e:', e);
+    let elemID = '';
+    if ('target' in e) {
+      console.log('e.target:', e.target.id);
+      elemID = e.target.id;
+    }
+
+    const dbID = elemID.replace('taskGanttEventBlock-', '');
+    console.log('dbID:', dbID);
+
+    this.selectedSchedule = this.svSchedule.schedule.filter((s) => {
+      if (s.taskID == dbID) {
+        return s;
+      }
+    });
+    console.log('this.selectedSchedule:', this.selectedSchedule);
+    this.sendSelSchedule.emit(this.selectedSchedule);
+
   }
 
   taskBarAction(id) {
@@ -751,8 +731,6 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
       taskGanttEventBlock.style.width = `${width}px`;
     });
   }
-
-
 
   addSchedule() {
     const newSchedule = {
@@ -858,8 +836,17 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
     console.log('starting processSchedules(schedules)');
     console.log('schedules:', schedules);
     this.projTasks = [];
-    schedules.forEach((s, i) => {
+    this.headerData.title = schedules[0].project_name;
+    this.headerData.byLine = schedules[0].proj_commence_date;
+    this.headerData.description = schedules[0].project_description;
+    this.compHeader.addStat({
+      no: schedules.length,
+      item: 'Tasks/Schedules'
+    });
+    schedules.forEach((s: ScheduleView, i) => {
+
       const schedule = {
+        taskID: s.schedule_id,
         taskName: s.schedule_name,
         taskCost: String(s.schedule_cost),
         taskDesc: s.schedule_description,

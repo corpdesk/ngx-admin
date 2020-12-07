@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { TimeData, ScheduleSettings, ScheduleRegData } from '../../../@cd/sys/scheduler/models/schedule.model';
 import { ProjectService } from '../../../@cd/app/pms/controllers/project.service';
 import { ScheduleService } from '../../../@cd/sys/scheduler/controllers/schedule.service';
+import { ScheduleView } from '../../../@cd/sys/scheduler/models/schedule.model';
 import { TimeSpanComponent } from '../../cd-palette/time-span/time-span.component';
+import { NbStepperComponent } from '@nebular/theme';
 
 import * as moment from 'moment';
 
@@ -17,7 +19,9 @@ const DATE_FORMAT = ScheduleSettings.DATE_FORMAT;
   encapsulation: ViewEncapsulation.None,
 })
 export class NewScheduleComponent implements OnInit {
-  @ViewChild(TimeSpanComponent) ts: TimeSpanComponent;
+  @ViewChild(TimeSpanComponent) compTs: TimeSpanComponent;
+  @ViewChild('stepper') stepper: NbStepperComponent;
+
   linearMode = true;
   regScheduleInvalid = false;
   startDate = new Date();
@@ -57,6 +61,8 @@ export class NewScheduleComponent implements OnInit {
   scheduleIdField = 'schedule_id';
   ScheduleData;
 
+  public editMode = false;
+
   constructor(
     private fb: FormBuilder,
     public svProject: ProjectService,
@@ -64,6 +70,7 @@ export class NewScheduleComponent implements OnInit {
   ) {
 
     this.frmRegSchedule = new FormGroup({
+      project_id: new FormControl(),
       schedule_name: new FormControl(),
       commence_date: new FormControl(),
       schedule_description: new FormControl(),
@@ -113,21 +120,33 @@ export class NewScheduleComponent implements OnInit {
   getParams(step, frm) {
     console.log('starting getParams(step,frm)');
     let cDate = frm.value.commence_date._i;
+    console.log('cDate:', cDate);
+    console.log('frm.value.commence_date:', frm.value.commence_date);
 
     switch (step) {
       case 1:
         this.summary.project = this.selectedProj;
         this.summary.form = frm.value;
-        this.summary.commence_date = `${this.svSchedule.leading0(cDate.year)}-${this.svSchedule.leading0(cDate.month + 1)}-${cDate.date} 00:00:00`;
+        if (typeof (cDate) == 'string') {
+          this.summary.commence_date = cDate;
+        }
+        if (typeof (cDate) == 'object') {
+          this.summary.commence_date = `${this.svSchedule.leading0(cDate.year)}-${this.svSchedule.leading0(cDate.month + 1)}-${cDate.date} 00:00:00`;
+        }
+
         this.summary.scheduleStartEpoch = this.svSchedule.mysqlToEpoch(this.summary.commence_date);
+        console.log('this.summary.scheduleStartEpoch:', this.summary.scheduleStartEpoch);
         const projStartDate = this.selectedProj['commence_date'];
+        console.log('this.selectedProj:', this.selectedProj);
+        console.log('projStartDate:', projStartDate);
         let projStartEpoch = this.svSchedule.mysqlToEpoch(projStartDate);
+        console.log('projStartEpoch:', projStartEpoch);
         const projectStartMoment = this.svSchedule.epochToDateTime(projStartEpoch);
         this.summary.projectStartEpoch = projStartEpoch;
         break;
       case 2:
-        this.summary.durationData = this.ts.getData();
-        this.summary.durationDisplay = this.ts.getDisplay();
+        this.summary.durationData = this.compTs.getData();
+        this.summary.durationDisplay = this.compTs.getDisplay();
         this.setRegData();
         break;
     }
@@ -184,7 +203,7 @@ export class NewScheduleComponent implements OnInit {
   }
 
   resetTimeSpan() {
-    this.ts.reset();
+    this.compTs.reset();
   }
 
   getEndDate(startMoment, durationData): TimeData {
@@ -194,6 +213,94 @@ export class NewScheduleComponent implements OnInit {
     endMoment = moment(endMoment).add(durationData.hrs, 'hours');
     endMoment = moment(endMoment).add(durationData.min, 'minutes');
     return endMoment.format(DATETIME_FORMAT);
+  }
+
+  selectedProjectData(projectID) {
+    const ret = this.ProjectsData.filter((p) => {
+      if (p.project_id == projectID) {
+        return p;
+      }
+    });
+    if (ret) {
+      return ret[0];
+    }
+    else {
+      return null;
+    }
+
+  }
+
+  stepperNext() {
+    this.stepper.next();
+  }
+
+  stepperPrev() {
+    this.stepper.previous();
+  }
+
+  stepperGetCurrPage() {
+    console.log('starting stepperGetPage()');
+    console.log('this.stepper.steps:', this.stepper.steps);
+    return this.stepper.selectedIndex;
+  }
+
+  stepperGetSteps() {
+    console.log('starting stepperGetSteps()');
+    console.log('this.stepper.steps:', this.stepper.steps);
+    return this.stepper.steps;
+  }
+
+  stepperGoToFirst() {
+    while (this.stepper.selectedIndex > 0) {
+      this.stepper.previous();
+    }
+  }
+
+  async stepperGoToLast() {
+    console.log('starting stepperGoToLast()');
+    const lastIndex = this.stepper.steps.length - 1;
+    console.log('lastIndex:', lastIndex);
+    let currIndex = this.stepper.selectedIndex;
+    while (currIndex < lastIndex) {
+      this.getParams(currIndex + 1,this.frmRegSchedule)
+      this.stepper.next();
+      currIndex = this.stepper.selectedIndex;
+      console.log('currIndex:', currIndex);
+      await this.delay(100);
+    }
+  }
+
+  // for consumers to auto set data that can be used
+  // to edit a schedule
+  stepperSetData(scheduleData) {
+    console.log('starting stepperSetData(scheduleData)');
+    console.log('scheduleData:', scheduleData);
+    this.stepperGoToFirst();
+    // this.frmRegSchedule.controls.project_id.setValue(scheduleData.schedule.project_id);
+    this.selectedProj = this.selectedProjectData(scheduleData[0].schedule.project_id);
+    console.log('this.selectedProj:', this.selectedProj);
+    this.frmRegSchedule.controls.schedule_name.setValue(scheduleData[0].taskName);
+    this.frmRegSchedule.controls.schedule_description.setValue(scheduleData[0].schedule.schedule_description);
+    this.setCommenceDate(scheduleData[0].schedule.commence_date);
+    this.setDuration(scheduleData[0].schedule);
+    this.stepperGoToLast();
+  }
+
+  setCommenceDate(d) {
+    this.frmRegSchedule.patchValue({
+      commence_date: moment(d, "YYYY/MM/DD HH:mm:ss")
+    });
+  }
+
+  setDuration(s: ScheduleView) {
+    this.compTs.frmTimeSpan.controls.durationMin.setValue(s.mins);
+    this.compTs.frmTimeSpan.controls.durationHour.setValue(s.hrs);
+    this.compTs.frmTimeSpan.controls.durationDay.setValue(s.days % 7);
+    this.compTs.frmTimeSpan.controls.durationWeek.setValue(Math.floor(s.days / 7));
+  }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
 }

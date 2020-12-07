@@ -1,0 +1,29 @@
+@import '../../../../assets/cd/inspinia/css/style.css';
+@import '../../../../assets/cd/scss/modules/fonts';
+@import '../../../../assets/cd/scss/modules/inspiniaMatDark';
+
+h2{
+    font-weight: 100;
+    font-size: 24;
+}
+
+h3, h4, h5 {
+    font-weight: 600;
+}
+h4 {
+    font-size: 12px;
+}
+
+// .label,
+// {
+//     color: white !important;
+//     background: rgb(92, 91, 91) !important;
+// }
+
+.nb-theme-material-dark .label {
+    color: white !important;
+}
+.label-success, .badge-success {
+    background: #34495e !important;
+    color: #FFFFFF !important;
+}

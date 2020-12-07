@@ -1,0 +1,48 @@
+<div class="row m-b-lg m-t-lg">
+    <div class="col-md-6">
+
+        <div class="profile-image">
+            <img src="../../../../assets/cd/branding/coop/coops_logo.png" class="rounded-circle circle-border m-b-md" alt="profile">
+        </div>
+        <div class="profile-info">
+            <div class="">
+                <div>
+                    <h2 class="no-margins">
+                        {{headerData.title}}
+                    </h2>
+                    <h4>{{headerData.byLine}}</h4>
+                    <small>
+                        {{headerData.description}}
+                    </small>
+                    <!-- <p>
+                        <span matBadge="4" matBadgeOverlap="false">Text with a badge</span>
+                      </p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <table class="table small m-b-xs">
+            <tbody id="tStats">
+            <!-- <tr *ngFor="let row of StatsPairs" class="row-stat">
+                <td *ngIf="row.first">
+                    <strong>{{row.first.no}}</strong> {{row.first.item}}
+                    <span matBadge="{{row.first.no}}" matBadgeOverlap="false">{{row.first.item}}</span>
+                </td>
+                <td *ngIf="row.second">
+                    <strong>{{row.second.no}}</strong> {{row.second.item}}
+                    <span matBadge="{{row.second.no}}" matBadgeOverlap="false">{{row.second.item}}</span>
+                </td>
+            </tr> -->
+            
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-3">
+        <small>{{headerData.featureStats.item}}</small>
+        <h2 class="no-margins">{{headerData.featureStats.no}}</h2>
+        <div id="sparkline1"><canvas style="display: inline-block; width: 219.722px; height: 50px; vertical-align: top;" width="219" height="50"></canvas></div>
+    </div>
+
+
+</div>
