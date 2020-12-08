@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { TimeData, ScheduleSettings, ScheduleRegData } from '../../../@cd/sys/scheduler/models/schedule.model';
 import { ProjectService } from '../../../@cd/app/pms/controllers/project.service';
 import { ScheduleService } from '../../../@cd/sys/scheduler/controllers/schedule.service';
-import { ScheduleView } from '../../../@cd/sys/scheduler/models/schedule.model';
+import { ScheduleView, ScheduleUpdateData, } from '../../../@cd/sys/scheduler/models/schedule.model';
 import { TimeSpanComponent } from '../../cd-palette/time-span/time-span.component';
 import { NbStepperComponent } from '@nebular/theme';
 
@@ -192,7 +192,6 @@ export class NewScheduleComponent implements OnInit {
 
   registerSchedule() {
     console.log('starting registerSchedule()');
-    console.log('')
     this.svSchedule.registerScheduleObsv(this.summary.regData)
       .subscribe(
         (resp: any) => {
@@ -262,7 +261,7 @@ export class NewScheduleComponent implements OnInit {
     console.log('lastIndex:', lastIndex);
     let currIndex = this.stepper.selectedIndex;
     while (currIndex < lastIndex) {
-      this.getParams(currIndex + 1,this.frmRegSchedule)
+      this.getParams(currIndex + 1, this.frmRegSchedule)
       this.stepper.next();
       currIndex = this.stepper.selectedIndex;
       console.log('currIndex:', currIndex);
@@ -275,6 +274,7 @@ export class NewScheduleComponent implements OnInit {
   stepperSetData(scheduleData) {
     console.log('starting stepperSetData(scheduleData)');
     console.log('scheduleData:', scheduleData);
+    this.selectedSchedule = scheduleData;
     this.stepperGoToFirst();
     // this.frmRegSchedule.controls.project_id.setValue(scheduleData.schedule.project_id);
     this.selectedProj = this.selectedProjectData(scheduleData[0].schedule.project_id);
@@ -288,7 +288,7 @@ export class NewScheduleComponent implements OnInit {
 
   setCommenceDate(d) {
     this.frmRegSchedule.patchValue({
-      commence_date: moment(d, "YYYY/MM/DD HH:mm:ss")
+      commence_date: moment(d, "YYYY/MM/DD")
     });
   }
 
@@ -301,6 +301,62 @@ export class NewScheduleComponent implements OnInit {
 
   delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  /**
+   * {
+    "ctx": "Sys",
+    "m": "Scheduler",
+    "c": "ScheduleController",
+    "a": "actionUpdate",
+    "dat": {
+        "f_vals": [
+            {
+                "filter": [
+                    {
+                        "field": "schedule_id",
+                        "operator": "=",
+                        "val": "104"
+                    }
+                ],
+                "schedulestage": {
+                    "days": "3",
+                    "hrs": "16",
+                    "schedulestage_name": "xxxx"
+                },
+                "data": {
+                    "schedule_name": "nursury preparation",
+                    "schedule_description": "testing description2"
+                }
+            }
+        ],
+        "token": "mT6blaIfqWhzNXQLG8ksVbc1VodSxRZ8lu5cMgda"
+    },
+    "args": null
+}
+   */
+  updateSchedule() {
+    console.log('starting updateSchedule()');
+    console.log('this.summary.regData:', this.summary.regData);
+    const updateDate: ScheduleUpdateData = {
+      filter: [
+        {
+          field: 'schedule_id',
+          operator: '=',
+          val: this.selectedSchedule[0].schedule.schedule_id
+        }
+      ],
+      schedulestage:this.summary.regData.schedulestage,
+      data: this.summary.regData.data,
+    }; 
+    console.log('updateDate:', updateDate);
+    this.svSchedule.updateScheduleObsv(updateDate)
+      .subscribe(
+        (resp: any) => {
+          console.log('NewScheduleComponent::updateSchedule()/this.svSchedule.registerScheduleObsv()/resp.data:', resp.data);
+          console.log('resp.data:', resp.data);
+        }
+      );
   }
 
 }

@@ -88,6 +88,62 @@ export class ScheduleService {
     };
   }
 
+  updateScheduleObsv(updateData) {
+    console.log(updateData);
+    this.setEnvelopeUpdateSchedule(updateData);
+    return this.svServer.proc(this.postData);
+  }
+
+  /**
+   * {
+    "ctx": "Sys",
+    "m": "Scheduler",
+    "c": "ScheduleController",
+    "a": "actionUpdate",
+    "dat": {
+        "f_vals": [
+            {
+                "filter": [
+                    {
+                        "field": "schedule_id",
+                        "operator": "=",
+                        "val": "104"
+                    }
+                ],
+                "schedulestage": {
+                    "days": "3",
+                    "hrs": "16",
+                    "schedulestage_name": "xxxx"
+                },
+                "data": {
+                    "schedule_name": "nursury preparation",
+                    "schedule_description": "testing description2"
+                }
+            }
+        ],
+        "token": "mT6blaIfqWhzNXQLG8ksVbc1VodSxRZ8lu5cMgda"
+    },
+    "args": null
+}
+   * @param updateData 
+   */
+  setEnvelopeUpdateSchedule(updateData) {
+    this.postData = {
+      ctx: 'Sys',
+      m: 'Scheduler',
+      c: 'ScheduleController',
+      a: 'actionUpdate',
+      dat: {
+        f_vals: [
+          updateData
+        ],
+        docproc: {},
+        token: this.svSess.getCdToken()
+      },
+      args: null
+    };
+  }
+
   addSchedule() {
     const newSchedule = {
       taskName: 'Task4',

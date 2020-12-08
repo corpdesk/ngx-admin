@@ -124,7 +124,7 @@ const materialModules = [
     NbDatepickerModule.forRoot(),
     ngFormsModule,
     Ng2SmartTableModule,
-    NgxMaterialTimepickerModule.setLocale('ar-AE'),
+    NgxMaterialTimepickerModule.setLocale('en-GB'), // see for options https://www.w3schools.com/jsref/jsref_tolocalestring.asp
     ...materialModules,
   ],
   providers: [

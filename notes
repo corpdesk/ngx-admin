@@ -68,10 +68,64 @@ git push origin feat/material-theme --no-verify
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+FEATURES:
+__________________________________________________
+MODULES DEVELOPMENT AND AVAILABILITY:
+- allow INDEPENDENT DEVELOPERS to develop LICENCED MODULES and upload to CD-MARKET
+- modules can be FREE DOWNLOAD or COMMERCIAL
+- end-users to search and download modules from CD-MARKET
+- AUTOMATED upgrade of modules and system
+
+__________________________________________________
+CLOUD-READY
+- replicatable db
+- round robin dns for laravel logic layer
+- capacity to distribute servers geographically
+- failover support
+- distributed servers for files and multimedia
+- automated migration
+
+__________________________________________________
+MOBILE-READY
+
+__________________________________________________
+security
+    - network-level
+    - sql level
+    - DNS-level
+    - angular
+    - 2-factor-auth
+    - sql
+
+__________________________________________________
+migration to pure json platform
+
+__________________________________________________
+BASIC MODULES
+- comm
+- pms
+- hrm
+- accts
+- interact
+- services
+    - e-commerce
+
+FEATURE MODULES
+- nacotrack
+- booking
+- billing
+
+//////////////////////////////////////////////
+
+__________________________________________________
+DEVELOPMENT
+
 ToDo:
 Floating Button:
 https://mdbootstrap.com/snippets/jquery/vrivero/2265260#html-tab-view
 - chat
+
+
 
 PMS:
 Project Schedule Settings
@@ -90,12 +144,27 @@ Case 1:
 
 
 Case 2:
-- implement click event to schedules task-bars
+- implement click event to schedules task-bars...DONE
     - create emittable for task-bar(gantt-nine) click
     - consumer to sense clicked task-bar
     - consumer to view setpper  for create/edit
     - consumer onTaskBarClicked(), stepper invoke next()
 - edit schedule
+    - develop edit mode
+    - 'update' button should be enabled when edit mode is on
+    - 'save' button should be disabled when 'edit' mode is active
+    - do css visuals for diabled buttons
+    - implement update to db
+    - implement immediate display changes on task-bar
+    - display server response status success/failure and error messages
+    - bug: erronious time offset is introduced on edit
+        - Try: https://stackblitz.com/edit/angular-custom-date-picker-tjl?file=app%2Fuser-date-format.ts
+            - module cannot be found: moment-timezone
+            - npm i @types/moment-timezone 
+            - 'default': Module moment-timezone has no exported member 'default'
+            - solution: https://stackoverflow.com/questions/54766706/moment-has-no-exported-member-default
+
+
 - completion status on task bar
 - schedule that is set to start based on on the timing of another schedule:
     - eg: start after schedul-x
@@ -428,6 +497,14 @@ use tree-grid to view modules/menu in hierarchial format
         - 2. Select project
             - getProjects
         - 3. View details to edit
+
+08/12/202
+- bug: erronious time offset is introduced on edit
+        - Try: https://stackblitz.com/edit/angular-custom-date-picker-tjl?file=app%2Fuser-date-format.ts
+            - module cannot be found: moment-timezone
+            - npm i @types/moment-timezone 
+            - 'default': Module moment-timezone has no exported member 'default'
+            - solution: https://stackoverflow.com/questions/54766706/moment-has-no-exported-member-default
 
 07/12/2020
 - implement click event to schedules task-bars
@@ -1128,6 +1205,9 @@ Set pages structure with routing:
     change name: 'default' to eg name: 'material-dark'
 - added @cd folder
 - npm install ng2-file-upload 
+
+
+
 
 
 

@@ -24,9 +24,10 @@ import {
 } from '@nebular/theme';
 import { CalendarModule } from 'angular-calendar';
 import { SanitizeHtmlPipe } from './@cd/guig/sanitize-html.pipe';
+import { UserDateFormatPipe } from './@cd/guig/pipes/user-date-format.pipe';
 
 @NgModule({
-  declarations: [AppComponent, SanitizeHtmlPipe],
+  declarations: [AppComponent, SanitizeHtmlPipe, UserDateFormatPipe],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
