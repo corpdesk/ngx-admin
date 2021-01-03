@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-8">
+    <div id="pubs-container" class="col-lg-8">
         <div class="ibox">
             <div class="ibox-content text-center">
 
@@ -12,7 +12,62 @@
 
         </div>
 
-        <div class="social-feed-box">
+        <div id="new-pub" class="social-footer">
+            <div class="social-comment">
+                <a href="" class="float-left">
+                    <img alt="image" src="../../../../assets/cd/inspinia/img/a3.jpg">
+                </a>
+                <div class="media-body">
+                     <textarea class="form-control" placeholder="New post..."></textarea>
+                     <div class="btn-group-container">
+                        <div class="btn-group">
+                            <button (click)="addPub()" data-toggle="tooltip" data-placement="top" title="save" class="btn btn-white btn-xs"><i class="fas fa-share"></i> publish</button>
+                            <button data-toggle="tooltip" data-placement="top" title="Upload image" class="btn btn-white btn-xs"><i class="fas fa-file-image"></i></button>
+                            <button data-toggle="tooltip" data-placement="top" title="Upload audio" class="btn btn-white btn-xs"><i class="fas fa-file-audio"></i> </button>
+                            <button data-toggle="tooltip" data-placement="top" title="Upload video" class="btn btn-white btn-xs"><i class="far fa-file-video"></i> </button>
+                            <button data-toggle="tooltip" data-placement="top" title="Upload pdf" class="btn btn-white btn-xs"><i class="fas fa-file-pdf"></i> </button>
+                            <button data-toggle="tooltip" data-placement="top" title="insert link" class="btn btn-white btn-xs"><i class="fas fa-link"></i> </button>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngFor="let pub of svInteRactPub.Pubs" class="social-feed-box">
+
+            <div class="float-right social-action dropdown">
+                <button data-toggle="dropdown" class="dropdown-toggle btn-white">
+                </button>
+                <ul class="dropdown-menu m-t-xs">
+                    <li><a href="#">Config</a></li>
+                </ul>
+            </div>
+            <div class="social-avatar">
+                <a href="" class="float-left">
+                    <img alt="image" src="../../../../assets/cd/inspinia/img/a1.jpg">
+                </a>
+                <div class="media-body">
+                    <a href="#">
+                        {{pub.fullname}}
+                    </a>
+                    <small class="text-muted">{{pub.doc_date}}</small>
+                </div>
+            </div>
+            <div class="social-body">
+                <div [innerHTML]="getPubBody(pub)"></div>
+
+                <div class="btn-group">
+                    <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this!</button>
+                    <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button>
+                    <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> Share</button>
+                </div>
+            </div>
+            
+
+        </div>
+        
+
+        <!-- <div class="social-feed-box">
 
             <div class="float-right social-action dropdown">
                 <button data-toggle="dropdown" class="dropdown-toggle btn-white">
@@ -63,6 +118,43 @@
                         <br/>
                         <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 26 Like this!</a> -
                         <small class="text-muted">12.06.2019</small>
+                        
+                        <div class="comment-reply">
+                            <div class="social-comment">
+                                <a href="" class="float-left">
+                                    <img alt="image" src="../../../../assets/cd/inspinia/img/a2.jpg">
+                                </a>
+                                <div class="media-body">
+                                    <a href="#">
+                                        Bettyrose Akinyi
+                                    </a>
+                                    I had several similar conversations at OPEN, but consensus seemed to be that the CoTech forum is 
+                                    working as it has a focus. CUK host several other ‘thematic’ forums (such as the Community Shares 
+                                    Practitioner and Community Energy networks) and have found the focus of these to be the key to generating 
+                                    good content/engagement.
+                                    <br/>
+                                    <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 26 Like this!</a> -
+                                    <small class="text-muted">12.06.2019</small>
+                                </div>
+                            </div>
+                            <div class="social-comment">
+                                <a href="" class="float-left">
+                                    <img alt="image" src="../../../../assets/cd/inspinia/img/a2.jpg">
+                                </a>
+                                <div class="media-body">
+                                    <a href="#">
+                                        Bettyrose Akinyi
+                                    </a>
+                                    I had several similar conversations at OPEN, but consensus seemed to be that the CoTech forum is 
+                                    working as it has a focus. CUK host several other ‘thematic’ forums (such as the Community Shares 
+                                    Practitioner and Community Energy networks) and have found the focus of these to be the key to generating 
+                                    good content/engagement.
+                                    <br/>
+                                    <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 26 Like this!</a> -
+                                    <small class="text-muted">12.06.2019</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -87,14 +179,24 @@
                     </a>
                     <div class="media-body">
                          <textarea class="form-control" placeholder="Write comment..."></textarea>
+                         <div class="btn-group-container">
+                            <div class="btn-group">
+                                <button data-toggle="tooltip" data-placement="top" title="Upload image" class="btn btn-white btn-xs"><i class="fas fa-file-image"></i></button>
+                                <button data-toggle="tooltip" data-placement="top" title="Upload audio" class="btn btn-white btn-xs"><i class="fas fa-file-audio"></i> </button>
+                                <button data-toggle="tooltip" data-placement="top" title="Upload video" class="btn btn-white btn-xs"><i class="far fa-file-video"></i> </button>
+                                <button data-toggle="tooltip" data-placement="top" title="Upload pdf" class="btn btn-white btn-xs"><i class="fas fa-file-pdf"></i> </button>
+                                <button data-toggle="tooltip" data-placement="top" title="insert link" class="btn btn-white btn-xs"><i class="fas fa-link"></i> </button>
+                            </div>
+                         </div>
+                         
                     </div>
                 </div>
 
             </div>
 
-        </div>
+        </div> -->
 
-        <div class="social-feed-box">
+        <!-- <div class="social-feed-box">
 
             <div class="float-right social-action dropdown">
                 <button data-toggle="dropdown" class="dropdown-toggle btn-white">
@@ -189,9 +291,9 @@
 
             </div>
 
-        </div>
+        </div> -->
 
-        <div class="social-feed-box">
+        <!-- <div class="social-feed-box">
 
             <div class="float-right social-action dropdown">
                 <button data-toggle="dropdown" class="dropdown-toggle btn-white">
@@ -255,7 +357,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
     </div>
     <div class="col-lg-4">

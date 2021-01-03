@@ -19,7 +19,7 @@
       <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
 
     </div>
-    <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Refresh inbox"><i
+    <button (click)="render()" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Refresh inbox"><i
         class="fa fa-refresh"></i> Refresh</button>
     <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mark as read"><i
         class="fa fa-eye"></i> </button>
@@ -31,11 +31,38 @@
   </div>
 </div>
 <div class="mail-box">
-
   <table class="table table-hover table-mail">
-    <tbody>
-      <ng-container *ngFor="let item of svConversation.conversation">
-        <tr id="{{item.commconversation_id}}" [class]="docAttended(item.attended)">
+    <tbody id="memoList" *ngIf="svConversation.trayMode == 1">
+      <ng-container *ngFor="let item of svConversation.InBoxData">
+        <tr  id="{{item.commconversation_id}}" [class]="docAttended(item.attended)">
+          <td class="check-mail">
+            <input type="checkbox" class="i-checks">
+          </td>
+          <td class="mail-ontact"><a>{{item.sender_name}}</a></td>
+          <td (click)="rowSelect({commconversation_id: item.commconversation_id, doc_id: item.doc_id})"
+            class="mail-subject"><a>{{item.subject}}</a></td>
+          <td class=""><i *ngIf="hasAttachment(item)" class="fa fa-paperclip"></i></td>
+          <td class="text-right mail-date">{{item.doc_date}}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+    <tbody id="memoList" *ngIf="svConversation.trayMode == 2">
+      <ng-container *ngFor="let item of svConversation.OutBoxData">
+        <tr  id="{{item.commconversation_id}}" [class]="docAttended(item.attended)">
+          <td class="check-mail">
+            <input type="checkbox" class="i-checks">
+          </td>
+          <td class="mail-ontact"><a>{{item.sender_name}}</a></td>
+          <td (click)="rowSelect({commconversation_id: item.commconversation_id, doc_id: item.doc_id})"
+            class="mail-subject"><a>{{item.subject}}</a></td>
+          <td class=""><i *ngIf="hasAttachment(item)" class="fa fa-paperclip"></i></td>
+          <td class="text-right mail-date">{{item.doc_date}}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+    <tbody id="memoList" *ngIf="svConversation.trayMode == 3">
+      <ng-container *ngFor="let item of svConversation.InBoxDataPush">
+        <tr  id="{{item.commconversation_id}}" [class]="docAttended(item.attended)">
           <td class="check-mail">
             <input type="checkbox" class="i-checks">
           </td>
@@ -48,6 +75,4 @@
       </ng-container>
     </tbody>
   </table>
-
-
 </div>

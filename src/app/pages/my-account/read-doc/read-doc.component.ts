@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { subscribeOn } from 'rxjs/operators';
 import { CommconversationService } from '../../../@cd/sys/comm/controllers/commconversation.service';
 import { DocModeOpts, ConversationItem, CommConversationSub, CommData } from '../../../@cd/sys/comm/models/comm.model';
+import { SocketIoService } from '../../../@cd/sys/cd-push/controllers/socket-io.service'
 
 @Component({
   selector: 'ngx-read-doc',
@@ -13,6 +14,7 @@ export class ReadDocComponent implements OnInit, AfterViewInit {
   selectedConversation: ConversationItem;
   constructor(
     public svConversation: CommconversationService,
+    private svSocket: SocketIoService,
   ) { }
 
   ngOnInit(): void {
@@ -30,6 +32,33 @@ export class ReadDocComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.loadHtml();
+  }
+
+  // set all the events that compose-doc should listen to
+  pushSubscribe() {
+    this.svSocket.listen('response').subscribe(data => {
+      console.log('Response received');
+      console.log(data);
+    });
+
+    this.svSocket.listen('broadcast-message').subscribe(data => {
+      console.log('Response received');
+      console.log(data);
+      // this.receiveMessage(data);
+    });
+
+    this.svSocket.listen('session_confirm').subscribe(data => {
+      console.log('Session is CONFIRMED');
+      this.svSocket.emit('message', {
+        sender_id: 'shivampip',
+        session_id: 'shivampip',
+        message: 'bye'
+      });
+    });
+    this.svSocket.listen('connect').subscribe(data => {
+      console.log('I am Connected to Socket server');
+      this.svSocket.emit('session_request', { session_id: 'shivampip' });
+    });
   }
 
   loadHtml() {

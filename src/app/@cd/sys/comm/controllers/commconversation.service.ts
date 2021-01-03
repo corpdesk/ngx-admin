@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { from } from 'rxjs';
 import { ServerService } from '../../moduleman/controllers/server.service';
 import { SessService } from '../../user/controllers/sess.service';
 import { UserService } from '../../user/controllers/user.service';
 import { DocModeOpts, ConversationItem, ConversationMeta, CommConversationSub, CommData } from '../models/comm.model';
+import { SocketIoService } from '../../cd-push/controllers/socket-io.service';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
@@ -15,6 +17,8 @@ export class CommconversationService {
   postData;
   OutBoxData = [];
   InBoxData = [];
+  InBoxDataPush = [];
+  trayMode = 1; // Swithch Datasource: 1: OutBoxData, 2, InBoxData, 3, InBoxDataPush
   unreadMessages = [];
   countInBox = 0;
   countOutBox = 0;
@@ -23,6 +27,9 @@ export class CommconversationService {
   elOutBox;
   subscribers: CommConversationSub[]; // conversation subscribers
   conversation: ConversationItem[] = [];
+  conversationPush: ConversationItem[] = [];
+  private messageSource = new BehaviorSubject('default message');
+  currentMessage = this.messageSource.asObservable();
   selectedMessage: any;
   IntrayMeta: ConversationMeta = {
     pageHeader: null,
@@ -43,12 +50,14 @@ export class CommconversationService {
     private svServer: ServerService,
     private svSess: SessService,
     public svUser: UserService,
+    public svSocket: SocketIoService,
   ) {
     this.IntrayMeta.pageHeader = "View Message";
-
+    this.pushSubscribe();
   }
 
   init() {
+    this.trayMode = 1;
     this.inBox();
     this.outBox();
     this.elInBox = document.getElementById('memo-menu-inbox');
@@ -56,12 +65,90 @@ export class CommconversationService {
     this.selectInbox();
   }
 
-  selectInbox(){
+  // set all the events that compose-doc should listen to
+  pushSubscribe() {
+    this.svSocket.listen('response').subscribe(data => {
+      console.log('Response received');
+      console.log(data);
+    });
+
+    // this.svSocket.listen('broadcast-message').subscribe(data => {
+    //   console.log('Response received');
+    //   console.log(data);
+    //   this.procPush(data, 'broadcast-message');
+    // });
+
+    this.svSocket.listen('session_confirm').subscribe(data => {
+      console.log('Session is CONFIRMED');
+      this.svSocket.emit('message', {
+        sender_id: 'shivampip',
+        session_id: 'shivampip',
+        message: 'bye'
+      });
+    });
+    this.svSocket.listen('connect').subscribe(data => {
+      console.log('I am Connected to Socket server');
+      this.svSocket.emit('session_request', { session_id: 'shivampip' });
+    });
+  }
+
+  /**
+   * Process pushed data
+   * @param data 
+   * @param scope 
+   */
+  procPush(data, scope) {
+    const pushReq = data.req;
+    const pushResp = data.resp;
+    switch (scope) {
+      case 'broadcast-message':
+        if (pushReq.m == 'Comm' && pushReq.c == 'MemoController' && pushReq.a == 'actionInitComm') {
+          if ('user_id exists in subscribers') {
+            console.log('Before: count conversation:', this.conversation.length)
+            // this.conversation.push(pushResp.data.outBox.conversation[0]);
+            console.log('After: count conversation:', this.conversation.length)
+          }
+        }
+        break;
+      case 'private':
+        // if scope is room, subscribe to room then emit
+        this.svSocket.emit(scope, data);
+        // if channel, subscribe to channel then send message
+        break;
+    }
+  }
+
+  changeMessage(message: string) {
+    this.messageSource.next(message)
+  }
+
+  /**
+   * 
+   * @param pushType // broadcase or private
+   * @param scope // if private, room-name eg: conversation-guid as room-name
+   * @param data // data to push
+   */
+  pushData(pushEvent, data) {
+    switch (pushEvent) {
+      case 'send-memo':
+        this.svSocket.emit(pushEvent, data);
+        break;
+      case 'private':
+        // if scope is room, subscribe to room then emit
+        this.svSocket.emit(pushEvent, data);
+        // if channel, subscribe to channel then send message
+        break;
+    }
+  }
+
+
+
+  selectInbox() {
     this.elInBox.classList.add('memo-menu-selected');
     this.elOutBox.classList.remove('memo-menu-selected');
   }
 
-  selectOutbox(){
+  selectOutbox() {
     this.elInBox.classList.remove('memo-menu-selected');
     this.elOutBox.classList.add('memo-menu-selected');
   }
@@ -133,11 +220,13 @@ export class CommconversationService {
   }
 
   inBox() {
+    console.log('starting inBox()');
     this.ConversationInboxObsv()
       .subscribe((ret: any) => {
         console.log('subscribe/ret:', ret);
         this.conversation = ret.data.conversation;
         this.InBoxData = ret.data.conversation;
+        console.log('this.InBoxData:', this.InBoxData)
         this.countInBox = this.InBoxData.length;
         this.docModeInTray = true;
         // this.docModeOutTray = false;
@@ -154,6 +243,7 @@ export class CommconversationService {
         console.log('subscribe/ret:', ret);
         this.conversation = ret.data.conversation;
         this.OutBoxData = ret.data.conversation;
+        console.log('this.OutBoxData:', this.OutBoxData)
         this.countOutBox = this.OutBoxData.length;
         this.docModeInTray = true;
         // this.docModeOutTray = false;
@@ -341,6 +431,22 @@ export class CommconversationService {
     };
   }
 
+  getEnvelopeInitComm(initCommData) {
+    return {
+      ctx: 'Sys',
+      m: 'Comm',
+      c: 'MemoController',
+      a: 'actionInitComm',
+      dat: {
+        f_vals: [
+          initCommData
+        ],
+        token: this.svSess.getCdToken()
+      },
+      args: null
+    };
+  }
+
   /*
   * for flaging memo as 'read'
   */
@@ -501,5 +607,20 @@ export class CommconversationService {
       },
       args: null
     };
+  }
+
+  dynamicSort(property) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+    return function (a, b) {
+      /* next line works with strings and numbers, 
+       * and you may want to customize it to your needs
+       */
+      var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    }
   }
 }

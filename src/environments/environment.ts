@@ -11,7 +11,8 @@
 export const environment = {
   production: false,
   apiEndpoint: 'http://localhost/cdapi/public/api/cd',
-  consumerToken: 'B0B3DA99-1859-A499-90F6-1E3F69575DCD',
+  consumerToken: 'B0B3DA99-1859-A499-90F6-1E3F69575DCD',// current company consumer
   consumer: null,
-  clientAppId: 2,
+  clientAppId: 2, // this client application identifies itself to the server with this id
+  SOCKET_IO_PORT: 3000, // push server port
 };

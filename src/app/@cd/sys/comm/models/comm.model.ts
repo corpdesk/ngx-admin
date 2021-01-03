@@ -131,4 +131,16 @@ export interface CommData {
     data: ConversationItem;
 }
 
+export interface CdSocialPost {
+    cd_social_post_id?: number;
+    cd_social_post_guid?: string;
+    cd_social_post_name?: string;
+    cd_social_post_description?: string;
+    doc_id?: number;
+    ext?: any;
+    cd_social_post_type_id?: number;
+    cd_social_post_img?: string;
+    cd_social_post_likes?: number;
+}
+
 

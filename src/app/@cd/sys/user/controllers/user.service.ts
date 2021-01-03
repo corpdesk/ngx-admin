@@ -10,6 +10,7 @@ import { NotificationService } from '../../comm/controllers/notification.service
 import { MessagesService } from '../../comm/controllers/messages.service';
 import { environment } from '../../../../../environments/environment';
 import { User, UserData } from '../models/user-model';
+import { SocketIoService } from '../../cd-push/controllers/socket-io.service';
 
 
 @Injectable({
@@ -36,7 +37,8 @@ export class UserService {
     private svServer: ServerService,
     private svMenu: MenuService,
     private svNotif: NotificationService,
-    private svMessages: MessagesService
+    private svMessages: MessagesService,
+    public svSocket: SocketIoService,
   ) { 
     // this.currentProfile.name = 'Login/Register';
     // this.currentProfile.picture = 'assets/cd/branding/coop/avatarCircle.svg';
@@ -107,6 +109,8 @@ export class UserService {
         this.svAppState.setMode('anon');
         this.svMessages.init(res);
         environment.consumer = res['data']['consumer'];
+        const cdEnvelop = {req:null, resp:res};
+        this.emitLogin(cdEnvelop);
       });
 
   }
@@ -245,6 +249,10 @@ export class UserService {
   setRespAllUsers(res) {
     console.log(res);
     this.allUsers = res['data'];
+  }
+
+  emitLogin(cdEnvelop){
+    this.svSocket.emit('login', cdEnvelop);
   }
 
   getConsumerUsers() {

@@ -6,6 +6,7 @@ import { CommconversationService } from '../../../@cd/sys/comm/controllers/commc
 import { CommConversationSub, CommData } from '../../../@cd/sys/comm/models/comm.model';
 import { UserService } from '../../../@cd/sys/user/controllers/user.service';
 import { User } from '../../../@cd/sys/user/models/user-model';
+// import { SocketIoService } from '../../../@cd/sys/cd-push/controllers/socket-io.service';
 
 @Component({
   selector: 'ngx-compose-doc',
@@ -86,10 +87,13 @@ export class ComposeDocComponent implements OnInit, AfterViewInit {
   }
 
 
+
+
   constructor(
     private fb: FormBuilder,
     public svUser: UserService,
     public svConversation: CommconversationService,
+    // private svSocket: SocketIoService,
   ) {
     this.svUser.getUsersObsv()
       .subscribe(
@@ -111,7 +115,7 @@ export class ComposeDocComponent implements OnInit, AfterViewInit {
       docBcc: ['', Validators.required],
       doc_subject: ['', Validators.required]
     });
-    
+
   }
 
   ngAfterViewInit() {
@@ -156,6 +160,7 @@ export class ComposeDocComponent implements OnInit, AfterViewInit {
     console.log('starting processSubscribers()');
     console.log('this.svUser.currentUser.user_id:', this.svUser.currentUser.user_id);
     console.log('this.svUser.currentUser:', this.svUser.currentUser);
+    this.convSubscribers = [];
     let sub: CommConversationSub = {
       user_id: this.svUser.currentUser.user_data[0].user_id,
       sub_type_id: 1 // sender
@@ -195,7 +200,7 @@ export class ComposeDocComponent implements OnInit, AfterViewInit {
     });
   }
 
-  
+
   initComm(frm: FormGroup) {
     console.log('starting initComm(frm)');
     this.processSubscribers();
@@ -217,6 +222,15 @@ export class ComposeDocComponent implements OnInit, AfterViewInit {
     this.svConversation.initCommObsv(initCommData)
       .subscribe((ret: any) => {
         console.log('ret.data:', ret.data);
+        // PUSH NOTIFICATIONS/UPDATES
+        // if success, emit to push server
+        // login to conversation room
+        // emit data
+        const pushData = {
+          req: this.svConversation.getEnvelopeInitComm(initCommData),
+          resp: ret
+        };
+        this.svConversation.pushData('send-memo', pushData);
       });
   }
 

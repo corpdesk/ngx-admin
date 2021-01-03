@@ -1,20 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, ElementRef } from '@angular/core';
 import { CommconversationService } from '../../../@cd/sys/comm/controllers/commconversation.service';
 import { DocModeOpts, ConversationItem } from '../../../@cd/sys/comm/models/comm.model';
 import { MessagesService } from '../../../@cd/sys/comm/controllers/messages.service';
+import { SocketIoService } from '../../../@cd/sys/cd-push/controllers/socket-io.service';
 
 @Component({
   selector: 'ngx-intray',
   templateUrl: './intray.component.html',
-  styleUrls: ['./intray.component.scss']
+  styleUrls: ['./intray.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class IntrayComponent implements OnInit {
   messages;
-  
-  
+  // OutBoxData = [];
+  // InBoxData = [];
+  // InBoxDataPush = [];
+
   constructor(
     public svConversation: CommconversationService,
     public svMesseges: MessagesService,
+    private changeDetectorRefs: ChangeDetectorRef,
+    private svSocket: SocketIoService,
+    private elementRef: ElementRef,
   ) { }
 
   ngOnInit(): void {
@@ -31,6 +38,54 @@ export class IntrayComponent implements OnInit {
     //     console.log('this.svConversation.conversation:', this.svConversation.conversation);
     //   }); 
     this.svConversation.init();
+    // this.svConversation.InBoxData = this.svConversation.InBoxData;
+
+    this.svSocket.listen('push-memo').subscribe((data: any) => {
+      console.log('IntrayComponent/Push received');
+      console.log('data:', data);
+      // this.svConversation.procPush(data, 'broadcast-message');
+      // const pushResp = data.resp;
+      // console.log('pushResp:', pushResp);
+      // console.log('this.svConversation.conversation:', this.svConversation.conversation);
+      // this.svConversation.trayMode = 3;
+      this.reloadData(data)
+
+      // this.changeDetectorRefs.detectChanges();
+      // const dStr = JSON.stringify(this.svConversation.conversation);
+      // const d = JSON.parse(dStr);
+      // d.push(pushResp.data.outBox.conversation[0]);
+
+      // const d = JSON.parse(dStr);
+      // this.reloadData();
+    });
+  }
+
+  render() {
+    const memoList = this.elementRef.nativeElement.querySelector('#memoList') as HTMLElement;
+    let htmlHeader = '';
+    htmlHeader += `<tr id="xx" [class]="docAttended(item.attended)">
+                      <td class="check-mail">
+                        <input type="checkbox" class="i-checks">
+                      </td>
+                      <td class="mail-ontact"><a>hduej</a></td>
+                      <td (click)="rowSelect(dffg)"
+                        class="mail-subject"><a>dfg</a></td>
+                      <td class=""><i *ngIf="hasAttachment(item)" class="fa fa-paperclip"></i></td>
+                      <td class="text-right mail-date">fghj</td>
+                    </tr>`;
+
+    memoList.insertAdjacentHTML('afterbegin', htmlHeader);
+  }
+
+  reloadData(data) {
+    //this.svConversation.conversation = data;
+    // this.svConversation.conversation = [];
+    // this.svConversation.conversation = [...this.svConversation.conversation];
+    this.svConversation.InBoxData.push(data);
+    this.svConversation.InBoxData.sort(this.svConversation.dynamicSort('-memo_id'));
+    // this.InBoxData = this.svConversation.InBoxData;
+    this.svConversation.InBoxDataPush = this.svConversation.InBoxData;
+    this.svConversation.trayMode = 3;
   }
 
   rowSelect(ctx) {
@@ -44,22 +99,24 @@ export class IntrayComponent implements OnInit {
     this.svConversation.updateUnread();
   }
 
-  
-
-  docAttended(attended){
-    if(attended){
+  docAttended(attended) {
+    if (attended) {
       return 'read';
     } else {
       return 'unread';
     }
   }
 
-  hasAttachment(item: ConversationItem){
-    if(item.attachment){
+  hasAttachment(item: ConversationItem) {
+    if (item.attachment) {
       return true;
     } else {
       return false;
     }
+  }
+
+  identify(index, item) {
+    return item.memo_id;
   }
 
 }
