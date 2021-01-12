@@ -7,6 +7,7 @@ import { SessService } from '../../../sys/user/controllers/sess.service';
 })
 export class ProjectService {
   private postData;
+  public pushChannel = 'pms'; // the room where all the clients expecting push data should enroll
   constructor(
     private svServer: ServerService,
     private svSess: SessService,

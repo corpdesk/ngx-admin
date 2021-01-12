@@ -208,14 +208,29 @@ Case 2:
     - consumer to sense clicked task-bar
     - consumer to view setpper  for create/edit
     - consumer onTaskBarClicked(), stepper invoke next()
-- edit schedule
-    - develop edit mode
-    - 'update' button should be enabled when edit mode is on
-    - 'save' button should be disabled when 'edit' mode is active
-    - do css visuals for diabled buttons
+
+- edit schedule...DONE
+    - develop modes:
+        - isSaveMode()
+        - isEditMode()
+        - validateSave()
+        - validateEdit()
+        - 'update' button should be enabled when edit mode is on
+        - 'save' button should be disabled when 'edit' mode is active
     - implement update to db
-    - implement immediate display changes on task-bar
-    - display server response status success/failure and error messages
+
+- socket.io via (cd-push services)
+    - NewScheduleComponent::onUpdateResponse:
+        - set push 'room' in ProjectService
+        - on launch of pms, join room.
+        - onUpdateResp(request, response)
+            - initiate update event at NewScheduleComponent::onUpdateResponse
+        - detect update event in 'pms' room at GanttNineComponent to refresh page
+        - display changes on task-bar
+
+    - push notification message based on update server response status success/failure and error messages
+
+
     - bug: erronious time offset is introduced on edit
         - Try: https://stackblitz.com/edit/angular-custom-date-picker-tjl?file=app%2Fuser-date-format.ts
             - module cannot be found: moment-timezone
@@ -241,10 +256,7 @@ Case 5:
 - invite participant
 - set project roles
 
-Case 6:
-- push notifications
-- automated action
-- live update of display data
+
 
 
 

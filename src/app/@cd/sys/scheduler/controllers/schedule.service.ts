@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ServerService } from '../../../sys/moduleman/controllers/server.service';
 import { SessService } from '../../../sys/user/controllers/sess.service';
 import { ScheduleSettings } from '../models/schedule.model';
+import { SocketIoService } from '../../cd-push/controllers/socket-io.service';
 import * as moment from 'moment';
 
 const DATETIME_FORMAT = ScheduleSettings.DATETIME_FORMAT;
@@ -14,12 +15,60 @@ const DATE_FORMAT = ScheduleSettings.DATE_FORMAT;
 })
 export class ScheduleService {
   schedule;
+  selectedProj;
+  selectedSchedule;
   postData;
   constructor(
     private svServer: ServerService,
     private svSess: SessService,
+    public svSocket: SocketIoService,
   ) {
     this.schedule = []
+  }
+
+  // // set all the events that compose-doc should listen to
+  // pushSubscribe() {
+  //   this.svSocket.listen('schedule-update').subscribe(data => {
+  //     console.log('Response received');
+  //     console.log(data);
+  //   });
+  // }
+
+  /**
+   * Process pushed data
+   * @param data 
+   * @param scope 
+   */
+  // procPush(data, event, scope) {
+  //   const pushReq = data.req;
+  //   const pushResp = data.resp;
+  //   switch (event) {
+  //     case 'event-schedule-update':
+        
+  //       break;
+  //     case 'private':
+        
+  //       break;
+  //   }
+  // }
+
+  /**
+   * 
+   * @param pushType // broadcase or private
+   * @param scope // if private, room-name eg: conversation-guid as room-name
+   * @param data // data to push
+   */
+  pushData(pushEvent, data) {
+    switch (pushEvent) {
+      case 'schedule-update':
+        this.svSocket.emit(pushEvent, data);
+        break;
+      case 'private':
+        // if scope is room, subscribe to room then emit
+        this.svSocket.emit(pushEvent, data);
+        // if channel, subscribe to channel then send message
+        break;
+    }
   }
 
   getScheduleObsv() {
@@ -96,35 +145,35 @@ export class ScheduleService {
 
   /**
    * {
-    "ctx": "Sys",
-    "m": "Scheduler",
-    "c": "ScheduleController",
-    "a": "actionUpdate",
-    "dat": {
-        "f_vals": [
-            {
-                "filter": [
-                    {
-                        "field": "schedule_id",
-                        "operator": "=",
-                        "val": "104"
+        "ctx": "Sys",
+        "m": "Scheduler",
+        "c": "ScheduleController",
+        "a": "actionUpdate",
+        "dat": {
+            "f_vals": [
+                {
+                    "filter": [
+                        {
+                            "field": "schedule_id",
+                            "operator": "=",
+                            "val": "104"
+                        }
+                    ],
+                    "schedulestage": {
+                        "days": "3",
+                        "hrs": "16",
+                        "schedulestage_name": "xxxx"
+                    },
+                    "data": {
+                        "schedule_name": "nursury preparation",
+                        "schedule_description": "testing description2"
                     }
-                ],
-                "schedulestage": {
-                    "days": "3",
-                    "hrs": "16",
-                    "schedulestage_name": "xxxx"
-                },
-                "data": {
-                    "schedule_name": "nursury preparation",
-                    "schedule_description": "testing description2"
                 }
-            }
-        ],
-        "token": "mT6blaIfqWhzNXQLG8ksVbc1VodSxRZ8lu5cMgda"
-    },
-    "args": null
-}
+            ],
+            "token": "mT6blaIfqWhzNXQLG8ksVbc1VodSxRZ8lu5cMgda"
+        },
+        "args": null
+    }
    * @param updateData 
    */
   setEnvelopeUpdateSchedule(updateData) {

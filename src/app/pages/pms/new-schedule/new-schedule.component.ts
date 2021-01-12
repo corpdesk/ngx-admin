@@ -1,16 +1,20 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { TimeData, ScheduleSettings, ScheduleRegData } from '../../../@cd/sys/scheduler/models/schedule.model';
+import { TimeData, ScheduleSettings, ScheduleRegData, ScheduleView, ScheduleUpdateData, } from '../../../@cd/sys/scheduler/models/schedule.model';
 import { ProjectService } from '../../../@cd/app/pms/controllers/project.service';
 import { ScheduleService } from '../../../@cd/sys/scheduler/controllers/schedule.service';
-import { ScheduleView, ScheduleUpdateData, } from '../../../@cd/sys/scheduler/models/schedule.model';
 import { TimeSpanComponent } from '../../cd-palette/time-span/time-span.component';
+import { SocketIoService } from '../../../@cd/sys/cd-push/controllers/socket-io.service';
+// import { GanttNineComponent } from '../../cd-palette/gantt-nine/gantt-nine.component';
 import { NbStepperComponent } from '@nebular/theme';
 
 import * as moment from 'moment';
 
 const DATETIME_FORMAT = ScheduleSettings.DATETIME_FORMAT;
 const DATE_FORMAT = ScheduleSettings.DATE_FORMAT;
+const MODE_NEW = ScheduleSettings.MODE_NEW;
+const MODE_EDIT = ScheduleSettings.MODE_EDIT;
+
 
 @Component({
   selector: 'ngx-new-schedule',
@@ -19,9 +23,11 @@ const DATE_FORMAT = ScheduleSettings.DATE_FORMAT;
   encapsulation: ViewEncapsulation.None,
 })
 export class NewScheduleComponent implements OnInit {
+  // pushChannel = 'pms';
   @ViewChild(TimeSpanComponent) compTs: TimeSpanComponent;
   @ViewChild('stepper') stepper: NbStepperComponent;
-
+  // @ViewChild(GanttNineComponent) compGantt: GanttNineComponent;
+  @Input() opMode = MODE_NEW;
   linearMode = true;
   regScheduleInvalid = false;
   startDate = new Date();
@@ -67,6 +73,7 @@ export class NewScheduleComponent implements OnInit {
     private fb: FormBuilder,
     public svProject: ProjectService,
     public svSchedule: ScheduleService,
+    public svSocket: SocketIoService,
   ) {
 
     this.frmRegSchedule = new FormGroup({
@@ -99,7 +106,17 @@ export class NewScheduleComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForms();
+    this.pushSubscribe();
   }
+
+  pushSubscribe() {
+    this.svSocket.listen('schedule-sync').subscribe(data => {
+      console.log('NewScheduleComponent:schedule-sync event captured');
+      console.log(data);
+    });
+  }
+
+
 
   initForms() {
     this.frmRegSchedule = this.fb.group({
@@ -305,39 +322,40 @@ export class NewScheduleComponent implements OnInit {
 
   /**
    * {
-    "ctx": "Sys",
-    "m": "Scheduler",
-    "c": "ScheduleController",
-    "a": "actionUpdate",
-    "dat": {
-        "f_vals": [
-            {
-                "filter": [
-                    {
-                        "field": "schedule_id",
-                        "operator": "=",
-                        "val": "104"
+        "ctx": "Sys",
+        "m": "Scheduler",
+        "c": "ScheduleController",
+        "a": "actionUpdate",
+        "dat": {
+            "f_vals": [
+                {
+                    "filter": [
+                        {
+                            "field": "schedule_id",
+                            "operator": "=",
+                            "val": "104"
+                        }
+                    ],
+                    "schedulestage": {
+                        "days": "3",
+                        "hrs": "16",
+                        "schedulestage_name": "xxxx"
+                    },
+                    "data": {
+                        "schedule_name": "nursury preparation",
+                        "schedule_description": "testing description2"
                     }
-                ],
-                "schedulestage": {
-                    "days": "3",
-                    "hrs": "16",
-                    "schedulestage_name": "xxxx"
-                },
-                "data": {
-                    "schedule_name": "nursury preparation",
-                    "schedule_description": "testing description2"
                 }
-            }
-        ],
-        "token": "mT6blaIfqWhzNXQLG8ksVbc1VodSxRZ8lu5cMgda"
-    },
-    "args": null
-}
+            ],
+            "token": "mT6blaIfqWhzNXQLG8ksVbc1VodSxRZ8lu5cMgda"
+        },
+        "args": null
+    }
    */
   updateSchedule() {
     console.log('starting updateSchedule()');
     console.log('this.summary.regData:', this.summary.regData);
+    // this.pushSubscribe();
     const updateDate: ScheduleUpdateData = {
       filter: [
         {
@@ -346,17 +364,60 @@ export class NewScheduleComponent implements OnInit {
           val: this.selectedSchedule[0].schedule.schedule_id
         }
       ],
-      schedulestage:this.summary.regData.schedulestage,
+      schedulestage: this.summary.regData.schedulestage,
       data: this.summary.regData.data,
-    }; 
+    };
     console.log('updateDate:', updateDate);
     this.svSchedule.updateScheduleObsv(updateDate)
       .subscribe(
         (resp: any) => {
           console.log('NewScheduleComponent::updateSchedule()/this.svSchedule.registerScheduleObsv()/resp.data:', resp.data);
           console.log('resp.data:', resp.data);
+          this.onUpdateResp(this.svSchedule.postData, resp);
         }
       );
+  }
+
+  // perform push notification message and update activity logs
+  //  - redraw and open page with latest data without refresh 
+  //  - supervisors and project members can monitor live logs of active work on going
+  //  - without opening pms window, one can see notifications of on going work
+  onUpdateResp(request, response) {
+    const pushData = {
+      req: request,
+      resp: response,
+      room: this.svProject.pushChannel
+    };
+    this.svSchedule.pushData('schedule-update', pushData);
+
+  }
+
+  isSaveMode(): boolean {
+    if (this.editMode) {
+      return false;
+    } else if (this.validateSave()) {
+      return true;
+    }
+  }
+
+  isEditMode(): boolean {
+    if (this.editMode && this.validateEdit()) {
+      return true;
+    }
+  }
+
+  /**
+   * set validation rules
+   */
+  validateSave(): boolean {
+    return true;
+  }
+
+  /**
+   * set validation rules
+   */
+  validateEdit(): boolean {
+    return true;
   }
 
 }

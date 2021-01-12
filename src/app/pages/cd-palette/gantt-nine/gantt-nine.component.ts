@@ -1,9 +1,10 @@
 // Based on: https://oguzhanoya.github.io/jquery-gantt/
-import { Component, OnInit, AfterViewInit, ViewChild, Input,Output, ElementRef, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, Input, Output, ElementRef, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { ScheduleService } from '../../../@cd/sys/scheduler/controllers/schedule.service';
 import { ScheduleView, ScheduleSettings } from '../../../@cd/sys/scheduler/models/schedule.model';
 import { ProjectService } from '../../../@cd/app/pms/controllers/project.service';
 import { HeaderOneComponent } from '../header-one/header-one.component';
+import { SocketIoService } from '../../../@cd/sys/cd-push/controllers/socket-io.service';
 
 import * as moment from 'moment';
 
@@ -23,6 +24,7 @@ interface dDay {
   encapsulation: ViewEncapsulation.None,
 })
 export class GanttNineComponent implements OnInit, AfterViewInit {
+  // pushChannel = 'pms';
   @ViewChild(HeaderOneComponent) compHeader: HeaderOneComponent;
   @Input() title = 'Tasks:';
   @Input() dateStartStr = '2019-02-01';
@@ -173,6 +175,7 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
     private elementRef: ElementRef,
     public svSchedule: ScheduleService,
     public svProject: ProjectService,
+    public svSocket: SocketIoService,
   ) {
     this.ganttHeaderMonths = {
       id: 'ganttHeaderMonths',
@@ -202,13 +205,36 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    // this.DAYS = this.getDays();
+    this.pushPublish();
+    this.pushSubscribe();
     this.DAYS = this.getDays();
   }
 
   ngAfterViewInit() {
     console.log('starting ngAfterViewInit()');
     this.render();
+  }
+
+  pushPublish() {
+    console.log('starting GanttNineComponent::pushPublish()');
+    const roomData = {
+      ctx: 'app',
+      m: 'pms',
+      c: 'gantt',
+      channel: this.svProject.pushChannel
+    };
+    console.log('this.svSocket.emit(room)');
+    // emit request to allocate room
+    this.svSocket.emit('room', roomData);
+  }
+
+  // subscribe to relevant push events
+  pushSubscribe() {
+    this.svSocket.listen('schedule-sync').subscribe(envData => {
+      console.log('GanttNine::pushSubscribe()');
+      console.log(envData);
+      this.loadSchedules();
+    });
   }
 
   render() {
@@ -707,6 +733,7 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
       }
     });
     console.log('this.selectedSchedule:', this.selectedSchedule);
+    this.svSchedule.selectedSchedule = this.selectedSchedule;
     this.sendSelSchedule.emit(this.selectedSchedule);
 
   }
@@ -818,6 +845,7 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
   getSelectedProj(selProj) {
     console.log('selProj:', selProj);
     this.selectedProj = selProj;
+    this.svSchedule.selectedProj = selProj;
     this.loadSchedules();
   }
 
@@ -832,6 +860,10 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
       );
   }
 
+  /**
+   * set schedules
+   * @param schedules
+   */
   async processSchedules(schedules: ScheduleView[]) {
     console.log('starting processSchedules(schedules)');
     console.log('schedules:', schedules);

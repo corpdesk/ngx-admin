@@ -1,4 +1,5 @@
 import { UpdateFilterItem } from '../../../base/b.model';
+
 export interface Schedule {
   schedule_id?: number;
   schedule_name?: number;
@@ -111,5 +112,7 @@ export class ScheduleSettings {
   public static DATE_FORMAT = 'DD-MM-YYYY';
   public static DATETIME_FORMAT = 'DD-MM-YYYY HH:mm:ss';
   public static CURRENCY = 'KES';
+  public static MODE_NEW = 1;
+  public static MODE_EDIT = 2;
 }
 
