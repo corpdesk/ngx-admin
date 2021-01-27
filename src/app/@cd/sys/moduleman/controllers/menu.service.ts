@@ -921,7 +921,7 @@ export class MenuService {
           },
           {
             title: 'inteRact',
-            link: '/pages/my-account/inte-ract',
+            link: '/pages/my-account/my-inte-ract',
             enabled: true
           },
           {

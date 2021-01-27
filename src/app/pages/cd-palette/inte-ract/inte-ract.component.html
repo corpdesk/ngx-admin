@@ -1,0 +1,52 @@
+<div id="new-pub" class="social-footer">
+    <ngx-inte-ract-pub pubType="post" [pubScope]="pubScope"></ngx-inte-ract-pub>
+</div>
+
+<div *ngFor="let pub of svInteRactPub.Pubs" class="social-feed-box">
+
+    <div class="float-right social-action dropdown">
+        <button data-toggle="dropdown" class="dropdown-toggle btn-white">
+        </button>
+        <ul class="dropdown-menu m-t-xs">
+            <li><a href="#">Config</a></li>
+        </ul>
+    </div>
+    <div class="social-avatar">
+        <a href="" class="float-left">
+            <img alt="image" [src]="getAvatar(pub)">
+        </a>
+        <div class="media-body">
+            <a href="#">
+                {{pub.fullname}}
+            </a>
+            <small class="text-muted">{{pub.doc_date}}</small>
+        </div>
+    </div>
+    <div class="social-body">
+        <div class="postText" [innerHTML]="getPubBody(pub,'pub')"></div>
+
+        <div class="btn-group">
+            <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this!</button>
+            <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button>
+            <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> Share</button>
+        </div>
+    </div>
+
+    <!-- social-footer (comments) -->
+    <div class="social-footer">
+        <div *ngFor="let comment of pub.comments" class="social-comment">
+            <a href="" class="float-left">
+                <img alt="image" [src]="getAvatar(comment)">
+            </a>
+            <div class="media-body">
+                <a href="#">
+                    {{comment.fullname}}
+                </a>
+                <div class="postText" [innerHTML]="getPubBody(comment,'comment')"></div>
+                <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 26 Like this!</a> -
+                <small class="text-muted">12.06.2019</small>
+            </div>
+        </div>
+    </div>
+    <!-- social-footer (comments) -->
+</div>

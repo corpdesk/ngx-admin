@@ -88,9 +88,12 @@ import { IntrayComponent } from './intray/intray.component';
 import { ReadDocComponent } from './read-doc/read-doc.component';
 import { ComposeDocComponent } from './compose-doc/compose-doc.component';
 import { DocTrayComponent } from './doc-tray/doc-tray.component';
-import { InteRactComponent } from './inte-ract/inte-ract.component';
+// import { InteRactComponent } from './inte-ract/inte-ract.component';
 import { ReplyDocComponent } from './reply-doc/reply-doc.component';
 import { DocThreadComponent } from './doc-thread/doc-thread.component';
+// import { InteRactPubComponent } from './inte-ract-pub/inte-ract-pub.component';
+// import { InteRactCommentsComponent } from './inte-ract-comments/inte-ract-comments.component';
+import { MyInteRactComponent } from './my-inte-ract/my-inte-ract.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -114,9 +117,12 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ReadDocComponent,
     ComposeDocComponent,
     DocTrayComponent,
-    InteRactComponent,
+    // InteRactComponent,
     ReplyDocComponent,
     DocThreadComponent,
+    // InteRactPubComponent,
+    // InteRactCommentsComponent,
+    MyInteRactComponent,
   ],
   imports: [
     CommonModule,

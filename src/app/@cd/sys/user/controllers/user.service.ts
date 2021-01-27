@@ -20,6 +20,7 @@ export class UserService {
   private postData;
   cd_token: string;
   userData: User[] = [];
+  cuid;
   userName = "";
   fullName = "";
   contacts = [];
@@ -57,6 +58,7 @@ export class UserService {
       this.currentUser = res.data;
       // this.currentUser.name = 'Login/Register';
       this.currentProfile.name = res.data.user_data[0].username;
+      this.cuid = res.data.user_data[0].user_id;
       // this.currentUser.picture = 'assets/cd/branding/coop/avatarCircle.svg';
       const avatarUrl = `http://localhost/user-resources/${res.data.user_data[0].user_guid}/avatar-01/a.jpg`;
       console.log('avatarUrl:', avatarUrl);

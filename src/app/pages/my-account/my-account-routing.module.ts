@@ -15,7 +15,7 @@ import { IntrayComponent } from './intray/intray.component';
 import { ReadDocComponent } from './read-doc/read-doc.component';
 import { ComposeDocComponent } from './compose-doc/compose-doc.component';
 import { DocTrayComponent } from './doc-tray/doc-tray.component';
-import { InteRactComponent } from './inte-ract/inte-ract.component';
+import { MyInteRactComponent } from './my-inte-ract/my-inte-ract.component';
 
 const routes: Routes = [
   {
@@ -79,8 +79,8 @@ const routes: Routes = [
         canActivate: [ AuthGuardService ],
       },
       {
-        path: 'inte-ract',
-        component: InteRactComponent,
+        path: 'my-inte-ract',
+        component: MyInteRactComponent,
         canActivate: [ AuthGuardService ],
       }
     ]

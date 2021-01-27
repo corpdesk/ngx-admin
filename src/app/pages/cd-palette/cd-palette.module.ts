@@ -79,6 +79,11 @@ import { GanttTenComponent } from './gantt-ten/gantt-ten.component';
 import { IBoxComponent } from './i-box/i-box.component';
 import { TimeSpanComponent } from './time-span/time-span.component';
 import { HeaderOneComponent } from './header-one/header-one.component';
+import { InteRactCommentsComponent } from './inte-ract-comments/inte-ract-comments.component';
+import { InteRactComponent } from './inte-ract/inte-ract.component';
+import { InteRactPubComponent } from './inte-ract-pub/inte-ract-pub.component';
+import { TimelineComponent } from './timeline/timeline.component';
+import { HeaderTwoComponent } from './header-two/header-two.component';
 
 const materialModules = [
   MatExpansionModule,
@@ -124,6 +129,11 @@ const materialModules = [
     IBoxComponent,
     TimeSpanComponent,
     HeaderOneComponent,
+    InteRactCommentsComponent,
+    InteRactComponent,
+    InteRactPubComponent,
+    TimelineComponent,
+    HeaderTwoComponent,
   ],
   imports: [
     CommonModule,
@@ -218,6 +228,11 @@ const materialModules = [
     IBoxComponent,
     TimeSpanComponent,
     HeaderOneComponent,
+    InteRactComponent,
+    InteRactPubComponent,
+    InteRactCommentsComponent,
+    TimelineComponent,
+    HeaderTwoComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

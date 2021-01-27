@@ -175,10 +175,21 @@ InteRact/cd_social
     - edit 
     - read comments
     - repy comment
+    - set avatar at db and fetched based on app-setting for avatar-hosting
     - save 
     - edit
+
 - test save post
 - test save comment
+- test inte-ract with back-end data (reading)
+- move inte-ract to cd-palette so it can be consumed from different modules
+- use consumable header-two
+- use consumable inte-ract
+- use consumable timeline
+
+- test filtering inteRact data by groupings
+
+
 - edit post
 - test angular editor
 - watch/cd_social_follow
@@ -568,6 +579,34 @@ use tree-grid to view modules/menu in hierarchial format
         - 2. Select project
             - getProjects
         - 3. View details to edit
+
+27/01/2021
+- test save post
+- test save comment
+- test inte-ract with back-end data (reading)
+- move inte-ract to cd-palette so it can be consumed from different modules
+- use consumable header-two
+- use consumable inte-ract
+- use consumable timeline
+
+
+12/01/2021
+- implement click event to schedules task-bars...DONE
+    - create emittable for task-bar(gantt-nine) click
+    - consumer to sense clicked task-bar
+    - consumer to view setpper  for create/edit
+    - consumer onTaskBarClicked(), stepper invoke next()
+
+- edit schedule...DONE
+    - develop modes:
+        - isSaveMode()
+        - isEditMode()
+        - validateSave()
+        - validateEdit()
+        - 'update' button should be enabled when edit mode is on
+        - 'save' button should be disabled when 'edit' mode is active
+    - implement update to db
+    
 
 03/01/2021
 - set reception of push data...DONE

@@ -1,0 +1,18 @@
+<div class="social-comment">
+    <a href="" class="float-left">
+        <img alt="image" [src]="avatar">
+    </a>
+</div>
+<div class="media-body">
+    <textarea id="msgNew" class="form-control" placeholder="New post..."></textarea>
+    <div class="btn-group-container">
+       <div class="btn-group">
+           <button (click)="createPub()" data-toggle="tooltip" data-placement="top" title="save" class="btn btn-white btn-xs"><i class="fas fa-share"></i> publish</button>
+           <button data-toggle="tooltip" data-placement="top" title="Upload image" class="btn btn-white btn-xs"><i class="fas fa-file-image"></i></button>
+           <button data-toggle="tooltip" data-placement="top" title="Upload audio" class="btn btn-white btn-xs"><i class="fas fa-file-audio"></i> </button>
+           <button data-toggle="tooltip" data-placement="top" title="Upload video" class="btn btn-white btn-xs"><i class="far fa-file-video"></i> </button>
+           <button data-toggle="tooltip" data-placement="top" title="Upload pdf" class="btn btn-white btn-xs"><i class="fas fa-file-pdf"></i> </button>
+           <button data-toggle="tooltip" data-placement="top" title="insert link" class="btn btn-white btn-xs"><i class="fas fa-link"></i> </button>
+       </div>
+    </div>
+</div>
