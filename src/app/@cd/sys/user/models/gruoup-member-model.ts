@@ -11,3 +11,12 @@ export interface GroupMember {
     group_member_parent_id?: number;
     enabled?: boolean;
 }
+
+export interface GroupMemberNode {
+    member_name: string;
+    group_member_id: number;
+    member_guid: string;
+    group_guid_parent: string;
+    cd_obj_type_id: number;
+    children: GroupMemberNode[];
+}

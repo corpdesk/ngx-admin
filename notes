@@ -188,6 +188,31 @@ InteRact/cd_social
 - use consumable timeline
 
 - test filtering inteRact data by groupings
+    - view nested groups
+        - create @cd/guig/TreeHelperService with array2tree methods and options
+        - create cd-palette/tree-view-mat
+            - load nested groups
+        - create tree-grid
+            - load nested groups
+    - group wizard
+        - group type
+        - public/private
+    - create group1 & group2
+    - join the groups
+    - invite different member sets to the 2 groups
+    - get invitation
+        - memo notification
+        - inteRact notifiation
+        - websocket live notification
+    - accept invitation to join group/s
+    - view only groups where you have privileges
+        - view groups that you have created
+        - view groups where you are a member
+        - invite member/s button only appears on groups where you have created or have been given admin privilleges
+    - let members post pubs
+    - design query to fetch only pubs from groups where user is a member
+    - fine tune privacy
+    - 'admins' to coarce users to join groups silently
 
 
 - edit post
@@ -579,6 +604,15 @@ use tree-grid to view modules/menu in hierarchial format
         - 2. Select project
             - getProjects
         - 3. View details to edit
+
+
+05/02/2021
+    - Load nested groups
+        - create @cd/guig/TreeHelperService with array2tree methods and options
+        - create cd-palette/tree-view-mat
+            - load nested groups
+        - create tree-grid
+            - load nested groups
 
 27/01/2021
 - test save post

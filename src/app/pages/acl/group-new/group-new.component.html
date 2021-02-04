@@ -1,0 +1,184 @@
+<nb-card size="medium">
+    <nb-card-body>
+      <nb-stepper #stepper [linear]="linearMode" orientation="vertical">
+        <nb-step label="Name">
+          <!-- header -->
+          <span class="label label-primary">1. Register Group</span>
+          <!-- start tools -->
+          <div class="col-lg-12">
+            <div class="mail-tools tooltip-demo m-t-md">
+              <div class="btn-group float-right">
+                <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
+                <button nbStepperNext (click)="getParams(1,frmRegSchedule)" class="btn btn-white btn-sm"><i
+                    class="fa fa-arrow-right"></i></button>
+              </div>
+              <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Reset"><i
+                  class="fas fa-power-off"></i> </button>
+              <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" [disabled]="!isEditMode()" (click)="updateSchedule()" title="Submit update data"><i
+                  class="fas fa-edit"></i> </button>
+              <button [disabled]="!isSaveMode()" (click)="registerSchedule()" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Submit new data"><i
+                  class="fa fa-save"></i> </button>
+              <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Trash"
+                data-original-title="Move to trash"><i class="far fa-trash-alt"></i> </button>
+  
+            </div>
+          </div>
+          <!-- end tools -->
+          <div class="hr-line-dashed"></div>
+          <!-- end devider -->
+          <form [formGroup]="frmRegGroup" (ngSubmit)="registerGroup(frmRegGroup)">
+            <mat-error *ngIf="regScheduleInvalid">
+              {{errMsg}}
+            </mat-error>
+            <br>
+            <!-- <ngx-select-search #selectProj formControlName="project_id" [isInvalidSelItems]="isInvalidSelProj" (sendSelData)="getSelectedProj($event)"
+              [nameField]="projNameField" [IdField]="projIdField" [ConsumerInstance]="svProject"
+              [fetchData]="fetchProjData" placeholder="Projects" multiple="false">
+            </ngx-select-search> -->
+            <br>
+            <!-- <mat-form-field class="input-example">
+              <mat-label>Group Name</mat-label>
+              <input matInput formControlName="schedule_name" placeholder="Schedule Name" id="schedule_name"
+                autocomplete="off" required autofocus>
+              <mat-error class="caption status-danger">
+                Schedule name is required!
+              </mat-error>
+            </mat-form-field> -->
+            <br>
+            <!-- <mat-form-field class="example-full-width">
+              <mat-label>Description</mat-label>
+              <textarea matInput formControlName="schedule_description" placeholder="Description..."></textarea>
+            </mat-form-field> -->
+            <br>
+            <!-- <mat-form-field>
+              <input matInput readonly formControlName="commence_date" [matDatepicker]="pickerCommenceDate" placeholder="Commencement date">
+              <mat-datepicker-toggle matSuffix [for]="pickerCommenceDate"></mat-datepicker-toggle>
+              <mat-datepicker #pickerCommenceDate startView="year" [startAt]="startDate"></mat-datepicker>
+            </mat-form-field>
+            <p></p> -->
+  
+          </form>
+          <p></p>
+          <button nbButton status="primary">
+            <nb-icon icon="save"></nb-icon>
+          </button>
+          <!-- <button nbButton nbStepperNext>
+            <nb-icon icon="arrow-circle-right-outline"></nb-icon>
+          </button> -->
+        </nb-step>
+        <nb-step label="Duration">
+          <!-- header -->
+          <span class="label label-primary">2. Duration</span>
+          <!-- start tools -->
+          <div class="col-lg-12">
+            <div class="mail-tools tooltip-demo m-t-md">
+              <div class="btn-group float-right">
+                <button nbStepperPrevious class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
+                <button nbStepperNext (click)="getParams(2,frmRegSchedule)" class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
+  
+              </div>
+              <button (click)="resetTimeSpan()" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left"
+                title="Reset"><i class="fas fa-power-off"></i> </button>
+              <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" [disabled]="!isEditMode()" (click)="updateSchedule()" title="Submit update data"><i
+                  class="fas fa-edit"></i> </button>
+              <button [disabled]="!isSaveMode()" (click)="registerSchedule()" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Submit new data"><i
+                  class="fa fa-save"></i> </button>
+              <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Trash"
+                data-original-title="Move to trash"><i class="far fa-trash-alt"></i> </button>
+  
+            </div>
+          </div>
+          <!-- end tools -->
+          <div class="hr-line-dashed"></div>
+          <!-- end devider -->
+  
+          <!-- <input nbInput formControlName="commence_date" placeholder="Pick Date" [nbDatepicker]="dateTimePicker">
+          <nb-datepicker #commence_date></nb-datepicker> -->
+  
+  
+          <p></p>
+          <!-- <ngx-time-span (sendSelData)="getSelectedDuration($event)">
+          </ngx-time-span> -->
+          <p></p>
+        </nb-step>
+  
+        <nb-step label="Summary">
+          <!-- header -->
+          <span class="label label-primary">3. Summary</span>
+          <!-- start tools -->
+          <div class="col-lg-12">
+            <div class="mail-tools tooltip-demo m-t-md">
+              <div class="btn-group float-right">
+                <button nbStepperPrevious class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
+                <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
+  
+              </div>
+              <button (click)="resetTimeSpan()" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left"
+                title="Reset"><i class="fas fa-power-off"></i> </button>
+              <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" [disabled]="!isEditMode()" (click)="updateSchedule()" title="Submit update data"><i
+                  class="fas fa-edit"></i> </button>
+              <button [disabled]="!isSaveMode()" (click)="registerSchedule()" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Submit new data"><i
+                  class="fa fa-save"></i> </button>
+              <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Trash"
+                data-original-title="Move to trash"><i class="far fa-trash-alt"></i> </button>
+  
+            </div>
+          </div>
+          <!-- end tools -->
+          <div class="hr-line-dashed"></div>
+          <!-- end devider -->
+          <div class="col-md-9">
+            <h2>Summary</h2>
+            <small *ngIf="summary.form"><strong>Task Description:</strong> {{summary.form.schedule_description}}</small>
+            <ul class="list-group clear-list m-t">
+              <li *ngIf="summary.project" class="list-group-item fist-item">
+                <span class="float-right">
+                  {{summary.project.project_name}}
+                </span>
+                <span class="label label-primary">1</span> 
+                <small>&nbsp;Project Name</small>
+              </li>
+              <li *ngIf="summary.project" class="list-group-item">
+                <span class="float-right">
+                  {{summary.project.commence_date}}
+                </span>
+                <span class="label label-primary">2</span> 
+                <small>&nbsp;Project Commence Date</small>
+              </li>
+              <li *ngIf="summary.form" class="list-group-item">
+                <span class="float-right">
+                  {{summary.form.schedule_name}}
+                </span>
+                <span class="label label-primary">3</span> 
+                <small>&nbsp;Schedule Name</small>
+              </li>
+              <li *ngIf="summary.commence_date" class="list-group-item">
+                <span class="float-right">
+                  {{summary.commence_date}}
+                </span>
+                <span class="label label-primary">4</span> 
+                <small>&nbsp;Schedule Start Date</small>
+              </li>
+              <li *ngIf="summary.end_date" class="list-group-item">
+                <span class="float-right">
+                  {{summary.end_date}}
+                </span>
+                <span class="label label-primary">5</span> 
+                <small>&nbsp;Schedule End Date</small>
+              </li>
+              <li *ngIf="summary.durationDisplay" class="list-group-item">
+                <span class="float-right">
+                  {{summary.durationDisplay}}
+                </span>
+                <span class="label label-primary">6</span> 
+                <small>&nbsp;Schedule Duration</small>
+              </li>
+            </ul>
+          </div>
+  
+        </nb-step>
+  
+      </nb-stepper>
+    </nb-card-body>
+  </nb-card>
+  

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CdPaletteModule } from '../cd-palette/cd-palette.module';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
@@ -53,6 +54,8 @@ import { ConsumerResourcesComponent } from './consumer-resources/consumer-resour
 import { ConsumerSelectComponent } from './consumer-select/consumer-select.component';
 import { ConsumerListComponent } from './consumer-list/consumer-list.component';
 import { AclConsumerComponent } from './acl-consumer/acl-consumer.component';
+import { GroupNewComponent } from './group-new/group-new.component';
+import { GroupTreeMatComponent } from './group-tree-mat/group-tree-mat.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -71,13 +74,13 @@ const materialModules = [
 ];
 
 @NgModule({
-  declarations: [UserComponent, GroupComponent, AclComponent, GrusComponent, UserListComponent, GroupListComponent, UserGroupComponent, GroupNestedComponent, GroupMemberComponent, UserSelectComponent, GroupSelectComponent, GroupTreeViewComponent, ConsumerComponent, ConsumerResourcesComponent, ConsumerSelectComponent, ConsumerListComponent, AclConsumerComponent],
+  declarations: [UserComponent, GroupComponent, AclComponent, GrusComponent, UserListComponent, GroupListComponent, UserGroupComponent, GroupNestedComponent, GroupMemberComponent, UserSelectComponent, GroupSelectComponent, GroupTreeViewComponent, ConsumerComponent, ConsumerResourcesComponent, ConsumerSelectComponent, ConsumerListComponent, AclConsumerComponent, GroupNewComponent, GroupTreeMatComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule, 
     FormsModule,
     // ToastrModule.forRoot(), // ToastrModule added
-    // CdPaletteModule,
+    CdPaletteModule,
     ModulemanModule,
     AclRoutingModule,
     ThemeModule,

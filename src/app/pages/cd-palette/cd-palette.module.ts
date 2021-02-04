@@ -49,7 +49,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTreeModule } from '@angular/material/tree';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
 import { ProfileAccordionComponent } from './profile-accordion/profile-accordion.component';
 import { ProfileTwitterComponent } from './profile-twitter/profile-twitter.component';
@@ -84,6 +85,7 @@ import { InteRactComponent } from './inte-ract/inte-ract.component';
 import { InteRactPubComponent } from './inte-ract-pub/inte-ract-pub.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { HeaderTwoComponent } from './header-two/header-two.component';
+import { TreeViewMatComponent } from './tree-view-mat/tree-view-mat.component';
 
 const materialModules = [
   MatExpansionModule,
@@ -102,6 +104,7 @@ const materialModules = [
   MatIconModule,
   MatTooltipModule,
   MatBadgeModule,
+  MatTreeModule,
 ];
 
 @NgModule({
@@ -134,6 +137,7 @@ const materialModules = [
     InteRactPubComponent,
     TimelineComponent,
     HeaderTwoComponent,
+    TreeViewMatComponent,
   ],
   imports: [
     CommonModule,
@@ -233,6 +237,8 @@ const materialModules = [
     InteRactCommentsComponent,
     TimelineComponent,
     HeaderTwoComponent,
+    TreeGridComponent,
+    TreeViewMatComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
