@@ -5,6 +5,7 @@ import { take, takeUntil } from 'rxjs/operators';
 import { MatSelect } from '@angular/material/select';
 import { GroupService } from '../../../@cd/sys/user/controllers/group.service';
 import { UserService } from '../../../@cd/sys/user/controllers/user.service';
+import { CdFilter } from '../../../@cd/base/b.model';
 
 import { Group, GROUPS } from './demo-data';
 
@@ -36,7 +37,14 @@ export class GroupSelectComponent implements OnInit, AfterViewInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.svGroup.getGroupsObsv()
+    const filter: CdFilter[] = [
+      {
+        field: 'group.enabled',
+        operator: '=',
+        val: 1
+      }
+    ];
+    this.svGroup.getGroupsObsv(filter)
       .subscribe(
         (resp: any) => {
           console.log('GroupSelectComponents::ngOnInit()/resp.data:', resp.data);

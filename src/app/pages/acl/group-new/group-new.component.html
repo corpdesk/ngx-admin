@@ -26,15 +26,33 @@
           <!-- end tools -->
           <div class="hr-line-dashed"></div>
           <!-- end devider -->
-          <form [formGroup]="frmRegGroup" (ngSubmit)="registerGroup(frmRegGroup)">
+          <form [formGroup]="frmRegGroupMember" (ngSubmit)="registerGroupMember(frmRegGroupMember)">
             <mat-error *ngIf="regScheduleInvalid">
               {{errMsg}}
             </mat-error>
             <br>
-            <!-- <ngx-select-search #selectProj formControlName="project_id" [isInvalidSelItems]="isInvalidSelProj" (sendSelData)="getSelectedProj($event)"
-              [nameField]="projNameField" [IdField]="projIdField" [ConsumerInstance]="svProject"
-              [fetchData]="fetchProjData" placeholder="Projects" multiple="false">
-            </ngx-select-search> -->
+            <mat-form-field>
+              <mat-label>Group Name</mat-label>
+              <input matInput placeholder="Group Name" formControlName="group_name" required>
+              <mat-error *ngIf="frmRegGroupMember.controls.group_name.hasError('required')">
+                You must provide a <strong>name</strong>
+              </mat-error>
+            </mat-form-field>
+            <br>
+            <ngx-select-search #selectParent [isInvalidSelItems]="isInvalidSelModule" (sendSelData)="getSelectedModule($event)"
+              [nameField]="moduleNameField" [IdField]="moduleIdField" [ConsumerInstance]="svModule"
+              [fetchData]="fetchModuleData" [fetchDataArgs]="fetchModuleDataArgs" placeholder="Modules" multiple="false">
+            </ngx-select-search>
+            <br>
+            <ngx-select-search #selectParent [isInvalidSelItems]="isInvalidSelGroup" (sendSelData)="getSelectedGroup($event)"
+              [nameField]="groupNameField" [IdField]="groupIdField" [ConsumerInstance]="svGroup"
+              [fetchData]="fetchGroupData" [fetchDataArgs]="fetchGroupDataArgs" placeholder="Parent Group" multiple="false">
+            </ngx-select-search>
+            <br>
+            <ngx-select-search #selectParent [isInvalidSelItems]="isInvalidSelGroupType" (sendSelData)="getSelectedGroupType($event)"
+              [nameField]="groupTypeNameField" [IdField]="groupTypeIdField" [ConsumerInstance]="svGroup"
+              [fetchData]="fetchGroupTypesData" placeholder="Group Type" multiple="false">
+            </ngx-select-search>
             <br>
             <!-- <mat-form-field class="input-example">
               <mat-label>Group Name</mat-label>
@@ -59,7 +77,7 @@
   
           </form>
           <p></p>
-          <button nbButton status="primary">
+          <button (click)="registerGroupMember(frmRegGroupMember)" nbButton status="primary">
             <nb-icon icon="save"></nb-icon>
           </button>
           <!-- <button nbButton nbStepperNext>

@@ -5,6 +5,7 @@ import { GroupMemberNode } from '../../../@cd/sys/user/models/gruoup-member-mode
 import { GroupMemberService } from '../../../@cd/sys/user/controllers/group-member.service';
 import { GroupService } from '../../../@cd/sys/user/controllers/group.service';
 import { TreeHelperService } from '../../../@cd/guig/tree-helper';
+import { CdFilter } from '../../../@cd/base/b.model';
 
 /**
  * Food data with nested structure.
@@ -80,13 +81,20 @@ export class TreeViewMatComponent implements OnInit {
     private svGroupMember: GroupMemberService,
     private svTreeHelper: TreeHelperService,
   ) {
-    this.svGroupMember.getGroupMemberObsv(null).subscribe((resp: any) => {
+    const filter: CdFilter[] = [
+      {
+        field: 'group.enabled',
+        operator: '=',
+        val: 1
+      }
+    ];
+    this.svGroupMember.getGroupMemberObsv(filter).subscribe((resp: any) => {
       console.log('getGroupMemberObsv/resp:', resp);
       const groupTree = this.svTreeHelper.toTree(resp.data, 'member_guid', 'group_guid_parent');
       console.log('groupTree:', groupTree);
       this.dataSource.data = groupTree;
     });
-    
+
   }
 
   ngOnInit(): void {

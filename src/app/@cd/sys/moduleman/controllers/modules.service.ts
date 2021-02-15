@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ServerService } from './server.service';
 import { SessService } from '../../user/controllers/sess.service';
 import { UserService } from '../../user/controllers/user.service';
+import { CdFilter } from '../../../base/b.model';
 
 
 @Injectable({
@@ -426,6 +427,52 @@ export class ModulesService {
       c: 'ModulesController',
       a: 'actionGetAll',
       dat: {
+        token: this.svSess.getCdToken()
+      },
+      args: null
+    };
+  }
+
+  getGetObsv(filter: CdFilter) {
+    console.log('starting getGetObsv()');
+    this.setEnvelopeGet(filter);
+    console.log('this.postData:', this.postData);
+    return this.svServer.proc(this.postData)
+  }
+
+  // {
+  //     "ctx": "Sys",
+  //     "m": "Moduleman",
+  //     "c": "ModulesController",
+  //     "a": "actionGetModules",
+  //     "dat": {
+  //         "f_vals": [
+  //             {
+  //                 "filter": [
+  //                     {
+  //                         "field": "module_name",
+  //                         "operator": "=",
+  //                         "val": "booking"
+  //                     }
+  //                 ]
+  //             }
+  //         ],
+  //         "token": "CE25F8B5-5A30-9EA4-4E7E-315F494E5D46"
+  //     },
+  //     "args": null
+  // }
+  setEnvelopeGet(f: CdFilter) {
+    this.postData = {
+      ctx: 'Sys',
+      m: 'Moduleman',
+      c: 'ModulesController',
+      a: 'actionGetModules',
+      dat: {
+                f_vals: [
+              {
+                  filter: f
+              }
+          ],
         token: this.svSess.getCdToken()
       },
       args: null

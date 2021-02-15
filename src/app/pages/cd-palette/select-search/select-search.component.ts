@@ -21,6 +21,7 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() IdField;
   @Input() ConsumerInstance;
   @Input() fetchData;
+  @Input() fetchDataArgs = null;
   @Input() placeholder='Items';
   @Input() multiple='true';
 
@@ -63,10 +64,17 @@ export class SelectSearchComponent implements OnInit, AfterViewInit, OnDestroy {
     // in this case, the instance is passed to ConsumerInstance
     // and the method is passed to fetchData
     // the method must return an observable with data
-    this.ConsumerInstance[this.fetchData]()
+
+    let filter;
+    if(this.fetchDataArgs){
+      filter = this.fetchDataArgs[0];
+    } else {
+      filter = null;
+    }
+    this.ConsumerInstance[this.fetchData](filter)
       .subscribe(
         (resp: any) => {
-          console.log('UserSelectComponents::constructor()/resp.data:', resp.data);
+          // console.log('this.fetchData:', this.fetchData, 'this.fetchDataArgs:', this.fetchDataArgs, 'this.ConsumerInstance[this.fetchData]():', resp.data);
           this.selectData = resp.data;
           this.filteredItemsMulti.next(this.selectData.slice());
         }

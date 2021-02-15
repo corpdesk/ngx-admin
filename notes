@@ -194,13 +194,44 @@ InteRact/cd_social
             - load nested groups
         - create tree-grid
             - load nested groups
-    - group wizard
-        - group type
-        - public/private
+    - group wizard (create group)
+        - group name
+        - select parent group
+        - select group_type
+        - group exposure: private/public
+        - parent group
+        - module_guid
+        - enabled
+        - save
+        - view the new group in tree
+        - Bug: when saved under root tree, it does not show, else it shows
+            - is 'jeks' showing under 'Personal'? No
+            - is 'jeks' showing under the fetched group_view? Yes
+    
+    - set comments UI
+        - 
+    - Test Group in InteRact
+        - create user private group for 'social wall'
+            - do a query that pulls inteRact data based on user groupings
+            - test social conversation on the wall
+        - create project group for project discussion
+            - test social conversation on a given project
+    - Manage group
+        - private/public
+        - invite/remove member
+        - block user
+        - block group
+
+    - Back-end: on create group, creator is automatically added to the group
+    - group wizard (join group)
     - create group1 & group2
     - join the groups
     - invite different member sets to the 2 groups
-    - get invitation
+    - notifications
+        - successfull notification create
+        - invitations
+        - invitation accepted
+    - Notification media/options
         - memo notification
         - inteRact notifiation
         - websocket live notification
@@ -605,6 +636,21 @@ use tree-grid to view modules/menu in hierarchial format
             - getProjects
         - 3. View details to edit
 
+
+15/05/2021
+- group wizard (create group)
+        - group name
+        - select parent group
+        - select group_type
+        - group exposure: private/public
+        - parent group
+        - module_guid
+        - enabled
+        - save
+        - view the new group in tree
+        - Bug: when saved under root tree, it does not show, else it shows
+            - is 'jeks' showing under 'Personal'? No
+            - is 'jeks' showing under the fetched group_view? Yes
 
 05/02/2021
     - Load nested groups

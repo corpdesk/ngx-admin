@@ -1,3 +1,5 @@
+import { Group } from './group-model';
+
 export interface GroupMember {
     group_member_id?: number;
     group_member_guid?: string;
@@ -10,6 +12,11 @@ export interface GroupMember {
     cd_obj_type_id?: number;
     group_member_parent_id?: number;
     enabled?: boolean;
+}
+
+export interface GroupMemberInput {
+    group: Group;
+    data: GroupMember;
 }
 
 export interface GroupMemberNode {

@@ -3,11 +3,16 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { TimeData, ScheduleSettings, ScheduleRegData, ScheduleView, ScheduleUpdateData, } from '../../../@cd/sys/scheduler/models/schedule.model';
 import { ProjectService } from '../../../@cd/app/pms/controllers/project.service';
 import { ScheduleService } from '../../../@cd/sys/scheduler/controllers/schedule.service';
+import { ModulesService } from '../../../@cd/sys/moduleman/controllers/modules.service';
 import { GroupService } from '../../../@cd/sys/user/controllers/group.service';
+import { GroupMemberService } from '../../../@cd/sys/user/controllers/group-member.service';
+import { GroupMemberInput, GroupMember } from '../../../@cd/sys/user/models/gruoup-member-model';
+import { Group } from '../../../@cd/sys/user/models/group-model';
 import { TimeSpanComponent } from '../../cd-palette/time-span/time-span.component';
 import { SocketIoService } from '../../../@cd/sys/cd-push/controllers/socket-io.service';
 // import { GanttNineComponent } from '../../cd-palette/gantt-nine/gantt-nine.component';
 import { NbStepperComponent } from '@nebular/theme';
+import { CdFilter } from '../../../@cd/base/b.model';
 
 import * as moment from 'moment';
 
@@ -45,18 +50,39 @@ export class GroupNewComponent implements OnInit {
   submitted = false;
   frmRegSchedule: FormGroup;
   frmRegGroup: FormGroup;
+  frmRegGroupMember: FormGroup;
   frmRegMenu: FormGroup;
   postData;
   errMsg;
 
-  // select project params
-  fetchProjData = 'getProjectsObsv'; // server method for fetching
-  isInvalidSelProj = true;
-  selectedProj = [];
-  Projects = [{}];
-  projNameField = 'project_name';
-  projIdField = 'project_id';
-  ProjectsData;
+  // Get Groups
+  fetchModuleData = 'getGetObsv'; // server method for fetching
+  fetchModuleDataArgs = [];
+  isInvalidSelModule = true;
+  selectedModule = [];
+  Modules = [{}];
+  moduleNameField = 'module_name';
+  moduleIdField = 'module_id';
+  ModulesData;
+
+  // Get Groups
+  fetchGroupData = 'getGroupsObsv'; // server method for fetching
+  fetchGroupDataArgs = [];
+  isInvalidSelGroup = true;
+  selectedGroup = [];
+  Groups = [{}];
+  groupNameField = 'group_name';
+  groupIdField = 'group_id';
+  GroupsData;
+
+  // Get GroupTypes
+  fetchGroupTypesData = 'getGroupTypesObsv'; // server method for fetching group types
+  isInvalidSelGroupType = true;
+  selectedGroupType = [];
+  GroupTypes = [{}];
+  groupTypeNameField = 'group_type_name';
+  groupTypeIdField = 'group_id';
+  GroupTypesData;
 
   // select schedule params
   fetchScheduleData = 'getScheduleObsv'; // server method for fetching
@@ -74,12 +100,17 @@ export class GroupNewComponent implements OnInit {
     public svProject: ProjectService,
     public svSchedule: ScheduleService,
     public svGroup: GroupService,
+    public svGroupMember: GroupMemberService,
     public svSocket: SocketIoService,
+    public svModule: ModulesService,
   ) {
+    // set default for use by automated select-search (which do not have input param)
+    this.svGroup.ExtFilter = [{
+      field: 'group.enabled',
+      operator: '=',
+      val: 1
+    }];
 
-    this.frmRegGroup = new FormGroup({
-      
-    });
     this.frmRegSchedule = new FormGroup({
       project_id: new FormControl(),
       schedule_name: new FormControl(),
@@ -91,21 +122,58 @@ export class GroupNewComponent implements OnInit {
       menu_name: new FormControl(),
     });
 
-    this.svProject.getProjectsObsv()
+    // this.svProject.getProjectsObsv()
+    //   .subscribe(
+    //     (resp: any) => {
+    //       console.log('NewScheduleComponent::constructor()/this.svProject.getProjectsObsv()/resp.data:', resp.data);
+    //       this.ProjectsData = resp.data;
+    //     }
+    //   );
+
+    const filter: CdFilter[] = [
+      {
+        field: 'group.enabled',
+        operator: '=',
+        val: 1
+      }
+    ];
+    // allow select for group to fetch data with filter
+    this.fetchGroupDataArgs.push(filter);
+    this.svGroup.getGroupsObsv(filter)
       .subscribe(
         (resp: any) => {
-          console.log('NewScheduleComponent::constructor()/this.svProject.getProjectsObsv()/resp.data:', resp.data);
-          this.ProjectsData = resp.data;
+          console.log('GroupNewComponent::constructor()/this.svGroup.getGroupsObsv()/resp.data:', resp.data);
+          this.GroupsData = resp.data;
         }
       );
 
-    this.svSchedule.getScheduleObsv()
+    /**
+     * to get all, set filter to null
+     */
+    this.svGroup.getGroupTypesObsv(null)
       .subscribe(
         (resp: any) => {
-          console.log('NewScheduleComponent::constructor()/this.svSchedule.getScheduleObsv()/resp.data:', resp.data);
-          this.ScheduleData = resp.data;
+          console.log('GroupNewComponent::constructor()/this.svGroup.getGroupTypesObsv()/resp.data:', resp.data);
+          this.GroupTypesData = resp.data;
         }
       );
+
+      
+      this.svModule.getGetObsv(null)
+      .subscribe(
+        (resp: any) => {
+          console.log('GroupNewComponent::this.svModule.getGetObsv()/resp.data:', resp.data);
+          this.ModulesData = resp.data;
+        }
+      );
+
+    // this.svSchedule.getScheduleObsv()
+    //   .subscribe(
+    //     (resp: any) => {
+    //       console.log('NewScheduleComponent::constructor()/this.svSchedule.getScheduleObsv()/resp.data:', resp.data);
+    //       this.ScheduleData = resp.data;
+    //     }
+    //   );
   }
 
   ngOnInit(): void {
@@ -120,9 +188,17 @@ export class GroupNewComponent implements OnInit {
     });
   }
 
-
-
   initForms() {
+    // this.frmRegGroup = this.fb.group({
+    //   group_name: ['', Validators.required],
+    //   group_type_id: ['', Validators.required],
+    // });
+
+    this.frmRegGroupMember = this.fb.group({
+      group_name: ['', Validators.required],
+      // group_type_id: ['', Validators.required],
+      // group_guid_parent: ['', Validators.required],
+    });
     this.frmRegSchedule = this.fb.group({
       schedule_name: ['', Validators.required],
       schedule_description: ['',],
@@ -130,8 +206,20 @@ export class GroupNewComponent implements OnInit {
     });
   }
 
-  getSelectedProj(selProj) {
-    this.selectedProj = selProj;
+  // getSelectedProj(selProj) {
+  //   this.selectedProj = selProj;
+  // }
+
+  getSelectedModule(selModule) {
+    this.selectedModule = selModule;
+  }
+
+  getSelectedGroup(selGroup) {
+    this.selectedGroup = selGroup;
+  }
+
+  getSelectedGroupType(selGroupType) {
+    this.selectedGroupType = selGroupType;
   }
 
   getSelectedDuration(selDuration) {
@@ -146,7 +234,7 @@ export class GroupNewComponent implements OnInit {
 
     switch (step) {
       case 1:
-        this.summary.project = this.selectedProj;
+        this.summary.project = this.selectedGroup;
         this.summary.form = frm.value;
         if (typeof (cDate) == 'string') {
           this.summary.commence_date = cDate;
@@ -156,12 +244,12 @@ export class GroupNewComponent implements OnInit {
         }
 
         this.summary.scheduleStartEpoch = this.svSchedule.mysqlToEpoch(this.summary.commence_date);
-        console.log('this.summary.scheduleStartEpoch:', this.summary.scheduleStartEpoch);
-        const projStartDate = this.selectedProj['commence_date'];
-        console.log('this.selectedProj:', this.selectedProj);
-        console.log('projStartDate:', projStartDate);
+        // console.log('this.summary.scheduleStartEpoch:', this.summary.scheduleStartEpoch);
+        const projStartDate = this.selectedGroup['commence_date'];
+        // console.log('this.selectedProj:', this.selectedGroup);
+        // console.log('projStartDate:', projStartDate);
         let projStartEpoch = this.svSchedule.mysqlToEpoch(projStartDate);
-        console.log('projStartEpoch:', projStartEpoch);
+        // console.log('projStartEpoch:', projStartEpoch);
         const projectStartMoment = this.svSchedule.epochToDateTime(projStartEpoch);
         this.summary.projectStartEpoch = projStartEpoch;
         break;
@@ -222,12 +310,36 @@ export class GroupNewComponent implements OnInit {
       );
   }
 
-  registerGroup(regData) {
-    console.log('starting registerGroup()');
-    this.svGroup.registerGroupObsv(regData)
+  // SAMPLE:
+  // members = [
+  //               {
+  //                   "group": {
+  //                       "group_name": "projectB",
+  //                       "group_type_id": "7"
+  //                   },
+  //                   "data": {
+  //                       "group_guid_parent": "D7FF9E61-B143-D083-6130-A51058AD9630"
+  //                   }
+  //               }
+  //           ];
+  registerGroupMember(frm: FormGroup) {
+    console.log('registerGroupMember(frm: FormGroup)');
+    console.log('frm:', frm, 'this.selectedGroupType:', this.selectedGroupType, 'selectedGroup:', this.selectedGroup);
+    console.log('frm.controls:', frm.controls.group_name.value);
+    let g: Group = {};
+    g.group_name = frm.controls.group_name.value;
+    g.group_guid = this.selectedModule['group_guid'];
+    g.group_type_id = this.selectedGroupType['group_type_id'];
+    const parentGroup = this.selectedGroup['group_guid'];
+    const regData: GroupMemberInput[] = [{
+      group: g,
+      data: { group_guid_parent: parentGroup }
+    }];
+    console.log('regData:', regData);
+    this.svGroupMember.createGroupMemberObsv(regData)
       .subscribe(
         (resp: any) => {
-          console.log('NewScheduleComponent::registerSchedule()/this.svSchedule.registerScheduleObsv()/resp.data:', resp.data);
+          console.log('GroupNewComponent::registerGroupMember()/this.svGroupMember.createGroupMemberObsv(regData)/resp.data:', resp.data);
           console.log('resp.data:', resp.data);
         }
       );
@@ -247,7 +359,7 @@ export class GroupNewComponent implements OnInit {
   }
 
   selectedProjectData(projectID) {
-    const ret = this.ProjectsData.filter((p) => {
+    const ret = this.GroupsData.filter((p) => {
       if (p.project_id == projectID) {
         return p;
       }
@@ -309,8 +421,8 @@ export class GroupNewComponent implements OnInit {
     this.selectedSchedule = scheduleData;
     this.stepperGoToFirst();
     // this.frmRegSchedule.controls.project_id.setValue(scheduleData.schedule.project_id);
-    this.selectedProj = this.selectedProjectData(scheduleData[0].schedule.project_id);
-    console.log('this.selectedProj:', this.selectedProj);
+    this.selectedGroup = this.selectedProjectData(scheduleData[0].schedule.project_id);
+    console.log('this.selectedProj:', this.selectedGroup);
     this.frmRegSchedule.controls.schedule_name.setValue(scheduleData[0].taskName);
     this.frmRegSchedule.controls.schedule_description.setValue(scheduleData[0].schedule.schedule_description);
     this.setCommenceDate(scheduleData[0].schedule.commence_date);
@@ -335,38 +447,7 @@ export class GroupNewComponent implements OnInit {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  /**
-   * {
-        "ctx": "Sys",
-        "m": "Scheduler",
-        "c": "ScheduleController",
-        "a": "actionUpdate",
-        "dat": {
-            "f_vals": [
-                {
-                    "filter": [
-                        {
-                            "field": "schedule_id",
-                            "operator": "=",
-                            "val": "104"
-                        }
-                    ],
-                    "schedulestage": {
-                        "days": "3",
-                        "hrs": "16",
-                        "schedulestage_name": "xxxx"
-                    },
-                    "data": {
-                        "schedule_name": "nursury preparation",
-                        "schedule_description": "testing description2"
-                    }
-                }
-            ],
-            "token": "mT6blaIfqWhzNXQLG8ksVbc1VodSxRZ8lu5cMgda"
-        },
-        "args": null
-    }
-   */
+  
   updateSchedule() {
     console.log('starting updateSchedule()');
     console.log('this.summary.regData:', this.summary.regData);

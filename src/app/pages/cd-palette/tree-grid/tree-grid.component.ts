@@ -3,6 +3,7 @@ import { async } from '@angular/core/testing';
 import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
 import { GroupMemberService } from '../../../@cd/sys/user/controllers/group-member.service';
 import { TreeHelperService } from '../../../@cd/guig/tree-helper';
+import { CdFilter } from '../../../@cd/base/b.model';
 
 interface TreeNode<T> {
   data: T;
@@ -64,10 +65,16 @@ export class TreeGridComponent implements AfterViewInit {
     private svTreeHelper: TreeHelperService,
   ) {
 
-    this.svGroupMember.getGroupMemberObsv(null).subscribe((resp: any) => {
+    const filter: CdFilter[] = [
+      {
+        field: 'group.enabled',
+        operator: '=',
+        val: 1
+      }
+    ];
+    this.svGroupMember.getGroupMemberObsv(filter).subscribe((resp: any) => {
       console.log('getGroupMemberObsv/resp:', resp);
       const root = this.svTreeHelper.getRoot(resp.data);
-
       console.log('root:', root);
       this.groups = root;
       this.dataSource = this.dataSourceBuilder.create(this.groups);

@@ -7,5 +7,5 @@ export interface Group {
     doc_id?: number;
     group_type_id?: number;
     module_guid?: string;
-    company_id: number;
+    company_id?: number;
 }

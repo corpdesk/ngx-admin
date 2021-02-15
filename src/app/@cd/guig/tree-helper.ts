@@ -274,6 +274,7 @@ export class TreeHelperService {
      * @param groups 
      */
     getRoot(groups: GroupMember[]) {
+        console.log('getRoot(groups: GroupMember[])/groups:', groups);
         let ret = groups.filter((g) => {
             if (g.cd_obj_type_id == 17) {
                 return g;
@@ -287,10 +288,15 @@ export class TreeHelperService {
         root.forEach((parent, i) => {
             root[i].children = this.getChildren(parent, groups);
         });
+        console.log('getRoot(groups: GroupMember[])/root:', root);
         return root;
     }
 
     getChildren(parent: Node, groups: GroupMember[]): any {
+        // if(parent.data.member_guid == '645730F0-3'){
+        //     console.log('parent:', parent);
+        // }
+        
         /**
          * filter children from the group
          */
@@ -306,6 +312,8 @@ export class TreeHelperService {
             .map((g) => {
                 return { data: g, children: [] };
             });
+
+        
 
         /**
          * return with grand children if it hasChildren
