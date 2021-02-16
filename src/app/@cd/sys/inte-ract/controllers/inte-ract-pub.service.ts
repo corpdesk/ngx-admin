@@ -24,7 +24,7 @@ export class InteRactPubService {
   createPubObsv(createPubData: InteRactData) {
     console.log('starting InteRactPubService::createPubObsv()');
     this.setEnvelopeCreatePub(createPubData);
-    console.log('this.postData:', JSON.stringify(this.postData));
+    console.log('createPubObsv(createPubData: InteRactData)/this.postData:', JSON.stringify(this.postData));
     return this.svServer.proc(this.postData)
   }
 
@@ -127,4 +127,7 @@ export class InteRactPubService {
       args: null
     };
   }
+
+
+  
 }

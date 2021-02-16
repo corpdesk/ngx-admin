@@ -210,6 +210,9 @@ InteRact/cd_social
     
     - set comments UI
         - 
+    - test sending post
+        - is the post being fetched?
+        - is it showing immediatly (Live!)
     - Test Group in InteRact
         - create user private group for 'social wall'
             - do a query that pulls inteRact data based on user groupings
@@ -636,8 +639,12 @@ use tree-grid to view modules/menu in hierarchial format
             - getProjects
         - 3. View details to edit
 
-
-15/05/2021
+16/02/2021
+- set comments UI
+        - 
+    - test sending post
+        - is the post being fetched?
+15/02/2021
 - group wizard (create group)
         - group name
         - select parent group

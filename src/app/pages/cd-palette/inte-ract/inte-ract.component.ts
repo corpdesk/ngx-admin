@@ -21,18 +21,17 @@ export class InteRactComponent implements OnInit, AfterViewInit {
     public svHtml: HtmlElemService,
     private svUser: UserService,
   ) {
-
     const f: CdFilter[] = [
-      // {
-      //   field: 'user_id',
-      //   operator: '=',
-      //   val: this.svUser.cuid
-      // }
       {
-        field: 'j_val->projectID', // laravel query builder syntax for mysql json colum (https://laravel.com/docs/8.x/queries#json-where-clauses)
+        field: 'user_id',
         operator: '=',
-        val: 4 // based on id of the selected project
+        val: this.svUser.cuid
       }
+    //   {
+    //     field: 'j_val->projectID', // laravel query builder syntax for mysql json colum (https://laravel.com/docs/8.x/queries#json-where-clauses)
+    //     operator: '=',
+    //     val: 4 // based on id of the selected project
+    //   }
     ];
     console.log('this.svUser.cuid:', this.svUser.cuid);
     this.svInteRactPub.getPubObsv(f).subscribe((resp: any) => {

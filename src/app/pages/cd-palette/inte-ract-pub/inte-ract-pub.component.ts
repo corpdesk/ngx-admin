@@ -9,17 +9,46 @@ import { HtmlElemService } from '../../../@cd/guig/html-elem.service';
   styleUrls: ['./inte-ract-pub.component.scss']
 })
 export class InteRactPubComponent implements OnInit {
-  @Input() pubType = 'Post';
+  @Input() pubType = 'Pub';
   @Input() pubScope = 'Group';
+  pubPlaceholder = '';
   avatar;
   constructor(
     public svInteRactPub: InteRactPubService,
     public svHtml: HtmlElemService,
   ) {
-    this.avatar = '../../../../assets/cd/inspinia/img/a3.jpg';
+    this.initData();
   }
 
   ngOnInit(): void {
+    this.initUI();
+  }
+
+  // invoke all methods that do not have to wait for UI to be ready
+  initData() {
+    this.setCuidAvatar()
+  }
+
+  // invoke methods that require UI to be ready first
+  initUI() {
+    this.setPlaceholder()
+  }
+
+  setPlaceholder() {
+    console.log('this.pubType:', this.pubType);
+    switch (this.pubType) {
+      case 'Pub':
+        this.pubPlaceholder = 'New Pub...';
+        break;
+      case 'React':
+        this.pubPlaceholder = 'Post a comment...';
+        break;
+    }
+  }
+
+  // avatar for current user
+  setCuidAvatar() {
+    this.avatar = '../../../../assets/cd/inspinia/img/a3.jpg';
   }
 
   // /**

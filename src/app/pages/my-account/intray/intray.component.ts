@@ -25,38 +25,11 @@ export class IntrayComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.svConversation.ConversationInboxObsv()
-    //   .subscribe((ret: any) => {
-    //     console.log('ret:', ret);
-    //     this.svConversation.conversation = ret.data.conversation;
-    //     this.messages = this.svConversation.conversation;
-    //     this.svConversation.InBoxData = this.svConversation.conversation;
-    //     this.svConversation.countInBox = this.messages.length;
-    //     this.updateUnread();
-    //     // console.log('unreadMessages:', unreadMessages);
-    //     console.log('this.messages:', this.messages);
-    //     console.log('this.svConversation.conversation:', this.svConversation.conversation);
-    //   }); 
     this.svConversation.init();
-    // this.svConversation.InBoxData = this.svConversation.InBoxData;
-
     this.svSocket.listen('push-memo').subscribe((data: any) => {
       console.log('IntrayComponent/Push received');
       console.log('data:', data);
-      // this.svConversation.procPush(data, 'broadcast-message');
-      // const pushResp = data.resp;
-      // console.log('pushResp:', pushResp);
-      // console.log('this.svConversation.conversation:', this.svConversation.conversation);
-      // this.svConversation.trayMode = 3;
       this.reloadData(data)
-
-      // this.changeDetectorRefs.detectChanges();
-      // const dStr = JSON.stringify(this.svConversation.conversation);
-      // const d = JSON.parse(dStr);
-      // d.push(pushResp.data.outBox.conversation[0]);
-
-      // const d = JSON.parse(dStr);
-      // this.reloadData();
     });
   }
 

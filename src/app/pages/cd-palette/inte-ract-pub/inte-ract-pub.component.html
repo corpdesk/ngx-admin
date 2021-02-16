@@ -4,7 +4,7 @@
     </a>
 </div>
 <div class="media-body">
-    <textarea id="msgNew" class="form-control" placeholder="New post..."></textarea>
+    <textarea id="msgNew" class="form-control" [placeholder]="pubPlaceholder"></textarea>
     <div class="btn-group-container">
        <div class="btn-group">
            <button (click)="createPub()" data-toggle="tooltip" data-placement="top" title="save" class="btn btn-white btn-xs"><i class="fas fa-share"></i> publish</button>

@@ -1,5 +1,5 @@
 <div id="new-pub" class="social-footer">
-    <ngx-inte-ract-pub pubType="post" [pubScope]="pubScope"></ngx-inte-ract-pub>
+    <ngx-inte-ract-pub pubType="Pub" [pubScope]="pubScope"></ngx-inte-ract-pub>
 </div>
 
 <div *ngFor="let pub of svInteRactPub.Pubs" class="social-feed-box">
@@ -34,6 +34,7 @@
 
     <!-- social-footer (comments) -->
     <div class="social-footer">
+        <ngx-inte-ract-pub pubType="React" [pubScope]="pubScope"></ngx-inte-ract-pub>
         <div *ngFor="let comment of pub.comments" class="social-comment">
             <a href="" class="float-left">
                 <img alt="image" [src]="getAvatar(comment)">
