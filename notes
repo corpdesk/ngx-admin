@@ -183,6 +183,8 @@ InteRact/cd_social
 - test save comment
 - test inte-ract with back-end data (reading)
 - move inte-ract to cd-palette so it can be consumed from different modules
+- set back-end for <user_guid>-pals group
+- test inteRact query for user 'Wall' data based on 'pals' pubs
 - use consumable header-two
 - use consumable inte-ract
 - use consumable timeline
@@ -638,6 +640,12 @@ use tree-grid to view modules/menu in hierarchial format
         - 2. Select project
             - getProjects
         - 3. View details to edit
+
+18/02/2021
+- test inte-ract with back-end data (reading)
+- move inte-ract to cd-palette so it can be consumed from different modules
+- set back-end for <user_guid>-pals group
+- test inteRact query for user 'Wall' data based on 'pals' pubs
 
 16/02/2021
 - set comments UI

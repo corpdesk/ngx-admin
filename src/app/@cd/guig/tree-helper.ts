@@ -22,6 +22,7 @@ interface MenuField {
 }
 
 interface GroupMember {
+    member_id: number,
     member_name: string,
     group_member_id: number,
     member_guid: string,

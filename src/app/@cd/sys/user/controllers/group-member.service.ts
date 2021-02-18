@@ -168,13 +168,46 @@ export class GroupMemberService {
       ctx: 'Sys',
       m: 'User',
       c: 'GroupMemberController',
-      a: 'actionGroupMember',
+      a: 'actionGroupMember2',
       dat: {
         f_vals: [
           {
             filter: f
           }
         ],
+        token: this.svSess.getCdToken()
+      },
+      args: null
+    };
+  }
+
+  
+  getGetPalsObsv() {
+    console.log('starting getGetPalsObsv()');
+    this.setEnvelopeGetPals();
+    console.log('this.postData:', JSON.stringify(this.postData));
+    return this.svServer.proc(this.postData);
+  }
+
+  // /**
+  //  * {
+  //       "ctx": "Sys",
+  //       "m": "User",
+  //       "c": "GroupMemberController",
+  //       "a": "actionGetPals",
+  //       "dat": {
+  //           "token": "mT6blaIfqWhzNXQLG8ksVbc1VodSxRZ8lu5cMgda"
+  //       },
+  //       "args": null
+  //   }
+  //  */
+  setEnvelopeGetPals() {
+    this.postData = {
+      ctx: 'Sys',
+      m: 'User',
+      c: 'GroupMemberController',
+      a: 'actionGetPals',
+      dat: {
         token: this.svSess.getCdToken()
       },
       args: null

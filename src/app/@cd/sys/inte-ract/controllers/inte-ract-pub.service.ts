@@ -74,6 +74,19 @@ export class InteRactPubService {
     };
   }
 
+  pushData(pushEvent, data) {
+    switch (pushEvent) {
+      case 'send-pub':
+        this.svSocket.emit(pushEvent, data);
+        break;
+      case 'private':
+        // if scope is room, subscribe to room then emit
+        this.svSocket.emit(pushEvent, data);
+        // if channel, subscribe to channel then send message
+        break;
+    }
+  }
+
   /**
    * Array of custom sql-like filters.
    * @param f: CdFilter[]

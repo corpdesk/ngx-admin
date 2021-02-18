@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { CdSocialPost } from '../../../@cd/sys/comm/models/comm.model';
+import { GroupMemberService} from '../../../@cd/sys/user/controllers/group-member.service';
 import { InteRactPubService } from '../../../@cd/sys/inte-ract/controllers/inte-ract-pub.service';
 import { HtmlElemService } from '../../../@cd/guig/html-elem.service';
 import { CdFilter } from '../../../@cd/base/b.model';
@@ -20,28 +21,42 @@ export class InteRactComponent implements OnInit, AfterViewInit {
     public svInteRactPub: InteRactPubService,
     public svHtml: HtmlElemService,
     private svUser: UserService,
+    private svGroupMember: GroupMemberService,
   ) {
-    const f: CdFilter[] = [
-      {
-        field: 'user_id',
-        operator: '=',
-        val: this.svUser.cuid
-      }
+    this.svGroupMember.getGetPalsObsv().subscribe((resp: any) => {
+    // Filter Examples
+    // [
+    //     {
+    //       field: 'user_id',
+    //       operator: '=',
+    //       val: this.svUser.cuid
+    //     },
+    //     {
+    //       field: 'user_id',
+    //       operator: '=',
+    //       val: 1002,
+    //       filterType: 'or'
+    //     }
     //   {
     //     field: 'j_val->projectID', // laravel query builder syntax for mysql json colum (https://laravel.com/docs/8.x/queries#json-where-clauses)
     //     operator: '=',
     //     val: 4 // based on id of the selected project
     //   }
-    ];
-    console.log('this.svUser.cuid:', this.svUser.cuid);
-    this.svInteRactPub.getPubObsv(f).subscribe((resp: any) => {
-      console.log('InteRactComponent::construct/resp.data:', resp.data);
-      this.svInteRactPub.Pubs = resp.data;
-      let pubsTemp = this.svInteRactPub.Pubs;
-      this.svInteRactPub.Pubs = pubsTemp.sort(function (a, b) {
-        return b.inte_ract_pub_id - a.inte_ract_pub_id;
+    //   ];
+        const filter = resp.data.map((p: any) => {
+            return {
+                field: 'user_id',
+                operator: '=',
+                val: p.member_id,
+                filterType: 'or'
+              }
+        });
+        console.log('InteRactComponent/constructor/filter:', filter);
+        this.svInteRactPub.getPubObsv(filter).subscribe((resp: any) => {
+            console.log('InteRactComponent::construct/resp.data:', resp.data);
+            this.svInteRactPub.Pubs = resp.data;
+          });
       });
-    });
 
   }
 

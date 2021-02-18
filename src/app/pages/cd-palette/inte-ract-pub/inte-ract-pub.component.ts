@@ -131,8 +131,13 @@ export class InteRactPubComponent implements OnInit {
       }
     }
 
-    this.svInteRactPub.createPubObsv(createPubData).subscribe((resp) => {
-      console.log('resp:', resp)
+    this.svInteRactPub.createPubObsv(createPubData).subscribe((ret) => {
+      console.log('resp:', ret);
+      const pushData = {
+        req: this.svInteRactPub.setEnvelopeCreatePub(createPubData),
+        resp: ret
+      };
+      this.svInteRactPub.pushData('send-pub', pushData)
     })
 
   }

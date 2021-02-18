@@ -124,7 +124,7 @@ export class CommconversationService {
 
   /**
    * 
-   * @param pushType // broadcase or private
+   * @param pushType // broadcast or private
    * @param scope // if private, room-name eg: conversation-guid as room-name
    * @param data // data to push
    */

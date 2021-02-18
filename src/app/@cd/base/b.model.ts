@@ -6,7 +6,8 @@ export interface UpdateFilterItem {
 
 // format for querying search via corpdesk api
 export interface CdFilter {
-    field: string,
-    operator: string,
-    val: any
+    field: string;
+    operator: string;
+    val: any;
+    filterType?: string;
 }

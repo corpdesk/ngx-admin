@@ -67,7 +67,7 @@ export class TreeGridComponent implements AfterViewInit {
 
     const filter: CdFilter[] = [
       {
-        field: 'group.enabled',
+        field: 'group_member.enabled',
         operator: '=',
         val: 1
       }
