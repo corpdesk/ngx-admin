@@ -17,6 +17,7 @@ export class ComposeDocComponent implements OnInit, AfterViewInit {
   htmlContent;
   editor;
   frmMemo: FormGroup;
+  pushRecepients = [];
   editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -167,6 +168,7 @@ export class ComposeDocComponent implements OnInit, AfterViewInit {
     };
 
     this.convSubscribers.push(sub);
+    this.pushRecepients.push(sub)
     console.log('sub:', sub);
 
     this.selectedTo.forEach((user: User) => {
@@ -176,6 +178,7 @@ export class ComposeDocComponent implements OnInit, AfterViewInit {
         sub_type_id: 7
       };
       this.convSubscribers.push(sub);
+      this.pushRecepients.push(sub);
       console.log('After: sub:', sub);
     });
 
@@ -186,6 +189,7 @@ export class ComposeDocComponent implements OnInit, AfterViewInit {
         sub_type_id: 3
       };
       this.convSubscribers.push(sub);
+      this.pushRecepients.push(sub);
       console.log('After: sub:', sub);
     });
 
@@ -196,6 +200,7 @@ export class ComposeDocComponent implements OnInit, AfterViewInit {
         sub_type_id: 4
       };
       this.convSubscribers.push(sub);
+      this.pushRecepients.push(sub);
       console.log('After: sub:', sub);
     });
   }
@@ -226,11 +231,16 @@ export class ComposeDocComponent implements OnInit, AfterViewInit {
         // if success, emit to push server
         // login to conversation room
         // emit data
-        const pushData = {
+        
+        const pushEnvelop = {
+          pushRecepients: this.convSubscribers,
+          emittEvent: 'push-memo',
+          pushData: ret.data.outBox.conversation[0],
           req: this.svConversation.getEnvelopeInitComm(initCommData),
           resp: ret
         };
-        this.svConversation.pushData('send-memo', pushData);
+        console.log('pushEnvelop:', pushEnvelop);
+        this.svConversation.pushData('send-memo', pushEnvelop);
       });
   }
 

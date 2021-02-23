@@ -1,3 +1,9 @@
+export interface AuthData {
+    username: string;
+    password: string;
+    rememberMe: boolean,
+    consumer_guid: string;
+}
 
 export interface UserData {
     acoid: any;
@@ -8,6 +14,7 @@ export interface UserData {
     notif_data: Array<any>;
     notif_summ: Array<any>;
     user_data: Array<any>;
+    pals: Array<any>;
 }
 
 

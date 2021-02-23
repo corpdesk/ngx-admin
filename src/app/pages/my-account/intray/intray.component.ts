@@ -26,6 +26,7 @@ export class IntrayComponent implements OnInit {
 
   ngOnInit(): void {
     this.svConversation.init();
+    console.log('this.svSocket.listen(push-memo');
     this.svSocket.listen('push-memo').subscribe((data: any) => {
       console.log('IntrayComponent/Push received');
       console.log('data:', data);

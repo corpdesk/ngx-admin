@@ -84,15 +84,13 @@ export class MenuService {
   /*
   invoked following svUser::getUserData() when all menu items are fetched
   */
-  init(userDataResp$: Observable<any>) {
-    if (userDataResp$) {
-      this.userDataResp$ = userDataResp$;
-      from(userDataResp$).subscribe(res => {
-        console.log('MenuService::init()/dat:', res);
-        console.log('MenuService::init()/res.data.menu_data:', res.data.menu_data);
-        this.menuData = res.data.menu_data;
-        this.processMenu(res.data.menu_data);
-      });
+  init(userDataResp) {
+    if (userDataResp) {
+      this.userData = userDataResp;
+      console.log('MenuService::init()/dat:', userDataResp);
+      console.log('MenuService::init()/res.data.menu_data:', userDataResp.data.menu_data);
+      this.menuData = userDataResp.data.menu_data;
+      this.processMenu(userDataResp.data.menu_data);
     }
   }
 

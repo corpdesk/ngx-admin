@@ -425,7 +425,7 @@ export class CommconversationService {
         f_vals: [
           initCommData
         ],
-        token: this.svSess.getCdToken()
+        token: this.svSess.token
       },
       args: null
     };

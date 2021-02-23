@@ -3,7 +3,10 @@ import { Observable } from 'rxjs/Rx';
 import { map, filter } from 'rxjs/operators';
 import { of, from, pipe } from 'rxjs';
 import { CdResponse } from '../../../cd.model';
+import { CdPushEnvelop } from '../../../sys/cd-push/models/cd-push.model';
+import { AuthData } from '../models/user-model';
 import { ServerService } from '../../moduleman/controllers/server.service';
+import { SessService } from './sess.service';
 import { AppStateService } from '../../moduleman/controllers/app-state.service';
 import { MenuService } from '../../moduleman/controllers/menu.service';
 import { NotificationService } from '../../comm/controllers/notification.service';
@@ -25,8 +28,10 @@ export class UserService {
   fullName = "";
   contacts = [];
   allUsers = [];
+  cuidAvatar;
   currentUser: any;
   currentProfile: any = { name: 'Login/Register', picture: 'assets/cd/branding/coop/avatarCircle.svg' };
+  pals;
   public usersData$: Observable<UserData[]>;
   // CdResponse
   public userDataResp$: Observable<any>;
@@ -40,7 +45,7 @@ export class UserService {
     private svNotif: NotificationService,
     private svMessages: MessagesService,
     public svSocket: SocketIoService,
-  ) { 
+  ) {
     // this.currentProfile.name = 'Login/Register';
     // this.currentProfile.picture = 'assets/cd/branding/coop/avatarCircle.svg';
   }
@@ -59,6 +64,7 @@ export class UserService {
       // this.currentUser.name = 'Login/Register';
       this.currentProfile.name = res.data.user_data[0].username;
       this.cuid = res.data.user_data[0].user_id;
+      this.pals = res.data.pals;
       // this.currentUser.picture = 'assets/cd/branding/coop/avatarCircle.svg';
       const avatarUrl = `http://localhost/user-resources/${res.data.user_data[0].user_guid}/avatar-01/a.jpg`;
       console.log('avatarUrl:', avatarUrl);
@@ -67,21 +73,134 @@ export class UserService {
 
   }
 
-  getUserData(loginResp) {
+  // auth(authData: AuthData, svSess: SessService){
+  //   console.log('authObsv(authData: AuthData)');
+  //   this.setEnvelopeAuth(authData);
+  //   /*
+  //   post login request to server
+  //   */
+  //  console.log('Submit()/this.postData:', JSON.stringify(this.postData))
+  //   this.svServer.proc(this.postData).subscribe((res: any) => {
+  //     if (res.app_state.success === 1) {
+  //       /*
+  //       create a session on successfull authentication.
+  //       For subsequeng successull request to the server,
+  //       use renewSess(res);
+  //       */
+  //       if (this.postData.a === 'Login' && res.app_state.sess.cd_token !== null) {
+  //         svSess.createSess(res, this);
+  //         // this.svUser.getUserData(res);
+  //         console.log('login_res:', res);
+  //         this.currentUser = { name: `${res.data[0].username}`, picture: `http://localhost/user-resources/${res.data[0].user_guid}/avatar-01/a.jpg` };
+  //         this.svNav.userMenu = [
+  //           { title: 'Profile', link: '/pages/cd-auth/register' },
+  //           { title: 'Log out', link: '/pages/cd-auth/logout' }
+  //         ];
+  //         this.route.navigate(['/pages/dashboard']);
+  //       }
+
+
+  //     } else {
+  //       this.errMsg = "The username and password were not valid"
+  //       this.loginInvalid = true;
+  //       svSess.logout();
+  //     }
+  //   });
+  // }
+
+  authObsv(authData: AuthData) {
+    console.log('authObsv(authData: AuthData)');
+    this.setEnvelopeAuth(authData);
+    /*
+    post login request to server
+    */
+    console.log('Submit()/this.postData:', JSON.stringify(this.postData))
+    return this.svServer.proc(this.postData);
+  }
+
+  setEnvelopeAuth(authData: AuthData) {
+    this.postData = {
+      ctx: 'Sys',
+      m: 'User',
+      c: 'UserController',
+      a: 'Login',
+      dat: {
+        data: authData
+      },
+      args: null
+    };
+  }
+
+  // getUserDataObsv(authData: AuthData) {
+  //   console.log('authObsv(authData: AuthData)');
+  //   this.setEnvelopeAuth(authData);
+  //   /*
+  //   post login request to server
+  //   */
+  //   console.log('Submit()/this.postData:', JSON.stringify(this.postData))
+  //   return this.svServer.proc(this.postData);
+  // }
+
+  // setEnvelopeGetUserData(authData: AuthData) {
+  //   this.postData = {
+  //     ctx: 'Sys',
+  //     m: 'User',
+  //     c: 'UserController',
+  //     a: 'Login',
+  //     dat: {
+  //       data: authData
+  //     },
+  //     args: null
+  //   };
+  // }
+
+  // getUserDataObsv(loginResp: CdResponse) {
+  //   this.setUserDataPost(loginResp);
+  //   this.svServer.proc(this.postData).subscribe((resp) => {
+  //     this.setUserData(resp);
+  //   });
+  // }
+
+  getUserData(loginResp: CdResponse) {
     console.log('starting UserService::getUserData()');
     console.log('UserService::getUserData()/loginResp:', loginResp);
-    this.setUserDataResp(loginResp);
+    this.setUserData(loginResp);
   }
 
-  setUserDataResp(loginResp) {
-    console.log('UserService::setUserDataResp()/loginResp:', loginResp);
-    this.setUserDataPost(loginResp);
-    this.userDataResp$ = this.svServer.proc(this.postData);
-    this.setUserData(this.userDataResp$);
+  setUserData(loginResp) {
+    console.log('starting UserService::setUserData(loginResp)');
+    console.log('UserService::setUserData(res)/loginResp:', loginResp);
+    this.setEnvelopUserDataPost(loginResp);
+    console.log('UserService::setUserData(res)/this.postData:', JSON.stringify(this.postData));
+    this.svServer.proc(this.postData).subscribe((userDataResp: any) => {
+      console.log('UserService::setUserData(res)/userDataResp:', userDataResp);
+      this.svMenu.init(userDataResp);
+      this.init(userDataResp);
+      this.svNotif.init(userDataResp);
+      this.svAppState.setMode('anon');
+      this.svMessages.init(userDataResp);
+      environment.consumer = userDataResp['data']['consumer'];
+      // const cdEnvelop = { req: this.postData, resp: loginResp };
+
+      /**
+       * emittEvent is null because the purpose here is to
+       * register user socket on successfull login.
+       * At the time of this note, no broadcast event is set
+       */
+      const pushEnvelop: CdPushEnvelop = {
+        pushRecepients: null,
+        emittEvent: null,
+        triggerEvent: 'login',
+        req: null,
+        resp: userDataResp
+      };
+      this.emitLogin(pushEnvelop);
+    });
   }
 
-  setUserDataPost(loginResp) {
+  setEnvelopUserDataPost(loginResp: CdResponse) {
     console.log('starting UserService::setUserDataPost()');
+    console.log('setEnvelopUserDataPost/loginResp:', loginResp.app_state)
     /*
     set post data
     */
@@ -92,30 +211,42 @@ export class UserService {
       a: 'GetModuleUserData',
       dat: {
         fields: null,
-        token: loginResp['app_state']['sess']['cd_token']
+        token: loginResp.app_state.sess['cd_token']
       },
       args: null
     }
   }
 
-  setUserData(userDataResp$: Observable<any>) {
-    console.log('starting UserService::setUserData(res)');
-    this.svMenu.init(userDataResp$);
-    from(userDataResp$)
-      .subscribe((res) => {
-        console.log('UserService::setUserData()/subscribe/res>>');
-        console.log(res);
-        this.init(res);
+  // setUserDataResp(loginResp: CdResponse) {
+  //   console.log('UserService::setUserDataResp()/loginResp:', loginResp);
+  //   this.setEnvelopUserDataPost(loginResp);
+  //   console.log('setUserDataResp(loginResp)/this.postData:', this.postData)
+  //   this.userDataResp$ = this.svServer.proc(this.postData);
+  //   this.setUserData(this.userDataResp$);
+  // }
 
-        this.svNotif.init(res);
-        this.svAppState.setMode('anon');
-        this.svMessages.init(res);
-        environment.consumer = res['data']['consumer'];
-        const cdEnvelop = {req:null, resp:res};
-        this.emitLogin(cdEnvelop);
-      });
 
-  }
+
+  // setUserData(userDataResp$: Observable<any>) {
+  //   console.log('starting UserService::setUserData(res)');
+  //   this.svMenu.init(userDataResp$);
+  //   from(userDataResp$)
+  //     .subscribe((res) => {
+  //       console.log('UserService::setUserData()/subscribe/res>>');
+  //       console.log(res);
+  //       this.init(res);
+
+  //       this.svNotif.init(res);
+  //       this.svAppState.setMode('anon');
+  //       this.svMessages.init(res);
+  //       environment.consumer = res['data']['consumer'];
+  //       // const cdEnvelop = { req: null, resp: res };
+  //       // this.emitLogin(cdEnvelop);
+  //     });
+
+  // }
+
+
 
   getUsersObsv() {
     console.log('starting getUsersObsv()');
@@ -253,7 +384,7 @@ export class UserService {
     this.allUsers = res['data'];
   }
 
-  emitLogin(cdEnvelop){
+  emitLogin(cdEnvelop) {
     this.svSocket.emit('login', cdEnvelop);
   }
 

@@ -1,4 +1,5 @@
 export interface InteRactData {
+  pushRecepients?: any;
   inte_ract_media?: InteRactMedia;
   data?: InteRactPub;
 }

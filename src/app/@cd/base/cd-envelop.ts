@@ -14,15 +14,15 @@ export interface CdResponse {
     app_state: {
         success: number;
         info: {
-            messages: string,
-            code: number,
-            app_msg: any,
+            messages: string;
+            code: number;
+            app_msg: any;
         };
         sess: {
-            cd_token: string,
-            jwt: string,
-            p_sid: string,
-            ttl: number
+            cd_token: string;
+            jwt: string;
+            p_sid: string;
+            ttl: number;
         };
         cache: object;
     };

@@ -126,6 +126,8 @@ export interface CommConversationSub {
  * initComm, reply etc
  */
 export interface CommData {
+    pushRecepients?: any;
+    emittEvent?: any;
     subject: string;
     commconversationsub: any;
     data: ConversationItem;

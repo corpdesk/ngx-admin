@@ -665,6 +665,19 @@ use tree-grid to view modules/menu in hierarchial format
             - getProjects
         - 3. View details to edit
 
+24/02/2021
+Refine Login methods:
+- remove 'async' in LoginComponent::login(fg)
+- test after 'async' removal
+- move login codes to UserService
+- simplify and harmonise login codes to conform with latest codes
+- Bug: only user karl was returning user data.
+    - bug sorted: userData/pals was failing when no data was available
+Optimise cd-push implementation:
+- harmonised cd-push codes by modifying cd-push/CdPushEnvelop interface and back-end processing
+- it should now be possible to support cd-push to new module by just adding events for given modules without modifying the server
+
+
 18/02/2021
 - test inte-ract with back-end data (reading)
 - move inte-ract to cd-palette so it can be consumed from different modules

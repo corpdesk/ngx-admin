@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { UserService } from '../../../@cd/sys/user/controllers/user.service';
 import { InteRactPubService } from '../../../@cd/sys/inte-ract/controllers/inte-ract-pub.service';
 import { InteRactData } from '../../../@cd/sys/inte-ract/models/inte-ract.model';
 import { HtmlElemService } from '../../../@cd/guig/html-elem.service';
+
 
 @Component({
   selector: 'ngx-inte-ract-pub',
@@ -11,11 +13,12 @@ import { HtmlElemService } from '../../../@cd/guig/html-elem.service';
 export class InteRactPubComponent implements OnInit {
   @Input() pubType = 'Pub';
   @Input() pubScope = 'Group';
+  cuidAvatar = '';
   pubPlaceholder = '';
-  avatar;
   constructor(
     public svInteRactPub: InteRactPubService,
     public svHtml: HtmlElemService,
+    private svUser: UserService,
   ) {
     this.initData();
   }
@@ -26,7 +29,7 @@ export class InteRactPubComponent implements OnInit {
 
   // invoke all methods that do not have to wait for UI to be ready
   initData() {
-    this.setCuidAvatar()
+    this.cuidAvatar = this.svUser.currentProfile.picture;
   }
 
   // invoke methods that require UI to be ready first
@@ -47,9 +50,9 @@ export class InteRactPubComponent implements OnInit {
   }
 
   // avatar for current user
-  setCuidAvatar() {
-    this.avatar = '../../../../assets/cd/inspinia/img/a3.jpg';
-  }
+  // setCuidAvatar() {
+  //   this.avatar = '../../../../assets/cd/inspinia/img/a3.jpg';
+  // }
 
   // /**
   //  * {
@@ -116,6 +119,7 @@ export class InteRactPubComponent implements OnInit {
     // console.log('this.svInteRactPub.Pubs:', this.svInteRactPub.Pubs);
 
     const createPubData: InteRactData = {
+      pushRecepients:this.svUser.pals,
       inte_ract_media: {
         inte_ract_media_name: "",
         inte_ract_media_description: "",
