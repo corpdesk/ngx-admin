@@ -30,6 +30,8 @@ cannot push:
     - npm i rxjs-compat --save 
     - npm i ng2-completer --save
 
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 - auth guard issue:
@@ -67,6 +69,16 @@ font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 git push origin feat/material-theme --no-verify
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Refine Login methods:
+- remove 'async' in LoginComponent::login(fg)
+- test after 'async' removal
+- move login codes to UserService
+- simplify and harmonise login codes to conform with latest codes
+- Bug: only user karl was returning user data.
+    - bug sorted: userData/pals was failing when no data was available
+Optimise cd-push implementation:
+- harmonised cd-push codes by modifying cd-push/CdPushEnvelop interface and back-end processing
+- it should now be possible to support cd-push to new module by just adding events for given modules without modifying the server
 
 FEATURES:
 __________________________________________________
@@ -179,15 +191,13 @@ InteRact/cd_social
     - save 
     - edit
 
-- test save post
-- test save comment
-- test inte-ract with back-end data (reading)
-- move inte-ract to cd-palette so it can be consumed from different modules
-- set back-end for <user_guid>-pals group
-- test inteRact query for user 'Wall' data based on 'pals' pubs
+
 - use consumable header-two
 - use consumable inte-ract
 - use consumable timeline
+
+inteRact avatar:
+- 
 
 - test filtering inteRact data by groupings
     - view nested groups
@@ -214,6 +224,14 @@ InteRact/cd_social
         - 
     - test sending post
         - is the post being fetched?
+        - test save post
+        - test save comment
+        - test inte-ract with back-end data (reading)
+        - move inte-ract to cd-palette so it can be consumed from different modules
+        - set back-end for <user_guid>-pals group
+        - test inteRact query for user 'Wall' data based on 'pals' pubs
+        - set 'pals' data after login
+        - update 'pals' data when user accept 'associate' request
         - is it showing immediatly (Live!)
     - Test Group in InteRact
         - create user private group for 'social wall'
@@ -244,11 +262,13 @@ InteRact/cd_social
     - view only groups where you have privileges
         - view groups that you have created
         - view groups where you are a member
-        - invite member/s button only appears on groups where you have created or have been given admin privilleges
+        - 'associate' (invite pal/group) button only appears on groups where you have created or have been given admin privilleges
     - let members post pubs
     - design query to fetch only pubs from groups where user is a member
     - fine tune privacy
     - 'admins' to coarce users to join groups silently
+
+
 
 
 - edit post
@@ -256,6 +276,10 @@ InteRact/cd_social
 - watch/cd_social_follow
 - share/peer/clone/cd_social_share
 - invite/cd_social_tag/cd_social_friend
+
+- on register create <user_guid>-pals group
+- on register create default avatar
+- replace default avatar
 
 ******
 PMS:
