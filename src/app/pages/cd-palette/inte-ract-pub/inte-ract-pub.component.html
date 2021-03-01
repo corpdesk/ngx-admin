@@ -4,10 +4,10 @@
     </a>
 </div>
 <div class="media-body">
-    <textarea id="msgNew" class="form-control" [placeholder]="pubPlaceholder"></textarea>
+    <textarea [id]="msgHtmlID" class="form-control" [placeholder]="pubPlaceholder"></textarea>
     <div class="btn-group-container">
        <div class="btn-group">
-           <button (click)="createPub()" data-toggle="tooltip" data-placement="top" title="save" class="btn btn-white btn-xs"><i class="fas fa-share"></i> publish</button>
+           <button (click)="create()" data-toggle="tooltip" data-placement="top" title="save" class="btn btn-white btn-xs"><i class="fas fa-share"></i> publish</button>
            <button data-toggle="tooltip" data-placement="top" title="Upload image" class="btn btn-white btn-xs"><i class="fas fa-file-image"></i></button>
            <button data-toggle="tooltip" data-placement="top" title="Upload audio" class="btn btn-white btn-xs"><i class="fas fa-file-audio"></i> </button>
            <button data-toggle="tooltip" data-placement="top" title="Upload video" class="btn btn-white btn-xs"><i class="far fa-file-video"></i> </button>

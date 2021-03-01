@@ -1,21 +1,8 @@
 <ngx-header-two [title]="title" [breadcrumbs]="breadcrumbs"></ngx-header-two>
 <div class="row">
   <div id="pubs-container" class="col-lg-8">
-    <!-- <div class="ibox">
-      <div class="ibox-content text-center">
-
-        <h3 class="m-b-xxs">inteRact</h3>
-        <small>
-          This is an interface for exchange of ideas among COOPS users and institutions
-        </small>
-
-      </div>
-
-    </div> -->
-
-    <ngx-inte-ract></ngx-inte-ract>
+    <ngx-inte-ract [Pubs]="Pubs" [pubFilter]="svMyInteRact.pubFilter()"></ngx-inte-ract>
   </div>
-
   <!-- start scheduler ui -->
   <div class="col-lg-4">
     <ngx-timeline></ngx-timeline>

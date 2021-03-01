@@ -14,7 +14,7 @@ export class JsHelperService {
     text = text.toLowerCase();
     if (pattern.length == 0)
       return 0; // Immediate match
-  
+
     // Compute longest suffix-prefix table
     var lsp = [0]; // Base case
     for (var i = 1; i < pattern.length; i++) {
@@ -25,7 +25,7 @@ export class JsHelperService {
         j++;
       lsp.push(j);
     }
-  
+
     // Walk through text string
     var j = 0; // Number of chars matched in pattern
     for (var i = 0; i < text.length; i++) {
@@ -38,5 +38,12 @@ export class JsHelperService {
       }
     }
     return -1; // Not found
+  }
+
+  sort(arr, sortField) {
+    let pubsTemp = arr;
+    return pubsTemp.sort(function (a, b) {
+      return b[sortField] - a[sortField];
+    });
   }
 }

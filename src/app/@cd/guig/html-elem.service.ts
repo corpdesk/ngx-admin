@@ -58,6 +58,16 @@ export class HtmlElemService {
     return elem.value;
   }
 
+  setHTMLInputVal(id, val) {
+    const elem = document.getElementById(id) as HTMLInputElement;
+    elem.value = val;
+  }
+
+  appendHtml(elementRef, selector, srtHtml) {
+    const parent = elementRef.nativeElement.querySelector(selector) as HTMLElement;
+    parent.insertAdjacentHTML('afterbegin', srtHtml);
+  }
+
   // // mat-icon notranslate mat-chip-remove mat-chip-trailing-icon material-icons mat-icon-no-color ng-star-inserted
   // isChips(){
 

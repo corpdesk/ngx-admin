@@ -49,9 +49,9 @@ export class SessService {
   */
   createSess(res,svUser: UserService) {
     console.log('starting SessService::createSess(res,svUser: UserService)');
+    this.token = res.app_state.sess.cd_token;
     this.setSess(res);
     svUser.getUserData(res);
-    this.token = res.app_state.sess.cd_token;
     this.svServer.token = res.app_state.sess.cd_token;
     this.isActive = true;
     this.setModulesData();
@@ -61,9 +61,9 @@ export class SessService {
     const sess = res.app_state.sess;
     const ttl = sess.ttl;
     this.maxDistance = Number(ttl) * 1000;
-    localStorage.setItem('maxDistance', this.maxDistance);
-    localStorage.setItem('sess', JSON.stringify(sess));
-    localStorage.setItem('ExprTime', this.getExprTime(ttl));
+    localStorage.setItem('maxDistance-' + this.token, this.maxDistance);
+    localStorage.setItem('sess-' + this.token, JSON.stringify(sess));
+    localStorage.setItem('ExprTime-' + this.token, this.getExprTime(ttl));
 
     if (this.config.countdown) {
       this.countDown(this.getExprTime(ttl));
@@ -74,7 +74,7 @@ export class SessService {
   resetExprTime(ttl) {
     console.log('starting resetExprTime(ttl)');
     const exprTime = moment().add(ttl, 'seconds');
-    localStorage.setItem('ExprTime', exprTime.toString());
+    localStorage.setItem('ExprTime-' + this.token, exprTime.toString());
   }
 
   getExprTime(ttl) {
@@ -93,8 +93,8 @@ export class SessService {
 
   killSess() {
     console.log('starting killSess()');
-    localStorage.removeItem('sess');
-    localStorage.removeItem('ExprTime');
+    localStorage.removeItem('sess-' + this.token);
+    localStorage.removeItem('ExprTime-' + this.token);
     clearTimeout(this.countdown);
     this.killSessServer();
   }
@@ -173,7 +173,7 @@ export class SessService {
    */
   getSessData() {
     console.log('starting getSessData()');
-    const expiration = localStorage.getItem('sess');
+    const expiration = localStorage.getItem('sess-'  + this.token);
     return JSON.parse(expiration);
   }
 

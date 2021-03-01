@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { InteRactData } from '../models/inte-ract.model';
+import { InteRactPubData } from '../models/inte-ract.model';
 import { ServerService } from '../../moduleman/controllers/server.service';
 import { SessService } from '../../user/controllers/sess.service';
 import { UserService } from '../../user/controllers/user.service';
@@ -16,13 +16,15 @@ export class InteRactPubService {
     private svServer: ServerService,
     private svSess: SessService,
     private svUser: UserService,
-    private svSocket: SocketIoService,) { }
+    private svSocket: SocketIoService,
+    ) { }
 
   /*
   * create a pub
   */
-  createPubObsv(createPubData: InteRactData) {
+  createPubObsv(createPubData: InteRactPubData) {
     console.log('starting InteRactPubService::createPubObsv()');
+    console.log('InteRactPubService::createPubObsv()/this.svUser.pals:', this.svUser.pals);
     this.setEnvelopeCreatePub(createPubData);
     console.log('createPubObsv(createPubData: InteRactData)/this.postData:', JSON.stringify(this.postData));
     return this.svServer.proc(this.postData)
@@ -92,7 +94,7 @@ export class InteRactPubService {
    * @param f: CdFilter[]
    */
   getPubObsv(f: CdFilter[]) {
-    console.log('starting InteRactPubService::createPubObsv()');
+    console.log('starting InteRactPubService::getPubObsv()');
     this.setEnvelopeGetPub(f);
     console.log('this.postData:', JSON.stringify(this.postData));
     return this.svServer.proc(this.postData)
@@ -140,7 +142,5 @@ export class InteRactPubService {
       args: null
     };
   }
-
-
   
 }

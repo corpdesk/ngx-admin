@@ -1,7 +1,13 @@
-export interface InteRactData {
-  pushRecepients?: any;
+export interface InteRactPubData {
+  pubFilter?: any;
   inte_ract_media?: InteRactMedia;
   data?: InteRactPub;
+}
+
+export interface InteRactReactData {
+  pubFilter?: any;
+  inte_ract_media?: InteRactMedia;
+  data?: InteRactReact;
 }
 
 export interface InteRactPub {
@@ -37,7 +43,7 @@ export interface InteRactReact {
   inte_ract_react_description?: string;
   doc_id?: number;
   inte_ract_react_type_id?: number;
-  inte_ract_react_type_optval?: string;
+  inte_ract_react_type_optval?: number;
   j_val?: string;
   inte_ract_pub_id?: number;
   parent_id?: number;

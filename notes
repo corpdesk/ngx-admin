@@ -80,6 +80,71 @@ Optimise cd-push implementation:
 - harmonised cd-push codes by modifying cd-push/CdPushEnvelop interface and back-end processing
 - it should now be possible to support cd-push to new module by just adding events for given modules without modifying the server
 
+Implement push for inteRact
+- prepare cd-pallet component for event listening
+- register push object in push server
+- test push for inteRact at cd wall 
+- test push for inteRact at pms
+Updated inputs for cd-pallet/inteRact
+/**
+   * Type of publication
+   * could be by publication/post or reaction/comment etc
+   */
+  @Input() pubType = 'Pub';
+
+  /**
+   * pulication scope of distribution
+   * could be by group or individuals
+   */
+  @Input() pubScope = 'Group';
+
+  /**
+   * publication context:
+   * used for filtering data for given component
+   * and segmentation of data per topical concerns
+   * as per module design and objectives
+   * m = module
+   * c = controller
+   * domain = limit of distribution by given module traits
+   * PMS my have domain by projectID and scheduleID
+   */
+  @Input() pubCtx = {
+    m: 'pms',
+    c: 'schedules',
+    domain: {
+      projectID: 3,
+      scheduleID: 12
+    }
+  };
+
+  /**
+   * component consumers must be able
+   * to query expected recepients and
+   * send as input
+   */
+  @Input() pubRecepients = [];
+  
+    - test pub
+    - test pub with push server
+    - change pub loading method to dynamic htmlElemService.appendHtiml()
+    - apply htmlElemService.appendHtiml() for pub::create()
+    
+  ToDo: inteRact
+  - test react with push server
+  - apply htmlElemService.appendHtiml() as a substitute for initial loading of pubs
+    - InteRactReactController::create()
+    - get parent id
+    - set textAreaID
+    - set response data for above to contain new 'react'
+    - update pubs with push implementation for InteRactReactController::create() updates and notifications
+
+
+Prepare inteRact for independent demo:
+  - update user for pals group on register
+  - set default avatars
+  - update user for avatar update ready
+  - invite/accept group affiliation
+
 FEATURES:
 __________________________________________________
 MODULES DEVELOPMENT AND AVAILABILITY:
@@ -664,6 +729,15 @@ use tree-grid to view modules/menu in hierarchial format
         - 2. Select project
             - getProjects
         - 3. View details to edit
+
+01/03/2021
+- test react with push server
+  - apply htmlElemService.appendHtiml() as a substitute for initial loading of pubs
+    - InteRactReactController::create()
+    - get parent id
+    - set textAreaID
+    - set response data for above to contain new 'react'
+    - update pubs with push implementation for InteRactReactController::create() updates and notifications
 
 24/02/2021
 Refine Login methods:
