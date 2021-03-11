@@ -19,10 +19,11 @@ import { environment } from '../../../../../environments/environment';
 })
 export class SocketIoService {
   socket: any;
-  readonly url: string = 'http://localhost:' + environment.SOCKET_IO_PORT;
+  readonly url: string = '';
   constructor() {
-    // this.socket = io('http://localhost:' + environment.SOCKET_IO_PORT);
+    // this.socket = io(`${environment.HOST}:` + environment.SOCKET_IO_PORT);
     // this.socket = io.connect('https://localhost', {secure: true});
+    this.url = `${environment.HOST}:` + environment.SOCKET_IO_PORT;
     this.socket = io(this.url);
   }
 

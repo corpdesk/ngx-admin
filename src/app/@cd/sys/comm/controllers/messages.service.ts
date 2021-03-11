@@ -3,6 +3,7 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../../../../../environments/environment';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 // import { FileUploader } from 'ng2-file-upload';
@@ -352,8 +353,8 @@ export class MessagesService {
     // formData.append('dat', JSON.stringify(this.params.dat));
 
 
-    // return this.http.post('http://localhost:4000/api/create-user', formData, {
-    return this.http.post('http://localhost:8080/api', formData, {
+    // return this.http.post(`${environment.HOST}:4000/api/create-user`, formData, {
+    return this.http.post(`${environment.HOST}:8080/api`, formData, {
       reportProgress: true,
       observe: 'events'
     }).pipe(

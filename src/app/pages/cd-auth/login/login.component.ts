@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
         if (res.app_state.sess.cd_token !== null) {
           this.svSess.createSess(res, this.svUser);
           console.log('login_res:', res);
-          this.svUser.currentUser = { name: `${res.data[0].username}`, picture: `http://localhost/user-resources/${res.data[0].user_guid}/avatar-01/a.jpg` };
+          this.svUser.currentUser = { name: `${res.data[0].username}`, picture: `${environment.HOST}/user-resources/${res.data[0].user_guid}/avatar-01/a.jpg` };
           this.svNav.userMenu = [
             { title: 'Profile', link: '/pages/cd-auth/register' },
             { title: 'Log out', link: '/pages/cd-auth/logout' }
@@ -119,7 +119,7 @@ export class LoginComponent implements OnInit {
   //         this.svSess.createSess(res, this.svUser);
   //         // this.svUser.getUserData(res);
   //         console.log('login_res:', res);
-  //         this.svUser.currentUser = { name: `${res.data[0].username}`, picture: `http://localhost/user-resources/${res.data[0].user_guid}/avatar-01/a.jpg` };
+  //         this.svUser.currentUser = { name: `${res.data[0].username}`, picture: `${environment.HOST}/user-resources/${res.data[0].user_guid}/avatar-01/a.jpg` };
   //         this.svNav.userMenu = [
   //           { title: 'Profile', link: '/pages/cd-auth/register' },
   //           { title: 'Log out', link: '/pages/cd-auth/logout' }

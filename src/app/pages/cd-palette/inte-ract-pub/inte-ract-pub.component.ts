@@ -136,7 +136,7 @@ export class InteRactPubComponent implements OnInit {
   //                     "inte_ract_media_name": "",
   //                     "inte_ract_media_description": "",
   //                     "inte_ract_media_type_id": "",
-  //                     "location": "http://localhost/xxx",
+  //                     "location": "${environment.HOST}/xxx",
   //                     "inte_ract_pub_id": ""
   //                 },
   //                 "data": {
@@ -163,7 +163,7 @@ export class InteRactPubComponent implements OnInit {
         inte_ract_media_name: "",
         inte_ract_media_description: "",
         inte_ract_media_type_id: null,
-        location: "http://localhost/xxx",
+        location: "${environment.HOST}/xxx",
         inte_ract_pub_id: null
       },
       data: {

@@ -5,7 +5,34 @@
   </div>
   <!-- start scheduler ui -->
   <div class="col-lg-4">
-    <ngx-timeline></ngx-timeline>
+    <nb-accordion multi>
+      <nb-accordion-item>
+        <nb-accordion-item-header matRipple>
+          Associates
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <ngx-cute-table [cuteCols]="cuteCols" [tData]="cuteData" avatarDefault="avatarDefault"></ngx-cute-table>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header matRipple>
+          Associations
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header matRipple>
+          Diary
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <ngx-timeline></ngx-timeline>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
   </div>
   <!-- end scheduler ui -->
 </div>

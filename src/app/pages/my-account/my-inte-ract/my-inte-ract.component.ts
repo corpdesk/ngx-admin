@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef, AfterViewInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { environment } from '../../../../environments/environment';
 import { CdSocialPost } from '../../../@cd/sys/comm/models/comm.model';
 import { InteRactPubService } from '../../../@cd/sys/inte-ract/controllers/inte-ract-pub.service';
 import { HtmlElemService } from '../../../@cd/guig/html-elem.service';
@@ -8,6 +9,8 @@ import { UserService } from '../../../@cd/sys/user/controllers/user.service';
 import { SocketIoService } from '../../../@cd/sys/cd-push/controllers/socket-io.service';
 import { MyInteRactService } from './my-inte-ract.service';
 import { InteRactComponent } from '../../cd-palette/inte-ract/inte-ract.component';
+import { GroupMemberService } from '../../../@cd/sys/user/controllers/group-member.service';
+import { U } from '@angular/cdk/keycodes';
 
 @Component({
     selector: 'ngx-my-inte-ract',
@@ -26,8 +29,37 @@ export class MyInteRactComponent implements OnInit {
     pubType = 'Post';
     pubScope = 'Group';
     Pubs = [];
+    avatarDefault;
     // pubFilter;
     // pals = [];
+    cuteCols = [
+        {
+            id: 'col-0',
+            class: 'project-status',
+            show: false,
+        },
+        {
+            id: 'col-1',
+            class: 'project-title',
+            show: true,
+        },
+        {
+            id: 'col-2',
+            class: 'project-completion',
+            show: false,
+        },
+        {
+            id: 'col-3',
+            class: 'project-people',
+            show: true,
+        },
+        {
+            id: 'col-4',
+            class: 'project-actions',
+            show: true,
+        }
+    ];
+    cuteData = [];
     title = 'InteRact';
     breadcrumbs = ['MySpace', 'InteRact'];
     constructor(
@@ -38,6 +70,7 @@ export class MyInteRactComponent implements OnInit {
         private svSocket: SocketIoService,
         public svMyInteRact: MyInteRactService,
         private svJsHelper: JsHelperService,
+        public svGroupMember: GroupMemberService,
     ) {
         // this.pubFilter = this.svMyInteRact.pubFilter();
         // this is for setting up pubRecepients
@@ -64,6 +97,8 @@ export class MyInteRactComponent implements OnInit {
         //         return b.inte_ract_pub_id - a.inte_ract_pub_id;
         //     });
         // });
+        this.avatarDefault = `${environment.USER_RESOURCES}/ooooooooo/avatar-01/a.jpg`;
+        this.getAssociates();
 
         this.svInteRactPub.getPubObsv(this.svMyInteRact.pubFilter()).subscribe((resp: any) => {
             console.log('InteRactComponent::construct/resp.data:', resp.data);
@@ -265,9 +300,9 @@ export class MyInteRactComponent implements OnInit {
         console.log('starting MyInteRactComponent::getAvatar(pub)');
         const avatarStr = pub.avatar;
         const avatar = JSON.parse(avatarStr);
-        // http://localhost/user-resources/fe5b1a9d-df45-4fce-a181-65289c48ea00/avatar-01/a.jpg
+        // ${environment.HOST}/user-resources/fe5b1a9d-df45-4fce-a181-65289c48ea00/avatar-01/a.jpg
         // return avatar.small;
-        return 'http://localhost/user-resources/fe5b1a9d-df45-4fce-a181-65289c48ea00/avatar-01/a.jpg';
+        return '${environment.HOST}/user-resources/fe5b1a9d-df45-4fce-a181-65289c48ea00/avatar-01/a.jpg';
     }
 
     getPubBody(pub, level) {
@@ -284,6 +319,69 @@ export class MyInteRactComponent implements OnInit {
                 break;
         }
         return ret;
+    }
+
+    /**
+     * [
+            {
+                id: 'cell-0-0',
+                data: { status: 'Active' }
+            },
+            {
+                id: 'cell-0-1',
+                data: { title: 'Karl Lulu', date: 'Created 14.08.2014' }
+            },
+            {
+                id: 'cell-0-2',
+                data: { percnt: '8' }
+            },
+            {
+                id: 'cell-0-3',
+                data: [{ location: 'img/a3.jpg' }]
+            },
+            {
+                id: 'cell-0-4',
+                data: [{ action: 'View' }]
+            }
+        ]
+     */
+    getAssociates() {
+        console.log('starting getAssociates()')
+        this.svGroupMember.getGetPalsObsv().subscribe((resp: any) => {
+            console.log('getGetPalsObsv/resp:', resp);
+            this.cuteData = resp.data.map((u: any) => {
+                let src;
+                if(u.done_avatar){
+                    src = `${environment.USER_RESOURCES}/${u.user_guid}/avatar-01/a.jpg`;
+                } else {
+                    src = `${environment.USER_RESOURCES}/ooooooooo/avatar-01/a.jpg`;
+                }
+                return [
+                    {
+                        id: u.user_id + '-0',
+                        data: { status: 'Active' }
+                    },
+                    {
+                        id: u.user_id + '-1',
+                        data: { title: u.username, date: u.doc_date }
+                    },
+                    {
+                        id: u.user_id + '-2',
+                        data: { percnt: '8' }
+                    },
+                    {
+                        id: u.user_id + '-3',
+                        data: [{ location: src }]
+                    },
+                    {
+                        id: u.user_id + '-4',
+                        data: [{ action: 'View' }]
+                    }
+                ]
+            });
+        });
+
+
     }
 
     // getPubs() {
@@ -397,7 +495,7 @@ export class MyInteRactComponent implements OnInit {
     //       "doc_id": 10395,
     //       "inte_ract_pub_type_id": null,
     //       "public": 0,
-    //       "location": "http://localhost/xxx",
+    //       "location": "${environment.HOST}/xxx",
     //       "doc_from": 1010,
     //       "doc_date": "2020-12-10 21:09:37",
     //       "mobile": "895909",
@@ -422,7 +520,7 @@ export class MyInteRactComponent implements OnInit {
     //       "doc_id": 10393,
     //       "inte_ract_pub_type_id": null,
     //       "public": 0,
-    //       "location": "http://localhost/xxx",
+    //       "location": "${environment.HOST}/xxx",
     //       "doc_from": 1010,
     //       "doc_date": "2020-12-10 18:47:44",
     //       "mobile": "895909",
@@ -447,7 +545,7 @@ export class MyInteRactComponent implements OnInit {
     //       "doc_id": 10391,
     //       "inte_ract_pub_type_id": null,
     //       "public": 0,
-    //       "location": "http://localhost/xxx",
+    //       "location": "${environment.HOST}/xxx",
     //       "doc_from": 1010,
     //       "doc_date": "2020-12-09 20:30:14",
     //       "mobile": "895909",
@@ -472,7 +570,7 @@ export class MyInteRactComponent implements OnInit {
     //       "doc_id": 10389,
     //       "inte_ract_pub_type_id": null,
     //       "public": 0,
-    //       "location": "http://localhost/xxx",
+    //       "location": "${environment.HOST}/xxx",
     //       "doc_from": 1010,
     //       "doc_date": "2020-12-09 20:06:29",
     //       "mobile": "895909",

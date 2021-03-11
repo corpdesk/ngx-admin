@@ -72,7 +72,7 @@ import { GanttSixComponent } from './gantt-six/gantt-six.component';
 import { GanttSevenComponent } from './gantt-seven/gantt-seven.component';
 import { GanttEightComponent } from './gantt-eight/gantt-eight.component';
 import { ScrollableDirective } from './scrollable.directive';
-import { HighlightDirective } from './highlight.directive';
+import { HighlightDirective } from './directives/highlight.directive';
 import { CdTooltipDirective } from './cd-tooltip.directive';
 import { GuigFontsComponent } from './guig-fonts/guig-fonts.component';
 import { GanttNineComponent } from './gantt-nine/gantt-nine.component';
@@ -86,6 +86,9 @@ import { InteRactPubComponent } from './inte-ract-pub/inte-ract-pub.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { HeaderTwoComponent } from './header-two/header-two.component';
 import { TreeViewMatComponent } from './tree-view-mat/tree-view-mat.component';
+import { CuteTableComponent } from './cute-table/cute-table.component';
+import { ColStyleDirective } from './cute-table/col-style.directive';
+import { CuteTableTdComponent } from './cute-table-td/cute-table-td.component';
 
 const materialModules = [
   MatExpansionModule,
@@ -138,6 +141,9 @@ const materialModules = [
     TimelineComponent,
     HeaderTwoComponent,
     TreeViewMatComponent,
+    CuteTableComponent,
+    ColStyleDirective,
+    CuteTableTdComponent,
   ],
   imports: [
     CommonModule,
@@ -239,6 +245,8 @@ const materialModules = [
     HeaderTwoComponent,
     TreeGridComponent,
     TreeViewMatComponent,
+    CuteTableComponent,
+    HighlightDirective,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

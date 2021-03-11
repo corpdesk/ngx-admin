@@ -1,0 +1,84 @@
+<div class="ibox">
+  <div class="ibox-title">
+    <h5></h5>
+    <div class="ibox-tools">
+      <a href="#" class="btn btn-primary btn-xs">Invite</a>
+    </div>
+  </div>
+  <div class="ibox-content">
+    <div class="m-b-sm m-t-sm">
+
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <button tabindex="-1" class="btn btn-white btn-sm" type="button"><i class="fa fa-refresh"></i>
+            Refresh</button>
+        </div>
+        <input type="text" class="form-control form-control-sm">
+
+        <div class="input-group-append">
+          <button tabindex="-1" class="btn btn-primary btn-sm" type="button">Go!</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-list">
+
+      <table class="table table-hover">
+        <tbody>
+          <tr *ngFor="let d of tData;let i = index;">
+            <td *ngIf="cuteCols[0].show" id="{{'td-' + d[0].id}}" class="project-status">
+              <span class="label label-primary">{{d[0].data.status}}</span>
+            </td>
+            <td *ngIf="cuteCols[1].show" id="{{'td-' + d[1].id}}" class="project-title">
+              <a href="project_detail.html">{{d[1].data.title}}</a>
+              <br />
+              <small>{{d[1].data.date}}</small>
+            </td>
+            <td *ngIf="cuteCols[2].show" id="{{'td-' + d[2].id}}" class="project-completion">
+              <small>Completion with: {{d[2].data.percnt}}%</small>
+              <div class="progress progress-mini">
+                <div style.width="{{d[2].data.percnt}}%" class="progress-bar"></div>
+              </div>
+            </td>
+            <td *ngIf="cuteCols[3].show" id="{{'td-' + d[3].id}}" class="project-people">
+              <ng-container *ngFor="let avatar of d[3].data;let i = index;">
+                <a href="#"><img id="{{img-d[3].id}}" alt="image" class="rounded-circle" src="{{avatar.location}}"></a>
+              </ng-container>
+            </td>
+            <td *ngIf="cuteCols[4].show" id="{{'td-' + d[4].id}}" class="project-actions">
+              <ng-container *ngFor="let a of d[4].data">
+                <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> {{a.action}} </a>
+              </ng-container>
+            </td>
+          </tr>
+          <!-- <tr>
+            <td class="project-status">
+              <span class="label label-primary">Active</span>
+            </td>
+            <td class="project-title">
+              <a href="project_detail.html">There are many variations of passages</a>
+              <br />
+              <small>Created 11.08.2014</small>
+            </td>
+            <td class="project-completion">
+              <small>Completion with: 28%</small>
+              <div class="progress progress-mini">
+                <div style="width: 28%;" class="progress-bar"></div>
+              </div>
+            </td>
+            <td class="project-people">
+              <a href="#"><img alt="image" class="rounded-circle" src="img/a7.jpg"></a>
+              <a href="#"><img alt="image" class="rounded-circle" src="img/a6.jpg"></a>
+              <a href="#"><img alt="image" class="rounded-circle" src="img/a3.jpg"></a>
+            </td>
+            <td class="project-actions">
+              <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
+              <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+            </td>
+          </tr> -->
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

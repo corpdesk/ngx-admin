@@ -66,7 +66,7 @@ export class UserService {
       this.cuid = res.data.user_data[0].user_id;
       this.pals = res.data.pals;
       // this.currentUser.picture = 'assets/cd/branding/coop/avatarCircle.svg';
-      const avatarUrl = `http://localhost/user-resources/${res.data.user_data[0].user_guid}/avatar-01/a.jpg`;
+      const avatarUrl = `${environment.HOST}/user-resources/${res.data.user_data[0].user_guid}/avatar-01/a.jpg`;
       console.log('avatarUrl:', avatarUrl);
       this.currentProfile.picture = avatarUrl;
     }
@@ -91,7 +91,7 @@ export class UserService {
   //         svSess.createSess(res, this);
   //         // this.svUser.getUserData(res);
   //         console.log('login_res:', res);
-  //         this.currentUser = { name: `${res.data[0].username}`, picture: `http://localhost/user-resources/${res.data[0].user_guid}/avatar-01/a.jpg` };
+  //         this.currentUser = { name: `${res.data[0].username}`, picture: `${environment.HOST}/user-resources/${res.data[0].user_guid}/avatar-01/a.jpg` };
   //         this.svNav.userMenu = [
   //           { title: 'Profile', link: '/pages/cd-auth/register' },
   //           { title: 'Log out', link: '/pages/cd-auth/logout' }

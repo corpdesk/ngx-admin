@@ -129,7 +129,7 @@ Updated inputs for cd-pallet/inteRact
     - change pub loading method to dynamic htmlElemService.appendHtiml()
     - apply htmlElemService.appendHtiml() for pub::create()
     
-  ToDo: inteRact
+  
   - test react with push server
   - apply htmlElemService.appendHtiml() as a substitute for initial loading of pubs
     - InteRactReactController::create()
@@ -138,10 +138,72 @@ Updated inputs for cd-pallet/inteRact
     - set response data for above to contain new 'react'
     - update pubs with push implementation for InteRactReactController::create() updates and notifications
 
-
+ToDo: inteRact
 Prepare inteRact for independent demo:
-  - update user for pals group on register
-  - set default avatars
+  - update user for pals group on register...DONE
+
+Associates:
+- avatar
+- user name
+- status
+- actions
+    - remove
+    - mute/block
+    - invite
+Invitations
+- incoming
+- outgoing
+- status
+    - invite
+    - waiting
+    - accepted
+    - canceled
+
+Implementation:
+- set up accordion as colapsable interface below:
+    - 1. associates
+        - develop consumable 'cute-table' based on http://localhost/inspinia/projects.html#
+        - load associates on 'cute-table'
+        - select associate
+        - search from all colligues
+        - select from search result and invite
+    - 2. Associations (nested table)
+    - 3. ngx-timeline
+    - 4. tools for associates (invite, block, remove)
+    
+
+- cd-palette/generic table
+- configurable columns as per consumer
+- cuteTable/column-order
+
+
+  - invite coleage to 'pals' 
+    1. (a) user A view coleagues
+       (b) user A search coleage
+    2. user A select coleage
+    3. user A sends invitation coleage to 'pals'
+
+  - accept invitation 
+    1. view notifications
+        - live alert
+        - activity log
+        - memo
+        - invitations
+            - user (pals)
+            - pms (projects, schedules, events)
+            - events
+
+  
+  - decline invitation
+  - leave group
+  - block user
+  - keep track of groups I belong to
+  - leave group
+
+  - select preset avatars
+  - set default avatar
+
+  - upload avatar
   - update user for avatar update ready
   - invite/accept group affiliation
 
@@ -729,6 +791,13 @@ use tree-grid to view modules/menu in hierarchial format
         - 2. Select project
             - getProjects
         - 3. View details to edit
+
+11/03/2021
+- set up accordion as colapsable interface below:
+    - 1. associates
+        - develop consumable 'cute-table' based on http://localhost/inspinia/projects.html#
+        - load associates on 'cute-table'
+        - load default avatar when not set
 
 01/03/2021
 - test react with push server
@@ -1507,7 +1576,7 @@ Set pages structure with routing:
 - set environment variables
     file: <root>/ngx-admin/src/environments/environment.ts
     new contents on environment variables:
-    apiEndpoint: 'http://localhost/cdapi/public/api/cd',
+    apiEndpoint: '${environment.HOST}/cdapi/public/api/cd',
     consumerToken: 'B0B3DA99-1859-A499-90F6-1E3F69575DCD',
     consumer: null
 

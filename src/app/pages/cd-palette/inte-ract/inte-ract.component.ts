@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { CdSocialPost } from '../../../@cd/sys/comm/models/comm.model';
+import { environment } from '../../../../environments/environment';
 import { GroupMemberService } from '../../../@cd/sys/user/controllers/group-member.service';
 import { InteRactPubService } from '../../../@cd/sys/inte-ract/controllers/inte-ract-pub.service';
 import { HtmlElemService } from '../../../@cd/guig/html-elem.service';
@@ -313,7 +314,7 @@ export class InteRactComponent implements OnInit, AfterViewInit {
     getAvatar(pub) {
         // console.log('starting InteRactComponent::getAvatar(pub)');
         // console.log('InteRactComponent::getAvatar(pub)/pub:', pub);
-        return `http://localhost/user-resources/${pub.user_guid}/avatar-01/a.jpg`;
+        return `${environment.HOST}/user-resources/${pub.user_guid}/avatar-01/a.jpg`;
     }
 
     getPubBody(pub, level) {
@@ -443,7 +444,7 @@ export class InteRactComponent implements OnInit, AfterViewInit {
     //       "doc_id": 10395,
     //       "inte_ract_pub_type_id": null,
     //       "public": 0,
-    //       "location": "http://localhost/xxx",
+    //       "location": "${environment.HOST}/xxx",
     //       "doc_from": 1010,
     //       "doc_date": "2020-12-10 21:09:37",
     //       "mobile": "895909",
@@ -468,7 +469,7 @@ export class InteRactComponent implements OnInit, AfterViewInit {
     //       "doc_id": 10393,
     //       "inte_ract_pub_type_id": null,
     //       "public": 0,
-    //       "location": "http://localhost/xxx",
+    //       "location": "${environment.HOST}/xxx",
     //       "doc_from": 1010,
     //       "doc_date": "2020-12-10 18:47:44",
     //       "mobile": "895909",
@@ -493,7 +494,7 @@ export class InteRactComponent implements OnInit, AfterViewInit {
     //       "doc_id": 10391,
     //       "inte_ract_pub_type_id": null,
     //       "public": 0,
-    //       "location": "http://localhost/xxx",
+    //       "location": "${environment.HOST}/xxx",
     //       "doc_from": 1010,
     //       "doc_date": "2020-12-09 20:30:14",
     //       "mobile": "895909",
@@ -518,7 +519,7 @@ export class InteRactComponent implements OnInit, AfterViewInit {
     //       "doc_id": 10389,
     //       "inte_ract_pub_type_id": null,
     //       "public": 0,
-    //       "location": "http://localhost/xxx",
+    //       "location": "${environment.HOST}/xxx",
     //       "doc_from": 1010,
     //       "doc_date": "2020-12-09 20:06:29",
     //       "mobile": "895909",
