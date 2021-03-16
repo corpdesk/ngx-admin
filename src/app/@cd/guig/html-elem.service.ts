@@ -7,6 +7,14 @@ export class HtmlElemService {
 
   constructor() { }
 
+  getByClass(cls) {
+    return document.getElementsByClassName(cls);
+    // var result = "document.getElementsByClassName('orange juice')";
+    // for (var i = 0, len = allOrangeJuiceByClass.length | 0; i < len; i = i + 1 | 0) {
+    //   result += "\n  " + allOrangeJuiceByClass[i].textContent;
+    // }
+  }
+  // mat element is checked
   isChecked(control: HTMLInputElement) {
     if (this.isMat(control)) {
       if (control.classList.contains('mat-checkbox-checked')) {
@@ -68,9 +76,6 @@ export class HtmlElemService {
     parent.insertAdjacentHTML('afterbegin', srtHtml);
   }
 
-  // // mat-icon notranslate mat-chip-remove mat-chip-trailing-icon material-icons mat-icon-no-color ng-star-inserted
-  // isChips(){
-
-  // }
+  
 
 }

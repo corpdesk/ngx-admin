@@ -87,4 +87,16 @@ export class ConsumerResourceService {
     console.log(data);
     this.consumerResources = data;
   }
+
+  /**
+   * This is yet to be implemented at the back end.
+   * For the time being, we will just fetch all the users for demo.
+   * 
+   * At the back-end, every consumer should have <consumer-guid>-users group
+   * where it keeps all the allowed users. If you dont belong to the 
+   * group, no authentication is possible.
+   */
+  getConsumerUsers(){
+
+  }
 }

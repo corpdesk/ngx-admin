@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { subscribeOn } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 import { CommconversationService } from '../../../@cd/sys/comm/controllers/commconversation.service';
 import { DocModeOpts, ConversationItem, CommConversationSub, CommData } from '../../../@cd/sys/comm/models/comm.model';
 import { SocketIoService } from '../../../@cd/sys/cd-push/controllers/socket-io.service'
@@ -59,6 +60,19 @@ export class ReadDocComponent implements OnInit, AfterViewInit {
       console.log('I am Connected to Socket server');
       this.svSocket.emit('session_request', { session_id: 'shivampip' });
     });
+  }
+
+  setAttachmentAddr(pix) {
+    let ret;
+    switch (pix) {
+      case 1:
+        return `${environment.HOST}/attachments/e60dd9d4-e96c-48c2-b8a7-0745d4b5a67c/p1.jpg`;
+        break;
+      case 2:
+        return `${environment.HOST}/attachments/e60dd9d4-e96c-48c2-b8a7-0745d4b5a67c/p2.jpg`;
+        break;
+    }
+    // return ret;
   }
 
   loadHtml() {

@@ -4,6 +4,7 @@ import { map, filter } from 'rxjs/operators';
 import { of, from, pipe } from 'rxjs';
 import { CdResponse } from '../../../cd.model';
 import { CdPushEnvelop } from '../../../sys/cd-push/models/cd-push.model';
+import { CdFilter } from '../../../base/b.model';
 import { AuthData } from '../models/user-model';
 import { ServerService } from '../../moduleman/controllers/server.service';
 import { SessService } from './sess.service';
@@ -248,9 +249,9 @@ export class UserService {
 
 
 
-  getUsersObsv() {
+  getUsersObsv(f: CdFilter[]) {
     console.log('starting getUsersObsv()');
-    this.setEnvelopeUsers();
+    this.setEnvelopeUsers(f);
     console.log('this.postData:', JSON.stringify(this.postData));
     /*
     post request to server and return observable
@@ -258,13 +259,24 @@ export class UserService {
     return this.svServer.proc(this.postData);
   }
 
-  setEnvelopeUsers() {
+  setEnvelopeUsers(f: CdFilter[]) {
+    let flt;
+    if (f) {
+      flt = [
+        {
+          filter: f
+        }
+      ]
+    } else {
+      flt = null;
+    }
     this.postData = {
       ctx: 'Sys',
       m: 'User',
       c: 'UserController',
-      a: 'actionGetAll',
+      a: 'actionGet',
       dat: {
+        f_vals: flt,
         token: this.cd_token
       },
       args: null
@@ -388,9 +400,46 @@ export class UserService {
     this.svSocket.emit('login', cdEnvelop);
   }
 
-  getConsumerUsers() {
-    // console.log(data);
+  /**
+   * The above is to effect switching to default image when user has not
+   * set avatar.
+   * Desired method is to use a directive.
+   * Attempted sample: <project-dir>/src/app/pages/cd-palette/directives/default-image.directive.ts
+   */
+  getAvatar(User) {
+    let src;
+    if (User.done_avatar) {
+      src = `${environment.USER_RESOURCES}/${User.user_guid}/avatar-01/a.jpg`;
+    } else {
+      src = `${environment.USER_RESOURCES}/ooooooooo/avatar-01/a.jpg`;
+    }
+    return src;
   }
+
+  /**
+   * get users registered under a given consumer
+   * For demo purpose, we are just pulling all the users
+   * However, yet to be implemented is registration of
+   * <consumer_guig>-users where all the registered users will be kept.
+   */
+  getConsumerUsersObsv() {
+    return this.getUsersObsv(null);
+  }
+
+  // setEnvelopeUsers() {
+  //   this.postData = {
+  //     ctx: 'Sys',
+  //     m: 'User',
+  //     c: 'UserController',
+  //     a: 'actionGetAll',
+  //     dat: {
+  //       f_vals: [],
+  //       docproc: {},
+  //       token: this.svServer.token
+  //     },
+  //     args: null
+  //   };
+  // }
 
   list() {
 

@@ -96,7 +96,7 @@ export class ComposeDocComponent implements OnInit, AfterViewInit {
     public svConversation: CommconversationService,
     // private svSocket: SocketIoService,
   ) {
-    this.svUser.getUsersObsv()
+    this.svUser.getUsersObsv(null)
       .subscribe(
         (resp: any) => {
           console.log('UserSelectComponents::constructor()/resp.data:', resp.data);

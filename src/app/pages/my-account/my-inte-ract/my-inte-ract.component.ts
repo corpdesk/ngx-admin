@@ -30,35 +30,39 @@ export class MyInteRactComponent implements OnInit {
     pubScope = 'Group';
     Pubs = [];
     avatarDefault;
-    // pubFilter;
-    // pals = [];
-    cuteCols = [
-        {
-            id: 'col-0',
+
+    cuteCols = {
+        checkBox: {
+            id: 'col-checkBox',
+            class: 'check-mail',
+            show: true,
+        },
+        Status: {
+            id: 'col-Status',
             class: 'project-status',
             show: false,
         },
-        {
-            id: 'col-1',
+        Title: {
+            id: 'col-Title',
             class: 'project-title',
             show: true,
         },
-        {
-            id: 'col-2',
+        Percentage: {
+            id: 'col-Percentage',
             class: 'project-completion',
             show: false,
         },
-        {
-            id: 'col-3',
+        Avatar: {
+            id: 'col-Avatar',
             class: 'project-people',
             show: true,
         },
-        {
-            id: 'col-4',
+        Action: {
+            id: 'col-Actions',
             class: 'project-actions',
             show: true,
         }
-    ];
+    };
     cuteData = [];
     title = 'InteRact';
     breadcrumbs = ['MySpace', 'InteRact'];
@@ -72,33 +76,9 @@ export class MyInteRactComponent implements OnInit {
         private svJsHelper: JsHelperService,
         public svGroupMember: GroupMemberService,
     ) {
-        // this.pubFilter = this.svMyInteRact.pubFilter();
-        // this is for setting up pubRecepients
-        // in this case, user wall recepients is by pals
-        // this.pals = svUser.pals;
-        // const f: CdFilter[] = [
-        //     // {
-        //     //   field: 'user_id',
-        //     //   operator: '=',
-        //     //   val: this.svUser.cuid
-        //     // }
-        //     {
-        //         field: 'j_val->projectID', // laravel query builder syntax for mysql json colum (https://laravel.com/docs/8.x/queries#json-where-clauses)
-        //         operator: '=',
-        //         val: 4 // based on id of the selected project
-        //     }
-        // ];
-        // console.log('this.svUser.cuid:', this.svUser.cuid);
-        // this.svInteRactPub.getPubObsv(this.svMyInteRact.pubFilter()).subscribe((resp: any) => {
-        //     console.log('InteRactComponent::construct/resp.data:', resp.data);
-        //     this.svInteRactPub.Pubs = resp.data;
-        //     let pubsTemp = this.svInteRactPub.Pubs;
-        //     this.svInteRactPub.Pubs = pubsTemp.sort(function (a, b) {
-        //         return b.inte_ract_pub_id - a.inte_ract_pub_id;
-        //     });
-        // });
+
         this.avatarDefault = `${environment.USER_RESOURCES}/ooooooooo/avatar-01/a.jpg`;
-        this.getAssociates();
+        this.getPals();
 
         this.svInteRactPub.getPubObsv(this.svMyInteRact.pubFilter()).subscribe((resp: any) => {
             console.log('InteRactComponent::construct/resp.data:', resp.data);
@@ -300,8 +280,6 @@ export class MyInteRactComponent implements OnInit {
         console.log('starting MyInteRactComponent::getAvatar(pub)');
         const avatarStr = pub.avatar;
         const avatar = JSON.parse(avatarStr);
-        // ${environment.HOST}/user-resources/fe5b1a9d-df45-4fce-a181-65289c48ea00/avatar-01/a.jpg
-        // return avatar.small;
         return '${environment.HOST}/user-resources/fe5b1a9d-df45-4fce-a181-65289c48ea00/avatar-01/a.jpg';
     }
 
@@ -310,284 +288,143 @@ export class MyInteRactComponent implements OnInit {
         let ret;
         switch (level) {
             case 'pub':
-                // console.log('pub', pub.inte_ract_react_description);
                 ret = pub.inte_ract_pub_description;
                 break;
             case 'comment':
-                // console.log('pub', pub.inte_ract_react_description);
                 ret = pub.inte_ract_react_description;
                 break;
         }
         return ret;
     }
 
-    /**
-     * [
-            {
-                id: 'cell-0-0',
-                data: { status: 'Active' }
-            },
-            {
-                id: 'cell-0-1',
-                data: { title: 'Karl Lulu', date: 'Created 14.08.2014' }
-            },
-            {
-                id: 'cell-0-2',
-                data: { percnt: '8' }
-            },
-            {
-                id: 'cell-0-3',
-                data: [{ location: 'img/a3.jpg' }]
-            },
-            {
-                id: 'cell-0-4',
-                data: [{ action: 'View' }]
-            }
-        ]
-     */
-    getAssociates() {
-        console.log('starting getAssociates()')
+    getSelectedAssociation(e: any) {
+        console.log('starting getSelectedAssociation(e: any)');
+        console.log('e:', e);
+        // switch (e.inte_ract_association_name) {
+        //     case 'consumer_users':
+        //         this.getConsumerUsers();
+        //         break;
+        //     case 'pals':
+        //         this.getPals();
+        //         break;
+        //     case 'work_groups':
+        //         this.getWorkGroups();
+        //         break;
+        //     case 'personal_groups':
+        //         this.getPersonalGroups();
+        //         break;
+        // }
+
+        if(e.group_name == 'consumer_users'){
+            this.getConsumerUsers();
+        }
+        else if (e.group_name == 'pals'){
+            this.getPals();
+        }
+        else if (e.group_type_id == 2){
+            this.getModuleUsers(e.group_guid);
+        }
+    }
+
+    getPals() {
+        console.log('starting getPals()')
         this.svGroupMember.getGetPalsObsv().subscribe((resp: any) => {
             console.log('getGetPalsObsv/resp:', resp);
             this.cuteData = resp.data.map((u: any) => {
-                let src;
-                if(u.done_avatar){
-                    src = `${environment.USER_RESOURCES}/${u.user_guid}/avatar-01/a.jpg`;
-                } else {
-                    src = `${environment.USER_RESOURCES}/ooooooooo/avatar-01/a.jpg`;
-                }
-                return [
-                    {
-                        id: u.user_id + '-0',
+                const src = this.svUser.getAvatar(u);
+                return {
+                    checkBox: {
+                        id: u.user_id + '-checkBox',
+                        data: { val: false, inputClass: 'i-checks' }
+                    },
+                    Status: {
+                        id: u.user_id + '-Status',
                         data: { status: 'Active' }
                     },
-                    {
-                        id: u.user_id + '-1',
+                    Title: {
+                        id: u.user_id + '-Title',
                         data: { title: u.username, date: u.doc_date }
                     },
-                    {
-                        id: u.user_id + '-2',
+                    Percentage: {
+                        id: u.user_id + '-Percentage',
                         data: { percnt: '8' }
                     },
-                    {
-                        id: u.user_id + '-3',
+                    Avatar: {
+                        id: u.user_id + '-Avatar',
                         data: [{ location: src }]
                     },
-                    {
-                        id: u.user_id + '-4',
+                    Action: {
+                        id: u.user_id + '-Action',
                         data: [{ action: 'View' }]
                     }
-                ]
+                }
             });
         });
 
+    }
+
+    getConsumerUsers() {
+        console.log('starting getConsumerUsers()')
+        this.svUser.getConsumerUsersObsv().subscribe((resp: any) => {
+            console.log('getConsumerUsersObsv/resp:', resp);
+            this.cuteData = resp.data.map((u: any) => {
+                const src = this.svUser.getAvatar(u);
+                const uName = this.getUserName(u.username);
+                console.log('src:', src);
+                
+                const ret = {
+                    checkBox: {
+                        id: u.user_id + '-checkBox',
+                        data: { val: false, inputClass: 'i-checks' }
+                    },
+                    Status: {
+                        id: u.user_id + '-Status',
+                        data: { status: 'Active' }
+                    },
+                    Title: {
+                        id: u.user_id + '-Title',
+                        data: { title: uName, date: u.doc_date }
+                    },
+                    Percentage: {
+                        id: u.user_id + '-Percentage',
+                        data: { percnt: '8' }
+                    },
+                    Avatar: {
+                        id: u.user_id + '-Avatar',
+                        data: [{ location: src }]
+                    },
+                    Action: {
+                        id: u.user_id + '-Action',
+                        data: [{ action: 'View' }]
+                    }
+                }
+                return ret;
+            });
+        });
+        console.log('this.cuteData:', this.cuteData);
+    }
+
+    getUserName(username: string){
+        if(username){
+            if(username.length > 6){
+                return username.substring(0,5) + '...';
+            } else {
+                return username;
+            }
+        } else {
+            return 'null';
+        }
+        
+    }
+
+    getModuleUsers(group_guid){
 
     }
 
-    // getPubs() {
-    //   return [
-    //     {
-    //       "inte_ract_pub_id": 11,
-    //       "inte_ract_pub_guid": "DE1FC4D9-21A6-97B2-539B-2D6D0E6E8D90",
-    //       "inte_ract_pub_name": "pms/schedule?project_id=3&schedule_id=12",
-    //       "inte_ract_pub_description": "This is a inteRact message testing",
-    //       "doc_id": 10467,
-    //       "inte_ract_pub_type_id": null,
-    //       "public": 0,
-    //       "location": "http:localhost/xxx",
-    //       "doc_from": 1010,
-    //       "doc_date": "2021-01-16 15:22:49",
-    //       "mobile": "895909",
-    //       "gender": 1,
-    //       "dateobirth": "1976-03-10 09:53:37",
-    //       "fname": "Karl",
-    //       "mname": "D",
-    //       "lname": "Lulu",
-    //       "Trusted": 1,
-    //       "username": "karl",
-    //       "user_id": 1010,
-    //       "user_guid": "fe5b1a9d-df45-4fce-a181-65289c48ea00",
-    //       "avatar": "{\"large\": \"\", \"small\": \"/assets/images/avatar-1.jpg\"}",
-    //       "fullname": "Karl D Lulu",
-    //       "comments": [
-    //         {
-    //           "inte_ract_react_id": 25,
-    //           "inte_ract_react_guid": "2D2A887D-B898-B722-1BA4-F4F255BBF295",
-    //           "inte_ract_react_name": "pms/schedule?project_id=3&schedule_id=12",
-    //           "inte_ract_react_description": "jgfl",
-    //           "inte_ract_react_type_id": 1,
-    //           "inte_ract_pub_id": 11,
-    //           "parent_id": -1,
-    //           "doc_id": 10490,
-    //           "location": "http:localhost/xxx",
-    //           "doc_from": 1010,
-    //           "doc_date": "2021-01-26 17:48:36",
-    //           "mobile": "895909",
-    //           "gender": 1,
-    //           "dateobirth": "1976-03-10 09:53:37",
-    //           "fname": "Karl",
-    //           "mname": "D",
-    //           "lname": "Lulu",
-    //           "Trusted": 1,
-    //           "username": "karl",
-    //           "user_id": 1010,
-    //           "user_guid": "fe5b1a9d-df45-4fce-a181-65289c48ea00",
-    //           "avatar": "{\"large\": \"\", \"small\": \"/assets/images/avatar-1.jpg\"}",
-    //           "fullname": "Karl D Lulu"
-    //         },
-    //         {
-    //           "inte_ract_react_id": 26,
-    //           "inte_ract_react_guid": "52EFDBBC-3F7F-CAF7-340D-C1442BE59900",
-    //           "inte_ract_react_name": "pms/schedule?project_id=3&schedule_id=12",
-    //           "inte_ract_react_description": "jgfl",
-    //           "inte_ract_react_type_id": 1,
-    //           "inte_ract_pub_id": 11,
-    //           "parent_id": -1,
-    //           "doc_id": 10492,
-    //           "location": "http:localhost/xxx",
-    //           "doc_from": 1010,
-    //           "doc_date": "2021-01-26 17:52:08",
-    //           "mobile": "895909",
-    //           "gender": 1,
-    //           "dateobirth": "1976-03-10 09:53:37",
-    //           "fname": "Karl",
-    //           "mname": "D",
-    //           "lname": "Lulu",
-    //           "Trusted": 1,
-    //           "username": "karl",
-    //           "user_id": 1010,
-    //           "user_guid": "fe5b1a9d-df45-4fce-a181-65289c48ea00",
-    //           "avatar": "{\"large\": \"\", \"small\": \"/assets/images/avatar-1.jpg\"}",
-    //           "fullname": "Karl D Lulu"
-    //         },
-    //         {
-    //           "inte_ract_react_id": 27,
-    //           "inte_ract_react_guid": "9403F8DF-6551-63A9-4991-BA0DF7590E6F",
-    //           "inte_ract_react_name": "pms/schedule?project_id=3&schedule_id=12",
-    //           "inte_ract_react_description": "jgfl",
-    //           "inte_ract_react_type_id": 1,
-    //           "inte_ract_pub_id": 11,
-    //           "parent_id": -1,
-    //           "doc_id": 10494,
-    //           "location": "http:localhost/xxx",
-    //           "doc_from": 1010,
-    //           "doc_date": "2021-01-26 17:54:08",
-    //           "mobile": "895909",
-    //           "gender": 1,
-    //           "dateobirth": "1976-03-10 09:53:37",
-    //           "fname": "Karl",
-    //           "mname": "D",
-    //           "lname": "Lulu",
-    //           "Trusted": 1,
-    //           "username": "karl",
-    //           "user_id": 1010,
-    //           "user_guid": "fe5b1a9d-df45-4fce-a181-65289c48ea00",
-    //           "avatar": "{\"large\": \"\", \"small\": \"/assets/images/avatar-1.jpg\"}",
-    //           "fullname": "Karl D Lulu"
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       "inte_ract_pub_id": 10,
-    //       "inte_ract_pub_guid": "8739D430-B9ED-553D-66B6-0E51CBB44EED",
-    //       "inte_ract_pub_name": "pms/schedule?project_id=3&schedule_id=12",
-    //       "inte_ract_pub_description": "jgfl",
-    //       "doc_id": 10395,
-    //       "inte_ract_pub_type_id": null,
-    //       "public": 0,
-    //       "location": "${environment.HOST}/xxx",
-    //       "doc_from": 1010,
-    //       "doc_date": "2020-12-10 21:09:37",
-    //       "mobile": "895909",
-    //       "gender": 1,
-    //       "dateobirth": "1976-03-10 09:53:37",
-    //       "fname": "Karl",
-    //       "mname": "D",
-    //       "lname": "Lulu",
-    //       "Trusted": 1,
-    //       "username": "karl",
-    //       "user_id": 1010,
-    //       "user_guid": "fe5b1a9d-df45-4fce-a181-65289c48ea00",
-    //       "avatar": "{\"large\": \"\", \"small\": \"/assets/images/avatar-1.jpg\"}",
-    //       "fullname": "Karl D Lulu",
-    //       "comments": []
-    //     },
-    //     {
-    //       "inte_ract_pub_id": 9,
-    //       "inte_ract_pub_guid": "81FF1442-5F1C-AAFA-AF8B-8C0420DD9490",
-    //       "inte_ract_pub_name": "pms/schedule?project_id=3&schedule_id=12",
-    //       "inte_ract_pub_description": "jgfl",
-    //       "doc_id": 10393,
-    //       "inte_ract_pub_type_id": null,
-    //       "public": 0,
-    //       "location": "${environment.HOST}/xxx",
-    //       "doc_from": 1010,
-    //       "doc_date": "2020-12-10 18:47:44",
-    //       "mobile": "895909",
-    //       "gender": 1,
-    //       "dateobirth": "1976-03-10 09:53:37",
-    //       "fname": "Karl",
-    //       "mname": "D",
-    //       "lname": "Lulu",
-    //       "Trusted": 1,
-    //       "username": "karl",
-    //       "user_id": 1010,
-    //       "user_guid": "fe5b1a9d-df45-4fce-a181-65289c48ea00",
-    //       "avatar": "{\"large\": \"\", \"small\": \"/assets/images/avatar-1.jpg\"}",
-    //       "fullname": "Karl D Lulu",
-    //       "comments": []
-    //     },
-    //     {
-    //       "inte_ract_pub_id": 8,
-    //       "inte_ract_pub_guid": "1156A4B9-247B-4017-DD0D-30227EDAF039",
-    //       "inte_ract_pub_name": null,
-    //       "inte_ract_pub_description": "jgfl",
-    //       "doc_id": 10391,
-    //       "inte_ract_pub_type_id": null,
-    //       "public": 0,
-    //       "location": "${environment.HOST}/xxx",
-    //       "doc_from": 1010,
-    //       "doc_date": "2020-12-09 20:30:14",
-    //       "mobile": "895909",
-    //       "gender": 1,
-    //       "dateobirth": "1976-03-10 09:53:37",
-    //       "fname": "Karl",
-    //       "mname": "D",
-    //       "lname": "Lulu",
-    //       "Trusted": 1,
-    //       "username": "karl",
-    //       "user_id": 1010,
-    //       "user_guid": "fe5b1a9d-df45-4fce-a181-65289c48ea00",
-    //       "avatar": "{\"large\": \"\", \"small\": \"/assets/images/avatar-1.jpg\"}",
-    //       "fullname": "Karl D Lulu",
-    //       "comments": []
-    //     },
-    //     {
-    //       "inte_ract_pub_id": 7,
-    //       "inte_ract_pub_guid": "781CEE4B-6F3E-B1F9-B7BD-876EB59E8456",
-    //       "inte_ract_pub_name": null,
-    //       "inte_ract_pub_description": "jgfl",
-    //       "doc_id": 10389,
-    //       "inte_ract_pub_type_id": null,
-    //       "public": 0,
-    //       "location": "${environment.HOST}/xxx",
-    //       "doc_from": 1010,
-    //       "doc_date": "2020-12-09 20:06:29",
-    //       "mobile": "895909",
-    //       "gender": 1,
-    //       "dateobirth": "1976-03-10 09:53:37",
-    //       "fname": "Karl",
-    //       "mname": "D",
-    //       "lname": "Lulu",
-    //       "Trusted": 1,
-    //       "username": "karl",
-    //       "user_id": 1010,
-    //       "user_guid": "fe5b1a9d-df45-4fce-a181-65289c48ea00",
-    //       "avatar": "{\"large\": \"\", \"small\": \"/assets/images/avatar-1.jpg\"}",
-    //       "fullname": "Karl D Lulu",
-    //       "comments": []
-    //     }
-    //   ];
-    // }
+    getWorkGroups() {
+    }
+
+    getPersonalGroups() {
+    }
 
 }

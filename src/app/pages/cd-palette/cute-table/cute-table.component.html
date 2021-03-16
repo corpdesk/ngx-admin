@@ -2,12 +2,16 @@
   <div class="ibox-title">
     <h5></h5>
     <div class="ibox-tools">
-      <a href="#" class="btn btn-primary btn-xs">Invite</a>
+      <a (click)="getChecked()" class="btn btn-primary btn-xs">Invite</a>
     </div>
   </div>
   <div class="ibox-content">
     <div class="m-b-sm m-t-sm">
-
+      <ngx-select-search #selectAssociation [isInvalidSelItems]="isInvalidSelAssociation" (sendSelData)="getSelectedAssociation($event)"
+        [nameField]="associationNameField" [IdField]="associationIdField" [ConsumerInstance]="svAssociation" [fetchData]="fetchAssociationData"
+        placeholder="Associations" multiple="false">
+      </ngx-select-search>
+      <br>
       <div class="input-group">
         <div class="input-group-prepend">
           <button tabindex="-1" class="btn btn-white btn-sm" type="button"><i class="fa fa-refresh"></i>
@@ -26,27 +30,30 @@
       <table class="table table-hover">
         <tbody>
           <tr *ngFor="let d of tData;let i = index;">
-            <td *ngIf="cuteCols[0].show" id="{{'td-' + d[0].id}}" class="project-status">
-              <span class="label label-primary">{{d[0].data.status}}</span>
+            <td *ngIf="cuteCols.checkBox.show" id="{{'td-' + d.checkBox.id}}" [class]="setClass(cuteCols, 'checkBox')">
+              <input id="{{'input-' + d.checkBox.id}}" type="checkbox" [class]="d.checkBox.data.inputClass">
             </td>
-            <td *ngIf="cuteCols[1].show" id="{{'td-' + d[1].id}}" class="project-title">
-              <a href="project_detail.html">{{d[1].data.title}}</a>
+            <td *ngIf="cuteCols.Status.show" id="{{'td-' + d.Status.id}}" [class]="setClass(cuteCols, 'Status')">
+              <span class="label label-primary">{{d.Status.data.status}}</span>
+            </td>
+            <td *ngIf="cuteCols.Title.show" id="{{'td-' + d.Title.id}}" [class]="setClass(cuteCols, 'Title')">
+              <a href="project_detail.html">{{d.Title.data.title}}</a>
               <br />
-              <small>{{d[1].data.date}}</small>
+              <small>{{d.Title.data.date}}</small>
             </td>
-            <td *ngIf="cuteCols[2].show" id="{{'td-' + d[2].id}}" class="project-completion">
-              <small>Completion with: {{d[2].data.percnt}}%</small>
+            <td *ngIf="cuteCols.Percentage.show" id="{{'td-' + d.Percentage.id}}" [class]="setClass(cuteCols, 'Percentage')">
+              <small>Completion with: {{d.Percentage.data.percnt}}%</small>
               <div class="progress progress-mini">
-                <div style.width="{{d[2].data.percnt}}%" class="progress-bar"></div>
+                <div style.width="{{d.Percentage.data.percnt}}%" class="progress-bar"></div>
               </div>
             </td>
-            <td *ngIf="cuteCols[3].show" id="{{'td-' + d[3].id}}" class="project-people">
-              <ng-container *ngFor="let avatar of d[3].data;let i = index;">
-                <a href="#"><img id="{{img-d[3].id}}" alt="image" class="rounded-circle" src="{{avatar.location}}"></a>
+            <td *ngIf="cuteCols.Avatar.show" id="{{'td-' + d.Avatar.id}}" [class]="setClass(cuteCols, 'Avatar')">
+              <ng-container *ngFor="let avatar of d.Avatar.data;let i = index;">
+                <a href="#"><img id="{{img-d.Avatar.id}}" alt="image" class="rounded-circle" src="{{avatar.location}}"></a>
               </ng-container>
             </td>
-            <td *ngIf="cuteCols[4].show" id="{{'td-' + d[4].id}}" class="project-actions">
-              <ng-container *ngFor="let a of d[4].data">
+            <td *ngIf="cuteCols.Action.show" id="{{'td-' + d.Action.id}}" [class]="setClass(cuteCols, 'Action')">
+              <ng-container *ngFor="let a of d.Action.data">
                 <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> {{a.action}} </a>
               </ng-container>
             </td>

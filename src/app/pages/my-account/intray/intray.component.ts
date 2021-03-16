@@ -52,12 +52,8 @@ export class IntrayComponent implements OnInit {
   }
 
   reloadData(data) {
-    //this.svConversation.conversation = data;
-    // this.svConversation.conversation = [];
-    // this.svConversation.conversation = [...this.svConversation.conversation];
     this.svConversation.InBoxData.push(data);
     this.svConversation.InBoxData.sort(this.svConversation.dynamicSort('-memo_id'));
-    // this.InBoxData = this.svConversation.InBoxData;
     this.svConversation.InBoxDataPush = this.svConversation.InBoxData;
     this.svConversation.trayMode = 3;
   }

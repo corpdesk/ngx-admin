@@ -89,6 +89,7 @@ import { TreeViewMatComponent } from './tree-view-mat/tree-view-mat.component';
 import { CuteTableComponent } from './cute-table/cute-table.component';
 import { ColStyleDirective } from './cute-table/col-style.directive';
 import { CuteTableTdComponent } from './cute-table-td/cute-table-td.component';
+import { DefaultImageDirective } from './directives/default-image.directive';
 
 const materialModules = [
   MatExpansionModule,
@@ -144,6 +145,7 @@ const materialModules = [
     CuteTableComponent,
     ColStyleDirective,
     CuteTableTdComponent,
+    DefaultImageDirective,
   ],
   imports: [
     CommonModule,

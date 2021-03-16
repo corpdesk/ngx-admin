@@ -11,7 +11,7 @@
           Associates
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <ngx-cute-table [cuteCols]="cuteCols" [tData]="cuteData" avatarDefault="avatarDefault"></ngx-cute-table>
+          <ngx-cute-table [cuteCols]="cuteCols" [tData]="cuteData" avatarDefault="avatarDefault" (sendSelAssociation)="getSelectedAssociation($event)"></ngx-cute-table>
         </nb-accordion-item-body>
       </nb-accordion-item>
 

@@ -164,9 +164,20 @@ Implementation:
     - 1. associates
         - develop consumable 'cute-table' based on http://localhost/inspinia/projects.html#
         - load associates on 'cute-table'
-        - select associate
+        - getChecked() // to be used for invite, remove, block etc
         - search from all colligues
         - select from search result and invite
+ 
+    - do dropdown for group of users
+        - colligues
+            - Tools: ( invite, chat )
+        - pals
+            - Tools: (remove, block, chat)
+        - all the groups that user belongs
+            - Tools: (Discussion, chat)
+        - all modules have a group with group_type_id == 2
+        - any group created by module will be child to the module group.
+        - from the above everytime a project is created, a child group with project name is created under 'pms' group.
     - 2. Associations (nested table)
     - 3. ngx-timeline
     - 4. tools for associates (invite, block, remove)
@@ -791,6 +802,17 @@ use tree-grid to view modules/menu in hierarchial format
         - 2. Select project
             - getProjects
         - 3. View details to edit
+
+16/03/2021
+- do dropdown for group of users
+        - colligues
+            - Tools: ( invite, chat )
+        - pals
+            - Tools: (remove, block, chat)
+        - all the groups that user belongs
+            - Tools: (Discussion, chat)
+        - all modules have a group with group_type_id == 2
+
 
 11/03/2021
 - set up accordion as colapsable interface below:
