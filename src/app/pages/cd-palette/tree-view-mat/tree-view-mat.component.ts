@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
-import { GroupMemberNode } from '../../../@cd/sys/user/models/gruoup-member-model';
+import { GroupMemberNode } from '../../../@cd/sys/user/models/group-member-model';
 import { GroupMemberService } from '../../../@cd/sys/user/controllers/group-member.service';
 import { GroupService } from '../../../@cd/sys/user/controllers/group.service';
 import { TreeHelperService } from '../../../@cd/guig/tree-helper';

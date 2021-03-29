@@ -426,6 +426,50 @@ export class UserService {
     return this.getUsersObsv(null);
   }
 
+  getGroupUsersObsv(groupGuidParent) {
+    this.setEnvelopeGetGroupUsers(groupGuidParent);
+    return this.svServer.proc(this.postData);
+  }
+  /**
+   * {
+          "ctx": "Sys",
+          "m": "User",
+          "c": "GroupMemberController",
+          "a": "actionGetGroupUsers",
+          "dat": {
+              "f_vals": [
+                  {
+                      "data": {
+                          "group_guid_parent": "08E30801-A7C0-E6A0-3FB1-394E7A71B456"
+                      }
+                  }
+              ],
+              "token": "15910E2B-5491-679D-3028-C99CE64CAC53"
+          },
+          "args": null
+      }
+   */
+  setEnvelopeGetGroupUsers(groupGuidParent) {
+    this.postData = {
+      ctx: 'Sys',
+      m: 'User',
+      c: 'GroupMemberController',
+      a: 'actionGetGroupUsers',
+      dat: {
+        f_vals: [
+          {
+            data: {
+              group_guid_parent: groupGuidParent
+            }
+          }
+        ],
+        docproc: {},
+        token: this.svServer.token
+      },
+      args: null
+    };
+  }
+
   // setEnvelopeUsers() {
   //   this.postData = {
   //     ctx: 'Sys',

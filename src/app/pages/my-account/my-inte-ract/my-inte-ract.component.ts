@@ -10,7 +10,9 @@ import { SocketIoService } from '../../../@cd/sys/cd-push/controllers/socket-io.
 import { MyInteRactService } from './my-inte-ract.service';
 import { InteRactComponent } from '../../cd-palette/inte-ract/inte-ract.component';
 import { GroupMemberService } from '../../../@cd/sys/user/controllers/group-member.service';
+import { GroupInvitationService } from '../../../@cd/sys/user/controllers/group-invitation.service';
 import { U } from '@angular/cdk/keycodes';
+import { GroupInvitation } from '../../../@cd/sys/user/models/group-invitation-model';
 
 @Component({
     selector: 'ngx-my-inte-ract',
@@ -75,10 +77,11 @@ export class MyInteRactComponent implements OnInit {
         public svMyInteRact: MyInteRactService,
         private svJsHelper: JsHelperService,
         public svGroupMember: GroupMemberService,
+        private svGroupInvitation: GroupInvitationService,
     ) {
 
         this.avatarDefault = `${environment.USER_RESOURCES}/ooooooooo/avatar-01/a.jpg`;
-        this.getPals();
+        this.getConsumerUsers();
 
         this.svInteRactPub.getPubObsv(this.svMyInteRact.pubFilter()).subscribe((resp: any) => {
             console.log('InteRactComponent::construct/resp.data:', resp.data);
@@ -89,9 +92,7 @@ export class MyInteRactComponent implements OnInit {
                     return b.inte_ract_pub_id - a.inte_ract_pub_id;
                 });
             }
-
         });
-
     }
 
     ngOnInit(): void {
@@ -315,13 +316,13 @@ export class MyInteRactComponent implements OnInit {
         //         break;
         // }
 
-        if(e.group_name == 'consumer_users'){
+        if (e.group_name == 'consumer_users') {
             this.getConsumerUsers();
         }
-        else if (e.group_name == 'pals'){
+        else if (e.group_name == 'pals') {
             this.getPals();
         }
-        else if (e.group_type_id == 2){
+        else if (e.group_type_id == 2) {
             this.getModuleUsers(e.group_guid);
         }
     }
@@ -331,33 +332,7 @@ export class MyInteRactComponent implements OnInit {
         this.svGroupMember.getGetPalsObsv().subscribe((resp: any) => {
             console.log('getGetPalsObsv/resp:', resp);
             this.cuteData = resp.data.map((u: any) => {
-                const src = this.svUser.getAvatar(u);
-                return {
-                    checkBox: {
-                        id: u.user_id + '-checkBox',
-                        data: { val: false, inputClass: 'i-checks' }
-                    },
-                    Status: {
-                        id: u.user_id + '-Status',
-                        data: { status: 'Active' }
-                    },
-                    Title: {
-                        id: u.user_id + '-Title',
-                        data: { title: u.username, date: u.doc_date }
-                    },
-                    Percentage: {
-                        id: u.user_id + '-Percentage',
-                        data: { percnt: '8' }
-                    },
-                    Avatar: {
-                        id: u.user_id + '-Avatar',
-                        data: [{ location: src }]
-                    },
-                    Action: {
-                        id: u.user_id + '-Action',
-                        data: [{ action: 'View' }]
-                    }
-                }
+                return this.cData(u);
             });
         });
 
@@ -368,57 +343,65 @@ export class MyInteRactComponent implements OnInit {
         this.svUser.getConsumerUsersObsv().subscribe((resp: any) => {
             console.log('getConsumerUsersObsv/resp:', resp);
             this.cuteData = resp.data.map((u: any) => {
-                const src = this.svUser.getAvatar(u);
-                const uName = this.getUserName(u.username);
-                console.log('src:', src);
-                
-                const ret = {
-                    checkBox: {
-                        id: u.user_id + '-checkBox',
-                        data: { val: false, inputClass: 'i-checks' }
-                    },
-                    Status: {
-                        id: u.user_id + '-Status',
-                        data: { status: 'Active' }
-                    },
-                    Title: {
-                        id: u.user_id + '-Title',
-                        data: { title: uName, date: u.doc_date }
-                    },
-                    Percentage: {
-                        id: u.user_id + '-Percentage',
-                        data: { percnt: '8' }
-                    },
-                    Avatar: {
-                        id: u.user_id + '-Avatar',
-                        data: [{ location: src }]
-                    },
-                    Action: {
-                        id: u.user_id + '-Action',
-                        data: [{ action: 'View' }]
-                    }
-                }
-                return ret;
+                return this.cData(u);
             });
         });
         console.log('this.cuteData:', this.cuteData);
     }
 
-    getUserName(username: string){
-        if(username){
-            if(username.length > 6){
-                return username.substring(0,5) + '...';
+    getUserName(username: string) {
+        if (username) {
+            if (username.length > 6) {
+                return username.substring(0, 5) + '...';
             } else {
                 return username;
             }
         } else {
             return 'null';
         }
-        
     }
 
-    getModuleUsers(group_guid){
+    getModuleUsers(groupGuidParent) {
+        this.svUser.getGroupUsersObsv(groupGuidParent).subscribe((resp: any) => {
+            console.log('getConsumerUsersObsv/resp:', resp);
+            this.cuteData = resp.data.map((u: any) => {
+                return this.cData(u);
+            });
+        });
+    }
 
+    cData(u) {
+        const src = this.svUser.getAvatar(u);
+        const uName = this.getUserName(u.username);
+        console.log('src:', src);
+
+        const ret = {
+            checkBox: {
+                id: u.user_id + '-checkBox',
+                data: { val: false, inputClass: 'i-checks' }
+            },
+            Status: {
+                id: u.user_id + '-Status',
+                data: { status: 'Active' }
+            },
+            Title: {
+                id: u.user_id + '-Title',
+                data: { title: uName, date: u.doc_date }
+            },
+            Percentage: {
+                id: u.user_id + '-Percentage',
+                data: { percnt: '8' }
+            },
+            Avatar: {
+                id: u.user_id + '-Avatar',
+                data: [{ location: src }]
+            },
+            Action: {
+                id: u.user_id + '-Action',
+                data: [{ action: 'View' }]
+            }
+        }
+        return ret;
     }
 
     getWorkGroups() {

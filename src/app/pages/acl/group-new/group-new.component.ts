@@ -6,7 +6,7 @@ import { ScheduleService } from '../../../@cd/sys/scheduler/controllers/schedule
 import { ModulesService } from '../../../@cd/sys/moduleman/controllers/modules.service';
 import { GroupService } from '../../../@cd/sys/user/controllers/group.service';
 import { GroupMemberService } from '../../../@cd/sys/user/controllers/group-member.service';
-import { GroupMemberInput, GroupMember } from '../../../@cd/sys/user/models/gruoup-member-model';
+import { GroupMemberInput, GroupMember } from '../../../@cd/sys/user/models/group-member-model';
 import { Group } from '../../../@cd/sys/user/models/group-model';
 import { TimeSpanComponent } from '../../cd-palette/time-span/time-span.component';
 import { SocketIoService } from '../../../@cd/sys/cd-push/controllers/socket-io.service';

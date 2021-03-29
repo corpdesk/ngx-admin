@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { CdFilter } from '../../../base/b.model';
 import { ServerService } from '../../moduleman/controllers/server.service';
 import { SessService } from '../../user/controllers/sess.service';
-import { GroupMember, GroupMemberInput } from '../../user/models/gruoup-member-model';
+// import { GroupMember, GroupMemberInput } from '../../user/models/gruoup-member-model';
+import { GroupInvitation } from '../models/group-invitation-model';
 
 @Injectable({
   providedIn: 'root'
@@ -62,4 +63,51 @@ export class GroupInvitationService {
       args: null
     };
   }
+
+  createObsv(i: GroupInvitation) {
+    console.log('starting createObsv()');
+    this.setEnvelopeCreate(i);
+    console.log('this.postData:', JSON.stringify(this.postData));
+    return this.svServer.proc(this.postData);
+  }
+  
+  // /**
+  //  * {
+  //         "ctx": "Sys",
+  //         "m": "User",
+  //         "c": "GroupInvitationController",
+  //         "a": "actionCreate",
+  //         "dat": {
+  //             "f_vals": [
+  //                 {
+  //                     "data": {
+  //                         "hostUser": "1010",
+  //                         "guestUser": "1003",
+  //                         "group_invitation_type_id": "1313"
+  //                     }
+  //                 }
+  //             ],
+  //             "token": "6E831EAF-244D-2E5A-0A9E-27C1FDF7821D"
+  //         },
+  //         "args": null
+  //     }
+  //  */
+  setEnvelopeCreate(i: GroupInvitation) {
+    this.postData = {
+      ctx: 'Sys',
+      m: 'User',
+      c: 'GroupInvitationController',
+      a: 'actionCreate',
+      dat: {
+        f_vals: [
+          {
+            data: i
+          }
+        ],
+        token: this.svSess.getCdToken()
+      },
+      args: null
+    };
+  }
+
 }

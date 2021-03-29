@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CdFilter } from '../../../base/b.model';
 import { ServerService } from '../../moduleman/controllers/server.service';
 import { SessService } from '../../user/controllers/sess.service';
-import { GroupMember, GroupMemberInput } from '../../user/models/gruoup-member-model';
+import { GroupMember, GroupMemberInput } from '../models/group-member-model';
 
 @Injectable({
   providedIn: 'root'

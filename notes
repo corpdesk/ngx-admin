@@ -176,8 +176,19 @@ Implementation:
         - all the groups that user belongs
             - Tools: (Discussion, chat)
         - all modules have a group with group_type_id == 2
+
         - any group created by module will be child to the module group.
-        - from the above everytime a project is created, a child group with project name is created under 'pms' group.
+            - from the above everytime a project is created, a child group 
+                with project name is created under 'pms' group...DONE
+            - on creation of project-group, the current user will be automatically
+                added to the group...DONE
+            - current user can invite members to group discussions...DONE
+            - view activities and accept invitation
+            - integrate invitation and accept with socket.io push system
+            - current user can select module group to view members
+            
+            - test creation of project in pms, then have users in the project group discuss
+        
     - 2. Associations (nested table)
     - 3. ngx-timeline
     - 4. tools for associates (invite, block, remove)
@@ -802,6 +813,9 @@ use tree-grid to view modules/menu in hierarchial format
         - 2. Select project
             - getProjects
         - 3. View details to edit
+
+29/03/2021
+- current user can invite members to group discussions...DONE
 
 16/03/2021
 - do dropdown for group of users

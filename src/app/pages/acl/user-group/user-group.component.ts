@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User, UserData } from '../../../@cd/sys/user/models/user-model';
 import { Group } from '../../../@cd/sys/user/models/group-model';
-import { GroupMember } from '../../../@cd/sys/user/models/gruoup-member-model';
+import { GroupMember } from '../../../@cd/sys/user/models/group-member-model';
 import { GroupService } from '../../../@cd/sys/user/controllers/group.service';
 import { GroupMemberService } from '../../../@cd/sys/user/controllers/group-member.service';
 import { UserService } from '../../../@cd/sys/user/controllers/user.service';
