@@ -183,9 +183,19 @@ Implementation:
             - on creation of project-group, the current user will be automatically
                 added to the group...DONE
             - current user can invite members to group discussions...DONE
+            - manage unsuccessfull response from server
             - view activities and accept invitation
+                - use notification service for activity component...DONE
+                - pull notifications from db...DONE
+                - integrate db notification to work in front end...DONE
+                - test 'accept' on friend request...DONE
+                - after accepting, ...DONE
+                    - the 'invite' notification should disapear...DONE
+                    - new notification for 'xx accepted your invitation' should be generated...DONE
+                - test full invite/accept Pal from front end...DONE
             - integrate invitation and accept with socket.io push system
-            - current user can select module group to view members
+            - test group invitation/accept for pms
+            - current user can select module group(eg pms, pals) to view members
             
             - test creation of project in pms, then have users in the project group discuss
         
