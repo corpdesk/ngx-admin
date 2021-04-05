@@ -199,9 +199,6 @@ export class GanttNineComponent implements OnInit, AfterViewInit {
     }
     console.log(fxMonths());
     this.MONTHS = fxMonths();
-    // fromDate, afterEnd
-
-
   }
 
   ngOnInit(): void {

@@ -1,3 +1,10 @@
+
+/**
+ * this my-inte-ract derive users from relevant pals groups
+ * to contain conversation within a given context use my-inte-ract.service.ts to 
+ * 1. set MyInteRactService::pubCtx to control how it saves 
+ * 2. set pubFilter() and pubFilterExt() to control how it fetches data from db
+ */
 import { Component, OnInit, ElementRef, AfterViewInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { CdSocialPost } from '../../../@cd/sys/comm/models/comm.model';
@@ -31,6 +38,7 @@ export class MyInteRactComponent implements OnInit {
     pubType = 'Post';
     pubScope = 'Group';
     Pubs = [];
+    
     avatarDefault;
 
     cuteCols = {
@@ -83,7 +91,10 @@ export class MyInteRactComponent implements OnInit {
         this.avatarDefault = `${environment.USER_RESOURCES}/ooooooooo/avatar-01/a.jpg`;
         this.getConsumerUsers();
 
-        this.svInteRactPub.getPubObsv(this.svMyInteRact.pubFilter()).subscribe((resp: any) => {
+        const f = this.svMyInteRact.pubFilter();
+        const fExt = this.svMyInteRact.pubFilterExt();
+        console.log('filter:', f);
+        this.svInteRactPub.getPubObsv(f,fExt).subscribe((resp: any) => {
             console.log('InteRactComponent::construct/resp.data:', resp.data);
             this.Pubs = resp.data;
             let pubsTemp = this.Pubs;

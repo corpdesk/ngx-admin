@@ -22,9 +22,26 @@ export class InteRactComponent implements OnInit, AfterViewInit {
     @Input() pubFilter = [];
     /**
      * Pubs is filled via the consumer component
-     * 
+     * for populatng content based on the 
+     * module that generated it
      */
     @Input() Pubs = [];
+
+    /**
+     * Pub contenct is saved with
+     * the context pubCtx.
+     * This is used for filtering based
+     * on where it was created. Eg Pals, or pms or project specific.
+     * Can be defined by a module developer
+     */
+    @Input() pubCtx = {
+        m: 'pms',
+        c: 'schedules',
+        domain: {
+            projectID: 3,
+            scheduleID: 12
+        }
+    };
 
     pubType = 'Post';
     pubScope = 'Group';
@@ -109,7 +126,7 @@ export class InteRactComponent implements OnInit, AfterViewInit {
     //                               <br/>
     //                               <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 26 Like this!</a> -
     //                               <small class="text-muted">12.06.2019</small>
-                                  
+
     //                               <div class="comment-reply">
     //                                   <div class="social-comment">
     //                                       <a href="" class="float-left">
@@ -179,7 +196,7 @@ export class InteRactComponent implements OnInit, AfterViewInit {
     //                                       <button data-toggle="tooltip" data-placement="top" title="insert link" class="btn btn-white btn-xs"><i class="fas fa-link"></i> </button>
     //                                   </div>
     //                               </div>
-                                  
+
     //                           </div>
     //                       </div>
 
@@ -229,7 +246,7 @@ export class InteRactComponent implements OnInit, AfterViewInit {
         return ret;
     }
 
-    htmlReactions(reactions){
+    htmlReactions(reactions) {
         const ret = `<!--  start reactions -->
         <div class="social-footer">
             <!-- start react -->
@@ -292,7 +309,7 @@ export class InteRactComponent implements OnInit, AfterViewInit {
     
         </div>
         <!--  end reactions -->`;
-        if(reactions.length > 0){
+        if (reactions.length > 0) {
             return ret;
         } else {
             return '';

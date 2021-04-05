@@ -93,39 +93,70 @@ export class InteRactPubService {
    * Array of custom sql-like filters.
    * @param f: CdFilter[]
    */
-  getPubObsv(f: CdFilter[]) {
+  getPubObsv(f: CdFilter[], fExt: CdFilter[][]) {
     console.log('starting InteRactPubService::getPubObsv()');
-    this.setEnvelopeGetPub(f);
+    this.setEnvelopeGetPub(f,fExt);
     console.log('this.postData:', JSON.stringify(this.postData));
     return this.svServer.proc(this.postData)
   }
 
   /**
    * 
-  //  * {
-  //              "ctx": "Sys",
-  //              "m": "InteRact",
-  //              "c": "InteRactPubController",
-  //              "a": "actionGet",
-  //              "dat": {
-  //                  "f_vals": [
-  //                      {
-  //                          "filter": [
-  //                              {
-  //                                  "field": "user_id",
-  //                                  "operator": "=",
-  //                                  "val": "1010"
-  //                              }
-  //                          ]
-  //                      }
-  //                  ],
-  //                  "token": "mT6blaIfqWhzNXQLG8ksVbc1VodSxRZ8lu5cMgda"
-  //              },
-  //              "args": null
-  //          }
+      {
+          "ctx": "Sys",
+          "m": "InteRact",
+          "c": "InteRactPubController",
+          "a": "actionGet",
+          "dat": {
+              "f_vals": [
+                  {
+                      "filter": [
+                          {
+                              "field": "user_id",
+                              "operator": "=",
+                              "val": 1007,
+                              "conjType": "or"
+                          },
+                          {
+                              "field": "user_id",
+                              "operator": "=",
+                              "val": 1002,
+                              "conjType": "or"
+                          },
+                          {
+                              "field": "user_id",
+                              "operator": "=",
+                              "val": 1010,
+                              "conjType": "or"
+                          }
+                      ],
+                      "filterExt": [
+                          [
+                              {
+                                  "fieldType": "json",
+                                  "jField": "j_val",
+                                  "jPath": "$.m",
+                                  "operator": "=",
+                                  "jVal": "user"
+                              },
+                              {
+                                  "fieldType": "json",
+                                  "jField": "j_val",
+                                  "jPath": "$.domain.group_invitation_type_id",
+                                  "operator": "=",
+                                  "jVal": 1313
+                              }
+                          ]
+                      ]
+                  }
+              ],
+              "token": "5B812D34-EA96-9FFE-8EE9-443DEEF214A8"
+          },
+          "args": null
+      }
    * @param filter 
    */
-  setEnvelopeGetPub(f: CdFilter[]) {
+  setEnvelopeGetPub(f: CdFilter[], fExt: CdFilter[][]) {
     this.postData = {
       ctx: 'Sys',
       m: 'InteRact',
@@ -134,7 +165,8 @@ export class InteRactPubService {
       dat: {
         f_vals: [
           {
-            filter: f
+            filter: f,
+            filterExt: fExt
           }
         ],
         token: this.svSess.getCdToken()

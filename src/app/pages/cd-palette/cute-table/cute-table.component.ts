@@ -14,6 +14,7 @@ export class CuteTableComponent implements OnInit {
   @Input() cuteCols = [];
   @Input() tData = [];
   @Input() avatarDefault;
+  @Input() groupInvitationTypeID;
   @Output() sendSelAssociation = new EventEmitter(); // used to sync sel items to consumer
   avatar;
 
@@ -54,7 +55,7 @@ export class CuteTableComponent implements OnInit {
         const i: GroupInvitation = {
           guestUser: Number(guestID),
           hostUser: this.svUser.cuid,
-          group_invitation_type_id: GroupInvitationTypes.USER_PALS
+          group_invitation_type_id: this.groupInvitationTypeID
         };
         this.svGroupInvitation.createObsv(i).subscribe((resp) => {
           console.log('resp:', resp);

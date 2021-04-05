@@ -15,6 +15,7 @@ import { ProjectInfoComponent } from './project-info/project-info.component';
 import { ProjectTabsComponent } from './project-tabs/project-tabs.component';
 import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectRegisterComponent } from './project-register/project-register.component';
+import { PmsInteRactComponent } from './pms-inte-ract/pms-inte-ract.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,11 @@ const routes: Routes = [
       {
         path: 'gantt',
         component: GanttComponent,
+        canActivate: [ AuthGuardService ],
+      },
+      {
+        path: 'inteRact',
+        component: PmsInteRactComponent,
         canActivate: [ AuthGuardService ],
       },
       {

@@ -15,6 +15,7 @@ export class ProjectService {
 
   getProjectsObsv(){
     this.setEnvelopeGetProjects();
+    console.log('this.postData:', JSON.stringify(this.postData));
     return this.svServer.proc(this.postData);
   }
 

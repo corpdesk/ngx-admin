@@ -1072,6 +1072,11 @@ export class MenuService {
             enabled: true
           },
           {
+            title: 'inteRact',
+            link: '/pages/pms/inteRact',
+            enabled: true
+          },
+          {
             title: 'Projects',
             link: '/pages/pms/projects',
             enabled: true

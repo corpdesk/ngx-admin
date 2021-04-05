@@ -196,6 +196,8 @@ Implementation:
             - integrate invitation and accept with socket.io push system
             - test group invitation/accept for pms
             - current user can select module group(eg pms, pals) to view members
+            - integrate socket.io for push notifications
+            - integrate general ui notification
             
             - test creation of project in pms, then have users in the project group discuss
         
@@ -493,7 +495,21 @@ Case 2:
             - 'default': Module moment-timezone has no exported member 'default'
             - solution: https://stackoverflow.com/questions/54766706/moment-has-no-exported-member-default
 
-
+- Integrate pms with inteRact:
+    - create pms/pms-inte-ract component...DONE
+    - create pms/pms-inte-ract service...DONE
+    - update current records to read {m:'user', group:'my-interact'}...DONE
+    - update my-inte-ract to filter for {m:'user', c:'my-interact'}...DONE
+    - set pms-inte-ract to filter for {m:'pms', c:'pms-interact'}...DONE
+    - test and refine PmsInteRactService::pubCtx for project and schedule context...DONE
+        - create new project...DONE
+        - check users in the group...DONE
+        - create a pub...DONE
+        - invite users to the prject...DONE
+        - confirm invited user can see discussions on the pub....DONE
+    - check if socket push data is working ok
+    - invite pms users
+    - load pms users
 - completion status on task bar
 - schedule that is set to start based on on the timing of another schedule:
     - eg: start after schedul-x
@@ -823,6 +839,20 @@ use tree-grid to view modules/menu in hierarchial format
         - 2. Select project
             - getProjects
         - 3. View details to edit
+
+05/04/2021
+- Integrate pms with inteRact:
+    - create pms/pms-inte-ract component...DONE
+    - create pms/pms-inte-ract service...DONE
+    - update current records to read {m:'user', group:'my-interact'}...DONE
+    - update my-inte-ract to filter for {m:'user', c:'my-interact'}...DONE
+    - set pms-inte-ract to filter for {m:'pms', c:'pms-interact'}...DONE
+    - test and refine PmsInteRactService::pubCtx for project and schedule context...DONE
+        - create new project...DONE
+        - check users in the group...DONE
+        - create a pub...DONE
+        - invite users to the prject...DONE
+        - confirm invited user can see discussions on the pub....DONE
 
 29/03/2021
 - current user can invite members to group discussions...DONE
