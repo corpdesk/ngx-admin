@@ -41,13 +41,13 @@ export class PmsInteRactService {
     if (this.users) {
       // set filter to fetch pubs for all 'pals'
       filter = this.users.map((p: any) => {
-        console.log('p:', p);
-        const id = p.Action.id;
-        const user_id = Number(id.replace("-Action", ""));
+        // console.log('p:', p);
+        // const id = p.Action.id;
+        // const user_id = Number(id.replace("-Action", ""));
         return {
           field: 'user_id',
           operator: '=',
-          val: user_id,
+          val: p.user_id,
           conjType: 'or'
         }
       });

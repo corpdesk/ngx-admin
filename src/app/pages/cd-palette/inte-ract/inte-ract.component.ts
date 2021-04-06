@@ -1,11 +1,13 @@
-import { Component, OnInit, Input, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, AfterViewInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CdSocialPost } from '../../../@cd/sys/comm/models/comm.model';
 import { environment } from '../../../../environments/environment';
 import { GroupMemberService } from '../../../@cd/sys/user/controllers/group-member.service';
 import { InteRactPubService } from '../../../@cd/sys/inte-ract/controllers/inte-ract-pub.service';
+import { InteRactPubComponent } from '../inte-ract-pub/inte-ract-pub.component';
 import { HtmlElemService } from '../../../@cd/guig/html-elem.service';
 import { CdFilter } from '../../../@cd/base/b.model';
 import { UserService } from '../../../@cd/sys/user/controllers/user.service';
+
 
 
 @Component({
@@ -43,9 +45,15 @@ export class InteRactComponent implements OnInit, AfterViewInit {
         }
     };
 
+    /**
+    * recepints set by the component client
+    */
+    @Input() pushRecepients;
+
     pubType = 'Post';
     pubScope = 'Group';
     cuidAvatar;
+    @ViewChild(InteRactPubComponent) chldInteRactPub:InteRactPubComponent;
     constructor(
         private elementRef: ElementRef,
         public svInteRactPub: InteRactPubService,
@@ -350,210 +358,9 @@ export class InteRactComponent implements OnInit, AfterViewInit {
         return ret;
     }
 
-    // getPubs() {
-    //   return [
-    //     {
-    //       "inte_ract_pub_id": 11,
-    //       "inte_ract_pub_guid": "DE1FC4D9-21A6-97B2-539B-2D6D0E6E8D90",
-    //       "inte_ract_pub_name": "pms/schedule?project_id=3&schedule_id=12",
-    //       "inte_ract_pub_description": "This is a inteRact message testing",
-    //       "doc_id": 10467,
-    //       "inte_ract_pub_type_id": null,
-    //       "public": 0,
-    //       "location": "http:localhost/xxx",
-    //       "doc_from": 1010,
-    //       "doc_date": "2021-01-16 15:22:49",
-    //       "mobile": "895909",
-    //       "gender": 1,
-    //       "dateobirth": "1976-03-10 09:53:37",
-    //       "fname": "Karl",
-    //       "mname": "D",
-    //       "lname": "Lulu",
-    //       "Trusted": 1,
-    //       "username": "karl",
-    //       "user_id": 1010,
-    //       "user_guid": "fe5b1a9d-df45-4fce-a181-65289c48ea00",
-    //       "avatar": "{\"large\": \"\", \"small\": \"/assets/images/avatar-1.jpg\"}",
-    //       "fullname": "Karl D Lulu",
-    //       "comments": [
-    //         {
-    //           "inte_ract_react_id": 25,
-    //           "inte_ract_react_guid": "2D2A887D-B898-B722-1BA4-F4F255BBF295",
-    //           "inte_ract_react_name": "pms/schedule?project_id=3&schedule_id=12",
-    //           "inte_ract_react_description": "jgfl",
-    //           "inte_ract_react_type_id": 1,
-    //           "inte_ract_pub_id": 11,
-    //           "parent_id": -1,
-    //           "doc_id": 10490,
-    //           "location": "http:localhost/xxx",
-    //           "doc_from": 1010,
-    //           "doc_date": "2021-01-26 17:48:36",
-    //           "mobile": "895909",
-    //           "gender": 1,
-    //           "dateobirth": "1976-03-10 09:53:37",
-    //           "fname": "Karl",
-    //           "mname": "D",
-    //           "lname": "Lulu",
-    //           "Trusted": 1,
-    //           "username": "karl",
-    //           "user_id": 1010,
-    //           "user_guid": "fe5b1a9d-df45-4fce-a181-65289c48ea00",
-    //           "avatar": "{\"large\": \"\", \"small\": \"/assets/images/avatar-1.jpg\"}",
-    //           "fullname": "Karl D Lulu"
-    //         },
-    //         {
-    //           "inte_ract_react_id": 26,
-    //           "inte_ract_react_guid": "52EFDBBC-3F7F-CAF7-340D-C1442BE59900",
-    //           "inte_ract_react_name": "pms/schedule?project_id=3&schedule_id=12",
-    //           "inte_ract_react_description": "jgfl",
-    //           "inte_ract_react_type_id": 1,
-    //           "inte_ract_pub_id": 11,
-    //           "parent_id": -1,
-    //           "doc_id": 10492,
-    //           "location": "http:localhost/xxx",
-    //           "doc_from": 1010,
-    //           "doc_date": "2021-01-26 17:52:08",
-    //           "mobile": "895909",
-    //           "gender": 1,
-    //           "dateobirth": "1976-03-10 09:53:37",
-    //           "fname": "Karl",
-    //           "mname": "D",
-    //           "lname": "Lulu",
-    //           "Trusted": 1,
-    //           "username": "karl",
-    //           "user_id": 1010,
-    //           "user_guid": "fe5b1a9d-df45-4fce-a181-65289c48ea00",
-    //           "avatar": "{\"large\": \"\", \"small\": \"/assets/images/avatar-1.jpg\"}",
-    //           "fullname": "Karl D Lulu"
-    //         },
-    //         {
-    //           "inte_ract_react_id": 27,
-    //           "inte_ract_react_guid": "9403F8DF-6551-63A9-4991-BA0DF7590E6F",
-    //           "inte_ract_react_name": "pms/schedule?project_id=3&schedule_id=12",
-    //           "inte_ract_react_description": "jgfl",
-    //           "inte_ract_react_type_id": 1,
-    //           "inte_ract_pub_id": 11,
-    //           "parent_id": -1,
-    //           "doc_id": 10494,
-    //           "location": "http:localhost/xxx",
-    //           "doc_from": 1010,
-    //           "doc_date": "2021-01-26 17:54:08",
-    //           "mobile": "895909",
-    //           "gender": 1,
-    //           "dateobirth": "1976-03-10 09:53:37",
-    //           "fname": "Karl",
-    //           "mname": "D",
-    //           "lname": "Lulu",
-    //           "Trusted": 1,
-    //           "username": "karl",
-    //           "user_id": 1010,
-    //           "user_guid": "fe5b1a9d-df45-4fce-a181-65289c48ea00",
-    //           "avatar": "{\"large\": \"\", \"small\": \"/assets/images/avatar-1.jpg\"}",
-    //           "fullname": "Karl D Lulu"
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       "inte_ract_pub_id": 10,
-    //       "inte_ract_pub_guid": "8739D430-B9ED-553D-66B6-0E51CBB44EED",
-    //       "inte_ract_pub_name": "pms/schedule?project_id=3&schedule_id=12",
-    //       "inte_ract_pub_description": "jgfl",
-    //       "doc_id": 10395,
-    //       "inte_ract_pub_type_id": null,
-    //       "public": 0,
-    //       "location": "${environment.HOST}/xxx",
-    //       "doc_from": 1010,
-    //       "doc_date": "2020-12-10 21:09:37",
-    //       "mobile": "895909",
-    //       "gender": 1,
-    //       "dateobirth": "1976-03-10 09:53:37",
-    //       "fname": "Karl",
-    //       "mname": "D",
-    //       "lname": "Lulu",
-    //       "Trusted": 1,
-    //       "username": "karl",
-    //       "user_id": 1010,
-    //       "user_guid": "fe5b1a9d-df45-4fce-a181-65289c48ea00",
-    //       "avatar": "{\"large\": \"\", \"small\": \"/assets/images/avatar-1.jpg\"}",
-    //       "fullname": "Karl D Lulu",
-    //       "comments": []
-    //     },
-    //     {
-    //       "inte_ract_pub_id": 9,
-    //       "inte_ract_pub_guid": "81FF1442-5F1C-AAFA-AF8B-8C0420DD9490",
-    //       "inte_ract_pub_name": "pms/schedule?project_id=3&schedule_id=12",
-    //       "inte_ract_pub_description": "jgfl",
-    //       "doc_id": 10393,
-    //       "inte_ract_pub_type_id": null,
-    //       "public": 0,
-    //       "location": "${environment.HOST}/xxx",
-    //       "doc_from": 1010,
-    //       "doc_date": "2020-12-10 18:47:44",
-    //       "mobile": "895909",
-    //       "gender": 1,
-    //       "dateobirth": "1976-03-10 09:53:37",
-    //       "fname": "Karl",
-    //       "mname": "D",
-    //       "lname": "Lulu",
-    //       "Trusted": 1,
-    //       "username": "karl",
-    //       "user_id": 1010,
-    //       "user_guid": "fe5b1a9d-df45-4fce-a181-65289c48ea00",
-    //       "avatar": "{\"large\": \"\", \"small\": \"/assets/images/avatar-1.jpg\"}",
-    //       "fullname": "Karl D Lulu",
-    //       "comments": []
-    //     },
-    //     {
-    //       "inte_ract_pub_id": 8,
-    //       "inte_ract_pub_guid": "1156A4B9-247B-4017-DD0D-30227EDAF039",
-    //       "inte_ract_pub_name": null,
-    //       "inte_ract_pub_description": "jgfl",
-    //       "doc_id": 10391,
-    //       "inte_ract_pub_type_id": null,
-    //       "public": 0,
-    //       "location": "${environment.HOST}/xxx",
-    //       "doc_from": 1010,
-    //       "doc_date": "2020-12-09 20:30:14",
-    //       "mobile": "895909",
-    //       "gender": 1,
-    //       "dateobirth": "1976-03-10 09:53:37",
-    //       "fname": "Karl",
-    //       "mname": "D",
-    //       "lname": "Lulu",
-    //       "Trusted": 1,
-    //       "username": "karl",
-    //       "user_id": 1010,
-    //       "user_guid": "fe5b1a9d-df45-4fce-a181-65289c48ea00",
-    //       "avatar": "{\"large\": \"\", \"small\": \"/assets/images/avatar-1.jpg\"}",
-    //       "fullname": "Karl D Lulu",
-    //       "comments": []
-    //     },
-    //     {
-    //       "inte_ract_pub_id": 7,
-    //       "inte_ract_pub_guid": "781CEE4B-6F3E-B1F9-B7BD-876EB59E8456",
-    //       "inte_ract_pub_name": null,
-    //       "inte_ract_pub_description": "jgfl",
-    //       "doc_id": 10389,
-    //       "inte_ract_pub_type_id": null,
-    //       "public": 0,
-    //       "location": "${environment.HOST}/xxx",
-    //       "doc_from": 1010,
-    //       "doc_date": "2020-12-09 20:06:29",
-    //       "mobile": "895909",
-    //       "gender": 1,
-    //       "dateobirth": "1976-03-10 09:53:37",
-    //       "fname": "Karl",
-    //       "mname": "D",
-    //       "lname": "Lulu",
-    //       "Trusted": 1,
-    //       "username": "karl",
-    //       "user_id": 1010,
-    //       "user_guid": "fe5b1a9d-df45-4fce-a181-65289c48ea00",
-    //       "avatar": "{\"large\": \"\", \"small\": \"/assets/images/avatar-1.jpg\"}",
-    //       "fullname": "Karl D Lulu",
-    //       "comments": []
-    //     }
-    //   ];
-    // }
+    setUshRecepients(pushRecepients){
+        this.pushRecepients = pushRecepients;
+        this.chldInteRactPub.pushRecepients = pushRecepients;
+    }
 
 }

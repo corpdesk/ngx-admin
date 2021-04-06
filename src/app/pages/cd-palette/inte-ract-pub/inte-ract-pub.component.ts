@@ -45,6 +45,11 @@ export class InteRactPubComponent implements OnInit {
   };
 
   /**
+   * recepints set by the component client
+   */
+  @Input() pushRecepients;
+
+  /**
    * The filter is supplied by the 
    * consumer component depending on its design
    * and requirement
@@ -174,9 +179,12 @@ export class InteRactPubComponent implements OnInit {
       }
     }
 
+    console.log('createPub/this.pushRecepients:',this.pushRecepients);
+    // pushRecepients
     this.svInteRactPub.createPubObsv(createPubData).subscribe((ret: any) => {
+      console.log('InteRactPubComponent::createPub()/ret:', ret);
       const pushEnvelop = {
-        pushRecepients: this.svUser.pals,
+        pushRecepients: this.pushRecepients,
         emittEvent: 'push-pub',
         pushData: ret.data.pubs,
         req: this.svInteRactPub.setEnvelopeCreatePub(createPubData),
@@ -248,7 +256,7 @@ export class InteRactPubComponent implements OnInit {
 
     this.svInteRactReact.createReactObsv(createReactData).subscribe((ret: any) => {
       const pushEnvelop = {
-        pushRecepients: this.svUser.pals,
+        pushRecepients: this.pushRecepients,
         emittEvent: 'push-react',
         pushData: ret.data.react,
         req: this.svInteRactReact.setEnvelopeCreateReact(createReactData),

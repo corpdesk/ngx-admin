@@ -22,6 +22,7 @@ import { GroupInvitationService } from '../../../@cd/sys/user/controllers/group-
 import { U } from '@angular/cdk/keycodes';
 import { GroupInvitation } from '../../../@cd/sys/user/models/group-invitation-model';
 import { User } from '../../../@cd/sys/user/models/user-model';
+import { InteRactPubComponent } from '../../cd-palette/inte-ract-pub/inte-ract-pub.component';
 
 @Component({
   selector: 'ngx-pms-inte-ract',
@@ -31,6 +32,7 @@ import { User } from '../../../@cd/sys/user/models/user-model';
 })
 export class PmsInteRactComponent implements OnInit {
   @ViewChild(InteRactComponent) chldInteRact: InteRactComponent;
+  // @ViewChild(InteRactPubComponent) chldInteRactPub:InteRactPubComponent;
   /**
    * The filter is supplied by the 
    * consumer component depending on its design
@@ -79,6 +81,8 @@ export class PmsInteRactComponent implements OnInit {
   title = 'InteRact';
   breadcrumbs = ['Pms', 'PmsInteRact'];
 
+  pushRecepients;
+
   selectedGroup;
   constructor(
     private elementRef: ElementRef,
@@ -116,6 +120,7 @@ export class PmsInteRactComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    // this.getChildProperty();
   }
 
   reloadPubsData(){
@@ -385,10 +390,14 @@ export class PmsInteRactComponent implements OnInit {
   getModuleUsers(groupGuidParent) {
     this.svUser.getGroupUsersObsv(groupGuidParent).subscribe((resp: any) => {
       console.log('getConsumerUsersObsv/resp:', resp);
-      this.svPmsInteRact.users = [];
-      this.svPmsInteRact.users = resp.data.map((u: any) => {
-        return this.cData(u);
-      });
+      // this.svPmsInteRact.users = [];
+      this.svPmsInteRact.users = resp.data;
+      // this.svPmsInteRact.users = resp.data.map((u: any) => {
+      //   return u;
+      // });
+      this.pushRecepients = this.svPmsInteRact.users;
+      this.chldInteRact.setUshRecepients(this.svPmsInteRact.users);
+
       this.reloadPubsData();
     });
   }

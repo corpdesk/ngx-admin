@@ -507,9 +507,21 @@ Case 2:
         - create a pub...DONE
         - invite users to the prject...DONE
         - confirm invited user can see discussions on the pub....DONE
+
+    - invite pms users...DONE
+    - load pms users...DONE   
     - check if socket push data is working ok
-    - invite pms users
-    - load pms users
+        - bug in pushRecepients preventing push
+        - develop pushRecepients as an @Input() for interRact so client send push recepients
+        - confirm push to push-server
+        - confirm from push-server
+        - confirm push data is ok
+        - confirm push data is loading
+        - confirm push is success
+        - the above was sorted for InteRactPub
+        - InteRactReact push is not working
+        - InteRactReact push sorted
+    
 - completion status on task bar
 - schedule that is set to start based on on the timing of another schedule:
     - eg: start after schedul-x

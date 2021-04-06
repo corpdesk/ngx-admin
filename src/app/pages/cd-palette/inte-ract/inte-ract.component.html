@@ -1,5 +1,5 @@
 <div id="new-pub" class="social-footer">
-  <ngx-inte-ract-pub pubType="Pub" [pubScope]="pubScope" [pubFilter]="pubFilter" msgHtmlID="msgPub" [pubCtx]="pubCtx"></ngx-inte-ract-pub>
+  <ngx-inte-ract-pub pubType="Pub" [pubScope]="pubScope" [pubFilter]="pubFilter" msgHtmlID="msgPub" [pubCtx]="pubCtx" [pushRecepients]="pushRecepients"></ngx-inte-ract-pub>
 </div>
 
 <div id="pubs-container">
@@ -40,6 +40,8 @@
       [pubScope]="pubScope" 
       [pubFilter]="pubFilter" 
       parentID="{{pub.inte_ract_pub_id}}"
+      [pubCtx]="pubCtx" 
+      [pushRecepients]="pushRecepients"
       msgHtmlID="{{'msg-' + pub.inte_ract_pub_id}}"></ngx-inte-ract-pub>
       <div *ngFor="let comment of pub.comments" class="social-comment">
         <a href="" class="float-left">

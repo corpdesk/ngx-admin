@@ -76,6 +76,7 @@ export class MyInteRactComponent implements OnInit {
     cuteData = [];
     title = 'InteRact';
     breadcrumbs = ['MySpace', 'InteRact'];
+    pushRecepients;
     constructor(
         private elementRef: ElementRef,
         public svInteRactPub: InteRactPubService,
@@ -90,6 +91,7 @@ export class MyInteRactComponent implements OnInit {
 
         this.avatarDefault = `${environment.USER_RESOURCES}/ooooooooo/avatar-01/a.jpg`;
         this.getConsumerUsers();
+        this.pushRecepients = this.svUser.pals;
 
         const f = this.svMyInteRact.pubFilter();
         const fExt = this.svMyInteRact.pubFilterExt();
@@ -107,6 +109,7 @@ export class MyInteRactComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.pushRecepients = this.svUser.pals;
         console.log('this.svSocket.listen(push-pub');
         this.svSocket.listen('push-pub').subscribe((data: any) => {
             console.log('MyInteRactComponent/Push pub received');
